@@ -24,6 +24,10 @@ navLinks.forEach(link => {
   });
 });
 
+// Dummy export for compatibility (navbar is pre-rendered in HTML)
+export function renderNavbar() {
+  // Navbar is already in the HTML, this is just for module compatibility
+}
 
 export function renderFooter() {
   const footerContainer = document.getElementById('footer');

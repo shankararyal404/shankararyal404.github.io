@@ -104,11 +104,9 @@ blogForm.addEventListener('submit', async (e) => {
     };
 
     if (id) {
-        // We pass id (slug) implicitly via data.slug or separate? 
-        // Update endpoint expects { slug, ...updates }.
-        await apiCall('/blogs/update', 'POST', data);
+        await apiCall('/blogs', 'PUT', data);
     } else {
-        await apiCall('/blogs/create', 'POST', data);
+        await apiCall('/blogs', 'POST', data);
     }
     window.closeModal('blog-modal');
     loadBlogs();
@@ -164,9 +162,9 @@ projectForm.addEventListener('submit', async (e) => {
     };
 
     if (id) {
-        await apiCall('/projects/update', 'POST', { id, ...data });
+        await apiCall('/projects', 'PUT', { id, ...data });
     } else {
-        await apiCall('/projects/create', 'POST', data);
+        await apiCall('/projects', 'POST', data);
     }
     window.closeModal('project-modal');
     loadProjects();
@@ -224,9 +222,9 @@ certForm.addEventListener('submit', async (e) => {
     };
 
     if (id) {
-        await apiCall('/certificates/update', 'POST', { id, ...data });
+        await apiCall('/certificates', 'PUT', { id, ...data });
     } else {
-        await apiCall('/certificates/create', 'POST', data);
+        await apiCall('/certificates', 'POST', data);
     }
     window.closeModal('certificate-modal');
     loadCertificates();
@@ -248,7 +246,7 @@ window.deleteItem = async (type, idOrSlug) => {
         body.id = idOrSlug;
     }
 
-    await apiCall(`/${type}/delete`, 'POST', body);
+    await apiCall(`/${type}`, 'DELETE', body);
     loadAllData();
 };
 
