@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "Portfolio Website",
+        "description": "My personal portfolio website built with HTML/CSS and Vercel Serverless.",
+        "image": "https://via.placeholder.com/400x300",
+        "link": "#",
+        "tags": [
+            "HTML",
+            "CSS",
+            "Node.js"
+        ],
+        "published": true
+    },
+    {
+        "id": 2,
+        "title": "E-commerce Dashboard",
+        "description": "Admin dashboard for an online store.",
+        "image": "https://via.placeholder.com/400x300",
+        "link": "#",
+        "tags": [
+            "React",
+            "Node.js"
+        ],
+        "published": true
+    }
+]

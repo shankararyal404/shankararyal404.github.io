@@ -1,0 +1,57 @@
+<section class="section blog-single">
+    <div class="container">
+        <!-- Breadcrumb or Back Link -->
+        <a href="/blogs/index.html" class="btn-link" style="margin-bottom: 20px; display: inline-block;">← Back to
+            Blogs</a>
+
+        <article class="blog-content glass-panel" style="padding: 40px; border-radius: 12px;">
+            <!-- Header -->
+            <header style="margin-bottom: 30px; text-align: center;">
+                <h1 class="h1" style="font-size: 2.5rem; margin-bottom: 10px;">{{BLOG_TITLE}}</h1>
+                <div class="meta" style="color: var(--cadet-blue-crayola); font-size: 0.9rem;">
+                    <span>{{BLOG_DATE}}</span> •
+                    <a href="/blogs/tags/{{BLOG_CATEGORY_SLUG}}.html" class="category-tag">{{BLOG_CATEGORY}}</a>
+                </div>
+            </header>
+
+            <!-- Cover Image -->
+            <div class="blog-cover" style="margin-bottom: 40px;">
+                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
+
+            <!-- Content -->
+            <div class="markdown-body" style="line-height: 1.8; color: var(--light-gray);">
+                {{BLOG_BODY}}
+            </div>
+
+            <!-- Tags -->
+            <div class="tags-container"
+                style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--independence);">
+                <span style="font-weight: bold; margin-right: 10px;">Tags:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section toggle-section reveal"
+                style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+                <h3 class="h3" style="margin-bottom: 20px;">Comments</h3>
+                <div id="comments-list" class="comments-list" style="margin-bottom: 40px;">
+                    <p class="text-muted">Loading comments...</p>
+                </div>
+
+                <form id="comment-form" class="comment-form glass-panel" style="padding: 20px; border-radius: 10px;">
+                    <h4 class="h4" style="margin-bottom: 15px;">Leave a Comment</h4>
+                    <input type="text" id="comment-name" placeholder="Your Name" required
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid var(--independence); background: var(--gunmetal); color: white;">
+                    <textarea id="comment-content" placeholder="Share your thoughts..." rows="3" required
+                        style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid var(--independence); background: var(--gunmetal); color: white;"></textarea>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+            </div>
+
+        </article>
+    </div>
+</section>
+
+<!-- Comments Script -->
+<script src="/assets/js/comments.js"></script>

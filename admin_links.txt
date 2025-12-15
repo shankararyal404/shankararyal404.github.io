@@ -1,0 +1,7 @@
+Admin Panel Access Links:
+
+Local Development:
+http://localhost:8000/admin/index.html
+
+Hosted (Placeholder - update after deployment):
+https://www.shankararyal404.com.np/admin/index.html

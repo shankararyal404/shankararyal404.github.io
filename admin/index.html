@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Shankar Aryal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <style>
+        /* Admin specific styles */
+        body {
+            padding-top: 100px;
+        }
+
+
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--independence);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .admin-tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            color: var(--cadet-blue-crayola);
+            border-radius: 5px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .admin-tab:hover {
+            background: var(--independence);
+        }
+
+        .admin-tab.active {
+            color: var(--white);
+            background: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            color: var(--cadet-blue-crayola);
+            font-size: 0.9rem;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            background: var(--gunmetal);
+            border: 1px solid var(--independence);
+            color: var(--white);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--gunmetal);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--independence);
+        }
+
+        .data-table th {
+            background: var(--space-cadet);
+            color: var(--primary);
+        }
+
+        .data-table tr:hover {
+            background: var(--independence);
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .edit-btn {
+            background: var(--blue-crayola);
+            color: white;
+        }
+
+        .delete-btn {
+            background: var(--fiery-rose);
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--space-cadet);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body id="top">
+
+
+
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="dashboard-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 class="h1">Dashboard</h1>
+            <button id="logout-btn" class="btn">Logout</button>
+        </div>
+
+        <div class="admin-nav">
+            <div class="admin-tab active" data-tab="blogs">Blogs</div>
+            <div class="admin-tab" data-tab="projects">Projects</div>
+            <div class="admin-tab" data-tab="certificates">Certificates</div>
+            <div class="admin-tab" data-tab="messages">Messages</div>
+        </div>
+
+        <!-- BLOGS TAB -->
+        <div id="blogs" class="tab-content active">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Blogs</h2>
+                <button class="btn btn-primary" onclick="openModal('blog-modal')">+ New Blog</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="blogs-list"></tbody>
+            </table>
+        </div>
+
+        <!-- PROJECTS TAB -->
+        <div id="projects" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Projects</h2>
+                <button class="btn btn-primary" onclick="openModal('project-modal')">+ New Project</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Tags</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="projects-list"></tbody>
+            </table>
+        </div>
+
+        <!-- CERTIFICATES TAB -->
+        <div id="certificates" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Certificates</h2>
+                <button class="btn btn-primary" onclick="openModal('certificate-modal')">+ New Certificate</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Issuer</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="certificates-list"></tbody>
+            </table>
+        </div>
+
+        <!-- MESSAGES TAB -->
+        <div id="messages" class="tab-content">
+            <h2 class="h2">Inbox</h2>
+            <p>Recent contact form submissions will appear here.</p>
+            <!-- TODO: Implement Messages Fetching -->
+        </div>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Blog Modal -->
+    <div id="blog-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('blog-modal')">&times;</span>
+            <h2 class="h2" id="blog-modal-title">Add New Blog</h2>
+            <form id="blog-form">
+                <input type="hidden" id="blog-id">
+                <label>Title</label><input type="text" id="blog-title" required>
+                <label>Slug</label><input type="text" id="blog-slug" required>
+                <label>Category</label><input type="text" id="blog-category" required>
+                <label>Image URL</label><input type="text" id="blog-image">
+                <label>Excerpt</label><textarea id="blog-excerpt" rows="3"></textarea>
+                <label>Content (HTML)</label><textarea id="blog-content" rows="10"></textarea>
+                <button type="submit" class="btn btn-primary">Save Blog</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
+            <h2 class="h2" id="project-modal-title">Add New Project</h2>
+            <form id="project-form">
+                <input type="hidden" id="project-id">
+                <label>Title</label><input type="text" id="project-title" required>
+                <label>Description</label><textarea id="project-desc" rows="4" required></textarea>
+                <label>Image URL</label><input type="text" id="project-image">
+                <label>Project Link</label><input type="text" id="project-link">
+                <label>Tags (Comma separated)</label><input type="text" id="project-tags" placeholder="Html, Css, Js">
+                <button type="submit" class="btn btn-primary">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('certificate-modal')">&times;</span>
+            <h2 class="h2" id="cert-modal-title">Add New Certificate</h2>
+            <form id="cert-form">
+                <input type="hidden" id="cert-id">
+                <label>Title</label><input type="text" id="cert-title" required>
+                <label>Issuer</label><input type="text" id="cert-issuer" required>
+                <label>Date</label><input type="date" id="cert-date" required>
+                <label>Category</label><input type="text" id="cert-category">
+                <label>Image URL</label><input type="text" id="cert-image">
+                <label>Credential Link</label><input type="text" id="cert-link">
+                <button type="submit" class="btn btn-primary">Save Certificate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import logic -->
+    <script type="module" src="js/app.js"></script>
+    <script>
+        // Modal helpers
+        window.openModal = (id) => {
+            document.getElementById(id).classList.add('open');
+            // Reset form if it's a "New" action (id is empty)
+            // Logic will be handled in app.js
+        };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('open');
+    </script>
+</body>
+
+</html>

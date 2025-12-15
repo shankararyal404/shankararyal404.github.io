@@ -1,0 +1,131 @@
+/* Blog Cards */
+.card-img-holder {
+    height: 220px;
+    overflow: hidden;
+}
+
+.card-img-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .card-img-holder img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-date {
+    font-size: 1.3rem;
+    color: var(--manatee);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--white);
+}
+
+/* Category Tags */
+.category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.tag-poem {
+    background: rgba(255, 107, 107, 0.2);
+    color: var(--tag-poem);
+    border: 1px solid var(--tag-poem);
+}
+
+.tag-thoughts {
+    background: rgba(255, 209, 102, 0.2);
+    color: var(--tag-thoughts);
+    border: 1px solid var(--tag-thoughts);
+}
+
+.tag-project {
+    background: rgba(77, 150, 255, 0.2);
+    color: var(--tag-project);
+    border: 1px solid var(--tag-project);
+}
+
+.tag-tech {
+    background: rgba(84, 101, 255, 0.2);
+    color: var(--tag-tech);
+    border: 1px solid var(--tag-tech);
+}
+
+.tag-opinion {
+    background: rgba(255, 217, 61, 0.2);
+    color: var(--tag-opinion);
+    border: 1px solid var(--tag-opinion);
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comments-list {
+    margin-bottom: 40px;
+}
+
+.comment-item {
+    background: var(--white-alpha-5);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--white-alpha-10);
+    animation: fadeIn 0.5s ease;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--cadet-blue-crayola);
+}
+
+.comment-header strong {
+    color: var(--white);
+    font-size: 1.1rem;
+}
+
+.comment-body {
+    color: var(--light-gray);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.comment-form {
+    background: var(--space-cadet);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--independence);
+}
+
+.comment-form h4 {
+    margin-bottom: 20px;
+    color: var(--white);
+}

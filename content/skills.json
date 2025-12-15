@@ -1,0 +1,29 @@
+[
+    {
+        "category": "Engineering & Simulation",
+        "items": [
+            "Matlab/Simulink",
+            "Proteus",
+            "Pvsyst",
+            "PLECS",
+            "ETAP",
+            "Latex",
+            "Arduino Programming"
+        ]
+    },
+    {
+        "category": "Programming & Web",
+        "items": [
+            "Python",
+            "C#",
+            "C++",
+            "C",
+            "SQL",
+            "JavaScript",
+            "HTML",
+            "CSS",
+            "React",
+            "PHP"
+        ]
+    }
+]

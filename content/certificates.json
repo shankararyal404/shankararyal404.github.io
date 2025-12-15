@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "title": "Google UX Design Professional Certificate",
+        "issuer": "Coursera",
+        "date": "2024-08-10",
+        "image": "https://via.placeholder.com/400x300",
+        "link": "#",
+        "category": "Design",
+        "published": true
+    },
+    {
+        "id": 2,
+        "title": "Meta Front-End Developer",
+        "issuer": "Coursera",
+        "date": "2024-06-15",
+        "image": "https://via.placeholder.com/400x300",
+        "link": "#",
+        "category": "Development",
+        "published": true
+    }
+]

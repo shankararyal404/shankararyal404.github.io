@@ -1,0 +1,28 @@
+[
+    {
+        "institution": "Khwopa College Of Engineering (TU)",
+        "period": "2023 – Present",
+        "degree": "Bachelor in Electrical Engineering",
+        "details": [
+            "Focus on Power Systems and Control Engineering",
+            "Python Programming"
+        ]
+    },
+    {
+        "institution": "Gaindakot Namuna Higher Secondary English Boarding School",
+        "period": "2020 - 2022",
+        "degree": "Computer Science (+2 Level)",
+        "details": [
+            "Graduated with 3.62 GPA",
+            "Science Exhibition First Runner up"
+        ]
+    },
+    {
+        "institution": "Gaindakot Namuna Higher Secondary English Boarding School",
+        "period": "2011 - 2021",
+        "degree": "SEE",
+        "details": [
+            "Scored: 3.85 GPA"
+        ]
+    }
+]
