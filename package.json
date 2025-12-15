@@ -13,13 +13,14 @@
     "license": "ISC",
     "dependencies": {
         "@libsql/client": "^0.6.0",
-        "nodemailer": "^6.9.13",
-        "ua-parser-js": "^1.0.37",
-        "octokit": "^3.1.2",
+        "bcryptjs": "^3.0.3",
+        "cookie": "^0.6.0",
         "gray-matter": "^4.0.3",
-        "marked": "^4.3.0",
         "jsonwebtoken": "^9.0.2",
-        "cookie": "^0.6.0"
+        "marked": "^4.3.0",
+        "nodemailer": "^6.9.13",
+        "octokit": "^3.1.2",
+        "ua-parser-js": "^1.0.37"
     },
     "devDependencies": {
         "vercel": "^32.0.0"
