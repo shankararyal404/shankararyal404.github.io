@@ -10,7 +10,7 @@ if (loginForm) {
         const errorMsg = document.getElementById('error-msg');
 
         try {
-            const res = await fetch('/api/auth/login', {
+            const res = await fetch('/api/auth?action=login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -36,8 +36,9 @@ export async function checkSession() {
     if (window.location.pathname.includes('login.html')) return;
 
     try {
-        const res = await fetch('/api/auth/verify');
-        if (!res.ok) {
+        const res = await fetch('/api/auth?action=verify');
+        const data = await res.json();
+        if (!data.authenticated) {
             // Redirect to login if not authorized
             window.location.href = '/admin/login.html';
         }
@@ -48,7 +49,7 @@ export async function checkSession() {
 
 // 3. Logout
 export async function logout() {
-    await fetch('/api/auth/logout');
+    await fetch('/api/auth?action=logout');
     window.location.href = '/admin/login.html';
 }
 
