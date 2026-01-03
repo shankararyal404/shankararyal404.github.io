@@ -113,11 +113,17 @@
     max-width: 340px;
     background: var(--bg-card);
     border-radius: 30px;
-    padding: 15px;
+    padding: 0;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-subtle);
     margin: 0 auto;
-    /* Center on mobile if needed */
+    overflow: hidden;
+}
+
+.hero-main-img {
+    width: 100%;
+    display: block;
+    /* Ensure image fills top part */
 }
 
 .badge-student {
@@ -145,67 +151,43 @@
 .hero-card-footer {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 10px 5px 5px;
+    gap: 15px;
+    padding: 15px;
     background: var(--bg-elevated);
+    /* Or match card bg if seamless */
     border-top: 1px solid var(--border-subtle);
-    margin: 0 -15px -15px;
 }
 
 .icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
+    /* Pill shape */
     background: var(--bg-primary);
     display: flex;
-    justify-content: center;
     align-items: center;
     color: var(--text-primary);
     font-size: 1.2rem;
-    transition: var(--transition-smooth);
-    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    padding: 0;
 }
 
-.icon-btn::after {
-    content: attr(data-title);
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%) scale(0.9);
-    background: var(--primary);
-    color: var(--white);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 1.2rem;
+.icon-btn ion-icon {
+    min-width: 45px;
+    /* Ensures icon stays centered in circle state */
+    display: flex;
+    justify-content: center;
+}
+
+.icon-btn .btn-text {
+    width: 0;
+    opacity: 0;
     white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
+    font-size: 0.9rem;
+    font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.icon-btn::before {
-    content: '';
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-bottom-color: var(--primary);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    z-index: 11;
-}
-
-.icon-btn:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-.icon-btn:hover::before {
-    opacity: 1;
+    margin-right: 0;
 }
 
 .icon-btn:hover {
