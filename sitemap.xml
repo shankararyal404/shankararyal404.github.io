@@ -37,6 +37,11 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog8-en.html</loc>
+        <lastmod>2024-11-19T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://www.shankararyal404.com.np/blog-post/blog8.html</loc>
         <lastmod>2024-11-19T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
@@ -52,6 +57,16 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog5.html</loc>
+        <lastmod>2024-10-27T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog4.html</loc>
+        <lastmod>2024-10-26T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://www.shankararyal404.com.np/blog-post/blog1.html</loc>
         <lastmod>2024-10-07T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
@@ -59,16 +74,6 @@
     <url>
         <loc>https://www.shankararyal404.com.np/blog-post/blog2.html</loc>
         <lastmod>2024-10-06T00:00:00.000Z</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.shankararyal404.com.np/blog-post/blog5.html</loc>
-        <lastmod>2024-01-25T00:00:00.000Z</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.shankararyal404.com.np/blog-post/blog4.html</loc>
-        <lastmod>2023-10-23T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
@@ -94,6 +99,18 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/web-development.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/education.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/nepali-literature.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://www.shankararyal404.com.np/blogs/tags/literature.html</loc>
         <priority>0.5</priority>
     </url>
@@ -102,11 +119,39 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.shankararyal404.com.np/blogs/tags/security.html</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/machine-learning.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/network-security.html</loc>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://www.shankararyal404.com.np/blogs/tags/technology.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/security.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/encryption.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/python.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/ethical-hacking.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/english-poetry.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/spirituality.html</loc>
         <priority>0.5</priority>
     </url>
 </urlset>
