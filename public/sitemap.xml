@@ -12,33 +12,77 @@
     </url>
     
     <url>
-        <loc>undefined</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/TheFutureOfWebDevelopment.html</loc>
         <lastmod>2026-01-03T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>undefined</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/Last Testing.html</loc>
         <lastmod>2025-12-29T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>undefined</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/silence-of-night-testing-edit-2.html</loc>
         <lastmod>2025-12-28T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>undefined</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/silence-of-night-testing-edit.html</loc>
         <lastmod>2025-12-28T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>undefined</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/silence-of-night-testing-edit.html</loc>
         <lastmod>2025-01-10T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog8.html</loc>
+        <lastmod>2024-11-19T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog7.html</loc>
+        <lastmod>2024-11-02T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog6.html</loc>
+        <lastmod>2024-11-01T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog3.html</loc>
+        <lastmod>2024-10-13T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog1.html</loc>
+        <lastmod>2024-10-07T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog2.html</loc>
+        <lastmod>2024-10-06T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog5.html</loc>
+        <lastmod>2024-01-25T00:00:00.000Z</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blog-post/blog4.html</loc>
+        <lastmod>2023-10-23T00:00:00.000Z</lastmod>
         <priority>0.7</priority>
     </url>
     
     <url>
-        <loc>https://www.shankararyal404.com.np/blogs/tags/thoughts.html</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/tech.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/information-and-study.html</loc>
         <priority>0.5</priority>
     </url>
     <url>
@@ -46,7 +90,19 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.shankararyal404.com.np/blogs/tags/information-and-study.html</loc>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/literature.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/technology.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/security.html</loc>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.shankararyal404.com.np/blogs/tags/thoughts.html</loc>
         <priority>0.5</priority>
     </url>
 </urlset>

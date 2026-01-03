@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme Script (MUST be first to prevent flash) -->
+    <script>
+        (function () {
+            const STORAGE_KEY = 'theme-preference';
+            const SOURCE_KEY = 'theme-source';
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const source = localStorage.getItem(SOURCE_KEY);
+
+            let theme = 'dark'; // Default
+
+            // Priority 1: Manual user selection
+            if (saved && source === 'manual') {
+                theme = saved;
+            }
+            // Priority 2: System preference
+            else if (window.matchMedia) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                theme = prefersDark ? 'dark' : 'light';
+
+                // Save system preference
+                if (!saved || source !== 'manual') {
+                    localStorage.setItem(STORAGE_KEY, theme);
+                    localStorage.setItem(SOURCE_KEY, 'system');
+                }
+            }
+
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <!-- SEO METADATA -->
+    <title>Network security threats with Quantum Shield | Shankar Aryal</title>
+    <meta name="description" content="Quantum Shield: Revolutionary Cybersecurity Solution leveraging quantum-inspired algorithms and machine learning.">
+    <meta name="keywords" content="Technology, Tech">
+    <meta name="author" content="Shankar Aryal">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.shankararyal404.com.np/blog-post/blog3.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Network security threats with Quantum Shield | Shankar Aryal">
+    <meta property="og:description" content="Quantum Shield: Revolutionary Cybersecurity Solution leveraging quantum-inspired algorithms and machine learning.">
+    <meta property="og:image" content="/assets/blog-img/quntaimg.png">
+    <meta property="og:url" content="https://www.shankararyal404.com.np/blog-post/blog3.html">
+    <meta property="og:site_name" content="Shankar Aryal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{OG_TITLE}}">
+    <meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{OG_IMAGE}}">
+    <meta name="twitter:creator" content="@shankararyal">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.shankararyal404.com.np"},{"@type":"ListItem","position":2,"name":"Blogs","item":"https://www.shankararyal404.com.np/blogs/index.html"},{"@type":"ListItem","position":3,"name":"Technology","item":"https://www.shankararyal404.com.np/blogs/tags/technology.html"},{"@type":"ListItem","position":4,"name":"Network security threats with Quantum Shield","item":"https://www.shankararyal404.com.np/blog-post/blog3.html"}]},{"@context":"https://schema.org","@type":"BlogPosting","headline":"Network security threats with Quantum Shield","description":"Quantum Shield: Revolutionary Cybersecurity Solution leveraging quantum-inspired algorithms and machine learning.","image":{"@type":"ImageObject","url":"/assets/blog-img/quntaimg.png"},"datePublished":"2024-10-13","author":{"@type":"Person","name":"Shankar Aryal"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.shankararyal404.com.np/blog-post/blog3.html"}}]</script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/css/main.css?v=10">
+    <link rel="stylesheet" href="/assets/css/navbar.css?v=10">
+    <link rel="stylesheet" href="/assets/css/footer.css?v=10">
+    <link rel="stylesheet" href="/assets/css/home.css?v=10">
+    <link rel="stylesheet" href="/assets/css/blog.css?v=10">
+    <link rel="stylesheet" href="/assets/css/blog/technology.css">
+</head>
+
+<body id="top">
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-overlay" data-nav-overlay></div>
+
+    <!-- Pre-rendered Navbar -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="text-gradient">Shankar</span>Aryal
+            </a>
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link">Home</a></li>
+                    <li><a href="/#about" class="navbar-link">About</a></li>
+                    <li><a href="/#education" class="navbar-link">Education</a></li>
+                    <li><a href="/#skills" class="navbar-link">Skills</a></li>
+                    <li><a href="/#portfolio" class="navbar-link">Portfolio</a></li>
+                    <li><a href="/#certificates" class="navbar-link">CC & LC</a></li>
+                    <li><a href="/blogs/index.html" class="navbar-link">Blog</a></li>
+                    <li><a href="/#contact" class="navbar-link">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                            <ion-icon name="sunny-outline" class="theme-icon light"></ion-icon>
+                            <ion-icon name="moon-outline" class="theme-icon dark"></ion-icon>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" class="open"></ion-icon>
+                <ion-icon name="close-outline" class="close"></ion-icon>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="section blog-single blog-technology">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link">← Back to Blogs</a>
+
+        <article class="blog-content tech-article">
+            <header class="tech-header">
+                <div class="tech-category">Technology</div>
+                <h1 class="tech-title">Network security threats with Quantum Shield</h1>
+                <div class="tech-meta">
+                    <span>2024-10-13</span>
+                    <span>•</span>
+                    <span>5 min read</span>
+                </div>
+            </header>
+
+            <div class="tech-cover">
+                <img src="/assets/blog-img/quntaimg.png" alt="Network security threats with Quantum Shield" width="1200" height="630" loading="eager">
+            </div>
+
+            <div class="tech-content markdown-body">
+                <style>
+.blog-post .content { color: var(--white); line-height: 1.6; }
+.blog-post .content p { margin-bottom: 20px; }
+h1.quant-h1, h2.quant-h2 { padding-top: 5rem; padding-bottom: 1rem; }
+.threat-box { background-color: #ecf0f1; border-left: 5px solid #e74c3c; padding: 15px; margin-bottom: 20px; transition: transform 0.3s ease; }
+.threat-box:hover { transform: translateX(10px); }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+.feature-item { background-color: #3498db; color: white; padding: 20px; border-radius: 5px; text-align: center; transition: all 0.3s ease; }
+.feature-item:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+#cyber-shield-animation { width: 100%; height: 300px; background-color: #2c3e50; margin: 30px 0; position: relative; overflow: hidden; }
+.data-packet { position: absolute; width: 10px; height: 10px; background-color: #3498db; border-radius: 50%; }
+.shield-effect { position: absolute; width: 200px; height: 200px; border: 2px solid #2ecc71; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+#network-chart, #ml-performance-chart, #threat-types-chart, #response-time-chart { margin-top: 30px; }
+.developer-section { background-color: #34495e; color: #ecf0f1; padding: 20px; border-radius: 5px; margin-top: 30px; }
+.quantum-algo { background-color: #9b59b6; color: white; padding: 15px; border-radius: 5px; margin-top: 20px; }
+.fact-box { background-color: #f1c40f; color: #34495e; padding: 15px; border-radius: 5px; margin-top: 20px; font-weight: bold; }
+.vision-section { background-color: #2980b9; color: white; padding: 30px; border-radius: 10px; margin-top: 40px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+.vision-section h2 { color: #ecf0f1; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+.vision-section p { font-style: italic; margin-bottom: 20px; }
+.future-list { list-style-type: none; padding-left: 0; }
+.future-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
+.future-list li:before { content: '➤'; position: absolute; left: 0; color: #f39c12; }
+.blog-post img.poster-blog { max-width: 100%; width: 100%; height: auto; border-radius: var(--radius-10); margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; object-fit: cover; aspect-ratio: 16 / 9; margin-top: 1rem; }
+.blog-post img.poster-blog:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
+@media (max-width: 768px) { .blog-post img.poster-blog { border-radius: var(--radius-5); margin-bottom: 15px; } }
+@media (max-width: 480px) { .blog-post img.poster-blog { border-radius: var(--radius-3); margin-bottom: 10px; } }
+.blog-card img { width: 100%; height: 200px; object-fit: cover; }
+.blog-list { justify-content: center; }
+</style>
+
+<div class="blog-post">
+<div class="content">
+    <h1 class="quant-h1">Quantum Shield: Revolutionary Cybersecurity Solution</h1>
+    
+<pre><code>&lt;p&gt;In the ever-evolving landscape of cybersecurity, staying ahead of threats is crucial. As the developer of Quantum Shield, I&#39;ve created a cutting-edge solution that leverages quantum-inspired algorithms and machine learning to provide unparalleled protection.&lt;/p&gt;
+
+&lt;div id=&quot;cyber-shield-animation&quot;&gt;&lt;/div&gt;
+
+&lt;h2 class=&quot;quant-h2&quot;&gt;The Quantum Shield Advantage&lt;/h2&gt;
+
+&lt;div class=&quot;feature-grid&quot;&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Advanced Traffic Analysis&lt;/div&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Network Monitoring&lt;/div&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Real-time Alerts&lt;/div&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Comprehensive Logging&lt;/div&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Customizable Security Policies&lt;/div&gt;
+    &lt;div class=&quot;feature-item&quot;&gt;Quantum-Inspired Algorithms&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 class=&quot;quant-h2&quot;&gt;Quantum-Inspired Cybersecurity&lt;/h2&gt;
+
+&lt;div class=&quot;quantum-algo&quot;&gt;
+    &lt;h3 class=&quot;quant-h3&quot;&gt;Harnessing Quantum Principles&lt;/h3&gt;
+    &lt;p&gt;Quantum Shield utilizes quantum-inspired algorithms to process vast amounts of data and identify complex patterns that traditional security tools might miss. This approach allows for:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Faster threat detection&lt;/li&gt;
+        &lt;li&gt;More accurate anomaly identification&lt;/li&gt;
+        &lt;li&gt;Enhanced encryption methods&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;fact-box&quot;&gt;
+    Did you know? Quantum computers could potentially break many of the cryptographic systems we use today. Quantum Shield is designed to be quantum-resistant, protecting your data even in a post-quantum world.
+&lt;/div&gt;
+
+&lt;h2 class=&quot;quant-h2&quot;&gt;Machine Learning Performance&lt;/h2&gt;
+&lt;canvas id=&quot;ml-performance-chart&quot;&gt;&lt;/canvas&gt;
+
+&lt;h2&gt;Real-time Network Activity Monitoring&lt;/h2&gt;
+&lt;canvas id=&quot;network-chart&quot;&gt;&lt;/canvas&gt;
+
+&lt;h2 class=&quot;quant-h2&quot;&gt;Threat Landscape Analysis&lt;/h2&gt;
+&lt;canvas id=&quot;threat-types-chart&quot;&gt;&lt;/canvas&gt;
+
+&lt;div class=&quot;fact-box&quot;&gt;
+    Cybercrime is predicted to cost the world $10.5 trillion annually by 2025. Quantum Shield aims to significantly reduce this figure by providing robust, AI-driven protection.
+&lt;/div&gt;
+
+&lt;h2 class=&quot;quant-h2&quot;&gt;Quantum Shield Response Time&lt;/h2&gt;
+&lt;canvas id=&quot;response-time-chart&quot;&gt;&lt;/canvas&gt;
+
+&lt;div class=&quot;developer-section&quot;&gt;
+    &lt;h2 &gt;From the Developer&#39;s Desk&lt;/h2&gt;
+    &lt;p&gt;As the creator of Quantum Shield, I&#39;ve always been fascinated by the potential of quantum computing in cybersecurity. This application represents years of research and development, combining cutting-edge technologies to create a robust defense against modern cyber threats.&lt;/p&gt;
+    &lt;p&gt;Quantum Shield is not just a product; it&#39;s a commitment to pushing the boundaries of what&#39;s possible in cybersecurity. By leveraging quantum-inspired algorithms, we&#39;re able to process information in ways that were previously unthinkable, allowing us to stay several steps ahead of potential attackers.&lt;/p&gt;
+    &lt;p&gt;I believe that the future of cybersecurity lies in the intelligent application of quantum principles and machine learning. Quantum Shield is just the beginning of this exciting journey.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;fact-box&quot;&gt;
+    Quantum Shield has successfully prevented over 99.9% of all attempted cyber attacks in our rigorous testing environments, outperforming traditional security solutions by a significant margin.
+&lt;/div&gt;
+
+&lt;div class=&quot;vision-section&quot;&gt;
+    &lt;h2&gt;A Vision for the Future of Cybersecurity&lt;/h2&gt;
+    
+    &lt;p&gt;&quot;As the developer of Quantum Shield, my aim has always been to revolutionize the cybersecurity landscape. We&#39;re not just creating another security tool; we&#39;re paving the way for a new era of digital protection.&quot;&lt;/p&gt;
+    
+    &lt;h3 class=&quot;quant-h3&quot;&gt;Our Development Journey&lt;/h3&gt;
+    &lt;p&gt;The journey of Quantum Shield began with a simple question: How can we leverage the principles of quantum computing to create an unbreakable shield for digital systems? This led us down a path of intensive research, countless iterations, and groundbreaking discoveries.&lt;/p&gt;
+    
+    &lt;h3 class=&quot;quant-h3&quot;&gt;Future Development Plans&lt;/h3&gt;
+    &lt;p&gt;Looking ahead, we have ambitious plans to further enhance Quantum Shield:&lt;/p&gt;
+    
+    &lt;ul class=&quot;future-list&quot;&gt;
+        &lt;li&gt;Integration of true quantum algorithms as quantum hardware becomes more accessible&lt;/li&gt;
+        &lt;li&gt;Development of a decentralized threat intelligence network powered by blockchain technology&lt;/li&gt;
+        &lt;li&gt;Implementation of advanced AI models for predictive threat analysis&lt;/li&gt;
+        &lt;li&gt;Expansion into IoT security to protect the growing network of connected devices&lt;/li&gt;
+        &lt;li&gt;Collaboration with leading cybersecurity researchers to stay at the cutting edge of threat prevention&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;h3 class=&quot;quant-h3&quot;&gt;Our Commitment&lt;/h3&gt;
+    &lt;p&gt;We are committed to staying ahead of cyber threats, continuously innovating, and providing our users with the most advanced protection possible. With Quantum Shield, we&#39;re not just securing systems; we&#39;re securing the future of digital interaction.&lt;/p&gt;
+    
+    &lt;p&gt;&quot;The future of cybersecurity is quantum, and with Quantum Shield, that future is now. Join us in this revolution, and together, let&#39;s build a safer digital world.&quot;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
+    // Cyber Shield Animation
+    const cyberShieldAnimation = document.getElementById('cyber-shield-animation');
+    if (cyberShieldAnimation) {
+        const shieldEffect = document.createElement('div');
+        shieldEffect.classList.add('shield-effect');
+        cyberShieldAnimation.appendChild(shieldEffect);
+
+        function createDataPacket() {
+            const packet = document.createElement('div');
+            packet.classList.add('data-packet');
+            packet.style.left = `${Math.random() * 100}%`;
+            packet.style.top = `-10px`;
+            cyberShieldAnimation.appendChild(packet);
+
+            gsap.to(packet, {
+                duration: 2,
+                y: 310,
+                ease: "none",
+                onComplete: () => {
+                    packet.remove();
+                }
+            });
+        }
+
+        setInterval(createDataPacket, 200);
+
+        gsap.to(shieldEffect, {
+            duration: 2,
+            scale: 1.2,
+            opacity: 0.5,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut"
+        });
+    }
+
+    // Network Activity Chart
+    const ctx = document.getElementById('network-chart');
+    if (ctx) {
+        new Chart(ctx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Normal Traffic',
+                    data: [65, 59, 80, 81, 56, 55],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }, {
+                    label: 'Suspicious Activity',
+                    data: [28, 48, 40, 19, 86, 27],
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Network Activity Over Time'
+                    },
+                    
+                }
+            }
+        });
+    }
+
+    // ML Performance Chart
+    const mlCtx = document.getElementById('ml-performance-chart');
+    if (mlCtx) {
+        new Chart(mlCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Threat Detection', 'False Positives', 'Response Time'],
+                datasets: [{
+                    label: 'Traditional Methods',
+                    data: [70, 30, 50],
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                }, {
+                    label: 'Quantum Shield',
+                    data: [95, 5, 90],
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Performance Comparison'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+
+    // Threat Types Chart
+    const threatCtx = document.getElementById('threat-types-chart');
+    if (threatCtx) {
+        new Chart(threatCtx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Malware', 'Phishing', 'DDoS', 'Insider Threats', 'Zero-day Exploits'],
+                datasets: [{
+                    data: [30, 25, 15, 10, 20],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribution of Threat Types'
+                    }
+                    
+                }
+            }
+        });
+    }
+
+    // Response Time Chart
+    const responseCtx = document.getElementById('response-time-chart');
+    if (responseCtx) {
+        new Chart(responseCtx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['1ms', '10ms', '100ms', '1s', '10s'],
+                datasets: [{
+                    label: 'Traditional Security',
+                    data: [10, 35, 60, 85, 95],
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }, {
+                    label: 'Quantum Shield',
+                    data: [30, 70, 90, 98, 99],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Cumulative % of Threats Detected'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Percentage of Threats Detected'
+                        },
+                        grid: {
+                            color: '#5a6772'  
+                        },
+                        ticks: {
+                            color: '#5a6772' 
+                        }
+
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Response Time (log scale)'
+                        },
+                        grid: {
+                            color: '#5a6772'  
+                        },
+                        ticks: {
+                            color: '#5a6772' 
+                        }
+
+                    }
+                }
+            }
+        });
+    }
+
+    // Animate feature items on scroll
+    const featureItems = document.querySelectorAll('.feature-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                gsap.from(entry.target, {
+                    duration: 0.5,
+                    opacity: 0,
+                    y: 50,
+                    stagger: 0.2
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    featureItems.forEach(item => observer.observe(item));
+</script>
+
+            </div>
+
+            <div class="tags-container">
+                <span>Tags:</span>
+                <a href="/blogs/tags/tech.html" class="tag">Tech</a>
+            </div>
+
+            <div class="comments-section">
+                <h3>Comments</h3>
+                <div class="giscus"></div>
+                <script src="https://giscus.app/client.js" data-repo="shankararyal404/shankararyal404.github.io"
+                    data-repo-id="R_kgDOQoXjXg" data-category="Announcements" data-category-id="DIC_kwDOQoXjXs4C0bt8"
+                    data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+            </div>
+        
+        <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+            <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
+            <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="blog-card reveal" data-title="The Future of Web Development" data-category="Information and Study"
+    data-category-slug="information-and-study" data-tags="poem">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/blogs/information and study/thefutureofwebdevelopment/thefutureofwebdevelopment1.avif" alt="The Future of Web Development" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2026-01-03</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/TheFutureOfWebDevelopment.html">The Future of Web Development</a>
+            </h3>
+            <p class="blog-text">Insights from the Founder of LearnMe
+
+</p>
+            <a href="/blogs/TheFutureOfWebDevelopment.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="The Future of Web Development: Insights from LearnMe Founder Shankar Aryal" data-category="Information and Study"
+    data-category-slug="information-and-study" data-tags="tech">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/blog-img/blog-learnme-1.png" alt="The Future of Web Development: Insights from LearnMe Founder Shankar Aryal" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-07</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/blog1.html">The Future of Web Development: Insights from LearnMe Founder Shankar Aryal</a>
+            </h3>
+            <p class="blog-text">Discover the latest trends in web development, including full-stack development, JavaScript frameworks, serverless architecture, and PWAs.</p>
+            <a href="/blogs/blog1.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="CryptoGuard: Enterprise-Grade File Encryption Solution" data-category="Technology"
+    data-category-slug="technology" data-tags="security">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-01</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
+            </h3>
+            <p class="blog-text">CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.</p>
+            <a href="/blogs/blog6.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div>
+            </div>
+        </div></article>
+    </div>
+</section>
+    </main>
+
+    <!-- Pre-rendered Footer -->
+    <footer class="footer">
+        <div class="container icon-container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand & Social -->
+                <div class="footer-col">
+                    <a href="/" class="logo" style="display:inline-block; margin-bottom: 20px;">
+                        <span class="text-gradient">Shankar</span>Aryal
+                    </a>
+                    <p style="margin-bottom: 20px; color: var(--manatee);">
+                        Building digital experiences with passion and precision. Connected with the world through code.
+                    </p>
+                    <ul class="social-list">
+                        
+            <li><a href="https://github.com/shankararyal404" target="_blank" class="social-link" title="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
+        
+            <li><a href="https://www.linkedin.com/in/shankararyal/" target="_blank" class="social-link" title="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+        
+            <li><a href="https://www.facebook.com/ShankarAryal01" target="_blank" class="social-link" title="Facebook"><ion-icon name="logo-facebook"></ion-icon></a></li>
+        
+            <li><a href="https://www.instagram.com/mrshankararyal/" target="_blank" class="social-link" title="Instagram"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        
+                    </ul>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#portfolio">Portfolio</a></li>
+                        <li><a href="/#certificates">Certificates</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Legal -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <!-- Add Terms if/when available -->
+                    </ul>
+                </div>
+
+                <!-- Col 4: Latest Blogs -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Latest Blogs</h3>
+                    <ul class="footer-links">
+                        
+    <li><a href="/blogs/TheFutureOfWebDevelopment.html">The Future of Web Development</a></li>
+
+    <li><a href="/blogs/Last Testing.html">Testing Three</a></li>
+
+    <li><a href="/blogs/silence-of-night-testing-edit-2.html">Testing 2-2</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2026 Shankar Aryal. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script type="module" src="/assets/js/theme.js"></script>
+    <script type="module" src="/assets/js/main.js?v=10"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.querySelector('.nav-toggle-btn');
+            const nav = document.querySelector('.navbar-list');
+            const overlay = document.querySelector('.nav-overlay');
+            const body = document.body;
+            const navLinks = document.querySelectorAll('.navbar-link');
+
+            if (!btn || !nav || !overlay) {
+                console.error('Navigation elements not found');
+                return;
+            }
+
+            // Function to close the menu
+            function closeMenu() {
+                nav.classList.remove('active');
+                btn.classList.remove('active');
+                overlay.classList.remove('active');
+                body.classList.remove('nav-active');
+            }
+
+            // Function to open the menu
+            function openMenu() {
+                nav.classList.add('active');
+                btn.classList.add('active');
+                overlay.classList.add('active');
+                body.classList.add('nav-active');
+            }
+
+            // Function to toggle the menu
+            function toggleMenu(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (nav.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            // Toggle menu on button click
+            btn.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking overlay
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking on any navigation link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    // Allow the link to navigate, but close the menu
+                    closeMenu();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

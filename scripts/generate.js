@@ -117,6 +117,10 @@ for (const file of blogFiles) {
         // We'll push full post data later
     });
 
+    // Subdirectory Support
+    const subdirectory = data.subdirectory || 'blogs';
+    const url = `${SITE_URL}/${subdirectory}/${slug}.html`;
+
     blogs.push({
         ...data,
         slug,
@@ -124,6 +128,8 @@ for (const file of blogFiles) {
         content, // Store content for Pass 2
         dateObj,
         categorySlug,
+        subdirectory,
+        url,
         raw // Keep raw if needed
     });
 }
@@ -151,7 +157,7 @@ console.log(`[Build] Footer populated with ${Math.min(blogs.length, 3)} recent b
 
 // PASS 2: Generate Individual Pages
 for (const blog of blogs) {
-    const url = `${SITE_URL}/blogs/${blog.slug}.html`;
+    const url = blog.url;
     const indexStatus = blog.noindex ? 'noindex, nofollow' : 'index, follow';
     const categoryUrl = `${SITE_URL}/blogs/tags/${blog.categorySlug.toLowerCase().replace(/ /g, '-')}.html`;
 
@@ -289,8 +295,11 @@ for (const blog of blogs) {
         indexStatus
     );
 
-    fs.writeFileSync(path.join(OUTPUT_DIR, 'blogs', `${blog.slug}.html`), fullHtml);
-    console.log(`Generated: blogs/${blog.slug}.html`);
+    const outputSubDir = path.join(OUTPUT_DIR, blog.subdirectory);
+    if (!fs.existsSync(outputSubDir)) fs.mkdirSync(outputSubDir, { recursive: true });
+
+    fs.writeFileSync(path.join(outputSubDir, `${blog.slug}.html`), fullHtml);
+    console.log(`Generated: ${blog.subdirectory}/${blog.slug}.html`);
 }
 
 // 1.5 Generate Blog Index (Listing Page)
