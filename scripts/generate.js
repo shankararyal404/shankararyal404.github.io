@@ -59,28 +59,24 @@ let footerLatestBlogsHtml = ''; // Will be populated after blogs are processed
 // Helper: Render Page
 function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 'website', canonicalUrl = '', jsonLd = '', keywords = '', categoryCSSLink = '', robots = 'index, follow') {
     let html = baseTemplate
-        .replace('{{TITLE}}', pageTitle)
-        .replace('{{DESCRIPTION}}', metaDescription)
-        .replace('{{KEYWORDS}}', keywords)
-        .replace('{{ROBOTS}}', robots)
-        .replace('{{CANONICAL}}', canonicalUrl) // First usage match
-        .replace('{{OG_TYPE}}', metaType)
-        .replace('{{OG_TITLE}}', pageTitle)
-        .replace('{{OG_DESCRIPTION}}', metaDescription)
-        .replace('{{OG_IMAGE}}', metaImage)
-        .replace('{{CANONICAL}}', canonicalUrl) // Replace again if used in OG or elsewhere
-        .replace('{{JSON_LD}}', jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '')
-        .replace('{{CATEGORY_CSS}}', categoryCSSLink) // Inject category CSS
-        .replace('{{CONTENT}}', bodyHtml)
-        .replace('{{YEAR}}', new Date().getFullYear())
-        // Inject Social Links
-        .replace('{{SOCIAL_LINKS}}', (socialLinks || []).filter(s => s.visible).map(s => `
+        .replaceAll('{{TITLE}}', pageTitle)
+        .replaceAll('{{DESCRIPTION}}', metaDescription)
+        .replaceAll('{{KEYWORDS}}', keywords)
+        .replaceAll('{{ROBOTS}}', robots)
+        .replaceAll('{{CANONICAL}}', canonicalUrl)
+        .replaceAll('{{OG_TYPE}}', metaType)
+        .replaceAll('{{OG_TITLE}}', pageTitle)
+        .replaceAll('{{OG_DESCRIPTION}}', metaDescription)
+        .replaceAll('{{OG_IMAGE}}', metaImage)
+        .replaceAll('{{JSON_LD}}', jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '')
+        .replaceAll('{{CATEGORY_CSS}}', categoryCSSLink)
+        .replaceAll('{{CONTENT}}', bodyHtml)
+        .replaceAll('{{YEAR}}', new Date().getFullYear())
+        .replaceAll('{{SOCIAL_LINKS}}', (socialLinks || []).filter(s => s.visible).map(s => `
             <li><a href="${s.url}" target="_blank" class="social-link" title="${s.platform}"><ion-icon name="${s.icon}"></ion-icon></a></li>
         `).join(''))
-        // Replace Footer Blogs Placeholder globally or specifically if it exists in baseTemplate
-        .replace('{{FOOTER_BLOGS}}', footerLatestBlogsHtml || '<li>No blogs yet.</li>');
+        .replaceAll('{{FOOTER_BLOGS}}', footerLatestBlogsHtml || '<li>No blogs yet.</li>');
 
-    // Cleanup unused tags if any match remained
     return html;
 }
 
@@ -151,7 +147,7 @@ blogs.forEach(blog => {
 
 // GENERATE FOOTER RECENT BLOGS (Now populated correctly!)
 footerLatestBlogsHtml = blogs.slice(0, 3).map(b => `
-    <li><a href="/blogs/${b.slug}.html">${b.title}</a></li>
+    <li><a href="/${b.subdirectory}/${b.slug}.html">${b.title}</a></li>
 `).join('');
 console.log(`[Build] Footer populated with ${Math.min(blogs.length, 3)} recent blogs.`);
 
@@ -247,6 +243,7 @@ for (const blog of blogs) {
                 .replaceAll('{{POST_IMAGE}}', s.image)
                 .replaceAll('{{POST_TITLE}}', s.title)
                 .replaceAll('{{POST_SLUG}}', s.slug)
+                .replaceAll('{{POST_SUBDIRECTORY}}', s.subdirectory || 'blogs')
                 .replaceAll('{{POST_CATEGORY}}', s.category)
                 .replaceAll('{{POST_CATEGORY_SLUG}}', s.category.toLowerCase().replace(/ /g, '-'))
                 .replaceAll('{{POST_DATE}}', s.date)
@@ -317,6 +314,7 @@ const allBlogsListHtml = blogs.map(post => {
         .replaceAll('{{POST_IMAGE}}', post.image)
         .replaceAll('{{POST_TITLE}}', post.title)
         .replaceAll('{{POST_SLUG}}', post.slug)
+        .replaceAll('{{POST_SUBDIRECTORY}}', post.subdirectory || 'blogs')
         .replaceAll('{{POST_CATEGORY}}', post.category)
         .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
         .replaceAll('{{POST_DATE}}', post.date)
@@ -666,6 +664,7 @@ const latestBlogsHtml = blogs.slice(0, 3).map(post => {
         .replaceAll('{{POST_IMAGE}}', post.image)
         .replaceAll('{{POST_TITLE}}', post.title)
         .replaceAll('{{POST_SLUG}}', post.slug)
+        .replaceAll('{{POST_SUBDIRECTORY}}', post.subdirectory || 'blogs')
         .replaceAll('{{POST_CATEGORY}}', post.category)
         .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
         .replaceAll('{{POST_DATE}}', post.date)
