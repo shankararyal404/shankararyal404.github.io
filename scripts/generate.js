@@ -84,157 +84,29 @@ function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 
     return html;
 }
 
-// 1. Process Blogs
+// 1. Process Blogs (Two-Pass Approach)
 const blogsDir = path.join(CONTENT_DIR, 'blogs');
 const blogFiles = fs.readdirSync(blogsDir).filter(f => f.endsWith('.md'));
 const blogs = [];
 const tagsMap = {};
 
-// Use for...of instead of forEach to properly handle async
+// Import category utilities (Dynamic Import)
+const { getCategorySlug } = await import('../lib/categories.js');
+
+// PASS 1: Collect Metadata & Content
 for (const file of blogFiles) {
     const raw = fs.readFileSync(path.join(blogsDir, file), 'utf-8');
     const { data, content } = matter(raw);
-    if (!data.published) continue; // Skip unpublished
+    if (!data.published) continue;
 
+    // Slug & Basic Data
     const slug = data.slug || file.replace('.md', '');
     const image = data.cover || data.image || `${SITE_URL}/assets/images/default-cover.webp`;
-    const url = `${SITE_URL}/blogs/${slug}.html`;
+    const dateObj = new Date(data.date);
 
-    // Determine Indexing Status
-    const robotsStatus = data.noindex ? 'noindex, nofollow' : 'index, follow';
-
-    // Import category utilities
-    const { getCategorySlug } = await import('../lib/categories.js');
+    // SEO & Classification
     const categorySlug = getCategorySlug(data.category);
-    const categoryUrl = `${SITE_URL}/blogs/tags/${categorySlug.toLowerCase().replace(/ /g, '-')}.html`;
-
-    // Select template based on category
-    const templatePath = `templates/blog/${categorySlug}.html`;
-    let blogTemplate;
-    try {
-        blogTemplate = fs.readFileSync(templatePath, 'utf-8');
-    } catch (e) {
-        // Fallback to general template if category template doesn't exist
-        blogTemplate = fs.readFileSync('templates/blog/general.html', 'utf-8');
-    }
-
-    // Convert markdown to HTML
-    const htmlContent = marked.parse(content);
-
-    // Replace placeholders in template
-    let blogHtml = blogTemplate
-        .replaceAll('{{BLOG_TITLE}}', data.title)
-        .replaceAll('{{BLOG_DATE}}', data.date)
-        .replaceAll('{{BLOG_CATEGORY}}', data.category)
-        .replaceAll('{{BLOG_CATEGORY_SLUG}}', categorySlug)
-        .replaceAll('{{BLOG_IMAGE}}', image)
-        .replaceAll('{{BLOG_BODY}}', htmlContent)
-        .replaceAll('{{BLOG_TAGS}}', (data.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase()}.html" class="tag">${t}</a>`).join(', '));
-
-    // Process literature-specific fields if category is Literature
-    if (data.category === 'Literature') {
-        blogHtml = blogHtml
-            .replaceAll('{{LITERATURE_TYPE}}', data.type || '')
-            .replaceAll('{{WRITTEN_BY}}', data.written_by || '')
-            .replaceAll('{{PLACE}}', data.place || '')
-            .replaceAll('{{PUBLISHER}}', data.publisher || '')
-            .replaceAll('{{THEME}}', data.theme || '')
-            .replaceAll('{{REFLECTION}}', data.reflection || '');
-    }
-
-
-    // Generate keywords from tags and category for SEO
-    const keywords = [data.category, ...(data.tags || [])].join(', ');
-
-    // Initialize commentsHtml to an empty string as comment processing is removed
-    const commentsHtml = '';
-
-    // Inject Comments into Template
-    // Note: ensure {{COMMENTS_LIST}} exists in blog-post.html
-    const blogHtmlWithComments = blogHtml.replaceAll('{{COMMENTS_LIST}}', commentsHtml);
-
-    // BreadcrumList Schema
-    const breadcrumbLd = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": SITE_URL
-        }, {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Blogs",
-            "item": `${SITE_URL}/blogs/index.html`
-        }, {
-            "@type": "ListItem",
-            "position": 3,
-            "name": data.category,
-            "item": categoryUrl
-        }, {
-            "@type": "ListItem",
-            "position": 4,
-            "name": data.title,
-            "item": url
-        }]
-    };
-
-    // BlogPosting Schema
-    const blogLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": data.title,
-        "description": data.excerpt || data.description || '',
-        "image": {
-            "@type": "ImageObject",
-            "url": image,
-            "width": 1200,
-            "height": 630
-        },
-        "datePublished": data.date,
-        "dateModified": data.lastModified || data.date,
-        "author": {
-            "@type": "Person",
-            "name": "Shankar Aryal",
-            "url": "https://www.shankararyal404.com.np"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Shankar Aryal",
-            "logo": {
-                "@type": "ImageObject",
-                "url": `${SITE_URL}/assets/images/logo.png`
-            }
-        },
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": url
-        },
-        "keywords": keywords
-    };
-
-    // Combine Schemas
-    const jsonLd = [breadcrumbLd, blogLd];
-
-    // Inject category-specific CSS
-    const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${categorySlug}.css">`;
-
-    const fullHtml = renderPage(
-        blogHtml,
-        `${data.title} | Shankar Aryal`,
-        data.excerpt || data.description || '',
-        image,
-        'article',
-        url,
-        jsonLd,
-        keywords,
-        categoryCSSLink, // Pass category CSS
-        robotsStatus // Pass Robots Status
-    );
-
-    fs.writeFileSync(path.join(OUTPUT_DIR, 'blogs', `${slug}.html`), fullHtml);
-    console.log(`Generated: blogs/${slug}.html`);
+    // const categoryUrl = ... (will compute in Pass 2)
 
     // Collect Tags
     const allTags = [...(data.tags || []), data.category];
@@ -242,27 +114,186 @@ for (const file of blogFiles) {
         if (!tag) return;
         const normalizedTag = tag.toLowerCase().trim();
         if (!tagsMap[normalizedTag]) tagsMap[normalizedTag] = { name: tag, posts: [] };
-        tagsMap[normalizedTag].posts.push({ ...data, slug, image, noindex: data.noindex });
+        // We'll push full post data later
     });
 
-    // Add to main blogs list
     blogs.push({
         ...data,
         slug,
         image,
-        excerpt: data.excerpt || '',
-        dateObj: new Date(data.date),
-        noindex: data.noindex
+        content, // Store content for Pass 2
+        dateObj,
+        categorySlug,
+        raw // Keep raw if needed
     });
-} // End for loop
+}
 
-// Sort blogs by date
+// Global Sorting (Newest First)
 blogs.sort((a, b) => b.dateObj - a.dateObj);
 
-// Generate Footer Blogs HTML (Top 3)
+// Populate TagsMap Posts using sorted blogs
+blogs.forEach(blog => {
+    const allTags = [...(blog.tags || []), blog.category];
+    allTags.forEach(tag => {
+        if (!tag) return;
+        const normalizedTag = tag.toLowerCase().trim();
+        if (tagsMap[normalizedTag]) {
+            tagsMap[normalizedTag].posts.push(blog);
+        }
+    });
+});
+
+// GENERATE FOOTER RECENT BLOGS (Now populated correctly!)
 footerLatestBlogsHtml = blogs.slice(0, 3).map(b => `
     <li><a href="/blogs/${b.slug}.html">${b.title}</a></li>
 `).join('');
+console.log(`[Build] Footer populated with ${Math.min(blogs.length, 3)} recent blogs.`);
+
+// PASS 2: Generate Individual Pages
+for (const blog of blogs) {
+    const url = `${SITE_URL}/blogs/${blog.slug}.html`;
+    const indexStatus = blog.noindex ? 'noindex, nofollow' : 'index, follow';
+    const categoryUrl = `${SITE_URL}/blogs/tags/${blog.categorySlug.toLowerCase().replace(/ /g, '-')}.html`;
+
+    // Select Template
+    const templatePath = `templates/blog/${blog.categorySlug}.html`;
+    let blogTemplate;
+    try {
+        blogTemplate = fs.readFileSync(templatePath, 'utf-8');
+    } catch (e) {
+        blogTemplate = fs.readFileSync('templates/blog/general.html', 'utf-8');
+    }
+
+    // Convert Markdown
+    const htmlContent = marked.parse(blog.content);
+
+    // Render Basic Blog HTML
+    let blogHtml = blogTemplate
+        .replaceAll('{{BLOG_TITLE}}', blog.title)
+        .replaceAll('{{BLOG_DATE}}', blog.date)
+        .replaceAll('{{BLOG_CATEGORY}}', blog.category)
+        .replaceAll('{{BLOG_CATEGORY_SLUG}}', blog.categorySlug)
+        .replaceAll('{{BLOG_IMAGE}}', blog.image)
+        .replaceAll('{{BLOG_BODY}}', htmlContent)
+        .replaceAll('{{BLOG_TAGS}}', (blog.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase()}.html" class="tag">${t}</a>`).join(', '));
+
+    // Literature Fields
+    if (blog.category === 'Literature') {
+        blogHtml = blogHtml
+            .replaceAll('{{LITERATURE_TYPE}}', blog.type || '')
+            .replaceAll('{{WRITTEN_BY}}', blog.written_by || '')
+            .replaceAll('{{PLACE}}', blog.place || '')
+            .replaceAll('{{PUBLISHER}}', blog.publisher || '')
+            .replaceAll('{{THEME}}', blog.theme || '')
+            .replaceAll('{{REFLECTION}}', blog.reflection || '');
+    }
+
+    // Clear Comments Placeholder
+    blogHtml = blogHtml.replaceAll('{{COMMENTS_LIST}}', '');
+
+    // ----------------------------------------------------
+    // BLOG SUGGESTION ENGINE
+    // ----------------------------------------------------
+    // 1. Filter candidates (exclude self)
+    const candidates = blogs.filter(b => b.slug !== blog.slug).map(b => {
+        let score = 0;
+        // Same Category (+3)
+        if (b.category === blog.category) score += 3;
+        // Matching Tags (+1 each)
+        if (blog.tags && b.tags) {
+            const shared = b.tags.filter(t => blog.tags.includes(t));
+            score += shared.length;
+        }
+        // Recent is implicit by array order
+        return { blog: b, score };
+    });
+
+    // 2. Sort by Score
+    candidates.sort((a, b) => b.score - a.score);
+
+    // 3. Select Top 6 and Randomize 3
+    let topN = candidates.slice(0, 6);
+    // Fisher-Yates Shuffle
+    for (let i = topN.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [topN[i], topN[j]] = [topN[j], topN[i]];
+    }
+    const suggestions = topN.slice(0, 3).map(c => c.blog);
+
+    // 4. Generate HTML
+    let suggestionHtml = '';
+    if (suggestions.length > 0) {
+        suggestionHtml = `
+        <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+            <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
+            <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                ${suggestions.map(s => `
+                    <a href="/blogs/${s.slug}.html" class="suggestion-card" style="
+                        display: block; 
+                        padding: 20px; 
+                        background: var(--glass-bg); 
+                        border: 1px solid var(--glass-border); 
+                        border-radius: 12px; 
+                        transition: transform 0.3s ease;">
+                        <span style="font-size: 0.8rem; color: var(--minion-yellow); text-transform: uppercase; letter-spacing: 1px;">${s.category}</span>
+                        <h4 style="margin: 10px 0; font-size: 1.1rem; color: var(--text-primary); line-height: 1.4;">${s.title}</h4>
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">${s.date}</span>
+                    </a>
+                `).join('')}
+            </div>
+        </div>`;
+    }
+
+    // 5. Inject after Comments
+    // Try to find closing of comments-section
+    const commentsEndIdx = blogHtml.lastIndexOf('</div>'); // Risky if template changes, but let's try to append to article end
+    // Safer: Replace </article> with Suggestion + </article>
+    if (blogHtml.includes('</article>')) {
+        blogHtml = blogHtml.replace('</article>', `${suggestionHtml}</article>`);
+    } else {
+        // Fallback
+        blogHtml += suggestionHtml;
+    }
+
+    // JSON-LD
+    const keywords = [blog.category, ...(blog.tags || [])].join(', ');
+    const jsonLd = [
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL }, { "@type": "ListItem", "position": 2, "name": "Blogs", "item": `${SITE_URL}/blogs/index.html` }, { "@type": "ListItem", "position": 3, "name": blog.category, "item": categoryUrl }, { "@type": "ListItem", "position": 4, "name": blog.title, "item": url }]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": blog.title,
+            "description": blog.excerpt || '',
+            "image": { "@type": "ImageObject", "url": blog.image },
+            "datePublished": blog.date,
+            "author": { "@type": "Person", "name": "Shankar Aryal" },
+            "mainEntityOfPage": { "@type": "WebPage", "@id": url }
+        }
+    ];
+
+    const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${blog.categorySlug}.css">`;
+
+    // Render Full Page (Uses populated footerLatestBlogsHtml!)
+    const fullHtml = renderPage(
+        blogHtml,
+        `${blog.title} | Shankar Aryal`,
+        blog.excerpt || '',
+        blog.image,
+        'article',
+        url,
+        jsonLd,
+        keywords,
+        categoryCSSLink,
+        indexStatus
+    );
+
+    fs.writeFileSync(path.join(OUTPUT_DIR, 'blogs', `${blog.slug}.html`), fullHtml);
+    console.log(`Generated: blogs/${blog.slug}.html`);
+}
 
 // 1.5 Generate Blog Index (Listing Page)
 const allBlogsListHtml = blogs.map(post => {
