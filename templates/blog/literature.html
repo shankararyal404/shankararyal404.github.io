@@ -31,49 +31,52 @@
             </div>
 
             <!-- 4. Lower Bilingual Container (Reflection/Theme/Intro) -->
-            <div class="literature-info-container">
+            <div class="literature-info-container" id="lit-info-container">
                 <div class="info-header-block">
                     <h2 class="container-title">{{BLOG_TITLE}}</h2>
                     <div class="container-meta">
                         Written by {{WRITTEN_BY}} • {{BLOG_DATE}} • {{PLACE}}
                     </div>
-                    <div class="language-toggle">
-                        <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">ENGLISH</button>
-                        <button class="lang-btn" data-lang="ne" onclick="switchLanguage('ne')">नेपाली</button>
+                    <!-- Language Toggle (hidden if only one language exists) -->
+                    <div class="language-toggle" id="lang-toggle-wrapper">
+                        <button class="lang-btn active" data-lang="en" id="btn-en"
+                            onclick="switchLanguage('en')">ENGLISH</button>
+                        <button class="lang-btn" data-lang="ne" id="btn-ne"
+                            onclick="switchLanguage('ne')">नेपाली</button>
                     </div>
                 </div>
 
                 <div class="info-body-block">
                     <!-- English Section -->
                     <div id="content-en" class="lang-content">
-                        <section class="info-section">
+                        {{#REFLECTION_EN}}<section class="info-section">
                             <h3 class="section-heading">Writer Reflection</h3>
                             <div class="section-text">{{REFLECTION_EN}}</div>
-                        </section>
-                        <section class="info-section">
+                        </section>{{/REFLECTION_EN}}
+                        {{#THEME_EN}}<section class="info-section">
                             <h3 class="section-heading">Poem Description</h3>
                             <div class="section-text">{{THEME_EN}}</div>
-                        </section>
-                        <section class="info-section">
+                        </section>{{/THEME_EN}}
+                        {{#INTRO_EN}}<section class="info-section">
                             <h3 class="section-heading">Writer Introduction</h3>
                             <div class="section-text">{{INTRO_EN}}</div>
-                        </section>
+                        </section>{{/INTRO_EN}}
                     </div>
 
                     <!-- Nepali Section -->
                     <div id="content-ne" class="lang-content" style="display: none;">
-                        <section class="info-section">
+                        {{#REFLECTION_NE}}<section class="info-section">
                             <h3 class="section-heading">लेखकको प्रतिबिम्ब</h3>
                             <div class="section-text">{{REFLECTION_NE}}</div>
-                        </section>
-                        <section class="info-section">
+                        </section>{{/REFLECTION_NE}}
+                        {{#THEME_NE}}<section class="info-section">
                             <h3 class="section-heading">कविताको विवरण</h3>
                             <div class="section-text">{{THEME_NE}}</div>
-                        </section>
-                        <section class="info-section">
+                        </section>{{/THEME_NE}}
+                        {{#INTRO_NE}}<section class="info-section">
                             <h3 class="section-heading">लेखकको परिचय</h3>
                             <div class="section-text">{{INTRO_NE}}</div>
-                        </section>
+                        </section>{{/INTRO_NE}}
                     </div>
                 </div>
             </div>
@@ -99,13 +102,45 @@
 </section>
 
 <script>
+    // Configuration from Build Script
+    const HAS_EN = {{ HAS_EN }};
+    const HAS_NE = {{ HAS_NE }};
+
+    // Initialize Visibility on Load
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleWrapper = document.getElementById('lang-toggle-wrapper');
+        const btnEn = document.getElementById('btn-en');
+        const btnNe = document.getElementById('btn-ne');
+
+        // Hide toggle if only one language is available
+        if (!(HAS_EN && HAS_NE)) {
+            toggleWrapper.style.display = 'none';
+        } else {
+            // Show specific buttons based on availability
+            if (!HAS_EN) btnEn.style.display = 'none';
+            if (!HAS_NE) btnNe.style.display = 'none';
+        }
+
+        // Set default view: Primary (NE) if EN is missing
+        if (!HAS_EN && HAS_NE) {
+            switchLanguage('ne');
+        } else if (HAS_EN) {
+            switchLanguage('en');
+        } else {
+            // If neither has content (unlikely but safe), hide container
+            document.getElementById('lit-info-container').style.display = 'none';
+        }
+    });
+
     function switchLanguage(lang) {
         // Toggle visibility of language content blocks
         document.querySelectorAll('.lang-content').forEach(el => el.style.display = 'none');
-        document.getElementById('content-' + lang).style.display = 'block';
+        const target = document.getElementById('content-' + lang);
+        if (target) target.style.display = 'block';
 
         // Update active button state
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+        const activeBtn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
     }
 </script>

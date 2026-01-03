@@ -181,22 +181,41 @@ for (const blog of blogs) {
 
     // Literature Fields
     if (blog.category === 'Literature') {
+        const hasEn = !!(blog.reflection_en || blog.theme_en || blog.intro_en);
+        const hasNe = !!(blog.reflection_ne || blog.theme_ne || blog.intro_ne);
+
         blogHtml = blogHtml
             .replaceAll('{{LITERATURE_TYPE}}', blog.type || '')
             .replaceAll('{{WRITTEN_BY}}', blog.written_by || '')
             .replaceAll('{{PLACE}}', blog.place || '')
             .replaceAll('{{PUBLISHER}}', blog.publisher || '')
-            .replaceAll('{{THEME}}', blog.theme || '')
-            .replaceAll('{{REFLECTION}}', blog.reflection || '')
-            // New Bilingual Placeholders
-            .replaceAll('{{REFLECTION_EN}}', blog.reflection_en || blog.reflection || '')
+            .replaceAll('{{HAS_EN}}', hasEn ? 'true' : 'false')
+            .replaceAll('{{HAS_NE}}', hasNe ? 'true' : 'false')
+            .replaceAll('{{REFLECTION_EN}}', blog.reflection_en || '')
             .replaceAll('{{REFLECTION_NE}}', blog.reflection_ne || blog.reflection || '')
-            .replaceAll('{{THEME_EN}}', blog.theme_en || blog.theme || '')
+            .replaceAll('{{THEME_EN}}', blog.theme_en || '')
             .replaceAll('{{THEME_NE}}', blog.theme_ne || blog.theme || '')
             .replaceAll('{{INTRO_EN}}', blog.intro_en || '')
-            .replaceAll('{{INTRO_NE}}', blog.intro_ne || '')
-            .replaceAll('{{POEM_EN}}', marked.parse(blog.poem_en || ''))
-            .replaceAll('{{POEM_NE}}', marked.parse(blog.poem_ne || blog.originalContent || ''));
+            .replaceAll('{{INTRO_NE}}', blog.intro_ne || '');
+
+        // Handle Conditional Blocks: {{#VAR}}...{{/VAR}}
+        const conditionVars = {
+            REFLECTION_EN: !!blog.reflection_en,
+            THEME_EN: !!blog.theme_en,
+            INTRO_EN: !!blog.intro_en,
+            REFLECTION_NE: !!(blog.reflection_ne || blog.reflection),
+            THEME_NE: !!(blog.theme_ne || blog.theme),
+            INTRO_NE: !!blog.intro_ne
+        };
+
+        for (const [key, exists] of Object.entries(conditionVars)) {
+            const regex = new RegExp(`\\{\\{#${key}\\}\\}([\\s\\S]*?)\\{\\{/${key}\\}\\}`, 'g');
+            if (exists) {
+                blogHtml = blogHtml.replace(regex, '$1'); // Keep content
+            } else {
+                blogHtml = blogHtml.replace(regex, ''); // Remove block
+            }
+        }
     }
 
     // Clear Comments Placeholder

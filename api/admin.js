@@ -32,15 +32,17 @@ export default async function handler(req, res) {
             if (type === 'blog') {
                 const frontmatter = {
                     id: Date.now().toString(),
-                    title: data.title,
                     date: new Date().toISOString().split('T')[0],
-                    slug: data.slug,
-                    category: data.category || 'General',
-                    excerpt: data.excerpt || '',
-                    tags: data.tags || [],
-                    cover: data.image || '',
-                    published: true
+                    published: true,
+                    subdirectory: 'blog-post', // Default subdirectory
+                    ...data, // Spread all input data (title, slug, category, excerpt, tags, literature fields, etc.)
                 };
+
+                // Align image/cover naming convention
+                if (data.image) {
+                    frontmatter.cover = data.image;
+                    delete frontmatter.image;
+                }
 
                 const fileContent = matter.stringify(data.content || '', frontmatter);
                 const filePath = `content/blogs/${data.slug}.md`;
