@@ -159,40 +159,62 @@
 }
 
 .icon-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50px;
-    /* Pill shape */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     background: var(--bg-primary);
     display: flex;
+    justify-content: center;
     align-items: center;
     color: var(--text-primary);
     font-size: 1.2rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-    padding: 0;
+    transition: var(--transition-smooth);
+    position: relative;
+    /* Ensure text can be seen outside */
+    overflow: visible;
 }
 
 .icon-btn ion-icon {
-    min-width: 45px;
-    /* Ensures icon stays centered in circle state */
-    display: flex;
-    justify-content: center;
+    /* Reset icon centering */
+    display: block;
 }
 
 .icon-btn .btn-text {
-    width: 0;
-    opacity: 0;
-    white-space: nowrap;
-    font-size: 0.9rem;
+    position: absolute;
+    top: 120%;
+    /* Push below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Text Styling - No Box */
+    font-size: 0.85rem;
     font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+
+    /* Hiding Logic */
+    opacity: 0;
+    visibility: hidden;
     transition: all 0.3s ease;
-    margin-right: 0;
+
+    /* Ensure it overlays if needed */
+    z-index: 10;
 }
 
 .icon-btn:hover {
     background: var(--primary);
+    color: var(--white);
     transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+}
+
+.icon-btn:hover .btn-text {
+    opacity: 1;
+    visibility: visible;
+    top: 110%;
+    /* Subtle slide up effect */
+    color: var(--text-primary);
+    /* Keep text color readable */
 }
 
 /* About Section */
