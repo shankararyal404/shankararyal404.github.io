@@ -17,82 +17,82 @@ image: /assets/images/cryptoguard.png
 </style>
 
 <div class="blog-post">
-    <header class="blog-header"><span class="category-tag">Security Solutions</span><h1 class="blog-title" id="Blog-title">CryptoGuard: Enterprise-Grade File Encryption Solution</h1><div class="blog-meta"><time datetime="2024-11-01">Published November 1, 2024</time> • By Shankar Aryal</div></header>
-    
-    <p class="blog-intro">In an era where data breaches and cyber threats are increasingly sophisticated, organizations need robust, user-friendly encryption solutions. CryptoGuard emerges as a comprehensive answer to this challenge, offering military-grade encryption with an intuitive interface that makes advanced security accessible to all users.</p>
+<header class="blog-header"><span class="category-tag">Security Solutions</span><h1 class="blog-title" id="Blog-title">CryptoGuard: Enterprise-Grade File Encryption Solution</h1><div class="blog-meta"><time datetime="2024-11-01">Published November 1, 2024</time> • By Shankar Aryal</div></header>
 
-    <h2 class="section-title">Enterprise Security Features</h2>
-    <div class="feature-grid">
-        <div class="feature-card">
-            <h3 class="feature-title">Advanced Encryption</h3>
-            <ul class="feature-list">
-                <li>AES-GCM encryption protocol</li>
-                <li>Secure key derivation implementation</li>
-                <li>Authentication-encrypted data</li>
-                <li>Memory-safe operations</li>
-            </ul>
-        </div>
-        <div class="feature-card">
-            <h3 class="feature-title">Performance Optimization</h3>
-            <ul class="feature-list">
-                <li>Chunk-based processing engine</li>
-                <li>Multithreaded operations</li>
-                <li>Efficient memory management</li>
-                <li>Progress monitoring system</li>
-            </ul>
-        </div>
-    </div>
+<p class="blog-intro">In an era where data breaches and cyber threats are increasingly sophisticated, organizations need robust, user-friendly encryption solutions. CryptoGuard emerges as a comprehensive answer to this challenge, offering military-grade encryption with an intuitive interface that makes advanced security accessible to all users.</p>
 
-    <h2 class="section-title">Implementation Guide</h2>
-    <ol class="implementation-steps">
-        <li><strong>Environment Setup</strong><div class="code-block"><code>python -m venv CryptoGuard_env</code></div></li>
-        <li><strong>Dependencies Installation</strong><div class="code-block"><code>pip install pycryptodomex pip install cx_freeze pip install PyQt5</code></div></li>
-        <li><strong>Application Launch</strong><div class="code-block"><code>python CryptoGuardApp.py</code></div></li>
-    </ol>
+<h2 class="section-title">Enterprise Security Features</h2>
+<div class="feature-grid">
+<div class="feature-card">
+<h3 class="feature-title">Advanced Encryption</h3>
+<ul class="feature-list">
+<li>AES-GCM encryption protocol</li>
+<li>Secure key derivation implementation</li>
+<li>Authentication-encrypted data</li>
+<li>Memory-safe operations</li>
+</ul>
+</div>
+<div class="feature-card">
+<h3 class="feature-title">Performance Optimization</h3>
+<ul class="feature-list">
+<li>Chunk-based processing engine</li>
+<li>Multithreaded operations</li>
+<li>Efficient memory management</li>
+<li>Progress monitoring system</li>
+</ul>
+</div>
+</div>
 
-    <h2 class="section-title">Technical Architecture</h2>
-    <p>CryptoGuard's architecture is built on a modular design philosophy, separating concerns between security operations and user interface management. This approach ensures maintainability while facilitating future enhancements.</p>
-    <div class="feature-grid">
-        <div class="feature-card">
-            <h3 class="feature-title">Core Components</h3>
-            <ul class="feature-list">
-                <li>Encryption Engine Module</li>
-                <li>Key Management System</li>
-                <li>File Processing Service</li>
-                <li>Error Handling Framework</li>
-            </ul>
-        </div>
-        <div class="feature-card">
-            <h3 class="feature-title">Interface Layer</h3>
-            <ul class="feature-list">
-                <li>PyQt5-based GUI System</li>
-                <li>Progress Tracking Interface</li>
-                <li>File Selection Module</li>
-                <li>User Notification System</li>
-            </ul>
-        </div>
-    </div>
+<h2 class="section-title">Implementation Guide</h2>
+<ol class="implementation-steps">
+<li><strong>Environment Setup</strong><div class="code-block"><code>python -m venv CryptoGuard_env</code></div></li>
+<li><strong>Dependencies Installation</strong><div class="code-block"><code>pip install pycryptodomex pip install cx_freeze pip install PyQt5</code></div></li>
+<li><strong>Application Launch</strong><div class="code-block"><code>python CryptoGuardApp.py</code></div></li>
+</ol>
 
-    <h2 class="section-title">Development Roadmap</h2>
-    <p>Our commitment to continuous improvement drives an ambitious development roadmap focused on enhancing security, performance, and user experience:</p>
-    <ul class="feature-list">
-        <li>Integration with enterprise key management systems</li>
-        <li>Support for cloud storage providers</li>
-        <li>Advanced audit logging capabilities</li>
-        <li>Cross-platform mobile applications</li>
-        <li>Hardware security module (HSM) support</li>
-    </ul>
+<h2 class="section-title">Technical Architecture</h2>
+<p>CryptoGuard's architecture is built on a modular design philosophy, separating concerns between security operations and user interface management. This approach ensures maintainability while facilitating future enhancements.</p>
+<div class="feature-grid">
+<div class="feature-card">
+<h3 class="feature-title">Core Components</h3>
+<ul class="feature-list">
+<li>Encryption Engine Module</li>
+<li>Key Management System</li>
+<li>File Processing Service</li>
+<li>Error Handling Framework</li>
+</ul>
+</div>
+<div class="feature-card">
+<h3 class="feature-title">Interface Layer</h3>
+<ul class="feature-list">
+<li>PyQt5-based GUI System</li>
+<li>Progress Tracking Interface</li>
+<li>File Selection Module</li>
+<li>User Notification System</li>
+</ul>
+</div>
+</div>
 
-    <div class="callout">
-        <div class="callout-title">Security Best Practices</div>
-        <p>CryptoGuard implements industry-standard security practices and is regularly audited for vulnerabilities. We recommend keeping your installation updated with the latest security patches and following our comprehensive security guidelines for optimal protection.</p>
-    </div>
+<h2 class="section-title">Development Roadmap</h2>
+<p>Our commitment to continuous improvement drives an ambitious development roadmap focused on enhancing security, performance, and user experience:</p>
+<ul class="feature-list">
+<li>Integration with enterprise key management systems</li>
+<li>Support for cloud storage providers</li>
+<li>Advanced audit logging capabilities</li>
+<li>Cross-platform mobile applications</li>
+<li>Hardware security module (HSM) support</li>
+</ul>
 
-    <h2 class="section-title">Getting Started</h2>
-    <p>Ready to enhance your organization's data security? Contact our team for implementation support:</p>
-    <ul class="feature-list">
-        <li>Email: shankararyal737@gmail.com</li>
-        <li>GitHub: <a href="https://github.com/mrshankararyal">@MrShankarAryal</a></li>
-        <li>Documentation: <a href="https://mrshankararyal.github.io">mrshankararyal.github.io</a></li>
-    </ul>
+<div class="callout">
+<div class="callout-title">Security Best Practices</div>
+<p>CryptoGuard implements industry-standard security practices and is regularly audited for vulnerabilities. We recommend keeping your installation updated with the latest security patches and following our comprehensive security guidelines for optimal protection.</p>
+</div>
+
+<h2 class="section-title">Getting Started</h2>
+<p>Ready to enhance your organization's data security? Contact our team for implementation support:</p>
+<ul class="feature-list">
+<li>Email: shankararyal737@gmail.com</li>
+<li>GitHub: <a href="https://github.com/mrshankararyal">@MrShankarAryal</a></li>
+<li>Documentation: <a href="https://mrshankararyal.github.io">mrshankararyal.github.io</a></li>
+</ul>
 </div>

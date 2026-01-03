@@ -31,66 +31,66 @@ image: /assets/blog-img/poem-11.png
 
 <div class="blog-post">
 <div class="content">
-    <div class="poem">
-        <h2>सपनाको क्यानभास</h2>
-        <div class="poem-body">
-            <div class="stanza">
-                <p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,</p>
-                <p>म भुल्न खोज्छु, तर रातले मलाई बाँध्छ,</p>
-                <p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
-            </div>
+<div class="poem">
+<h2>सपनाको क्यानभास</h2>
+<div class="poem-body">
+<div class="stanza">
+<p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,</p>
+<p>म भुल्न खोज्छु, तर रातले मलाई बाँध्छ,</p>
+<p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
+</div>
 
-            <div class="stanza">
-                <p>छातीमा बोझ, काँचको मनजस्तै चकनाचुर,</p>
-                <p>त्यहीँ म फर्किन्छु, सधैंको पीडामा फसेको,</p>
-                <p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।</p>
-            </div>
+<div class="stanza">
+<p>छातीमा बोझ, काँचको मनजस्तै चकनाचुर,</p>
+<p>त्यहीँ म फर्किन्छु, सधैंको पीडामा फसेको,</p>
+<p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।</p>
+</div>
 
-            <div class="stanza">
-                <p>आशाको रेखा, चिहानले लिपिएको क्यानभास,</p>
-                <p>जिवनले मृत्युको नजिक ल्याउने मेला,</p>
-                <p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
-            </div>
+<div class="stanza">
+<p>आशाको रेखा, चिहानले लिपिएको क्यानभास,</p>
+<p>जिवनले मृत्युको नजिक ल्याउने मेला,</p>
+<p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
+</div>
 
-            <div class="stanza">
-                <p>अन्धकारमा झुल्किन्छन् तिम्रा आँशु,</p>
-                <p>जुन किरणमा लुकेका छन् मेरी आत्माको रंग,</p>
-                <p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।</p>
-            </div>
+<div class="stanza">
+<p>अन्धकारमा झुल्किन्छन् तिम्रा आँशु,</p>
+<p>जुन किरणमा लुकेका छन् मेरी आत्माको रंग,</p>
+<p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।</p>
+</div>
 
-            <div class="stanza">
-                <p>मध्यरातको एकान्तमा बाँच्ने प्रयास,</p>
-                <p>मृत्युले पनि मायाको छाया बुनेको,</p>
-                <p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
-            </div>
+<div class="stanza">
+<p>मध्यरातको एकान्तमा बाँच्ने प्रयास,</p>
+<p>मृत्युले पनि मायाको छाया बुनेको,</p>
+<p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
+</div>
 
-            <div class="stanza">
-                <p>तिमीले रंग्याएको यो सपनाको आकाश,</p>
-                <p>मलाई पुर्याउँछ जीवनको अन्तिम किनारमा,</p>
-                <p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,</p>
-                <p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
-            </div>
-        </div>
-        <div class="author">-शंकर अयार्ल </div>
-        <section class="writer-message">
-            <h3>Writer's Reflections</h3>
-            <div class="message-content">
-                <p>This poem, "सपनाको क्यानभास" (Canvas of Dreams), was penned on a moonlit night in
-                    June 05, 2023 by Shankar Aryal which was published on oct 6,2024 . It reflects on
-                    the delicate interplay between our dreams and the harsh realities of life.</p>
-                <p>The recurring imagery of "तारेभिर" (starry cliff) symbolizes the precarious nature of
-                    our aspirations, while the "क्यानभास" (canvas) represents life itself - a blend of
-                    vibrant colors and somber shadows.</p>
-                <p>Through this piece, I aimed to explore the bittersweet journey of human existence,
-                    where hope and despair often walk hand in hand. It's an invitation to the reader to
-                    reflect on their own dreams and the imprints they leave on the canvas of their
-                    lives.</p>
-            </div>
-            <div class="message-meta">
-                <p class="date">Written on: <time datetime="2024-10-06">oct 6, 2024</time></p>
-                <p class="location">Location: Kathmandu, Nepal</p>
-            </div>
-        </section>
-    </div>
+<div class="stanza">
+<p>तिमीले रंग्याएको यो सपनाको आकाश,</p>
+<p>मलाई पुर्याउँछ जीवनको अन्तिम किनारमा,</p>
+<p>तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,</p>
+<p>हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।</p>
+</div>
+</div>
+<div class="author">-शंकर अयार्ल </div>
+<section class="writer-message">
+<h3>Writer's Reflections</h3>
+<div class="message-content">
+<p>This poem, "सपनाको क्यानभास" (Canvas of Dreams), was penned on a moonlit night in
+June 05, 2023 by Shankar Aryal which was published on oct 6,2024 . It reflects on
+the delicate interplay between our dreams and the harsh realities of life.</p>
+<p>The recurring imagery of "तारेभिर" (starry cliff) symbolizes the precarious nature of
+our aspirations, while the "क्यानभास" (canvas) represents life itself - a blend of
+vibrant colors and somber shadows.</p>
+<p>Through this piece, I aimed to explore the bittersweet journey of human existence,
+where hope and despair often walk hand in hand. It's an invitation to the reader to
+reflect on their own dreams and the imprints they leave on the canvas of their
+lives.</p>
+</div>
+<div class="message-meta">
+<p class="date">Written on: <time datetime="2024-10-06">oct 6, 2024</time></p>
+<p class="location">Location: Kathmandu, Nepal</p>
+</div>
+</section>
+</div>
 </div>
 </div>

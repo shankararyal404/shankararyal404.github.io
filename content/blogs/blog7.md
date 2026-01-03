@@ -250,127 +250,127 @@ image: /assets/blog-img/sstrike.avif
 </style>
 
 <div class="blogs-contains">
-    <div id="warningPopup" class="warning-overlay">
-        <div class="warning-popup">
-            <div class="popup-header">
-                <div class="title" style="color: whitesmoke; font-size: 1.5rem; font-weight: bold;">
-                    ⚠️ Important Security Notice
-                </div>
-                <!-- Close button removed to force choice -->
-            </div>
-            <div class="warning-content">
-                <div class="warning-box" style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 1rem; margin-bottom: 1rem;">
-                    <strong>Security Warning</strong>
-                    <p style="color: #64748b;">ShadowStrike is designed exclusively for educational purposes and ethical security testing.</p>
-                </div>
-                <div class="considerations" style="color: white;">
-                    <h3>Legal and Ethical Requirements</h3>
-                    <ul>
-                        <li>Use ShadowStrike only in authorized testing environments</li>
-                        <li>Maintain proper documentation</li>
-                        <li>Follow responsible disclosure practices</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-accept" onclick="handleAccept()">I Accept & Continue</button>
-                <button class="btn btn-decline" onclick="handleDecline()">Decline Access</button>
-            </div>
-        </div>
-    </div>
+<div id="warningPopup" class="warning-overlay">
+<div class="warning-popup">
+<div class="popup-header">
+<div class="title" style="color: whitesmoke; font-size: 1.5rem; font-weight: bold;">
+⚠️ Important Security Notice
+</div>
+<!-- Close button removed to force choice -->
+</div>
+<div class="warning-content">
+<div class="warning-box" style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 1rem; margin-bottom: 1rem;">
+<strong>Security Warning</strong>
+<p style="color: #64748b;">ShadowStrike is designed exclusively for educational purposes and ethical security testing.</p>
+</div>
+<div class="considerations" style="color: white;">
+<h3>Legal and Ethical Requirements</h3>
+<ul>
+<li>Use ShadowStrike only in authorized testing environments</li>
+<li>Maintain proper documentation</li>
+<li>Follow responsible disclosure practices</li>
+</ul>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-accept" onclick="handleAccept()">I Accept & Continue</button>
+<button class="btn btn-decline" onclick="handleDecline()">Decline Access</button>
+</div>
+</div>
+</div>
 
-    <header class="header-blog">
-        <h1 id="Blog-title">ShadowStrike: Advanced Network Security Testing</h1>
-        <p>Empowering Ethical Hackers with Cutting-Edge Network Security Tools</p>
-    </header>
+<header class="header-blog">
+<h1 id="Blog-title">ShadowStrike: Advanced Network Security Testing</h1>
+<p>Empowering Ethical Hackers with Cutting-Edge Network Security Tools</p>
+</header>
 
-    <section class="slider-part">
-        <div class="slider-container" id="sliderContainer">
-            <div class="slider" id="imageSlider">
-                <div class="slide active"><img src="/assets/images/port8(1).png" alt="Screenshot 1"></div>
-                <div class="slide"><img src="/assets/images/port8(3).png" alt="Screenshot 2"></div>
-                <div class="slide"><img src="/assets/images/port8(2).png" alt="Screenshot 3"></div>
-                <div class="slide"><img src="/assets/images/port8(4).png" alt="Screenshot 4"></div>
-                <div class="slide"><img src="/assets/images/port8(5).png" alt="Screenshot 5"></div>
-            </div>
-            <div class="slider-controls">
-                <div class="slider-dot active" data-slide="0"></div>
-                <div class="slider-dot" data-slide="1"></div>
-                <div class="slider-dot" data-slide="2"></div>
-                <div class="slider-dot" data-slide="3"></div>
-                <div class="slider-dot" data-slide="4"></div>
-            </div>
-            <button class="slider-button prev" id="prevButton">←</button>
-            <button class="slider-button next" id="nextButton">→</button>
-            <div class="progress-bar"><div class="progress" id="progress"></div></div>
-        </div>
-    </section>
+<section class="slider-part">
+<div class="slider-container" id="sliderContainer">
+<div class="slider" id="imageSlider">
+<div class="slide active"><img src="/assets/images/port8(1).png" alt="Screenshot 1"></div>
+<div class="slide"><img src="/assets/images/port8(3).png" alt="Screenshot 2"></div>
+<div class="slide"><img src="/assets/images/port8(2).png" alt="Screenshot 3"></div>
+<div class="slide"><img src="/assets/images/port8(4).png" alt="Screenshot 4"></div>
+<div class="slide"><img src="/assets/images/port8(5).png" alt="Screenshot 5"></div>
+</div>
+<div class="slider-controls">
+<div class="slider-dot active" data-slide="0"></div>
+<div class="slider-dot" data-slide="1"></div>
+<div class="slider-dot" data-slide="2"></div>
+<div class="slider-dot" data-slide="3"></div>
+<div class="slider-dot" data-slide="4"></div>
+</div>
+<button class="slider-button prev" id="prevButton">←</button>
+<button class="slider-button next" id="nextButton">→</button>
+<div class="progress-bar"><div class="progress" id="progress"></div></div>
+</div>
+</section>
 
-    <section class="feature-grid">
-        <div class="feature-card">
-            <h3>Advanced Reconnaissance</h3>
-            <p>Comprehensive network vulnerability scanning with intelligent port and service detection.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Adaptive Attack Simulation</h3>
-            <p>Sophisticated attack modes including SYN Flood, HTTP DDoS, and custom exploit testing.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Detailed Logging</h3>
-            <p>Real-time, customizable logging for thorough security assessment documentation.</p>
-        </div>
-    </section>
+<section class="feature-grid">
+<div class="feature-card">
+<h3>Advanced Reconnaissance</h3>
+<p>Comprehensive network vulnerability scanning with intelligent port and service detection.</p>
+</div>
+<div class="feature-card">
+<h3>Adaptive Attack Simulation</h3>
+<p>Sophisticated attack modes including SYN Flood, HTTP DDoS, and custom exploit testing.</p>
+</div>
+<div class="feature-card">
+<h3>Detailed Logging</h3>
+<p>Real-time, customizable logging for thorough security assessment documentation.</p>
+</div>
+</section>
 
-    <section class="code-section">
-        <h2>Toolkit Workflow</h2>
-        <pre>1. Reconnaissance: Intelligent network intelligence gathering
+<section class="code-section">
+<h2>Toolkit Workflow</h2>
+<pre>1. Reconnaissance: Intelligent network intelligence gathering
 2. Analysis: Advanced vulnerability evaluation
 3. Simulation: Precision-targeted controlled attacks
 4. Documentation: Comprehensive interaction logging</pre>
-    </section>
+</section>
 
-    <section class="cta-section">
-        <h2>Elevate Your Security Testing</h2>
-        <p>ShadowStrike provides professional-grade network security assessment capabilities.</p>
-        <a href="https://github.com/MrShankarAryal/ShadowStrike/archive/refs/heads/main.zip" class="cta-button" target="_blank">Get ShadowStrike</a>
-    </section>
+<section class="cta-section">
+<h2>Elevate Your Security Testing</h2>
+<p>ShadowStrike provides professional-grade network security assessment capabilities.</p>
+<a href="https://github.com/MrShankarAryal/ShadowStrike/archive/refs/heads/main.zip" class="cta-button" target="_blank">Get ShadowStrike</a>
+</section>
 
-    <section class="faq-section">
-        <h2>User Documentation</h2>
-        <div class="faq-item">
-            <h3>Installation</h3>
-            <pre>git clone https://github.com/MrShankarAryal/ShadowStrike.git
+<section class="faq-section">
+<h2>User Documentation</h2>
+<div class="faq-item">
+<h3>Installation</h3>
+<pre>git clone https://github.com/MrShankarAryal/ShadowStrike.git
 cd ShadowStrike
 pip install -r requirements.txt
 python gui.py</pre>
-        </div>
+</div>
 
-        <h2>1.1. Reconnaissance</h2>
-        <div class="faq-item">
-            <h3>Start Recon</h3>
-            <ul>
-                <li>Enter the Target IP</li>
-                <li>Click Start Recon</li>
-                <li>Review results in log box</li>
-            </ul>
-        </div>
+<h2>1.1. Reconnaissance</h2>
+<div class="faq-item">
+<h3>Start Recon</h3>
+<ul>
+<li>Enter the Target IP</li>
+<li>Click Start Recon</li>
+<li>Review results in log box</li>
+</ul>
+</div>
 
-        <h2>1.2. Attack Modes</h2>
-        <div class="faq-item">
-            <h3>Choose Attack Mode</h3>
-            <ul>
-                <li>SYN Flood: TCP connection overload</li>
-                <li>HTTP DDoS: Web server stress testing</li>
-                <li>Stealth Probe: Low-profile scanning</li>
-            </ul>
-        </div>
-    </section>
+<h2>1.2. Attack Modes</h2>
+<div class="faq-item">
+<h3>Choose Attack Mode</h3>
+<ul>
+<li>SYN Flood: TCP connection overload</li>
+<li>HTTP DDoS: Web server stress testing</li>
+<li>Stealth Probe: Low-profile scanning</li>
+</ul>
+</div>
+</section>
 
-    <section class="documentation-section">
-        <h2>Developer Documentation</h2>
-        <h3>Project Structure</h3>
-        <div class="module-tree">
-            <pre>
+<section class="documentation-section">
+<h2>Developer Documentation</h2>
+<h3>Project Structure</h3>
+<div class="module-tree">
+<pre>
 ShadowStrikeAuto/
 ├── core/
 │   ├── recon.py
@@ -378,20 +378,20 @@ ShadowStrikeAuto/
 │   └── exploit_module.py
 ├── config/
 └── utils/</pre>
-        </div>
+</div>
 
-        <h3>Key Components</h3>
-        <div class="documentation-grid">
-            <div class="doc-card">
-                <h4>Reconnaissance Module</h4>
-                <p>Handles target data collection including port scanning and OS detection.</p>
-            </div>
-            <div class="doc-card">
-                <h4>Attack Module</h4>
-                <p>Coordinates attack strategies based on reconnaissance data.</p>
-            </div>
-        </div>
-    </section>
+<h3>Key Components</h3>
+<div class="documentation-grid">
+<div class="doc-card">
+<h4>Reconnaissance Module</h4>
+<p>Handles target data collection including port scanning and OS detection.</p>
+</div>
+<div class="doc-card">
+<h4>Attack Module</h4>
+<p>Coordinates attack strategies based on reconnaissance data.</p>
+</div>
+</div>
+</section>
 </div>
 
 <script>
