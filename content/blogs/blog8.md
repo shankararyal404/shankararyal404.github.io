@@ -217,133 +217,87 @@ poem_ne: |
 
   *-शंकर अयार्ल*
 image_alt: TravelerofDarknessShankarAryal
-content: |
-  <div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
-      
-      <h2 style="margin-bottom:30px;">
-          अन्धकारको यात्री
-      </h2>
+content: |-
+  अन्धकारको यात्री
 
-      <div class="poem-body">
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">न यात्रा न गन्तव्य न साथी रहे</p>
-              <p style="margin:3px 0;">यो अन्धकारको मेजरिममा कतै हराएँ</p>
-              <p style="margin:3px 0;">हरेक पाइला रोकिन्छ, हरेक दिशा छलिन्छ</p>
-              <p style="margin:3px 0;">यो भूल र मापको सीमामा म अल्झिएँ</p>
-          </div>
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">अन्धकार पिउँछु तिम्रो आँखाबाट</p>
-              <p style="margin:3px 0;">मदिराको प्यालामा डुब्छ जून</p>
-              <p style="margin:3px 0;">न नशा उत्रन्छ, न तिर्खा मेटिन्छ</p>
-              <p style="margin:3px 0;">यो रात अझै गहिरिँदै जान्छ</p>
-          </div>
+  न यात्रा न गन्तव्य न साथी रहे
+  यो अन्धकारको मेजरिममा कतै हराएँ
+  हरेक पाइला रोकिन्छ, हरेक दिशा छलिन्छ
+  यो भूल र मापको सीमामा म अल्झिएँ
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">तिम्रो अनुहार खोज्दै हिँड्छु</p>
-              <p style="margin:3px 0;">शहरका गल्लीहरूमा</p>
-              <p style="margin:3px 0;">हरेक मोडमा भेटिन्छौ तिमी</p>
-              <p style="margin:3px 0;">तर त्यो तिमी तिमी होइनौ</p>
-          </div>
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">कुन यात्रामा हराएँ म?</p>
-              <p style="margin:3px 0;">न पाइला अघि बढ्छ</p>
-              <p style="margin:3px 0;">न पछि फर्कन सकिन्छ</p>
-              <p style="margin:3px 0;">बीचको यो क्षण अनन्त छ</p>
-          </div>
+  अन्धकार पिउँछु तिम्रो आँखाबाट
+  मदिराको प्यालामा डुब्छ जून
+  न नशा उत्रन्छ, न तिर्खा मेटिन्छ
+  यो रात अझै गहिरिँदै जान्छ
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">हरेक दीयो बल्छ तिम्रै आँखामा</p>
-              <p style="margin:3px 0;">हरेक बाटो पुग्छ तिम्रै मनमा</p>
-              <p style="margin:3px 0;">तर न दीयो तिम्रो हो, न बाटो</p>
-              <p style="margin:3px 0;">यो भ्रम पनि सत्य रहेछ</p>
-          </div>
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">अब बुझें - म हराएको होइन</p>
-              <p style="margin:3px 0;">हराउनु नै त पाउनु रहेछ</p>
-              <p style="margin:3px 0;">अन्धकारमा डुब्नु नै</p>
-              <p style="margin:3px 0;">उज्यालो हुनु रहेछ</p>
-          </div>
+  तिम्रो अनुहार खोज्दै हिँड्छु
+  शहरका गल्लीहरूमा
+  हरेक मोडमा भेटिन्छौ तिमी
+  तर त्यो तिमी तिमी होइनौ
 
-          <div class="stanza" style="margin-top:22px;">
-              <p style="margin:3px 0;">यो यात्रा कहाँ टुंगिएला?</p>
-              <p style="margin:3px 0;">शायद टुंगिनु नै यात्रा हो</p>
-              <p style="margin:3px 0;">र हामी सधैं हिँडिरहने छौं</p>
-              <p style="margin:3px 0;">यो अन्धकारको मेजरिममा</p>
-          </div>
 
-      </div>
+  कुन यात्रामा हराएँ म?
+  न पाइला अघि बढ्छ
+  न पछि फर्कन सकिन्छ
+  बीचको यो क्षण अनन्त छ
 
-      <div class="author" style="text-align:right; margin-top:30px;">
-          - शंकर अयार्ल
-      </div>
+  हरेक दीयो बल्छ तिम्रै आँखामा
+  हरेक बाटो पुग्छ तिम्रै मनमा
+  तर न दीयो तिम्रो हो, न बाटो
+  यो भ्रम पनि सत्य रहेछ
 
-  </div>
+  अब बुझें - म हराएको होइन
+  हराउनु नै त पाउनु रहेछ
+  अन्धकारमा डुब्नु नै
+  उज्यालो हुनु रहेछ
+
+  यो यात्रा कहाँ टुंगिएला?
+  शायद टुंगिनु नै यात्रा हो
+  र हामी सधैं हिँडिरहने छौं
+  यो अन्धकारको मेजरिममा
 ---
-<div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
-    
-    <h2 style="margin-bottom:30px;">
-        अन्धकारको यात्री
-    </h2>
+अन्धकारको यात्री
 
-    <div class="poem-body">
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">न यात्रा न गन्तव्य न साथी रहे</p>
-            <p style="margin:3px 0;">यो अन्धकारको मेजरिममा कतै हराएँ</p>
-            <p style="margin:3px 0;">हरेक पाइला रोकिन्छ, हरेक दिशा छलिन्छ</p>
-            <p style="margin:3px 0;">यो भूल र मापको सीमामा म अल्झिएँ</p>
-        </div>
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">अन्धकार पिउँछु तिम्रो आँखाबाट</p>
-            <p style="margin:3px 0;">मदिराको प्यालामा डुब्छ जून</p>
-            <p style="margin:3px 0;">न नशा उत्रन्छ, न तिर्खा मेटिन्छ</p>
-            <p style="margin:3px 0;">यो रात अझै गहिरिँदै जान्छ</p>
-        </div>
+न यात्रा न गन्तव्य न साथी रहे
+यो अन्धकारको मेजरिममा कतै हराएँ
+हरेक पाइला रोकिन्छ, हरेक दिशा छलिन्छ
+यो भूल र मापको सीमामा म अल्झिएँ
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">तिम्रो अनुहार खोज्दै हिँड्छु</p>
-            <p style="margin:3px 0;">शहरका गल्लीहरूमा</p>
-            <p style="margin:3px 0;">हरेक मोडमा भेटिन्छौ तिमी</p>
-            <p style="margin:3px 0;">तर त्यो तिमी तिमी होइनौ</p>
-        </div>
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">कुन यात्रामा हराएँ म?</p>
-            <p style="margin:3px 0;">न पाइला अघि बढ्छ</p>
-            <p style="margin:3px 0;">न पछि फर्कन सकिन्छ</p>
-            <p style="margin:3px 0;">बीचको यो क्षण अनन्त छ</p>
-        </div>
+अन्धकार पिउँछु तिम्रो आँखाबाट
+मदिराको प्यालामा डुब्छ जून
+न नशा उत्रन्छ, न तिर्खा मेटिन्छ
+यो रात अझै गहिरिँदै जान्छ
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">हरेक दीयो बल्छ तिम्रै आँखामा</p>
-            <p style="margin:3px 0;">हरेक बाटो पुग्छ तिम्रै मनमा</p>
-            <p style="margin:3px 0;">तर न दीयो तिम्रो हो, न बाटो</p>
-            <p style="margin:3px 0;">यो भ्रम पनि सत्य रहेछ</p>
-        </div>
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">अब बुझें - म हराएको होइन</p>
-            <p style="margin:3px 0;">हराउनु नै त पाउनु रहेछ</p>
-            <p style="margin:3px 0;">अन्धकारमा डुब्नु नै</p>
-            <p style="margin:3px 0;">उज्यालो हुनु रहेछ</p>
-        </div>
+तिम्रो अनुहार खोज्दै हिँड्छु
+शहरका गल्लीहरूमा
+हरेक मोडमा भेटिन्छौ तिमी
+तर त्यो तिमी तिमी होइनौ
 
-        <div class="stanza" style="margin-top:22px;">
-            <p style="margin:3px 0;">यो यात्रा कहाँ टुंगिएला?</p>
-            <p style="margin:3px 0;">शायद टुंगिनु नै यात्रा हो</p>
-            <p style="margin:3px 0;">र हामी सधैं हिँडिरहने छौं</p>
-            <p style="margin:3px 0;">यो अन्धकारको मेजरिममा</p>
-        </div>
 
-    </div>
+कुन यात्रामा हराएँ म?
+न पाइला अघि बढ्छ
+न पछि फर्कन सकिन्छ
+बीचको यो क्षण अनन्त छ
 
-    <div class="author" style="text-align:right; margin-top:30px;">
-        - शंकर अयार्ल
-    </div>
+हरेक दीयो बल्छ तिम्रै आँखामा
+हरेक बाटो पुग्छ तिम्रै मनमा
+तर न दीयो तिम्रो हो, न बाटो
+यो भ्रम पनि सत्य रहेछ
 
-</div>
+अब बुझें - म हराएको होइन
+हराउनु नै त पाउनु रहेछ
+अन्धकारमा डुब्नु नै
+उज्यालो हुनु रहेछ
+
+यो यात्रा कहाँ टुंगिएला?
+शायद टुंगिनु नै यात्रा हो
+र हामी सधैं हिँडिरहने छौं
+यो अन्धकारको मेजरिममा
