@@ -112,50 +112,49 @@
     width: 100%;
     max-width: 340px;
     background: var(--bg-card);
+    /* Unified background */
     border-radius: 30px;
-    padding: 0;
+    padding: 15px;
+    /* Revert to padded look so image is surrounded */
     box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-subtle);
     margin: 0 auto;
-    overflow: hidden;
+    /* Allow badge to pop out */
+    overflow: visible;
 }
 
 .hero-main-img {
     width: 100%;
+    /* Let height be auto or constrained if needed, but remove fixed 350px if it breaks ratio */
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    /* Space between image and icons */
     display: block;
-    /* Ensure image fills top part */
 }
 
 .badge-student {
     position: absolute;
-    top: -15px;
-    right: -20px;
+    top: -10px;
+    right: -10px;
     background: #2563eb;
     color: white;
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 20px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
     z-index: 2;
 }
 
-.hero-main-img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
 .hero-card-footer {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    padding: 15px;
-    background: var(--bg-elevated);
-    /* Or match card bg if seamless */
-    border-top: 1px solid var(--border-subtle);
+    gap: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin: 0;
 }
 
 .icon-btn {
