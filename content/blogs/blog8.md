@@ -126,4 +126,82 @@ poem_ne: |
   *-शंकर अयार्ल*
 ---
 
-<!-- Poem content is now managed via frontmatter fields poem_en and poem_ne -->
+## अन्धकारको यात्री (Traveler of Darkness)
+
+अन्धकारको यात्रीमा,  
+म हिँड्दै छु एक्लै,  
+खोज्दै छु उज्यालो,  
+जीवनको अर्थ र माया।
+
+रातको गहिराइमा,  
+तारा झिलिमिली गर्छन्,  
+मेरो मनको आकाशमा,  
+सपनाहरू उड्छन्।
+
+प्रेमको खोजीमा,  
+म भुलेको छु आफैलाई,  
+तर अन्धकारले सिकायो,  
+आत्म-खोजको बाटो।
+
+हरेक पाइलामा,  
+नयाँ पाठ सिक्दै,  
+जीवनको यात्रामा,  
+म बढ्दै छु अगाडि।
+
+अन्धकार मेरो साथी,  
+उज्यालो मेरो लक्ष्य,  
+यो यात्रा अनन्त छ,  
+र म यात्री अविरल।
+
+मायाको किरणले,  
+मेरो मन उज्यालो पार्छ,  
+अन्वेषण र ज्ञानको बाटोमा,  
+म अघि बढ्छु निरन्तर।
+
+अन्धकारको यात्रीमा,  
+म फेला पार्छु आफैलाई,  
+जीवनको सत्य र माया,  
+यही हो मेरो गन्तव्य।
+
+*-शंकर अयार्ल*
+
+---
+
+### English Translation
+
+As a traveler of darkness,  
+I walk alone,  
+Searching for light,  
+Life's meaning and love.
+
+In the depths of night,  
+Stars twinkle bright,  
+In the sky of my mind,  
+Dreams take flight.
+
+In search of love,  
+I've lost myself,  
+But darkness taught me,  
+The path of self-discovery.
+
+With every step,  
+Learning new lessons,  
+On life's journey,  
+I move forward.
+
+Darkness is my companion,  
+Light is my goal,  
+This journey is eternal,  
+And I, a perpetual traveler.
+
+With rays of love,  
+My heart illuminates,  
+On the path of self-knowledge,  
+I progress continuously.
+
+As a traveler of darkness,  
+I find myself,  
+Life's truth and love,  
+This is my destination.
+
+*-Shankar Aryal*

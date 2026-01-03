@@ -1,197 +1,244 @@
 /* Literature Blog Styling */
 
 .blog-literature {
-    background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 50%);
+    background: transparent;
 }
 
 .literature-article {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 40px 20px;
 }
 
-.literature-header {
+/* 1. Top Page Header (Centered) */
+.page-header {
     text-align: center;
     margin-bottom: 50px;
-    background: linear-gradient(135deg, #3b49df 0%, #6366f1 100%);
-    padding: 60px 20px;
-    border-radius: 12px;
-    color: white;
+    padding: 20px 0;
 }
 
-.literature-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 3.5rem;
+.page-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 3.2rem;
     font-weight: 700;
-    color: white;
     margin-bottom: 20px;
+    color: var(--text-color, #ffffff);
     line-height: 1.2;
 }
 
-.literature-meta {
+.page-meta {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 15px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    color: var(--manatee);
     font-family: 'Poppins', sans-serif;
-    margin-bottom: 30px;
 }
 
-.meta-item strong {
+.meta-separator {
+    color: var(--white-alpha-10);
+    font-weight: 300;
+}
+
+/* 2. Hero Image */
+.literature-hero-image {
+    width: 100%;
+    margin-bottom: 60px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-2, 0 10px 30px -10px rgba(0, 0, 0, 0.5));
+}
+
+.literature-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* 3. Main Poem/Body Content */
+.literature-main-body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: var(--light-gray);
+    margin-bottom: 80px;
+}
+
+.literature-main-body h2,
+.literature-main-body h3 {
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+/* 4. Literature Info Container (Bilingual) */
+.literature-info-container {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1e293b;
+    /* Fallback dark blue */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark blue header block from image */
+.info-header-block {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    padding: 60px 40px;
+    text-align: center;
     color: white;
 }
 
-/* Unified Literature Info Container */
-.literature-info-container {
-    margin-top: 60px;
-    margin-bottom: 50px;
-    border-radius: 16px;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
+.container-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
 }
 
-/* Language Toggle Buttons (Inside Header) */
-.literature-header .language-toggle {
+.container-meta {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Language Toggle Buttons */
+.info-header-block .language-toggle {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
 }
 
 .lang-btn {
-    padding: 10px 35px;
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    padding: 12px 40px;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
     background: transparent;
     border-radius: 50px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: white;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .lang-btn.active {
-    background: #1e293b;
-    border-color: #1e293b;
-    color: white;
+    background: #0f172a;
+    /* Darker navy for active */
+    border-color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .lang-btn:hover:not(.active) {
     background: rgba(255, 255, 255, 0.1);
+    border-color: white;
 }
 
-/* Info Content Sections */
+/* Info Body Content */
+.info-body-block {
+    padding: 50px 40px;
+    background: #1e293b;
+    /* Same navy color */
+}
+
 .info-section {
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 45px;
 }
 
 .info-section:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
+/* Red Accent Bar Header */
 .info-section .section-heading {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
     font-weight: 700;
     color: #ef4444;
-    /* Red color from design */
+    /* Vivid Red */
     display: flex;
     align-items: center;
-    padding-left: 15px;
-    border-left: 4px solid #ef4444;
-    /* Red bar from design */
+    padding-left: 20px;
+    border-left: 5px solid #ef4444;
+    /* Iconic red bar */
     text-transform: none;
-}
-
-.info-section .section-heading::before {
-    display: none;
-    /* Remove old bar */
+    line-height: 1;
 }
 
 .section-text {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--light-gray);
+    color: rgba(255, 255, 255, 0.8);
+    /* Slightly muted white for readability */
 }
 
 .section-text p {
     margin-bottom: 15px;
 }
 
-.section-text p:last-child {
-    margin-bottom: 0;
-}
-
-.section-text strong {
-    font-weight: 600;
-}
-
-/* Light Theme Strong */
-[data-theme="light"] .section-text strong {
-    color: #4f46e5;
-}
-
-/* Dark Theme Strong */
-[data-theme="dark"] .section-text strong {
-    color: var(--primary);
-}
-
-.tags-container {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid var(--independence);
+/* Additional elements */
+.literature-tags {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--white-alpha-10);
     text-align: center;
+    color: var(--manatee);
+}
+
+.literature-tags .bold {
+    font-weight: 700;
+    color: var(--light-gray);
+    margin-right: 10px;
 }
 
 .comments-section {
-    margin-top: 60px;
+    margin-top: 80px;
     padding-top: 40px;
     border-top: 1px solid var(--white-alpha-10);
 }
 
-/* Mobile Responsive */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .literature-title {
+    .page-title {
+        font-size: 2.2rem;
+    }
+
+    .literature-hero-image {
+        margin-bottom: 40px;
+    }
+
+    .literature-main-body {
+        font-size: 1.1rem;
+    }
+
+    .info-header-block {
+        padding: 40px 20px;
+    }
+
+    .container-title {
         font-size: 2rem;
     }
 
-    .literature-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-    }
-
-    .literature-article {
-        padding: 40px 15px;
-    }
-
-    .literature-info-container {
-        padding: 25px 20px;
-        margin-top: 40px;
-    }
-
-    .language-toggle {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .lang-btn {
-        width: 100%;
-        padding: 14px 24px;
+    .info-body-block {
+        padding: 30px 20px;
     }
 
     .info-section .section-heading {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
-    .section-text {
+    .lang-btn {
+        padding: 10px 30px;
         font-size: 1rem;
     }
 }

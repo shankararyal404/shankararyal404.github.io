@@ -137,4 +137,102 @@ poem_ne: |
   *-शंकर अयार्ल*
 ---
 
-<!-- Poem content is now managed via frontmatter fields poem_en and poem_ne -->
+## चिहानले पुकार छ? (Does the Grave Call?)
+
+मध्यरातको अंधकारमा,  
+चुसकि लगौदै समझनामा रूदै,  
+म र मेरो चिहान्, बिचमा बसेर,  
+चाँदनीले सजाएकी रात्रि कान्छी।  
+छुटेकि सितारा, दरिया र बाटो,  
+सपनीमा पुकार, मनमा बसेकी राग  
+मध्यरातमा, छुटेको छ सबै………  
+मध्यरातमा, छुटेको छ सबै………
+
+तर, चिहानले प्रश्न गर्छ,  
+स्वप्नको छाया कहाँ हरायो?  
+कतै दरियाको हाहाकारमा,  
+मुटु बग्दै थियो, अधुरो अभिव्यक्ति जस्तै।
+
+सुनसानले ओढेको यो अनन्त यात्रा,  
+चन्द्रको शीतल किरणले पनि  
+उज्यालो पार्न सकेन मनको गहिराइ।  
+यो रात्रि कान्छी, जुन कहिल्यै  
+फक्रिदैन, उसको मौन हाँसोले  
+मलाई पनि अविरल बोलाउँछ  
+कहाँ गए तिम्रा ती सपनाहरू?
+
+चिहानको यो पुकार  
+निरन्तर गुञ्जिरहेछ, मनको गहिराइमा,  
+सम्झनाका धागाहरूले बाँधिएको  
+मेरो यो चीर फाटेको जीवन।  
+कतै ती सिताराहरूले  
+फेरि मलाई देख्न सक्छन् कि?  
+या तिनीहरू पनि ओझेलमा परे,  
+यो वियोगको पर्दा पछाडि?
+
+मध्यरातमा टुटेका रागहरू,  
+जुन कुनै तरङ्गमा उत्रिएनन्,  
+सपना छुटे पनि सम्झनाले बाँधिरहेछ।  
+अनि यो पुकार  
+जीवन र मृत्युको बीचमा अड्किएको  
+एक मौन संवाद।
+
+तर, अन्तिम सत्य यत्ति छ:  
+न चिहानले जवाफ दिनेछ, न सपनाहरू फर्किनेछन्।  
+मात्र बुझेको छ यो क्षण  
+कि समयको चक्रमा,  
+मध्यरात कहिल्यै उज्यालो हुन्न।  
+चिहान मौन छ, तर पुकार कहिल्यै थाम्दैन।
+
+*-शंकर अयार्ल*
+
+---
+
+### English Translation
+
+In the darkness of midnight,  
+Sipping in memory, weeping,  
+Between me and my grave, I sit,  
+The youngest night adorned by the moonlight.  
+A lost star, the river and the path,  
+A call in the dream, the melody dwelling in the heart  
+In the midnight, everything is lost...  
+In the midnight, everything is lost...
+
+But, the grave asks,  
+Where did the shadow of the dream vanish?  
+Somewhere in the roar of the river,  
+The heart was flowing, like an incomplete expression.
+
+This eternal journey covered by silence,  
+Even the cool rays of the moon  
+Could not illuminate the depths of the heart.  
+This youngest night, which never  
+Returns, with its silent laughter  
+Calls me incessantly too  
+Where did those dreams of yours go?
+
+This call of the grave  
+Is constantly echoing, in the depths of the heart,  
+Bound by the threads of memories  
+This my tattered and torn life.  
+Somewhere those stars  
+Can see me again?  
+Or did they also fade away,  
+Behind this curtain of separation?
+
+Broken melodies in the midnight,  
+Which did not descend on any wave,  
+Even if the dream is lost, memories bind it.  
+And this call  
+Between life and death stuck  
+A silent dialogue.
+
+But, the final truth is only this:  
+Neither will the grave answer, nor will dreams return.  
+Only this moment has understood  
+That in the cycle of time,  
+Midnight is never bright.  
+The grave is silent, but the call never stops.
+
+*-Shankar Aryal*

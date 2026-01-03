@@ -89,4 +89,54 @@ poem_ne: |
   *-शंकर अयार्ल*
 ---
 
-<!-- Poem content is now managed via frontmatter fields poem_en and poem_ne -->
+## काग् (The Crow)
+
+रुदै भागेकी चाँदनीको चिरिएको गीत,  
+पुछिएको सिऊदोको टुट्दो व्रत,  
+अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।
+
+आकाशले उघार्यो रातको वीर्य,  
+शिखामा बलिरहेछ दाहको राग,  
+रुदै भागेकी चाँदनीको चिरिएको गीत।
+
+भैरवको नृत्यमा झल्किँदैछ रक्तसारी,  
+छायाँमा सूर्यको अभिशप्त यज्ञ,  
+अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।
+
+गुलाबी फुल्को वेदनामा मुस्कान झरे,  
+नवजात कोपिलाले आँसु पिए,  
+रुदै भागेकी चाँदनीको चिरिएको गीत।
+
+सिनामा उर्लिरहेछ अनन्तको नृत्य,  
+रातको कालो कवचमा समय खसी रह्यो,  
+अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि,  
+रुदै भागेकी चाँदनीको चिरिएको गीत।
+
+*-शंकर अयार्ल*
+
+---
+
+### English Translation
+
+The torn song of Chandani running and weeping,  
+The broken vow of the erased vermillion,  
+The apocalyptic gaze of the crow on the setting horizon.
+
+The sky revealed the night's seed,  
+The melody of cremation burns on the crest,  
+The torn song of Chandani running and weeping.
+
+The blood-red sari glimmers in Bhairav's dance,  
+The cursed sacrifice of the sun in the shadows,  
+The apocalyptic gaze of the crow on the setting horizon.
+
+Smiles fell in the agony of the pink flower,  
+Newborn buds drank tears,  
+The torn song of Chandani running and weeping.
+
+Infinity's dance surges in the chest,  
+Time kept falling in the black armor of the night,  
+The apocalyptic gaze of the crow on the setting horizon,  
+The torn song of Chandani running and weeping.
+
+*-Shankar Aryal*

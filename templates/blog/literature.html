@@ -1,97 +1,89 @@
 <section class="section blog-single blog-literature">
     <div class="container">
-        <a href="/blogs/index.html" class="btn-link" style="margin-bottom: 20px; display: inline-block;">← Back to
+        <a href="/blogs/index.html" class="btn-link" style="margin-bottom: 30px; display: inline-block;">← Back to
             Blogs</a>
 
-        <article class="blog-content literature-article">
-            <!-- Literature Header -->
-            <header class="literature-header">
-                <h1 class="literature-title">{{BLOG_TITLE}}</h1>
-
-                <div class="literature-meta">
-                    <span class="meta-item">
-                        <strong>Written by:</strong> {{WRITTEN_BY}}
-                    </span>
-                    <span class="meta-item">
-                        <strong>Date:</strong> {{BLOG_DATE}}
-                    </span>
-                    <span class="meta-item">
-                        <strong>Place:</strong> {{PLACE}}
-                    </span>
+        <article class="literature-article">
+            <!-- 1. Top Header: Centered Title & Meta -->
+            <header class="page-header">
+                <h1 class="page-title">{{BLOG_TITLE}}</h1>
+                <div class="page-meta">
+                    <span class="meta-item">{{LITERATURE_TYPE}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{WRITTEN_BY}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PLACE}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{BLOG_DATE}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PUBLISHER}}</span>
                 </div>
             </header>
 
-            <!-- Cover Image -->
-            <div class="literature-cover">
-                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" width="1200" height="630" loading="eager">
+            <!-- 2. Hero Image: Good Sized -->
+            <div class="literature-hero-image">
+                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" loading="eager">
             </div>
 
-            <!-- Main Content (Poem/Story) -->
-            <div class="literature-content markdown-body" id="poem-en">
-                {{POEM_EN}}
-            </div>
-            <div class="literature-content markdown-body" id="poem-ne" style="display: none;">
-                {{POEM_NE}}
+            <!-- 3. Poem/Literature Content (Non-bilingual Markdown Body) -->
+            <div class="literature-main-body markdown-body">
+                {{BLOG_BODY}}
             </div>
 
-            <!-- Unified Literature Info Container -->
+            <!-- 4. Lower Bilingual Container (Reflection/Theme/Intro) -->
             <div class="literature-info-container">
-                <!-- Language Toggle Buttons -->
-                <div class="language-toggle">
-                    <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">ENGLISH</button>
-                    <button class="lang-btn" data-lang="ne" onclick="switchLanguage('ne')">नेपाली</button>
+                <div class="info-header-block">
+                    <h2 class="container-title">{{BLOG_TITLE}}</h2>
+                    <div class="container-meta">
+                        Written by {{WRITTEN_BY}} • {{BLOG_DATE}} • {{PLACE}}
+                    </div>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="en" onclick="switchLanguage('en')">ENGLISH</button>
+                        <button class="lang-btn" data-lang="ne" onclick="switchLanguage('ne')">नेपाली</button>
+                    </div>
                 </div>
 
-                <!-- English Content -->
-                <div class="info-content" id="content-en">
-                    <!-- Writer Reflection -->
-                    <section class="info-section">
-                        <h3 class="section-heading">Writer Reflection</h3>
-                        <div class="section-text">{{REFLECTION_EN}}</div>
-                    </section>
+                <div class="info-body-block">
+                    <!-- English Section -->
+                    <div id="content-en" class="lang-content">
+                        <section class="info-section">
+                            <h3 class="section-heading">Writer Reflection</h3>
+                            <div class="section-text">{{REFLECTION_EN}}</div>
+                        </section>
+                        <section class="info-section">
+                            <h3 class="section-heading">Poem Description</h3>
+                            <div class="section-text">{{THEME_EN}}</div>
+                        </section>
+                        <section class="info-section">
+                            <h3 class="section-heading">Writer Introduction</h3>
+                            <div class="section-text">{{INTRO_EN}}</div>
+                        </section>
+                    </div>
 
-                    <!-- Poem/Literature Description -->
-                    <section class="info-section">
-                        <h3 class="section-heading">Poem Description</h3>
-                        <div class="section-text">{{THEME_EN}}</div>
-                    </section>
-
-                    <!-- About the Writer -->
-                    <section class="info-section">
-                        <h3 class="section-heading">Writer Introduction</h3>
-                        <div class="section-text">{{INTRO_EN}}</div>
-                    </section>
-                </div>
-
-                <!-- Nepali Content (Hidden by default) -->
-                <div class="info-content" id="content-ne" style="display: none;">
-                    <!-- लेखकको प्रतिबिम्ब -->
-                    <section class="info-section">
-                        <h3 class="section-heading">लेखकको प्रतिबिम्ब</h3>
-                        <div class="section-text">{{REFLECTION_NE}}</div>
-                    </section>
-
-                    <!-- कविताको विवरण -->
-                    <section class="info-section">
-                        <h3 class="section-heading">कविताको विवरण</h3>
-                        <div class="section-text">{{THEME_NE}}</div>
-                    </section>
-
-                    <!-- लेखकको परिचय -->
-                    <section class="info-section">
-                        <h3 class="section-heading">लेखकको परिचय</h3>
-                        <div class="section-text">{{INTRO_NE}}</div>
-                    </section>
+                    <!-- Nepali Section -->
+                    <div id="content-ne" class="lang-content" style="display: none;">
+                        <section class="info-section">
+                            <h3 class="section-heading">लेखकको प्रतिबिम्ब</h3>
+                            <div class="section-text">{{REFLECTION_NE}}</div>
+                        </section>
+                        <section class="info-section">
+                            <h3 class="section-heading">कविताको विवरण</h3>
+                            <div class="section-text">{{THEME_NE}}</div>
+                        </section>
+                        <section class="info-section">
+                            <h3 class="section-heading">लेखकको परिचय</h3>
+                            <div class="section-text">{{INTRO_NE}}</div>
+                        </section>
+                    </div>
                 </div>
             </div>
 
             <!-- Tags -->
-            <div class="tags-container">
-                <span style="font-weight: bold; margin-right: 10px;">Tags:</span>
-                {{BLOG_TAGS}}
+            <div class="literature-tags">
+                <span class="bold">Tags:</span> {{BLOG_TAGS}}
             </div>
 
-            <!-- Giscus Comments -->
+            <!-- Comments Section -->
             <div class="comments-section">
                 <h3 class="h3">Comments</h3>
                 <div class="giscus"></div>
@@ -108,19 +100,12 @@
 
 <script>
     function switchLanguage(lang) {
-        // Hide all info content
-        document.getElementById('content-en').style.display = 'none';
-        document.getElementById('content-ne').style.display = 'none';
-
-        // Toggle poem content
-        document.getElementById('poem-en').style.display = lang === 'en' ? 'block' : 'none';
-        document.getElementById('poem-ne').style.display = lang === 'ne' ? 'block' : 'none';
-
-        // Remove active class from all buttons
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-
-        // Show selected content and activate button
+        // Toggle visibility of language content blocks
+        document.querySelectorAll('.lang-content').forEach(el => el.style.display = 'none');
         document.getElementById('content-' + lang).style.display = 'block';
-        document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+        // Update active button state
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
     }
 </script>
