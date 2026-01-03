@@ -1,0 +1,25 @@
+{
+    "greeting": "Hello, I'm",
+    "name": "Shankar Aryal",
+    "roles": [
+        "Fullstack Developer",
+        "Python Expert",
+        "Problem Solver"
+    ],
+    "description": "Transforming ideas into elegant solutions through code. Currently pursuing Electrical Engineering while mastering the art of web development and Python programming.",
+    "stats": [
+        {
+            "number": "5+",
+            "label": "Projects"
+        },
+        {
+            "number": "3+",
+            "label": "Technologies"
+        },
+        {
+            "number": "100%",
+            "label": "Commitment"
+        }
+    ],
+    "profileImage": "/assets/images/shankararyal.jpg"
+}

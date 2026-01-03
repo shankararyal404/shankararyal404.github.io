@@ -1,0 +1,37 @@
+[
+  {
+    "id": "social-1",
+    "platform": "GitHub",
+    "url": "https://github.com/shankararyal404",
+    "icon": "logo-github",
+    "visible": true
+  },
+  {
+    "id": "social-2",
+    "platform": "LinkedIn",
+    "url": "https://www.linkedin.com/in/shankararyal/",
+    "icon": "logo-linkedin",
+    "visible": true
+  },
+  {
+    "id": "social-3",
+    "platform": "Facebook",
+    "url": "https://www.facebook.com/ShankarAryal01",
+    "icon": "logo-facebook",
+    "visible": true
+  },
+  {
+    "id": "social-4",
+    "platform": "Instagram",
+    "url": "https://www.instagram.com/mrshankararyal/",
+    "icon": "logo-instagram",
+    "visible": true
+  },
+  {
+    "id": "social-5",
+    "platform": "Twitter",
+    "url": "https://twitter.com/yourhandle",
+    "icon": "logo-twitter",
+    "visible": false
+  }
+]

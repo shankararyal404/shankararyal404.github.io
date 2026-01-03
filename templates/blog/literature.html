@@ -1,0 +1,77 @@
+<section class="section blog-single blog-literature">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link" style="margin-bottom: 20px; display: inline-block;">← Back to
+            Blogs</a>
+
+        <article class="blog-content literature-article">
+            <!-- Literature Header -->
+            <header class="literature-header">
+                <h1 class="literature-title">{{BLOG_TITLE}}</h1>
+
+                <div class="literature-meta">
+                    <span class="meta-item">
+                        <strong>Type:</strong> {{LITERATURE_TYPE}}
+                    </span>
+                    <span class="meta-item">
+                        <strong>Written by:</strong> {{WRITTEN_BY}}
+                    </span>
+                    <span class="meta-item">
+                        <strong>Place:</strong> {{PLACE}}
+                    </span>
+                    <span class="meta-item">
+                        <strong>Date:</strong> {{BLOG_DATE}}
+                    </span>
+                    <span class="meta-item">
+                        <strong>Publisher:</strong> {{PUBLISHER}}
+                    </span>
+                </div>
+            </header>
+
+            <!-- Cover Image -->
+            <div class="literature-cover">
+                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" width="1200" height="630" loading="eager">
+            </div>
+
+            <!-- Main Content -->
+            <div class="literature-content markdown-body">
+                {{BLOG_BODY}}
+            </div>
+
+            <!-- Writer Information -->
+            <section class="writer-info">
+                <h3 class="section-heading">About the Writer</h3>
+                <p>{{WRITTEN_BY}}</p>
+            </section>
+
+            <!-- Theme -->
+            <section class="literature-theme">
+                <h3 class="section-heading">Theme of Literature</h3>
+                <p>{{THEME}}</p>
+            </section>
+
+            <!-- Reflection -->
+            <section class="literature-reflection">
+                <h3 class="section-heading">Reflection</h3>
+                <p>{{REFLECTION}}</p>
+            </section>
+
+            <!-- Tags -->
+            <div class="tags-container">
+                <span style="font-weight: bold; margin-right: 10px;">Tags:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+            <!-- Giscus Comments -->
+            <div class="comments-section">
+                <h3 class="h3">Comments</h3>
+                <div class="giscus"></div>
+                <script src="https://giscus.app/client.js" data-repo="shankararyal404/shankararyal404.github.io"
+                    data-repo-id="R_kgDOQoXjXg" data-category="Announcements" data-category-id="DIC_kwDOQoXjXs4C0bt8"
+                    data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+            </div>
+        </article>
+    </div>
+</section>

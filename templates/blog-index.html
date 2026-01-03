@@ -1,0 +1,22 @@
+<section class="section blog-listing">
+    <div class="container">
+        <header class="section-header text-center" style="margin-bottom: 50px;">
+            <h1 class="h1 section-title">All Articles</h1>
+            <p class="section-subtitle">Thoughts, tutorials, and insights on development and engineering.</p>
+        </header>
+
+        <!-- Search/Filter (Optional for V1, but good for UI) -->
+        <div class="blog-controls" style="margin-bottom: 40px; display: flex; gap: 15px; justify-content: center;">
+            <!-- Placeholder for tags or search if added dynamically -->
+        </div>
+
+        <div class="card-grid" id="blog-grid">
+            {{BLOG_LIST}}
+        </div>
+
+        <!-- Pagination (if needed later) -->
+        <div class="pagination" style="margin-top: 50px; text-align: center;">
+            {{PAGINATION}}
+        </div>
+    </div>
+</section>

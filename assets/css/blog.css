@@ -1,0 +1,399 @@
+/* Blog Cards */
+.blog-banner-box {
+    height: 220px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+
+.blog-banner-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-banner-box img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-date {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+/* Category Tags */
+.category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.tag-poem {
+    background: rgba(255, 107, 107, 0.2);
+    color: var(--tag-poem);
+    border: 1px solid var(--tag-poem);
+}
+
+.tag-thoughts {
+    background: rgba(255, 209, 102, 0.2);
+    color: var(--tag-thoughts);
+    border: 1px solid var(--tag-thoughts);
+}
+
+.tag-project {
+    background: rgba(77, 150, 255, 0.2);
+    color: var(--tag-project);
+    border: 1px solid var(--tag-project);
+}
+
+.tag-tech {
+    background: rgba(84, 101, 255, 0.2);
+    color: var(--tag-tech);
+    border: 1px solid var(--tag-tech);
+}
+
+.tag-opinion {
+    background: rgba(255, 217, 61, 0.2);
+    color: var(--tag-opinion);
+    border: 1px solid var(--tag-opinion);
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comments-list {
+    margin-bottom: 40px;
+}
+
+.comment-item {
+    background: var(--white-alpha-5);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--white-alpha-10);
+    animation: fadeIn 0.5s ease;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.comment-header strong {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.comment-body {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.comment-form {
+    background: var(--space-cadet);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--independence);
+}
+
+.comment-form h4 {
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+/* Layout: Poem */
+.layout-poem .markdown-body {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    /* Use a nice serif for poems */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.layout-poem .markdown-body p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+/* Writer Reflection / Description Boxes */
+.layout-poem h3,
+.layout-poem h4 {
+    color: var(--primary);
+    margin-top: 40px;
+    text-align: left;
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+}
+
+/* Layout: Tech (Standard) */
+.layout-tech .markdown-body {
+    text-align: left;
+    max-width: 100%;
+}
+
+.layout-tech code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+
+/* Layout: Project / Product */
+.layout-project .markdown-body {
+    max-width: 1000px;
+    /* Wider layout for galleries */
+}
+
+.layout-project img {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--white-alpha-10);
+    transition: transform 0.3s ease;
+}
+
+.layout-project img:hover {
+    transform: scale(1.02);
+}
+
+.layout-project h2 {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 10px;
+    margin-top: 50px;
+}
+
+.layout-project blockquote {
+    background: var(--gunmetal);
+    border-left: 4px solid var(--accent);
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Layout: Thoughts / Opinion */
+.layout-thoughts .markdown-body {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.9;
+}
+
+.layout-thoughts p {
+    margin-bottom: 1.8rem;
+}
+
+.layout-thoughts blockquote {
+    font-family: 'Georgia', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-primary);
+    border-left: none;
+    padding: 30px;
+    background: none;
+    text-align: center;
+    position: relative;
+}
+
+.layout-thoughts blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--primary);
+    display: block;
+    line-height: 1;
+    margin-bottom: -20px;
+    opacity: 0.5;
+}
+
+.layout-thoughts .first-letter {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-left: 3px;
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+}
+
+/* --- TAG PAGE LAYOUTS --- */
+
+/* Poem Layout */
+.tag-layout-poem {
+    background-image: radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 60%);
+}
+
+.tag-layout-poem .section-title {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: var(--tag-poem);
+}
+
+.tag-layout-poem .card-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.tag-layout-poem .blog-card {
+    max-width: 700px;
+    text-align: center;
+    border: 1px solid var(--tag-poem);
+    background: transparent;
+}
+
+/* Tech / Security Layout */
+.tag-layout-tech,
+.tag-layout-security {
+    background-image:
+        linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232563eb' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.tag-layout-tech .section-title {
+    font-family: 'Courier New', monospace;
+    color: var(--tag-tech);
+}
+
+.tag-layout-tech .blog-card {
+    border-left: 4px solid var(--tag-tech);
+}
+
+/* Thoughts / Opinion Layout */
+.tag-layout-thoughts {
+    background-color: var(--bg-dark);
+}
+
+.tag-layout-thoughts .section-title {
+    color: var(--tag-thoughts);
+    text-decoration: underline;
+    text-decoration-color: var(--tag-thoughts);
+}
+
+.tag-layout-thoughts .blog-card {
+    border-top: 3px solid var(--tag-thoughts);
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.05) 0%, transparent 100%);
+}
+
+/* Project / Product Layout */
+.tag-layout-project {
+    background: linear-gradient(180deg, var(--space-cadet) 0%, var(--gunmetal) 100%);
+}
+
+.tag-layout-project .section-title {
+    color: var(--tag-project);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.tag-layout-project .blog-card {
+    border: 2px solid var(--tag-project);
+    background: rgba(77, 150, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tag-layout-project .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(77, 150, 255, 0.3);
+}
+
+/* Security / Cybersecurity Layout */
+.tag-layout-security {
+    background-image:
+        linear-gradient(rgba(20, 20, 40, 0.95), rgba(20, 20, 40, 0.95)),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.03) 2px, rgba(255, 0, 0, 0.03) 4px);
+}
+
+.tag-layout-security .section-title {
+    color: #ff4444;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tag-layout-security .blog-card {
+    border-left: 4px solid #ff4444;
+    background: rgba(255, 68, 68, 0.05);
+}
+
+/* Tutorial / Code Layout */
+.tag-layout-tutorial {
+    background: var(--gunmetal);
+}
+
+.tag-layout-tutorial .section-title {
+    color: var(--tag-tech);
+    font-family: 'Courier New', monospace;
+}
+
+.tag-layout-tutorial .blog-card {
+    border: 1px solid var(--tag-tech);
+    border-left: 5px solid var(--tag-tech);
+    background: rgba(84, 101, 255, 0.03);
+}
+
+/* Default Layout (for uncategorized tags) */
+.tag-layout-default {
+    background: var(--space-cadet);
+}
+
+.tag-layout-default .section-title {
+    color: var(--primary);
+}
+
+.tag-layout-default .blog-card {
+    border: 1px solid var(--independence);
+}
+
+/* Blog Detail Images */
+.blog-cover img {
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.markdown-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,31 @@
+{
+    "name": "shankar-aryal-portfolio",
+    "version": "1.0.0",
+    "description": "Portfolio backend functions for Vercel",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "vercel dev",
+        "build": "node scripts/generate.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Shankar Aryal",
+    "license": "ISC",
+    "dependencies": {
+        "@libsql/client": "^0.6.0",
+        "bcryptjs": "^3.0.3",
+        "cookie": "^0.6.0",
+        "formidable": "^3.5.1",
+        "gray-matter": "^4.0.3",
+        "jsonwebtoken": "^9.0.2",
+        "marked": "^4.3.0",
+        "nodemailer": "^6.9.13",
+        "octokit": "^3.1.2",
+        "sharp": "^0.33.2",
+        "ua-parser-js": "^1.0.37"
+    },
+    "devDependencies": {
+        "vercel": "^32.0.0"
+    }
+}

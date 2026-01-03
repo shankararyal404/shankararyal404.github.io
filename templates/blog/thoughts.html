@@ -1,0 +1,40 @@
+<section class="section blog-single blog-thoughts">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link">← Back to Blogs</a>
+
+        <article class="blog-content thoughts-article">
+            <header class="thoughts-header">
+                <h1 class="thoughts-title">{{BLOG_TITLE}}</h1>
+                <div class="thoughts-meta">
+                    <span>{{BLOG_DATE}}</span>
+                    <span>•</span>
+                    <span>{{BLOG_CATEGORY}}</span>
+                </div>
+            </header>
+
+            <div class="thoughts-cover">
+                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" width="1200" height="630" loading="eager">
+            </div>
+
+            <div class="thoughts-content markdown-body">
+                {{BLOG_BODY}}
+            </div>
+
+            <div class="tags-container">
+                <span>Related:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+            <div class="comments-section">
+                <h3>Share Your Thoughts</h3>
+                <div class="giscus"></div>
+                <script src="https://giscus.app/client.js" data-repo="shankararyal404/shankararyal404.github.io"
+                    data-repo-id="R_kgDOQoXjXg" data-category="Announcements" data-category-id="DIC_kwDOQoXjXs4C0bt8"
+                    data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+            </div>
+        </article>
+    </div>
+</section>

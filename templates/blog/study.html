@@ -1,0 +1,41 @@
+<section class="section blog-single blog-study">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link">← Back to Blogs</a>
+
+        <article class="blog-content study-article">
+            <header class="study-header">
+                <div class="study-badge">{{BLOG_CATEGORY}}</div>
+                <h1 class="study-title">{{BLOG_TITLE}}</h1>
+                <div class="study-meta">
+                    <span>📅 {{BLOG_DATE}}</span>
+                    <span>•</span>
+                    <span>📚 Study Material</span>
+                </div>
+            </header>
+
+            <div class="study-cover">
+                <img src="{{BLOG_IMAGE}}" alt="{{BLOG_TITLE}}" width="1200" height="630" loading="eager">
+            </div>
+
+            <div class="study-content markdown-body">
+                {{BLOG_BODY}}
+            </div>
+
+            <div class="tags-container">
+                <span>📌 Topics:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+            <div class="comments-section">
+                <h3>Discussion</h3>
+                <div class="giscus"></div>
+                <script src="https://giscus.app/client.js" data-repo="shankararyal404/shankararyal404.github.io"
+                    data-repo-id="R_kgDOQoXjXg" data-category="Announcements" data-category-id="DIC_kwDOQoXjXs4C0bt8"
+                    data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
+                    data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
+                    crossorigin="anonymous" async>
+                    </script>
+            </div>
+        </article>
+    </div>
+</section>

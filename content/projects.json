@@ -1,0 +1,39 @@
+[
+  {
+    "id": "ShadowStrike",
+    "title": "ShadowStrike",
+    "description": "ShadowStrike is a network security assessment toolkit designed for educational and ethical hacking purposes",
+    "image": "/assets/images/projects/shadowstrike.avif",
+    "link": "https://github.com/MrShankarAryal/ShadowStrike",
+    "articleLink": "https://www.shankararyal404.com.np/blog-post/blog7.html",
+    "tags": [
+      "C#.Net",
+      "Cybersecurity",
+      "Malware Analysis",
+      "Network Security",
+      "Penetration Testing",
+      "Vulnerability Assessment",
+      "Web Security"
+    ],
+    "status": "Active",
+    "featured": true,
+    "published": true
+  },
+  {
+    "id": "LearnMeEdu",
+    "title": "LearnMeEdu",
+    "description": "A modern e-learning platform built with HTML, CSS, JavaScript, and Bootstrap.",
+    "image": "/assets/images/projects/learnmeedu.avif",
+    "link": "https://learnmeedu.github.io/",
+    "articleLink": "",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap"
+    ],
+    "status": "Active",
+    "featured": false,
+    "published": true
+  }
+]

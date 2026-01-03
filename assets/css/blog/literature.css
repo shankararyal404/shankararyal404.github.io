@@ -1,0 +1,126 @@
+/* Literature Blog Styling */
+
+.blog-literature {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 50%);
+}
+
+.literature-article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.literature-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.literature-title {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 3rem;
+    font-style: italic;
+    color: var(--primary);
+    margin-bottom: 30px;
+    line-height: 1.3;
+}
+
+.literature-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--manatee);
+    font-family: 'Georgia', serif;
+}
+
+.meta-item {
+    display: block;
+}
+
+.meta-item strong {
+    color: var(--light-gray);
+}
+
+.literature-cover {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.literature-cover img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.literature-content {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1.2rem;
+    line-height: 2;
+    text-align: center;
+    color: var(--light-gray);
+    margin-bottom: 60px;
+    white-space: pre-line;
+}
+
+.literature-content p {
+    margin-bottom: 1.5em;
+}
+
+.writer-info,
+.literature-theme,
+.literature-reflection {
+    margin-top: 50px;
+    padding: 30px;
+    background: var(--white-alpha-5);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+}
+
+.section-heading {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.writer-info p,
+.literature-theme p,
+.literature-reflection p {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--light-gray);
+}
+
+.tags-container {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--independence);
+    text-align: center;
+}
+
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .literature-title {
+        font-size: 2rem;
+    }
+
+    .literature-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .literature-article {
+        padding: 40px 15px;
+    }
+}

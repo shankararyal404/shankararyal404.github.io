@@ -1,0 +1,48 @@
+[
+    {
+        "id": "edu-1",
+        "institution": "Khwopa College Of Engineering (TU)",
+        "url": "https://khwopa.edu.np/",
+        "degree": "Bachelor in Electrical Engineering",
+        "startDate": "2023",
+        "endDate": "Present",
+        "isCurrent": true,
+        "details": [
+            "Focus on Power Systems and Control Engineering",
+            "Python Programming"
+        ],
+        "achievements": [],
+        "description": "Currently focusing on Electrical Engineering and Web Development."
+    },
+    {
+        "id": "edu-2",
+        "institution": "Gaindakot Namuna Higher Secondary English Boarding School",
+        "url": "https://www.gnamuna.edu.np/",
+        "degree": "Computer Science (+2 Level)",
+        "startDate": "2020",
+        "endDate": "2022",
+        "isCurrent": false,
+        "details": [
+            "Graduated with 3.62 GPA",
+            "Science Exhibition First Runner up"
+        ],
+        "achievements": [
+            "Science Exhibition First Runner up"
+        ],
+        "description": "Graduated with 3.62 GPA"
+    },
+    {
+        "id": "edu-3",
+        "institution": "Gaindakot Namuna Higher Secondary English Boarding School",
+        "url": "https://www.gnamuna.edu.np/",
+        "degree": "SEE",
+        "startDate": "2011",
+        "endDate": "2021",
+        "isCurrent": false,
+        "details": [
+            "Scored: 3.85 GPA"
+        ],
+        "achievements": [],
+        "description": "Scored: 3.85 GPA"
+    }
+]

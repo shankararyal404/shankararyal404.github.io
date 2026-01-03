@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Matlab and Latex",
+        "issuer": "Khowpa College Of Enginerring",
+        "date": "2025-06-10",
+        "image": "/assets/images/certificates/matlab-and-latex.avif",
+        "link": "#",
+        "category": "Matlab and Latex",
+        "published": true
+    },
+    {
+        "id": 2,
+        "title": "Industrial Control System",
+        "issuer": "CISA",
+        "date": "2025-01-15",
+        "image": "/assets/images/certificates/industrial-control-system.avif",
+        "link": "https://ics-training.inl.gov/lms/index.php?r=myActivities/downloadCertificate&course_id=94&id_user=160393",
+        "category": "Cybersecurity",
+        "published": true
+    },
+    {
+        "id": 3,
+        "title": "Legacy Responsive Web Desgin V8",
+        "issuer": "FreeCodeCamp",
+        "date": "2024-12-19",
+        "image": "/assets/images/certificates/legacy-responsive-web-design-v8.avif",
+        "link": "https://freecodecamp.org/certification/ShankarAryal/responsive-web-design",
+        "category": "webdevelopment",
+        "published": true
+    },
+    {
+        "id": 4,
+        "title": "College Algebra With Python",
+        "issuer": "FreeCodeCamp",
+        "date": "2024-12-19",
+        "image": "/assets/images/certificates/college-algebra-with-python.avif",
+        "link": "https://freecodecamp.org/certification/ShankarAryal/college-algebra-with-python-v8",
+        "category": "python",
+        "published": true
+    },
+    {
+        "id": 5,
+        "title": "Attack Methodologies in IT & ICS",
+        "issuer": "CISA",
+        "date": "2025-01-13",
+        "image": "/assets/images/certificates/attack-methodologies-in-it-ics.avif",
+        "link": "#",
+        "category": "Cybersecurity",
+        "published": true
+    }
+]
