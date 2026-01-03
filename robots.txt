@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://www.shankararyal404.com.np/sitemap.xml
