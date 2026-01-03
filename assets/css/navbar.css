@@ -153,8 +153,11 @@
         width: 85%;
         max-width: 400px;
         height: 100vh;
-        z-index: 1000;
-        background: linear-gradient(135deg, rgba(23, 26, 33, 0.98) 0%, rgba(13, 16, 23, 0.98) 100%);
+        height: 100vh;
+        z-index: 1100;
+        /* Ensure it covers the logo (z-index 1001) */
+        background: var(--bg-card);
+        /* Use theme variable instead of hardcoded dark gradient */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;

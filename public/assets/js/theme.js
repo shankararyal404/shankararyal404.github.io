@@ -118,7 +118,10 @@ const ThemeManager = {
     setupToggle() {
         const toggle = document.getElementById('theme-toggle');
         if (toggle) {
-            toggle.addEventListener('click', () => this.toggleTheme());
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent menu from closing if inside navbar
+                this.toggleTheme();
+            });
         }
     },
 
