@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /assets/css/
+Disallow: /assets/js/
+# Keep images visible for Google Images
+Allow: /assets/images/
+
+Sitemap: https://www.shankararyal404.com.np/sitemap.xml

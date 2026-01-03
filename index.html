@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme Script (MUST be first to prevent flash) -->
+    <script>
+        (function () {
+            const STORAGE_KEY = 'theme-preference';
+            const SOURCE_KEY = 'theme-source';
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const source = localStorage.getItem(SOURCE_KEY);
+
+            let theme = 'dark'; // Default
+
+            // Priority 1: Manual user selection
+            if (saved && source === 'manual') {
+                theme = saved;
+            }
+            // Priority 2: System preference
+            else if (window.matchMedia) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                theme = prefersDark ? 'dark' : 'light';
+
+                // Save system preference
+                if (!saved || source !== 'manual') {
+                    localStorage.setItem(STORAGE_KEY, theme);
+                    localStorage.setItem(SOURCE_KEY, 'system');
+                }
+            }
+
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <!-- SEO METADATA -->
+    <title>Shankar Aryal | Electrical Engineer & Full Stack Developer</title>
+    <meta name="description" content="Shankar Aryal - Electrical Engineer & Full Stack Developer from Nepal. Explore my innovative projects and portfolio showcasing my skills!">
+    <meta name="keywords" content="Shankar Aryal, Electrical Engineering, Full Stack Developer, Python, portfolio, web development, LearnMe, QuantumShield, ShadowStrike, Nepal">
+    <meta name="author" content="Shankar Aryal">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.shankararyal404.com.np">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Shankar Aryal | Electrical Engineer & Full Stack Developer">
+    <meta property="og:description" content="Shankar Aryal - Electrical Engineer & Full Stack Developer from Nepal. Explore my innovative projects and portfolio showcasing my skills!">
+    <meta property="og:image" content="/assets/images/shankararyal.jpg">
+    <meta property="og:url" content="https://www.shankararyal404.com.np">
+    <meta property="og:site_name" content="Shankar Aryal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{OG_TITLE}}">
+    <meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{OG_IMAGE}}">
+    <meta name="twitter:creator" content="@shankararyal">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Person","name":"Shankar Aryal","url":"https://www.shankararyal404.com.np/","image":"https://www.shankararyal404.com.np/assets/images/shankararyal.jpg","sameAs":["https://github.com/mrshankararyal","https://www.linkedin.com/in/shankararyal/","https://www.facebook.com/ShankarAryal01","https://www.instagram.com/mrshankararyal/","https://independent.academia.edu/ShankarAryal4","https://codepen.io/Shankar-Aryal","https://dev.to/shankararyal","https://medium.com/@shankararyal737","https://www.youtube.com/@shankararyal1755","https://www.researchgate.net/profile/Shankar-Aryal-2?ev=hdr_xprf","https://scholar.google.com/citations?user=rf8xZhQAAAAJ&hl=en"],"jobTitle":["Electrical Engineer","Full Stack Developer"],"worksFor":{"@type":"Organization","name":"LearnMe Educational Platform","url":"https://learnmeedu.github.io/"},"alumniOf":{"@type":"EducationalOrganization","name":"Khwopa College Of Engineering","sameAs":"https://khwopa.edu.np/"},"address":{"@type":"PostalAddress","addressLocality":"Bhaktapur","addressRegion":"Bagmati","addressCountry":"Nepal"},"description":"Shankar Aryal is a Full Stack Developer and Electrical Engineering student specializing in web development, Python programming, and cybersecurity.","knowsLanguage":["English","Nepali"],"knowsAbout":["Full Stack Development","Python Programming","React.js","Cybersecurity","Electrical Engineering","Web Development"]},{"@context":"https://schema.org","@type":"WebSite","name":"Shankar Aryal Portfolio","url":"https://www.shankararyal404.com.np","author":{"@type":"Person","name":"Shankar Aryal"}}]</script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/css/main.css?v=10">
+    <link rel="stylesheet" href="/assets/css/navbar.css?v=10">
+    <link rel="stylesheet" href="/assets/css/footer.css?v=10">
+    <link rel="stylesheet" href="/assets/css/home.css?v=10">
+    <link rel="stylesheet" href="/assets/css/blog.css?v=10">
+    
+</head>
+
+<body id="top">
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-overlay" data-nav-overlay></div>
+
+    <!-- Pre-rendered Navbar -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="text-gradient">Shankar</span>Aryal
+            </a>
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link">Home</a></li>
+                    <li><a href="/#about" class="navbar-link">About</a></li>
+                    <li><a href="/#education" class="navbar-link">Education</a></li>
+                    <li><a href="/#skills" class="navbar-link">Skills</a></li>
+                    <li><a href="/#portfolio" class="navbar-link">Portfolio</a></li>
+                    <li><a href="/#certificates" class="navbar-link">CC & LC</a></li>
+                    <li><a href="/blogs/index.html" class="navbar-link">Blog</a></li>
+                    <li><a href="/#contact" class="navbar-link">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                            <ion-icon name="sunny-outline" class="theme-icon light"></ion-icon>
+                            <ion-icon name="moon-outline" class="theme-icon dark"></ion-icon>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" class="open"></ion-icon>
+                <ion-icon name="close-outline" class="close"></ion-icon>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- This will be injected into base.html as {{CONTENT}} -->
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <div class="hero-img reveal">
+            
+    <div class="hero-card-wrapper">
+        <div class="hero-card">
+            <div class="badge-student">Engineering Student</div>
+            <img src="/assets/images/shankararyal.jpg" alt="Shankar Aryal" class="hero-main-img">
+            <div class="hero-card-footer">
+                <a href="/assets/resume.pdf" target="_blank" class="icon-btn">
+                    <ion-icon name="print-outline"></ion-icon>
+                    <span class="btn-text">Resume</span>
+                </a>
+                <a href="#" class="icon-btn">
+                    <ion-icon name="globe-outline"></ion-icon>
+                    <span class="btn-text">Website</span>
+                </a>
+                <a href="#skills" class="icon-btn">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                    <span class="btn-text">Skills</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+        </div>
+        <div class="hero-text reveal">
+            
+    <span class="hero-subtitle">Hello, I'm</span>
+    <h1 class="h1 hero-title">Shankar Aryal</h1>
+    <h2 class="h2 hero-role">Building Digital Excellence</h2>
+    <p class="hero-desc">Transforming ideas into elegant solutions through code. Currently pursuing Electrical Engineering while mastering the art of web development and Python programming.</p>
+    
+    <div class="hero-stats">
+        <div class="stat-item">
+            <span class="stat-num">2+</span>
+            <span class="stat-label">Projects</span>
+        </div>
+         <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-num">17+</span>
+            <span class="stat-label">Skills</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Commitment</span>
+        </div>
+    </div>
+
+    <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Let's Connect</a>
+        <a href="#portfolio" class="btn btn-outline">View Work</a>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section about" id="about">
+    <div class="container">
+        <h2 class="h2 section-title">About Me</h2>
+        <div class="row about-content reveal">
+            
+    <div class="about-collage">
+        <div class="about-img-main">
+            <img src="/assets/images/Shankararyal1.avif" alt="Working">
+            <div class="floating-icon icon-react"><ion-icon name="logo-react"></ion-icon></div>
+            <div class="floating-icon icon-python"><ion-icon name="logo-python"></ion-icon></div>
+            <div class="floating-icon icon-angular"><ion-icon name="logo-angular"></ion-icon></div>
+        </div>
+        <div class="about-img-sub">
+             <img src="/assets/images/Shankararyal2.avif" alt="Profile">
+             <div class="floating-icon icon-js"><ion-icon name="logo-javascript"></ion-icon></div>
+        </div>
+    </div>
+    
+    <div class="about-text-content">
+        <h3 class="h3 about-subtitle">Being aspiring developer and student</h3>
+        <h2 class="h2 about-heading">I am developing my skills in these areas.</h2>
+        <p class="about-desc">To be a student is to be forever curious. To be a developer is to forever create. I am both, and in this intersection, I find my purpose. My journey in technology has been driven by a curiosity to understand how things work and a desire to create innovative solutions where logic dances with simplicity. In the dance between hardware and software, I find the rhythm of modern technology. As both an Electrical Engineer and developer, I choreograph this intricate performance.<br><br>"In the realm of electrical engineering and coding, I am not just building circuits and programs; I am crafting the foundation of tomorrow's innovations."</p>
+        <blockquote class="about-quote">
+            "In the realm of electrical engineering and coding, I am not just building circuits and programs; I am crafting the foundation of tomorrow's innovations."
+        </blockquote>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="section education" id="education">
+    <div class="container">
+        <h2 class="h2 section-title">Education</h2>
+        <div style="margin-top: 30px;">
+            
+    <div class="timeline">
+        
+            <div class="timeline-item reveal">
+                <div class="timeline-dot current"></div>
+                <div class="timeline-date">2023 – Present</div>
+                <div class="timeline-content glass-panel">
+                    <h3 class="h3">Bachelor in Electrical Engineering</h3>
+                    <h4 class="h4" style="color: var(--primary);">
+                        <a href="https://khwopa.edu.np/" target="_blank" style="color:inherit; text-decoration:none;">Khwopa College Of Engineering (TU)</a>
+                    </h4>
+                    <p style="margin-top: 5px; font-style: italic; color: var(--manatee);">Currently focusing on Electrical Engineering and Web Development.</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Focus on Power Systems and Control Engineering</li><li>Python Programming</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="timeline-item reveal">
+                <div class="timeline-dot "></div>
+                <div class="timeline-date">2020 – 2022</div>
+                <div class="timeline-content glass-panel">
+                    <h3 class="h3">Computer Science (+2 Level)</h3>
+                    <h4 class="h4" style="color: var(--primary);">
+                        <a href="https://www.gnamuna.edu.np/" target="_blank" style="color:inherit; text-decoration:none;">Gaindakot Namuna Higher Secondary English Boarding School</a>
+                    </h4>
+                    <p style="margin-top: 5px; font-style: italic; color: var(--manatee);">Graduated with 3.62 GPA</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Graduated with 3.62 GPA</li><li>Science Exhibition First Runner up</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="timeline-item reveal">
+                <div class="timeline-dot "></div>
+                <div class="timeline-date">2011 – 2021</div>
+                <div class="timeline-content glass-panel">
+                    <h3 class="h3">SEE</h3>
+                    <h4 class="h4" style="color: var(--primary);">
+                        <a href="https://www.gnamuna.edu.np/" target="_blank" style="color:inherit; text-decoration:none;">Gaindakot Namuna Higher Secondary English Boarding School</a>
+                    </h4>
+                    <p style="margin-top: 5px; font-style: italic; color: var(--manatee);">Scored: 3.85 GPA</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Scored: 3.85 GPA</li>
+                    </ul>
+                </div>
+            </div>
+        
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section skills" id="skills">
+    <div class="container">
+        <h2 class="h2 section-title">My Skills</h2>
+        <div class="reveal"
+            style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; justify-content: center;">
+            
+    <div class="skill-category">
+        <h3 class="h4" style="margin-bottom: 20px; color: var(--text-muted);">Engineering & Simulation</h3>
+        <div class="skill-list">
+            
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">Matlab/Simulink</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">Proteus</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">Pvsyst</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="beginner">
+                    <div class="skill-info">
+                        <span class="skill-name">PLECS</span>
+                        <span class="skill-level-text">Beginner</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 45%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="beginner">
+                    <div class="skill-info">
+                        <span class="skill-name">ETAP</span>
+                        <span class="skill-level-text">Beginner</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 45%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">Latex</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="advanced">
+                    <div class="skill-info">
+                        <span class="skill-name">Arduino Programming</span>
+                        <span class="skill-level-text">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="skill-category">
+        <h3 class="h4" style="margin-bottom: 20px; color: var(--text-muted);">Programming & Web</h3>
+        <div class="skill-list">
+            
+                <div class="skill-item" data-level="advanced">
+                    <div class="skill-info">
+                        <span class="skill-name">Python</span>
+                        <span class="skill-level-text">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">C#</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">C++</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">C</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">SQL</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="advanced">
+                    <div class="skill-info">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-level-text">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="advanced">
+                    <div class="skill-info">
+                        <span class="skill-name">HTML</span>
+                        <span class="skill-level-text">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="advanced">
+                    <div class="skill-info">
+                        <span class="skill-name">CSS</span>
+                        <span class="skill-level-text">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="intermediate">
+                    <div class="skill-info">
+                        <span class="skill-name">React</span>
+                        <span class="skill-level-text">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item" data-level="beginner">
+                    <div class="skill-info">
+                        <span class="skill-name">PHP</span>
+                        <span class="skill-level-text">Beginner</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 45%;"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="section technologies" id="technologies">
+    <div class="container">
+        <h2 class="h2 section-title">Technologies Stack</h2>
+        <div class="reveal"
+            style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            
+    <div class="tech-item" style="text-align: center; margin: 10px; min-width: 80px;">
+        <div class="tech-icon-circle" style="
+            width: 60px; height: 60px; 
+            background: var(--gunmetal); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 10px;
+            font-size: 2rem;
+            color: var(--primary);
+            border: 1px solid var(--independence);
+        ">
+            <ion-icon name="logo-react"></ion-icon>
+        </div>
+        <span class="tech-name" style="color: var(--cadet-blue-crayola); font-size: 0.9rem;">React</span>
+    </div>
+
+    <div class="tech-item" style="text-align: center; margin: 10px; min-width: 80px;">
+        <div class="tech-icon-circle" style="
+            width: 60px; height: 60px; 
+            background: var(--gunmetal); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 10px;
+            font-size: 2rem;
+            color: var(--primary);
+            border: 1px solid var(--independence);
+        ">
+            <ion-icon name="logo-python"></ion-icon>
+        </div>
+        <span class="tech-name" style="color: var(--cadet-blue-crayola); font-size: 0.9rem;">Python</span>
+    </div>
+
+    <div class="tech-item" style="text-align: center; margin: 10px; min-width: 80px;">
+        <div class="tech-icon-circle" style="
+            width: 60px; height: 60px; 
+            background: var(--gunmetal); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 10px;
+            font-size: 2rem;
+            color: var(--primary);
+            border: 1px solid var(--independence);
+        ">
+            <ion-icon name="logo-nodejs"></ion-icon>
+        </div>
+        <span class="tech-name" style="color: var(--cadet-blue-crayola); font-size: 0.9rem;">Node.js</span>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Certificates Section -->
+<section class="section certificates" id="certificates">
+    <div class="container">
+        <h2 class="h2 section-title">Certificates & Licenses</h2>
+        <div class="card-grid" style="margin-top: 30px;">
+            
+    <div class="certificate-card reveal">
+         <img src="/assets/images/certificates/matlab-and-latex.avif" alt="Matlab and Latex" class="cert-img">
+         <div class="cert-content">
+            <h3 class="h3">Matlab and Latex</h3>
+            <p>Khowpa College Of Enginerring</p>
+            
+         </div>
+    </div>
+
+    <div class="certificate-card reveal">
+         <img src="/assets/images/certificates/industrial-control-system.avif" alt="Industrial Control System" class="cert-img">
+         <div class="cert-content">
+            <h3 class="h3">Industrial Control System</h3>
+            <p>CISA</p>
+            <a href="https://ics-training.inl.gov/lms/index.php?r=myActivities/downloadCertificate&course_id=94&id_user=160393" target="_blank" class="credential-link" style="color: var(--primary); font-size: 0.9rem; margin-top: 10px; display: inline-flex; align-items: center; gap: 5px;">View Credential <ion-icon name="open-outline"></ion-icon></a>
+         </div>
+    </div>
+
+    <div class="certificate-card reveal">
+         <img src="/assets/images/certificates/legacy-responsive-web-design-v8.avif" alt="Legacy Responsive Web Desgin V8" class="cert-img">
+         <div class="cert-content">
+            <h3 class="h3">Legacy Responsive Web Desgin V8</h3>
+            <p>FreeCodeCamp</p>
+            <a href="https://freecodecamp.org/certification/ShankarAryal/responsive-web-design" target="_blank" class="credential-link" style="color: var(--primary); font-size: 0.9rem; margin-top: 10px; display: inline-flex; align-items: center; gap: 5px;">View Credential <ion-icon name="open-outline"></ion-icon></a>
+         </div>
+    </div>
+
+    <div class="certificate-card reveal">
+         <img src="/assets/images/certificates/college-algebra-with-python.avif" alt="College Algebra With Python" class="cert-img">
+         <div class="cert-content">
+            <h3 class="h3">College Algebra With Python</h3>
+            <p>FreeCodeCamp</p>
+            <a href="https://freecodecamp.org/certification/ShankarAryal/college-algebra-with-python-v8" target="_blank" class="credential-link" style="color: var(--primary); font-size: 0.9rem; margin-top: 10px; display: inline-flex; align-items: center; gap: 5px;">View Credential <ion-icon name="open-outline"></ion-icon></a>
+         </div>
+    </div>
+
+    <div class="certificate-card reveal">
+         <img src="/assets/images/certificates/attack-methodologies-in-it-ics.avif" alt="Attack Methodologies in IT & ICS" class="cert-img">
+         <div class="cert-content">
+            <h3 class="h3">Attack Methodologies in IT & ICS</h3>
+            <p>CISA</p>
+            
+         </div>
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="section portfolio" id="portfolio">
+    <div class="container">
+        <h2 class="h2 section-title">Featured Projects</h2>
+        <div class="card-grid" style="margin-top: 30px;">
+            
+    <div class="project-card reveal">
+        <img src="/assets/images/projects/shadowstrike.avif" alt="ShadowStrike" class="project-bg-img" loading="lazy">
+        <div class="project-content-overlay">
+            <h3 class="h3 project-title">ShadowStrike</h3>
+            <p class="project-desc">ShadowStrike is a network security assessment toolkit designed for educational and ethical hacking purposes</p>
+            <div class="project-tags">
+                <span class="tech-pill">C#.Net</span><span class="tech-pill">Cybersecurity</span><span class="tech-pill">Malware Analysis</span><span class="tech-pill">Network Security</span><span class="tech-pill">Penetration Testing</span><span class="tech-pill">Vulnerability Assessment</span><span class="tech-pill">Web Security</span>
+            </div>
+            <div class="project-links" style="margin-top: 20px; display:flex; gap:10px;">
+                
+                <a href="https://github.com/MrShankarAryal/ShadowStrike" class="project-link-btn" target="_blank">
+                    Live Demo <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+                
+                <a href="https://www.shankararyal404.com.np/blog-post/blog7.html" class="project-link-btn secondary" target="_blank">
+                    Read Article <ion-icon name="book-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+        <div class="featured-badge">Featured</div>
+    </div>
+
+    <div class="project-card reveal">
+        <img src="/assets/images/projects/learnmeedu.avif" alt="LearnMeEdu" class="project-bg-img" loading="lazy">
+        <div class="project-content-overlay">
+            <h3 class="h3 project-title">LearnMeEdu</h3>
+            <p class="project-desc">A modern e-learning platform built with HTML, CSS, JavaScript, and Bootstrap.</p>
+            <div class="project-tags">
+                <span class="tech-pill">HTML</span><span class="tech-pill">CSS</span><span class="tech-pill">JavaScript</span><span class="tech-pill">Bootstrap</span>
+            </div>
+            <div class="project-links" style="margin-top: 20px; display:flex; gap:10px;">
+                
+                <a href="https://learnmeedu.github.io/" class="project-link-btn" target="_blank">
+                    Live Demo <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+                
+            </div>
+        </div>
+        
+    </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Blog Preview Section -->
+<section class="section blog" id="blog">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 class="h2 section-title" style="margin-bottom: 0;">Latest Blogs</h2>
+            <a href="blogs/index.html" class="btn-link" style="color: var(--primary); font-size: 1.6rem;">View All →</a>
+        </div>
+        <div class="card-grid">
+            <div class="blog-card reveal" data-title="The Future of Web Development" data-category="Information and Study"
+    data-category-slug="information-and-study" data-tags="poem">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/blogs/information and study/thefutureofwebdevelopment/thefutureofwebdevelopment1.avif" alt="The Future of Web Development" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2026-01-03</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/TheFutureOfWebDevelopment.html">The Future of Web Development</a>
+            </h3>
+            <p class="blog-text">Insights from the Founder of LearnMe
+
+</p>
+            <a href="/blogs/TheFutureOfWebDevelopment.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="Testing Three" data-category="Thoughts"
+    data-category-slug="thoughts" data-tags="">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="https://raw.githubusercontent.com/shankararyal404/shankararyal404.github.io/refs/heads/main/assets/images/Shankararyal1.avif" alt="Testing Three" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/thoughts.html" class="card-badge">Thoughts</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2025-12-29</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/Last Testing.html">Testing Three</a>
+            </h3>
+            <p class="blog-text">Excerpt Testing</p>
+            <a href="/blogs/Last Testing.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="Testing 2-2" data-category="Poem"
+    data-category-slug="poem" data-tags="">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="https://raw.githubusercontent.com/shankararyal404/shankararyal404.github.io/refs/heads/main/assets/images/Shankararyal2.avif" alt="Testing 2-2" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/poem.html" class="card-badge">Poem</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2025-12-28</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/silence-of-night-testing-edit-2.html">Testing 2-2</a>
+            </h3>
+            <p class="blog-text">Testing</p>
+            <a href="/blogs/silence-of-night-testing-edit-2.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section contact" id="contact">
+    <div class="container">
+        <h2 class="h2 section-title">Get In Touch</h2>
+        <div class="glass-panel reveal"
+            style="max-width: 600px; margin: 30px auto; padding: 40px; border-radius: var(--radius-lg);">
+            <form id="contact-form" style="display: grid; gap: 20px;">
+                <!-- JS handles submission to /api/contact/send -->
+                <div>
+                    <label for="name" style="display: block; margin-bottom: 8px;">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" style="width: 100%; padding: 12px;"
+                        required>
+                </div>
+                <div>
+                    <label for="email" style="display: block; margin-bottom: 8px;">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email"
+                        style="width: 100%; padding: 12px;" required>
+                </div>
+                <div>
+                    <label for="message" style="display: block; margin-bottom: 8px;">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Your Message"
+                        style="width: 100%; padding: 12px;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <!-- Pre-rendered Footer -->
+    <footer class="footer">
+        <div class="container icon-container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand & Social -->
+                <div class="footer-col">
+                    <a href="/" class="logo" style="display:inline-block; margin-bottom: 20px;">
+                        <span class="text-gradient">Shankar</span>Aryal
+                    </a>
+                    <p style="margin-bottom: 20px; color: var(--manatee);">
+                        Building digital experiences with passion and precision. Connected with the world through code.
+                    </p>
+                    <ul class="social-list">
+                        
+            <li><a href="https://github.com/shankararyal404" target="_blank" class="social-link" title="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
+        
+            <li><a href="https://www.linkedin.com/in/shankararyal/" target="_blank" class="social-link" title="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+        
+            <li><a href="https://www.facebook.com/ShankarAryal01" target="_blank" class="social-link" title="Facebook"><ion-icon name="logo-facebook"></ion-icon></a></li>
+        
+            <li><a href="https://www.instagram.com/mrshankararyal/" target="_blank" class="social-link" title="Instagram"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        
+                    </ul>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#portfolio">Portfolio</a></li>
+                        <li><a href="/#certificates">Certificates</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Legal -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <!-- Add Terms if/when available -->
+                    </ul>
+                </div>
+
+                <!-- Col 4: Latest Blogs -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Latest Blogs</h3>
+                    <ul class="footer-links">
+                        
+    <li><a href="/blogs/TheFutureOfWebDevelopment.html">The Future of Web Development</a></li>
+
+    <li><a href="/blogs/Last Testing.html">Testing Three</a></li>
+
+    <li><a href="/blogs/silence-of-night-testing-edit-2.html">Testing 2-2</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2026 Shankar Aryal. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script type="module" src="/assets/js/theme.js"></script>
+    <script type="module" src="/assets/js/main.js?v=10"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.querySelector('.nav-toggle-btn');
+            const nav = document.querySelector('.navbar-list');
+            const overlay = document.querySelector('.nav-overlay');
+            const body = document.body;
+            const navLinks = document.querySelectorAll('.navbar-link');
+
+            if (!btn || !nav || !overlay) {
+                console.error('Navigation elements not found');
+                return;
+            }
+
+            // Function to close the menu
+            function closeMenu() {
+                nav.classList.remove('active');
+                btn.classList.remove('active');
+                overlay.classList.remove('active');
+                body.classList.remove('nav-active');
+            }
+
+            // Function to open the menu
+            function openMenu() {
+                nav.classList.add('active');
+                btn.classList.add('active');
+                overlay.classList.add('active');
+                body.classList.add('nav-active');
+            }
+
+            // Function to toggle the menu
+            function toggleMenu(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (nav.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            // Toggle menu on button click
+            btn.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking overlay
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking on any navigation link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    // Allow the link to navigate, but close the menu
+                    closeMenu();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

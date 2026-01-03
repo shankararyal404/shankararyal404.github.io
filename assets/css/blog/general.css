@@ -1,0 +1,42 @@
+/* General Blog Styling - Default/Fallback */
+
+.blog-general .general-article {
+    padding: 40px;
+    border-radius: 12px;
+}
+
+.blog-general header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.blog-general .h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.blog-general .meta {
+    color: var(--cadet-blue-crayola);
+    font-size: 0.9rem;
+}
+
+.blog-general .blog-cover {
+    margin-bottom: 40px;
+}
+
+.blog-general .markdown-body {
+    line-height: 1.8;
+    color: var(--light-gray);
+}
+
+.blog-general .tags-container {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--independence);
+}
+
+.blog-general .comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+}
