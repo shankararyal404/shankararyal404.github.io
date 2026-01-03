@@ -1,15 +1,20 @@
-<div class="blog-card reveal">
-    <div class="blog-banner-box">
-        <img src="{{POST_IMAGE}}" alt="{{POST_TITLE}}" loading="lazy" class="blog-banner">
-    </div>
-    <div class="blog-content">
-        <div class="blog-meta">
-            <a href="/blogs/tags/{{POST_CATEGORY_SLUG}}.html" class="blog-category">{{POST_CATEGORY}}</a>
-            <span class="publish-date">{{POST_DATE}}</span>
+<div class="blog-card reveal" data-title="{{POST_TITLE}}" data-category="{{POST_CATEGORY}}"
+    data-category-slug="{{POST_CATEGORY_SLUG}}" data-tags="{{POST_TAGS}}">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="{{POST_IMAGE}}" alt="{{POST_TITLE}}" loading="lazy" class="blog-banner">
+            <a href="/blogs/tags/{{POST_CATEGORY_SLUG}}.html" class="card-badge">{{POST_CATEGORY}}</a>
         </div>
-        <h3 class="blog-title">
-            <a href="/blogs/{{POST_SLUG}}.html">{{POST_TITLE}}</a>
-        </h3>
-        <p class="blog-text">{{POST_EXCERPT}}</p>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> {{POST_DATE}}</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blogs/{{POST_SLUG}}.html">{{POST_TITLE}}</a>
+            </h3>
+            <p class="blog-text">{{POST_EXCERPT}}</p>
+            <a href="/blogs/{{POST_SLUG}}.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
     </div>
 </div>

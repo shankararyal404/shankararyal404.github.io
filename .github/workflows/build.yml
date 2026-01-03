@@ -8,6 +8,8 @@ on:
       - 'content/**'
       - 'templates/**'
       - 'scripts/**'
+      - 'assets/**'
+      - 'package.json'
 
 permissions:
   contents: write
@@ -28,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Generate Static Site
-        run: node scripts/generate.js
+        run: npm run build
         env:
           SITE_URL: https://www.shankararyal404.com.np
 
@@ -36,4 +38,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: auto-generate static site [skip ci]"
-          file_pattern: "*.html *.xml robots.txt blogs/*.html blogs/tags/*.html"
+          file_pattern: "public/"

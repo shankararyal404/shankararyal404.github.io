@@ -6,9 +6,101 @@
         </header>
 
         <!-- Search/Filter (Optional for V1, but good for UI) -->
-        <div class="blog-controls" style="margin-bottom: 40px; display: flex; gap: 15px; justify-content: center;">
-            <!-- Placeholder for tags or search if added dynamically -->
+        <!-- Search & Filter Controls -->
+        <div class="blog-controls-wrapper" style="margin-bottom: 50px;">
+            <div class="search-box">
+                <ion-icon name="search-outline"></ion-icon>
+                <input type="text" id="blogSearch" placeholder="Search articles, topics, or keywords...">
+            </div>
+
+            <div class="category-filter" id="categoryFilter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <!-- Categories injected via JS -->
+            </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const searchInput = document.getElementById('blogSearch');
+                const categoryContainer = document.getElementById('categoryFilter');
+                const cards = document.querySelectorAll('.blog-card');
+                const grid = document.getElementById('blog-grid');
+
+                // 1. Extract Categories
+                const categories = new Set();
+                cards.forEach(card => {
+                    const cat = card.getAttribute('data-category');
+                    if (cat) categories.add(cat);
+                });
+
+                // Sort and Render Category Buttons
+                Array.from(categories).sort().forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn';
+                    btn.textContent = cat;
+                    btn.setAttribute('data-filter', cat);
+                    categoryContainer.appendChild(btn);
+                });
+
+                // 2. Filter Logic
+                function filterBlogs() {
+                    const query = searchInput.value.toLowerCase();
+                    const activeCategory = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+
+                    let visibleCount = 0;
+
+                    cards.forEach(card => {
+                        const title = (card.getAttribute('data-title') || '').toLowerCase();
+                        const category = card.getAttribute('data-category');
+                        const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+
+                        const matchesSearch = title.includes(query) || tags.includes(query);
+                        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+                        if (matchesSearch && matchesCategory) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                        }
+                    });
+
+                    // No Results Message
+                    let noResults = document.getElementById('no-results-msg');
+                    if (visibleCount === 0) {
+                        if (!noResults) {
+                            noResults = document.createElement('div');
+                            noResults.id = 'no-results-msg';
+                            noResults.style.textAlign = 'center';
+                            noResults.style.padding = '40px';
+                            noResults.style.color = 'var(--text-muted)';
+                            noResults.innerHTML = '<ion-icon name="search-outline" style="font-size: 3rem; margin-bottom: 10px;"></ion-icon><p>No articles found matching your criteria.</p>';
+                            grid.parentNode.insertBefore(noResults, grid.nextSibling);
+                        }
+                        noResults.style.display = 'block';
+                    } else {
+                        if (noResults) noResults.style.display = 'none';
+                    }
+                }
+
+                // Event Listeners
+                searchInput.addEventListener('input', filterBlogs);
+
+                categoryContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-btn')) {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        filterBlogs();
+                    }
+                });
+            });
+        </script>
 
         <div class="card-grid" id="blog-grid">
             {{BLOG_LIST}}

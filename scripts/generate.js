@@ -226,20 +226,18 @@ for (const blog of blogs) {
         suggestionHtml = `
         <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
             <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
-            <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                ${suggestions.map(s => `
-                    <a href="/blogs/${s.slug}.html" class="suggestion-card" style="
-                        display: block; 
-                        padding: 20px; 
-                        background: var(--glass-bg); 
-                        border: 1px solid var(--glass-border); 
-                        border-radius: 12px; 
-                        transition: transform 0.3s ease;">
-                        <span style="font-size: 0.8rem; color: var(--minion-yellow); text-transform: uppercase; letter-spacing: 1px;">${s.category}</span>
-                        <h4 style="margin: 10px 0; font-size: 1.1rem; color: var(--text-primary); line-height: 1.4;">${s.title}</h4>
-                        <span style="font-size: 0.85rem; color: var(--text-secondary);">${s.date}</span>
-                    </a>
-                `).join('')}
+            <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                ${suggestions.map(s => {
+            return blogCardTemplate
+                .replaceAll('{{POST_IMAGE}}', s.image)
+                .replaceAll('{{POST_TITLE}}', s.title)
+                .replaceAll('{{POST_SLUG}}', s.slug)
+                .replaceAll('{{POST_CATEGORY}}', s.category)
+                .replaceAll('{{POST_CATEGORY_SLUG}}', s.category.toLowerCase().replace(/ /g, '-'))
+                .replaceAll('{{POST_DATE}}', s.date)
+                .replaceAll('{{POST_EXCERPT}}', s.excerpt || '')
+                .replaceAll('{{POST_TAGS}}', (s.tags || []).join(', ').toLowerCase());
+        }).join('')}
             </div>
         </div>`;
     }
@@ -304,7 +302,8 @@ const allBlogsListHtml = blogs.map(post => {
         .replaceAll('{{POST_CATEGORY}}', post.category)
         .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
         .replaceAll('{{POST_DATE}}', post.date)
-        .replaceAll('{{POST_EXCERPT}}', post.excerpt || '');
+        .replaceAll('{{POST_EXCERPT}}', post.excerpt || '')
+        .replaceAll('{{POST_TAGS}}', (post.tags || []).join(', ').toLowerCase());
 }).join('');
 
 const blogIndexHtml = blogIndexTemplate
@@ -348,7 +347,8 @@ Object.values(tagsMap).forEach(tagData => {
             .replaceAll('{{POST_CATEGORY}}', post.category)
             .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
             .replaceAll('{{POST_DATE}}', post.date)
-            .replaceAll('{{POST_EXCERPT}}', post.excerpt || '');
+            .replaceAll('{{POST_EXCERPT}}', post.excerpt || '')
+            .replaceAll('{{POST_TAGS}}', (post.tags || []).join(', ').toLowerCase());
     }).join('');
 
     const tagHtml = tagPageTemplate
@@ -651,7 +651,8 @@ const latestBlogsHtml = blogs.slice(0, 3).map(post => {
         .replaceAll('{{POST_CATEGORY}}', post.category)
         .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
         .replaceAll('{{POST_DATE}}', post.date)
-        .replaceAll('{{POST_EXCERPT}}', post.excerpt || '');
+        .replaceAll('{{POST_EXCERPT}}', post.excerpt || '')
+        .replaceAll('{{POST_TAGS}}', (post.tags || []).join(', ').toLowerCase());
 }).join('');
 
 let indexContent = indexContentTemplate
