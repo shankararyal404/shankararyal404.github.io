@@ -1,0 +1,106 @@
+/* Thoughts/Opinion Blog Styling */
+
+.blog-thoughts {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+}
+
+.thoughts-article {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.thoughts-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.thoughts-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.thoughts-meta {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.95rem;
+    color: var(--manatee);
+    font-style: italic;
+}
+
+.thoughts-cover {
+    margin-bottom: 50px;
+}
+
+.thoughts-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.thoughts-content {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: var(--light-gray);
+}
+
+.thoughts-content p {
+    margin-bottom: 1.5em;
+}
+
+.thoughts-content p:first-of-type::first-letter {
+    font-size: 3.5em;
+    line-height: 1;
+    float: left;
+    margin: 0 10px 0 0;
+    color: var(--primary);
+}
+
+.thoughts-content blockquote {
+    border-left: 4px solid #fbbf24;
+    padding-left: 30px;
+    margin: 40px 0;
+    font-style: italic;
+    color: var(--manatee);
+    font-size: 1.3rem;
+}
+
+.thoughts-content h2,
+.thoughts-content h3 {
+    font-family: 'Georgia', serif;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.tags-container {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--independence);
+    text-align: center;
+}
+
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+}
+
+@media (max-width: 768px) {
+    .thoughts-title {
+        font-size: 2.2rem;
+    }
+
+    .thoughts-content {
+        font-size: 1.1rem;
+    }
+}

@@ -465,9 +465,9 @@ const heroImageHtml = `
             <div class="badge-student">Engineering Student</div>
             <img src="${hero.profileImage || about.image}" alt="Shankar Aryal" class="hero-main-img">
             <div class="hero-card-footer">
-                <a href="/assets/resume.pdf" target="_blank" class="icon-btn" title="Resume"><ion-icon name="print-outline"></ion-icon></a>
-                <a href="#" class="icon-btn" title="Website"><ion-icon name="globe-outline"></ion-icon></a>
-                <a href="#skills" class="icon-btn" title="Skills"><ion-icon name="code-slash-outline"></ion-icon></a>
+                <a href="/assets/resume.pdf" target="_blank" class="icon-btn" data-title="Resume"><ion-icon name="print-outline"></ion-icon></a>
+                <a href="#" class="icon-btn" data-title="Website"><ion-icon name="globe-outline"></ion-icon></a>
+                <a href="#skills" class="icon-btn" data-title="Skills"><ion-icon name="code-slash-outline"></ion-icon></a>
             </div>
         </div>
     </div>
@@ -507,11 +507,21 @@ skills.forEach(skill => {
 
 const skillsHtml = Object.keys(skillCategories).map(cat => `
     <div class="skill-category">
-        <h3 class="h4" style="margin-bottom: 10px; color: var(--light-gray);">${cat}</h3>
-        <div class="skill-tags">
-            ${skillCategories[cat].map(item => `
-                <span class="skill-tag ${item.level === 'Advanced' ? 'skill-advanced' : ''}" title="${item.level}">${item.name}</span>
-            `).join('')}
+        <h3 class="h4" style="margin-bottom: 20px; color: var(--text-muted);">${cat}</h3>
+        <div class="skill-list">
+            ${skillCategories[cat].map(item => {
+    const percentage = item.level === 'Advanced' ? '90%' : item.level === 'Intermediate' ? '70%' : '45%';
+    return `
+                <div class="skill-item" data-level="${item.level.toLowerCase()}">
+                    <div class="skill-info">
+                        <span class="skill-name">${item.name}</span>
+                        <span class="skill-level-text">${item.level}</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: ${percentage};"></div>
+                    </div>
+                </div>`;
+}).join('')}
         </div>
     </div>
 `).join('');

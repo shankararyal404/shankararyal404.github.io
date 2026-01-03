@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Theme Script (MUST be first to prevent flash) -->
+    <script>
+        (function () {
+            const STORAGE_KEY = 'theme-preference';
+            const SOURCE_KEY = 'theme-source';
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const source = localStorage.getItem(SOURCE_KEY);
+
+            let theme = 'dark'; // Default
+
+            // Priority 1: Manual user selection
+            if (saved && source === 'manual') {
+                theme = saved;
+            }
+            // Priority 2: System preference
+            else if (window.matchMedia) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                theme = prefersDark ? 'dark' : 'light';
+
+                // Save system preference
+                if (!saved || source !== 'manual') {
+                    localStorage.setItem(STORAGE_KEY, theme);
+                    localStorage.setItem(SOURCE_KEY, 'system');
+                }
+            }
+
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <title>Admin Dashboard | Shankar Aryal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <style>
+        /* Admin specific styles */
+        body {
+            padding-top: 100px;
+        }
+
+
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-medium);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .admin-tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            border-radius: 5px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .admin-tab:hover {
+            background: var(--independence);
+        }
+
+        .admin-tab.active {
+            color: var(--white);
+            background: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            color: var(--cadet-blue-crayola);
+            font-size: 0.9rem;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            background: var(--gunmetal);
+            border: 1px solid var(--border-medium);
+            color: var(--text-primary);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+
+        select option {
+            background: var(--gunmetal);
+            color: var(--white);
+            padding: 10px;
+        }
+
+        select option:hover {
+            background: var(--independence);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--gunmetal);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--independence);
+        }
+
+        .data-table th {
+            background: var(--space-cadet);
+            color: var(--primary);
+        }
+
+        .data-table tr:hover {
+            background: var(--independence);
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .edit-btn {
+            background: var(--blue-crayola);
+            color: white;
+        }
+
+        .delete-btn {
+            background: var(--fiery-rose);
+            color: white;
+        }
+
+        /* Upload UI */
+        .upload-group {
+            margin-bottom: 20px;
+        }
+
+        .upload-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .upload-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            background: var(--gunmetal);
+            border: 1px dashed var(--independence);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .upload-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--space-cadet);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            background: var(--gunmetal);
+            border: 1px solid var(--independence);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .gallery-thumb {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .gallery-meta {
+            padding: 8px;
+            font-size: 0.8rem;
+            color: var(--cadet-blue-crayola);
+        }
+
+        .gallery-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .unused-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--fiery-rose);
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body id="top">
+
+
+
+    <!-- Dashboard View -->
+    <div id="dashboard-view" class="dashboard-container" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 class="h1">Dashboard</h1>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <ion-icon name="sunny-outline" class="theme-icon light"></ion-icon>
+                    <ion-icon name="moon-outline" class="theme-icon dark"></ion-icon>
+                </button>
+                <button id="logout-btn" class="btn">Logout</button>
+            </div>
+        </div>
+
+        <div class="admin-nav">
+            <div class="admin-tab active" data-tab="blogs">Blogs</div>
+            <div class="admin-tab" data-tab="projects">Projects</div>
+            <div class="admin-tab" data-tab="education">Education</div>
+            <div class="admin-tab" data-tab="skills">Skills</div>
+            <div class="admin-tab" data-tab="technologies">Technologies</div>
+            <div class="admin-tab" data-tab="social-links">Social Links</div>
+            <div class="admin-tab" data-tab="certificates">Certificates</div>
+            <div class="admin-tab" data-tab="gallery">Gallery</div>
+        </div>
+
+        <!-- GALLERY TAB -->
+        <div id="gallery" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="h2">Asset Gallery</h2>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="gallery-search" placeholder="Search images..."
+                        style="padding: 8px; width: 200px; margin:0;" onkeyup="filterGallery()">
+                    <button class="btn btn-outline" onclick="syncGallery()">Sync</button>
+                    <label for="gallery-upload-input" class="btn btn-primary">Upload New</label>
+                    <input type="file" id="gallery-upload-input" accept="image/*" style="display:none"
+                        onchange="handleGalleryUpload(this)">
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery Items Injected Here -->
+            </div>
+            <div id="gallery-loading" style="display:none; text-align:center; padding:20px;">Loading...</div>
+        </div>
+
+        <!-- BLOGS TAB -->
+        <div id="blogs" class="tab-content active">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Blogs</h2>
+                <button class="btn btn-primary" onclick="openModal('blog-modal')">+ New Blog</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="blogs-list"></tbody>
+            </table>
+
+            <!-- ARCHIVED BLOGS SECTION -->
+            <h3 class="h3" style="margin-top: 40px; color: var(--fiery-rose);">Unpublished / Archived Blogs</h3>
+            <p style="color: var(--manatee); font-size: 0.9rem; margin-bottom: 20px;">
+                Note: Unpublished blogs will be permanently deleted if they remain unpublished for more than 6 months.
+            </p>
+            <table class="data-table" style="border: 1px solid var(--fiery-rose);">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Unpublished At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="archived-blogs-list"></tbody>
+            </table>
+        </div>
+
+        <!-- PROJECTS TAB -->
+        <div id="projects" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Projects</h2>
+                <button class="btn btn-primary" onclick="openModal('project-modal')">+ New Project</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Tags</th>
+                        <th>Links</th>
+                        <th>Status</th>
+                        <th>Sort</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="projects-list"></tbody>
+            </table>
+        </div>
+
+        <!-- EDUCATION TAB -->
+        <div id="education" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Education</h2>
+                <button class="btn btn-primary" onclick="openModal('education-modal')">+ New Education</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Institution</th>
+                        <th>Degree</th>
+                        <th>Period</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="education-list"></tbody>
+            </table>
+        </div>
+
+        <!-- SKILLS TAB -->
+        <div id="skills" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Skills</h2>
+                <button class="btn btn-primary" onclick="openModal('skill-modal')">+ New Skill</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="skills-list"></tbody>
+            </table>
+        </div>
+
+        <!-- TECHNOLOGIES TAB -->
+        <div id="technologies" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Technologies</h2>
+                <button class="btn btn-primary" onclick="openModal('tech-modal')">+ New Technology</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Icon</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="technologies-list"></tbody>
+            </table>
+        </div>
+
+        <!-- SOCIAL LINKS TAB -->
+        <div id="social-links" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Social Links</h2>
+                <button class="btn btn-primary" onclick="openModal('social-modal')">+ New Social Link</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>URL</th>
+                        <th>Visible</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="social-links-list"></tbody>
+            </table>
+        </div>
+
+        <!-- CERTIFICATES TAB -->
+        <div id="certificates" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="h2">Manage Certificates</h2>
+                <button class="btn btn-primary" onclick="openModal('certificate-modal')">+ New Certificate</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Issuer</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="certificates-list"></tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Blog Modal -->
+    <div id="blog-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('blog-modal')">&times;</span>
+            <h2 class="h2" id="blog-modal-title">Add New Blog</h2>
+            <form id="blog-form">
+                <input type="hidden" id="blog-id">
+                <label>Title</label><input type="text" id="blog-title" required>
+                <label>Slug</label><input type="text" id="blog-slug" required>
+                <label>Category *</label>
+                <select id="blog-category" required>
+                    <option value="">Select Category</option>
+                    <option value="Literature">Literature</option>
+                    <option value="Information and Study">Information and Study</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Thoughts / Opinion">Thoughts / Opinion</option>
+                    <option value="Article">Article</option>
+                    <option value="General">General</option>
+                </select>
+
+                <!-- Literature-Specific Fields (Hidden by default) -->
+                <div id="literature-fields"
+                    style="display: none; margin-top: 20px; padding: 20px; background: var(--white-alpha-5); border-radius: 8px;">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);">Literature Details</h3>
+
+                    <label>Type</label>
+                    <select id="lit-type">
+                        <option value="">Select Type</option>
+                        <option value="Poem">Poem</option>
+                        <option value="Book Study">Book Study</option>
+                        <option value="Essay">Essay</option>
+                        <option value="Story">Story</option>
+                    </select>
+
+                    <label>Written By</label>
+                    <input type="text" id="lit-written-by" placeholder="Author name">
+
+                    <label>Place</label>
+                    <input type="text" id="lit-place" placeholder="e.g., Kathmandu, Nepal">
+
+                    <label>Publisher</label>
+                    <input type="text" id="lit-publisher" placeholder="Publisher name">
+
+                    <label>Theme</label>
+                    <input type="text" id="lit-theme" placeholder="e.g., Love, Society, Philosophy">
+
+                    <label>Reflection</label>
+                    <textarea id="lit-reflection" rows="4"
+                        placeholder="Short reflective paragraph about the literature"></textarea>
+                </div>
+
+                <label>Tags (Select multiple or type)</label>
+                <div class="tag-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                    <span class="tag-chip" onclick="addTag('Poem')">Poem</span>
+                    <span class="tag-chip" onclick="addTag('Tech')">Tech</span>
+                    <span class="tag-chip" onclick="addTag('Cybersecurity')">Cybersecurity</span>
+                    <span class="tag-chip" onclick="addTag('Thoughts')">Thoughts</span>
+                    <span class="tag-chip" onclick="addTag('Opinion')">Opinion</span>
+                </div>
+                <input type="text" id="blog-tags" placeholder="e.g. Tech, Python (Comma separated)">
+
+                <div class="form-group upload-group">
+                    <label>Cover Image (AVIF)</label>
+                    <input type="hidden" id="blog-image" name="image">
+                    <div class="upload-container">
+                        <div class="upload-preview" id="blog-preview">
+                            <span style="font-size: 0.7rem; color: var(--manatee);">No image</span>
+                        </div>
+                        <div class="upload-controls">
+                            <input type="file" id="blog-file" accept="image/*" class="file-input"
+                                onchange="handleFileUpload(this, 'blogs', 'cover')">
+                            <label for="blog-file" class="btn btn-outline"
+                                style="padding: 5px 10px; font-size: 0.8rem; width: fit-content;">Choose Image</label>
+                            <input type="text" id="blog-alt" placeholder="Alt Text (Required)" required
+                                style="margin-bottom: 0; padding: 8px;">
+                        </div>
+                    </div>
+                </div>
+                <label>Excerpt</label><textarea id="blog-excerpt" rows="3"></textarea>
+                <label>Content (HTML)</label><textarea id="blog-content" rows="10"></textarea>
+                <button type="submit" class="btn btn-primary">Save Blog</button>
+
+                <style>
+                    .tag-chip {
+                        background: var(--independence);
+                        padding: 5px 10px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        font-size: 0.8rem;
+                        border: 1px solid var(--cadet-blue-crayola);
+                    }
+
+                    .tag-chip:hover {
+                        background: var(--primary);
+                        color: white;
+                        border-color: var(--primary);
+                    }
+                </style>
+                <script>
+                    function addTag(tag) {
+                        const input = document.getElementById('blog-tags');
+                        const current = input.value.split(',').map(t => t.trim()).filter(Boolean);
+                        if (!current.includes(tag)) {
+                            current.push(tag);
+                            input.value = current.join(', ');
+                        }
+                    }
+                </script>
+            </form>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
+            <h2 class="h2" id="project-modal-title">Add New Project</h2>
+            <form id="project-form">
+                <input type="hidden" id="project-id">
+                <label>Title</label><input type="text" id="project-title" required>
+                <label>Description</label><textarea id="project-desc" rows="4" required></textarea>
+                <div class="form-group upload-group">
+                    <label>Project Image (AVIF)</label>
+                    <input type="hidden" id="project-image" name="image">
+                    <div class="upload-container">
+                        <div class="upload-preview" id="project-preview">
+                            <span style="font-size: 0.7rem; color: var(--manatee);">No image</span>
+                        </div>
+                        <div class="upload-controls">
+                            <input type="file" id="project-file" accept="image/*" class="file-input"
+                                onchange="handleFileUpload(this, 'projects', 'cover')">
+                            <label for="project-file" class="btn btn-outline"
+                                style="padding: 5px 10px; font-size: 0.8rem; width: fit-content;">Choose Image</label>
+                            <input type="text" id="project-alt" placeholder="Alt Text (Required)" required
+                                style="margin-bottom: 0; padding: 8px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label>Live Link</label><input type="text" id="project-link">
+                    </div>
+                    <div style="flex: 1;">
+                        <label>Article Link (Optional)</label><input type="text" id="project-articleLink">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <div style="flex: 1;">
+                        <label>Status</label>
+                        <select id="project-status">
+                            <option value="Active">Active</option>
+                            <option value="Archived">Archived</option>
+                            <option value="In Progress">In Progress</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; display: flex; align-items: center; margin-top: 25px;">
+                        <input type="checkbox" id="project-featured"
+                            style="width: auto; margin-right: 10px; margin-bottom: 0;">
+                        <label for="project-featured" style="margin-bottom: 0; cursor: pointer;">Featured on
+                            Homepage</label>
+                    </div>
+                </div>
+
+                <label>Tags (Comma separated)</label><input type="text" id="project-tags" placeholder="Html, Css, Js">
+
+                <button type="submit" class="btn btn-primary">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div id="education-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('education-modal')">&times;</span>
+            <h2 class="h2" id="education-modal-title">Add Education</h2>
+            <form id="education-form">
+                <input type="hidden" id="edu-id">
+                <label>Institution Name</label><input type="text" id="edu-institution" required>
+                <label>Institution URL</label><input type="text" id="edu-url">
+                <label>Degree / Title</label><input type="text" id="edu-degree" required>
+
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label>Start (Year/Date)</label><input type="text" id="edu-startDate" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label>End (Year/Date)</label><input type="text" id="edu-endDate" placeholder="Present">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <input type="checkbox" id="edu-isCurrent"
+                        style="width: auto; margin-right: 10px; margin-bottom: 0;">
+                    <label for="edu-isCurrent" style="display: inline;">Currently Studying Here</label>
+                </div>
+
+                <label>Description / Focus</label><textarea id="edu-description" rows="2"></textarea>
+                <label>Achievements/Details (One per line)</label><textarea id="edu-details" rows="3"></textarea>
+
+                <button type="submit" class="btn btn-primary">Save Education</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Skill Modal -->
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('skill-modal')">&times;</span>
+            <h2 class="h2" id="skill-modal-title">Add Skill</h2>
+            <form id="skill-form">
+                <input type="hidden" id="skill-id">
+                <label>Skill Name</label><input type="text" id="skill-name" required>
+                <label>Category</label>
+                <select id="skill-category" required>
+                    <option value="Programming & Web">Programming & Web</option>
+                    <option value="Engineering & Simulation">Engineering & Simulation</option>
+                    <option value="Tools & Platforms">Tools & Platforms</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label>Level</label>
+                <select id="skill-level" required>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary">Save Skill</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tech Modal -->
+    <div id="tech-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('tech-modal')">&times;</span>
+            <h2 class="h2" id="tech-modal-title">Make Technology</h2>
+            <form id="tech-form">
+                <input type="hidden" id="tech-id">
+                <label>Name</label><input type="text" id="tech-name" required>
+                <label>Icon Class (Ionicons)</label><input type="text" id="tech-icon" placeholder="logo-react">
+                <label>Link</label><input type="text" id="tech-link">
+
+                <button type="submit" class="btn btn-primary">Save Technology</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Social Modal -->
+    <div id="social-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('social-modal')">&times;</span>
+            <h2 class="h2" id="social-modal-title">Add Social Link</h2>
+            <form id="social-form">
+                <input type="hidden" id="social-id">
+                <label>Platform Name</label><input type="text" id="social-platform" required>
+                <label>Profile URL</label><input type="text" id="social-url" required>
+                <label>Icon Class (Ionicons)</label><input type="text" id="social-icon">
+
+                <div style="margin-bottom: 20px; display: flex; align-items: center;">
+                    <input type="checkbox" id="social-visible"
+                        style="width: auto; margin-right: 10px; margin-bottom: 0;">
+                    <label for="social-visible" style="margin-bottom: 0;">Visible on Site</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Social Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('certificate-modal')">&times;</span>
+            <h2 class="h2" id="cert-modal-title">Add New Certificate</h2>
+            <form id="cert-form">
+                <input type="hidden" id="cert-id">
+                <label>Title</label><input type="text" id="cert-title" required>
+                <label>Issuer</label><input type="text" id="cert-issuer" required>
+                <label>Date</label><input type="date" id="cert-date" required>
+                <label>Category</label><input type="text" id="cert-category">
+                <div class="form-group upload-group">
+                    <label>Certificate Image (AVIF)</label>
+                    <input type="hidden" id="cert-image" name="image">
+                    <div class="upload-container">
+                        <div class="upload-preview" id="cert-preview">
+                            <span style="font-size: 0.7rem; color: var(--manatee);">No image</span>
+                        </div>
+                        <div class="upload-controls">
+                            <input type="file" id="cert-file" accept="image/*" class="file-input"
+                                onchange="handleFileUpload(this, 'certificates', 'cover')">
+                            <label for="cert-file" class="btn btn-outline"
+                                style="padding: 5px 10px; font-size: 0.8rem; width: fit-content;">Choose Image</label>
+                            <input type="text" id="cert-alt" placeholder="Alt Text (Required)" required
+                                style="margin-bottom: 0; padding: 8px;">
+                        </div>
+                    </div>
+                </div>
+                <label>Credential Link</label><input type="text" id="cert-link">
+                <button type="submit" class="btn btn-primary">Save Certificate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import logic -->
+    <script type="module" src="../assets/js/theme.js"></script>
+    <script type="module" src="/admin/js/app.js"></script>
+    <script>
+        // Modal helpers
+        window.openModal = (id) => {
+            document.getElementById(id).classList.add('open');
+            // Reset form if it's a "New" action (id is empty)
+            // Logic will be handled in app.js
+        };
+        window.closeModal = (id) => document.getElementById(id).classList.remove('open');
+    </script>
+</body>
+
+</html>
