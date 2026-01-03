@@ -27,11 +27,14 @@
             </div>
 
             <!-- Main Content (Poem/Story) -->
-            <div class="literature-content markdown-body">
-                {{BLOG_BODY}}
+            <div class="literature-content markdown-body" id="poem-en">
+                {{POEM_EN}}
+            </div>
+            <div class="literature-content markdown-body" id="poem-ne" style="display: none;">
+                {{POEM_NE}}
             </div>
 
-            <!-- Unified Literature Info Container (Before Comments) -->
+            <!-- Unified Literature Info Container -->
             <div class="literature-info-container">
                 <!-- Language Toggle Buttons -->
                 <div class="language-toggle">
@@ -44,25 +47,19 @@
                     <!-- Writer Reflection -->
                     <section class="info-section">
                         <h3 class="section-heading">Writer Reflection</h3>
-                        <div class="section-text">{{REFLECTION}}</div>
+                        <div class="section-text">{{REFLECTION_EN}}</div>
                     </section>
 
                     <!-- Poem/Literature Description -->
                     <section class="info-section">
                         <h3 class="section-heading">Poem Description</h3>
-                        <div class="section-text">
-                            <p>This {{LITERATURE_TYPE}} explores themes of {{THEME}}.</p>
-                        </div>
+                        <div class="section-text">{{THEME_EN}}</div>
                     </section>
 
                     <!-- About the Writer -->
                     <section class="info-section">
                         <h3 class="section-heading">Writer Introduction</h3>
-                        <div class="section-text">
-                            <p><strong>{{WRITTEN_BY}}</strong> is a writer who explores themes of life, emotions, and
-                                human experiences through poetry and literature.</p>
-                            <p><strong>Publisher:</strong> {{PUBLISHER}}</p>
-                        </div>
+                        <div class="section-text">{{INTRO_EN}}</div>
                     </section>
                 </div>
 
@@ -71,25 +68,19 @@
                     <!-- लेखकको प्रतिबिम्ब -->
                     <section class="info-section">
                         <h3 class="section-heading">लेखकको प्रतिबिम्ब</h3>
-                        <div class="section-text">{{REFLECTION}}</div>
+                        <div class="section-text">{{REFLECTION_NE}}</div>
                     </section>
 
                     <!-- कविताको विवरण -->
                     <section class="info-section">
                         <h3 class="section-heading">कविताको विवरण</h3>
-                        <div class="section-text">
-                            <p>यो {{LITERATURE_TYPE}} ले {{THEME}} का विषयवस्तुहरू अन्वेषण गर्दछ।</p>
-                        </div>
+                        <div class="section-text">{{THEME_NE}}</div>
                     </section>
 
                     <!-- लेखकको परिचय -->
                     <section class="info-section">
                         <h3 class="section-heading">लेखकको परिचय</h3>
-                        <div class="section-text">
-                            <p><strong>{{WRITTEN_BY}}</strong> जीवन, भावना र मानव अनुभवका विषयवस्तुहरू कविता र
-                                साहित्यमार्फत अन्वेषण गर्ने लेखक हुन्।</p>
-                            <p><strong>प्रकाशक:</strong> {{PUBLISHER}}</p>
-                        </div>
+                        <div class="section-text">{{INTRO_NE}}</div>
                     </section>
                 </div>
             </div>
@@ -117,9 +108,13 @@
 
 <script>
     function switchLanguage(lang) {
-        // Hide all content
+        // Hide all info content
         document.getElementById('content-en').style.display = 'none';
         document.getElementById('content-ne').style.display = 'none';
+
+        // Toggle poem content
+        document.getElementById('poem-en').style.display = lang === 'en' ? 'block' : 'none';
+        document.getElementById('poem-ne').style.display = lang === 'ne' ? 'block' : 'none';
 
         // Remove active class from all buttons
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));

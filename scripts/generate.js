@@ -191,7 +191,16 @@ for (const blog of blogs) {
             .replaceAll('{{PLACE}}', blog.place || '')
             .replaceAll('{{PUBLISHER}}', blog.publisher || '')
             .replaceAll('{{THEME}}', blog.theme || '')
-            .replaceAll('{{REFLECTION}}', blog.reflection || '');
+            .replaceAll('{{REFLECTION}}', blog.reflection || '')
+            // New Bilingual Placeholders
+            .replaceAll('{{REFLECTION_EN}}', blog.reflection_en || blog.reflection || '')
+            .replaceAll('{{REFLECTION_NE}}', blog.reflection_ne || blog.reflection || '')
+            .replaceAll('{{THEME_EN}}', blog.theme_en || blog.theme || '')
+            .replaceAll('{{THEME_NE}}', blog.theme_ne || blog.theme || '')
+            .replaceAll('{{INTRO_EN}}', blog.intro_en || '')
+            .replaceAll('{{INTRO_NE}}', blog.intro_ne || '')
+            .replaceAll('{{POEM_EN}}', marked.parse(blog.poem_en || ''))
+            .replaceAll('{{POEM_NE}}', marked.parse(blog.poem_ne || blog.originalContent || ''));
     }
 
     // Clear Comments Placeholder

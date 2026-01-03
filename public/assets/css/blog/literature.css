@@ -13,60 +13,33 @@
 .literature-header {
     text-align: center;
     margin-bottom: 50px;
+    background: linear-gradient(135deg, #3b49df 0%, #6366f1 100%);
+    padding: 60px 20px;
+    border-radius: 12px;
+    color: white;
 }
 
 .literature-title {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-size: 3rem;
-    font-style: italic;
-    color: var(--primary);
-    margin-bottom: 30px;
-    line-height: 1.3;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 .literature-meta {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 0.95rem;
-    color: var(--manatee);
-    font-family: 'Georgia', serif;
-}
-
-.meta-item {
-    display: block;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 30px;
 }
 
 .meta-item strong {
-    color: var(--light-gray);
-}
-
-.literature-cover {
-    margin-bottom: 50px;
-    text-align: center;
-}
-
-.literature-cover img {
-    max-width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
-
-.literature-content {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-size: 1.2rem;
-    line-height: 2;
-    text-align: center;
-    color: var(--light-gray);
-    margin-bottom: 60px;
-    white-space: pre-line;
-}
-
-.literature-content p {
-    margin-bottom: 1.5em;
+    color: white;
 }
 
 /* Unified Literature Info Container */
@@ -74,164 +47,78 @@
     margin-top: 60px;
     margin-bottom: 50px;
     border-radius: 16px;
-    padding: 40px;
-    border: 1px solid;
-    box-shadow: 0 8px 32px;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
 }
 
-/* Light Theme */
-[data-theme="light"] .literature-info-container {
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
-    border-color: rgba(139, 92, 246, 0.25);
-    box-shadow: 0 8px 32px rgba(79, 70, 229, 0.12);
-}
-
-/* Dark Theme */
-[data-theme="dark"] .literature-info-container {
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(139, 92, 246, 0.08) 100%);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 8px 32px rgba(79, 70, 229, 0.2);
-}
-
-/* Language Toggle Buttons */
-.language-toggle {
+/* Language Toggle Buttons (Inside Header) */
+.literature-header .language-toggle {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-top: 20px;
 }
 
 .lang-btn {
-    padding: 12px 32px;
-    border: 2px solid;
+    padding: 10px 35px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
     background: transparent;
     border-radius: 50px;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: white;
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
-/* Light Theme Buttons */
-[data-theme="light"] .lang-btn {
-    border-color: rgba(139, 92, 246, 0.4);
-    color: #4f46e5;
-}
-
-[data-theme="light"] .lang-btn:hover {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.6);
-    transform: translateY(-2px);
-}
-
-[data-theme="light"] .lang-btn.active {
-    background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
-    border-color: #8b5cf6;
+.lang-btn.active {
+    background: #1e293b;
+    border-color: #1e293b;
     color: white;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
 }
 
-/* Dark Theme Buttons */
-[data-theme="dark"] .lang-btn {
-    border-color: rgba(139, 92, 246, 0.35);
-    color: var(--light-gray);
-}
-
-[data-theme="dark"] .lang-btn:hover {
-    background: rgba(139, 92, 246, 0.12);
-    border-color: rgba(139, 92, 246, 0.5);
-    transform: translateY(-2px);
-}
-
-[data-theme="dark"] .lang-btn.active {
-    background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
-    border-color: #8b5cf6;
-    color: white;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+.lang-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Info Content Sections */
-.info-content {
-    animation: fadeIn 0.4s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .info-section {
-    margin-bottom: 35px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid;
-}
-
-/* Light Theme Sections */
-[data-theme="light"] .info-section {
-    border-bottom-color: rgba(139, 92, 246, 0.2);
-}
-
-/* Dark Theme Sections */
-[data-theme="dark"] .info-section {
-    border-bottom-color: rgba(139, 92, 246, 0.15);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-section:last-child {
     border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
 }
 
 .info-section .section-heading {
-    font-family: 'Georgia', serif;
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #ef4444;
+    /* Red color from design */
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-/* Light Theme Headings */
-[data-theme="light"] .info-section .section-heading {
-    color: #7c3aed;
-}
-
-/* Dark Theme Headings */
-[data-theme="dark"] .info-section .section-heading {
-    color: #a78bfa;
+    padding-left: 15px;
+    border-left: 4px solid #ef4444;
+    /* Red bar from design */
+    text-transform: none;
 }
 
 .info-section .section-heading::before {
-    content: '';
-    width: 4px;
-    height: 24px;
-    background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
-    border-radius: 2px;
+    display: none;
+    /* Remove old bar */
 }
 
 .section-text {
-    font-family: 'Georgia', serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.05rem;
     line-height: 1.8;
-}
-
-/* Light Theme Text */
-[data-theme="light"] .section-text {
-    color: #374151;
-}
-
-/* Dark Theme Text */
-[data-theme="dark"] .section-text {
     color: var(--light-gray);
 }
 
