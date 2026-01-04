@@ -13,7 +13,7 @@
     "author": "Shankar Aryal",
     "license": "ISC",
     "dependencies": {
-        "@libsql/client": "^0.6.0",
+        "@libsql/client": "^0.15.15",
         "bcryptjs": "^3.0.3",
         "cookie": "^0.6.0",
         "formidable": "^3.5.1",

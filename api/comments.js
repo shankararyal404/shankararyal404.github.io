@@ -27,11 +27,14 @@ export default async function handler(req, res) {
                 [post_slug]
             );
 
-            // Group by parent_id for threaded view in frontend
-            return res.status(200).json(comments);
+            return res.status(200).json(Array.isArray(comments) ? comments : []);
         } catch (error) {
-            console.error('Fetch comments error:', error);
-            return res.status(500).json({ error: 'Failed to fetch comments' });
+            console.error('Fetch comments error detail:', {
+                message: error.message,
+                stack: error.stack,
+                post_slug
+            });
+            return res.status(500).json({ error: 'Failed to fetch comments', details: error.message });
         }
     }
 
