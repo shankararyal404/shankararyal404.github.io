@@ -49,10 +49,16 @@ export default async function handler(req, res) {
                       VALUES (?, ?, ?, ?, ?, 1, 'approved')`,
                 args: [post_slug, 'Admin', 'admin@shankararyal404.com.np', content, parent_id]
             });
-            return res.status(201).json({ message: 'Admin reply posted', id: result.lastInsertRowid });
+
+            const insertId = result.lastInsertRowid ? result.lastInsertRowid.toString() : null;
+
+            return res.status(201).json({
+                message: 'Admin reply posted',
+                id: insertId
+            });
         } catch (error) {
             console.error('Post admin reply error:', error);
-            return res.status(500).json({ error: 'Failed to post admin reply' });
+            return res.status(500).json({ error: 'Failed to post admin reply', details: error.message });
         }
     }
 

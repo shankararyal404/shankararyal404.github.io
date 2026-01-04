@@ -55,10 +55,19 @@ export default async function handler(req, res) {
                     args: [post_slug, author_name || 'Anonymous', author_email || '', author_avatar || '', content, parent_id || null, is_anonymous ? 1 : 0, auth_provider || 'none']
                 });
 
-                return res.status(201).json({ message: 'Comment posted successfully', id: result.lastInsertRowid });
+                // Fix: BigInt serialization error
+                const insertId = result.lastInsertRowid ? result.lastInsertRowid.toString() : null;
+
+                return res.status(201).json({
+                    message: 'Comment posted successfully',
+                    id: insertId
+                });
             } catch (error) {
-                console.error('Post comment error:', error);
-                return res.status(500).json({ error: 'Failed to post comment' });
+                console.error('Post comment error detail:', {
+                    message: error.message,
+                    stack: error.stack
+                });
+                return res.status(500).json({ error: 'Failed to post comment', details: error.message });
             }
         }
 
