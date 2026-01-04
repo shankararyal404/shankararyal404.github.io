@@ -49,7 +49,7 @@ intro_ne: |
 रुदै भागेकी चाँदनीको चिरिएको गीत।
 
 भैरवको नृत्यमा झल्किँदैछ रक्तसारी,  
-छायाँमा सूर्यको अभिशप्त यज्ञ,  
+छायाँमा सूर्यको अभishप्त यज्ञ,  
 अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।
 
 गुलाबी फुल्को वेदनामा मुस्कान झरे,  
@@ -63,30 +63,3 @@ intro_ne: |
 
 
 *-शंकर अयार्ल*
-
----
-
-### English Translation
-
-The torn song of Chandani running and weeping,  
-The broken vow of the erased vermillion,  
-The apocalyptic gaze of the crow on the setting horizon.
-
-The sky revealed the night's seed,  
-The melody of cremation burns on the crest,  
-The torn song of Chandani running and weeping.
-
-The blood-red sari glimmers in Bhairav's dance,  
-The cursed sacrifice of the sun in the shadows,  
-The apocalyptic gaze of the crow on the setting horizon.
-
-Smiles fell in the agony of the pink flower,  
-Newborn buds drank tears,  
-The torn song of Chandani running and weeping.
-
-Infinity's dance surges in the chest,  
-Time kept falling in the black armor of the night,  
-The apocalyptic gaze of the crow on the setting horizon,  
-The torn song of Chandani running and weeping.
-
-*-Shankar Aryal*
