@@ -1,9 +1,18 @@
 import { db, query } from '../lib/db.js';
+import {
+    checkRateLimit,
+    sanitizeComment,
+    detectSpam,
+    validateAuthorName,
+    verifyCsrfToken
+} from '../lib/security.js';
 
 export default async function handler(req, res) {
     const { method } = req;
     const { post_slug } = req.query;
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
+    // --- GET Comments ---
     if (method === 'GET') {
         if (!post_slug) {
             return res.status(400).json({ error: 'post_slug is required' });
@@ -57,8 +66,19 @@ export default async function handler(req, res) {
         }
     }
 
+    // --- POST Actions ---
     if (method === 'POST') {
         const { action } = req.body;
+
+        // 1. Check IP Blocklist for all POST actions
+        try {
+            const blocked = await query('SELECT ip FROM ip_blocklist WHERE ip = ?', [ip]);
+            if (blocked.length > 0) {
+                return res.status(403).json({ error: 'Access denied. Your IP is blocked.' });
+            }
+        } catch (e) {
+            console.error('Blocklist check failed', e);
+        }
 
         // --- View Count Action ---
         if (action === 'view') {
@@ -68,8 +88,8 @@ export default async function handler(req, res) {
             try {
                 // Upsert view count
                 await db.execute({
-                    sql: `INSERT INTO post_stats (post_slug, view_count) VALUES (?, 1) 
-                          ON CONFLICT(post_slug) DO UPDATE SET view_count = view_count + 1`,
+                    sql: `INSERT INTO post_stats (post_slug, view_count, last_viewed) VALUES (?, 1, CURRENT_TIMESTAMP) 
+                          ON CONFLICT(post_slug) DO UPDATE SET view_count = view_count + 1, last_viewed = CURRENT_TIMESTAMP`,
                     args: [post_slug]
                 });
                 return res.status(200).json({ message: 'View tracked' });
@@ -79,21 +99,66 @@ export default async function handler(req, res) {
             }
         }
 
+        // --- Post Comment Action ---
         if (action === 'comment') {
-            const { post_slug, author_name, author_email, content, parent_id, is_anonymous, auth_provider, author_avatar } = req.body;
+            const {
+                post_slug, author_name, author_email, content, parent_id,
+                is_anonymous, auth_provider, author_avatar,
+                honeypot, csrf_token
+            } = req.body;
 
-            if (!post_slug || !content) {
-                return res.status(400).json({ error: 'post_slug and content are required' });
+            // A. Rate Limiting (5 per min, 20 per hour)
+            if (!checkRateLimit(ip, 5, 60000)) {
+                return res.status(429).json({ error: 'Too many comments (1 min limit).' });
+            }
+            if (!checkRateLimit(ip, 20, 3600000)) {
+                return res.status(429).json({ error: 'Too many comments (1 hour limit).' });
+            }
+
+            // B. Honeypot check
+            if (honeypot) {
+                return res.status(400).json({ error: 'Spam detected.' });
+            }
+
+            // C. CSRF check (Optional but recommended)
+            // if (!verifyCsrfToken(req.cookies.csrf_token, csrf_token)) {
+            //     return res.status(403).json({ error: 'CSRF token mismatch.' });
+            // }
+
+            // D. Validation
+            if (!post_slug || !content || content.length < 1 || content.length > 5000) {
+                return res.status(400).json({ error: 'Invalid content length (1-5000).' });
+            }
+            if (author_name && !validateAuthorName(author_name)) {
+                return res.status(400).json({ error: 'Invalid author name format.' });
+            }
+
+            // E. Sanitization
+            const cleanContent = sanitizeComment(content);
+            if (!cleanContent) return res.status(400).json({ error: 'Comment content is empty after sanitization.' });
+
+            // F. Spam Detection
+            if (detectSpam(cleanContent)) {
+                return res.status(400).json({ error: 'Comment rejected as spam.' });
             }
 
             try {
                 const result = await db.execute({
-                    sql: `INSERT INTO comments (post_slug, author_name, author_email, author_avatar, content, parent_id, is_anonymous, auth_provider) 
-                          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-                    args: [post_slug, author_name || 'Anonymous', author_email || '', author_avatar || '', content, parent_id || null, is_anonymous ? 1 : 0, auth_provider || 'none']
+                    sql: `INSERT INTO comments (post_slug, author_name, author_email, author_avatar, content, parent_id, is_anonymous, auth_provider, ip_address) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    args: [
+                        post_slug,
+                        author_name || 'Anonymous',
+                        author_email || '',
+                        author_avatar || '',
+                        cleanContent,
+                        parent_id || null,
+                        is_anonymous ? 1 : 0,
+                        auth_provider || 'anonymous',
+                        ip
+                    ]
                 });
 
-                // Fix: BigInt serialization error
                 const insertId = result.lastInsertRowid ? result.lastInsertRowid.toString() : null;
 
                 return res.status(201).json({
@@ -109,6 +174,7 @@ export default async function handler(req, res) {
             }
         }
 
+        // --- Handle Reaction Action ---
         if (action === 'react') {
             const { comment_id, post_slug, user_id, reaction_type } = req.body;
 
@@ -116,9 +182,13 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: 'comment_id or post_slug, user_id, and reaction_type are required' });
             }
 
+            // Rate limit reactions too (e.g. 30 per min)
+            if (!checkRateLimit(ip, 30, 60000)) {
+                return res.status(429).json({ error: 'Too many reactions.' });
+            }
+
             try {
                 // Toggle reaction logic
-                // Check if exists
                 const existing = await query(
                     `SELECT id FROM reactions WHERE user_id = ? AND reaction_type = ? AND 
                      ${comment_id ? 'comment_id = ?' : 'post_slug = ? AND comment_id IS NULL'}`,

@@ -157,10 +157,127 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
+/* Social Login Prompt */
+.comment-auth-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--white-alpha-05);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--white-alpha-10);
+}
+
+.social-login-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-login-prompt span {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+}
+
+.social-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.social-btn.google:hover {
+    background: #ea4335;
+    color: white;
+    border-color: #ea4335;
+}
+
+.social-btn.github:hover {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.social-btn.facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+.social-btn.twitter:hover {
+    background: #000;
+    color: white;
+    border-color: #000;
+}
+
+.or-separator {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-logged-in {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--primary);
+}
+
+.auth-text-btn {
+    background: none;
+    border: none;
+    color: var(--fiery-rose);
+    cursor: pointer;
+    font-size: 1.3rem;
+    text-decoration: underline;
+    margin-left: auto;
+}
+
+/* Comment Form Adjustments */
+.comment-input {
+    width: 100%;
+    padding: 10px 15px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
 .form-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.char-count {
+    font-size: 1.2rem;
+    color: var(--text-muted);
 }
 
 .anonymous-toggle {
@@ -254,6 +371,12 @@
 .comment-date {
     font-size: 1.2rem;
     color: var(--text-muted);
+}
+
+.auth-provider-badge {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
 }
 
 .comment-text {
