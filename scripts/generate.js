@@ -107,6 +107,17 @@ for (const file of blogFiles) {
     const image = data.cover || data.image || `${SITE_URL}/assets/images/default-cover.webp`;
 
     // SEO & Classification
+    const formatDate = (date) => {
+        if (!date) return '';
+        try {
+            const d = new Date(date);
+            if (isNaN(d.getTime())) return date;
+            return d.toISOString().split('T')[0];
+        } catch (e) {
+            return date;
+        }
+    };
+
     const categorySlug = getCategorySlug(data.category);
     // const categoryUrl = ... (will compute in Pass 2)
 
@@ -124,8 +135,8 @@ for (const file of blogFiles) {
     const url = `${SITE_URL}/${subdirectory}/${slug}.html`;
 
     // Date Logic
-    const uploadDate = data.date;
-    const publishedDate = data.original_date || data.date;
+    const uploadDate = formatDate(data.date);
+    const publishedDate = formatDate(data.original_date || data.date);
     const dateObj = new Date(uploadDate);
 
     blogs.push({
@@ -165,6 +176,7 @@ footerLatestBlogsHtml = blogs.slice(0, 3).map(b => `
 console.log(`[Build] Footer populated with ${Math.min(blogs.length, 3)} recent blogs.`);
 
 // PASS 2: Generate Individual Pages
+// PASS 2: Generate Individual Pages
 for (const blog of blogs) {
     const url = blog.url;
     const indexStatus = blog.noindex ? 'noindex, nofollow' : 'index, follow';
@@ -182,99 +194,86 @@ for (const blog of blogs) {
     // Convert Markdown
     const htmlContent = marked.parse(blog.content);
 
-    // Render Basic Blog HTML
-    let blogHtml = blogTemplate
-        .replaceAll('{{BLOG_TITLE}}', blog.title)
-        .replaceAll('{{BLOG_DATE}}', blog.publishedDate) // Backwards compatibility
-        .replaceAll('{{PUBLISHED_DATE}}', blog.publishedDate)
-        .replaceAll('{{UPLOAD_DATE}}', blog.uploadDate)
-        .replaceAll('{{BLOG_CATEGORY}}', blog.category)
-        .replaceAll('{{BLOG_CATEGORY_SLUG}}', blog.categorySlug)
-        .replaceAll('{{BLOG_IMAGE}}', blog.image)
-        .replaceAll('{{BLOG_BODY}}', htmlContent)
-        .replaceAll('{{BLOG_TAGS}}', (blog.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase()}.html" class="tag">${t}</a>`).join(', '));
+    // Prepare uniform render data
+    const hasEn = !!(blog.reflection_en || blog.theme_en || blog.intro_en);
+    const hasNe = !!(blog.reflection_ne || blog.theme_ne || blog.intro_ne);
 
-    // Literature Fields
-    if (blog.category === 'Literature') {
-        const hasEn = !!(blog.reflection_en || blog.theme_en || blog.intro_en);
-        const hasNe = !!(blog.reflection_ne || blog.theme_ne || blog.intro_ne);
+    let renderData = {
+        ...blog,
+        BLOG_TITLE: blog.title,
+        BLOG_DATE: blog.publishedDate,
+        PUBLISHED_DATE: blog.publishedDate,
+        UPLOAD_DATE: (blog.uploadDate !== blog.publishedDate) ? blog.uploadDate : '',
+        BLOG_CATEGORY: blog.category,
+        BLOG_CATEGORY_SLUG: blog.categorySlug,
+        BLOG_IMAGE: blog.image,
+        BLOG_TAGS: (blog.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase()}.html" class="tag">${t}</a>`).join(', '),
+        WRITTEN_BY: blog.written_by || '',
+        PLACE: blog.place || '',
+        PUBLISHER: blog.publisher || '',
+        LITERATURE_TYPE: blog.type || '',
+        HAS_EN: hasEn,
+        HAS_NE: hasNe,
+        REFLECTION_EN: blog.reflection_en,
+        REFLECTION_NE: blog.reflection_ne || blog.reflection,
+        THEME_EN: blog.theme_en,
+        THEME_NE: blog.theme_ne || blog.theme,
+        INTRO_EN: blog.intro_en,
+        INTRO_NE: blog.intro_ne,
+        SITE_URL,
+        INDEX_STATUS: indexStatus,
+        CATEGORY_URL: categoryUrl
+    };
 
-        blogHtml = blogHtml
-            .replaceAll('{{LITERATURE_TYPE}}', blog.type || '')
-            .replaceAll('{{WRITTEN_BY}}', blog.written_by || '')
-            .replaceAll('{{PLACE}}', blog.place || '')
-            .replaceAll('{{PUBLISHER}}', blog.publisher || '')
-            .replaceAll('{{HAS_EN}}', hasEn ? 'true' : 'false')
-            .replaceAll('{{HAS_NE}}', hasNe ? 'true' : 'false')
-            .replaceAll('{{ HAS_EN }}', hasEn ? 'true' : 'false')
-            .replaceAll('{{ HAS_NE }}', hasNe ? 'true' : 'false')
-            .replaceAll('{{REFLECTION_EN}}', blog.reflection_en || '')
-            .replaceAll('{{REFLECTION_NE}}', blog.reflection_ne || blog.reflection || '')
-            .replaceAll('{{THEME_EN}}', blog.theme_en || '')
-            .replaceAll('{{THEME_NE}}', blog.theme_ne || blog.theme || '')
-            .replaceAll('{{INTRO_EN}}', blog.intro_en || '')
-            .replaceAll('{{INTRO_NE}}', blog.intro_ne || '');
+    let blogHtml = blogTemplate;
 
-        // Handle Conditional Blocks: {{#VAR}}...{{/VAR}}
-        const conditionVars = {
-            REFLECTION_EN: !!blog.reflection_en,
-            THEME_EN: !!blog.theme_en,
-            INTRO_EN: !!blog.intro_en,
-            REFLECTION_NE: !!(blog.reflection_ne || blog.reflection),
-            THEME_NE: !!(blog.theme_ne || blog.theme),
-            INTRO_NE: !!blog.intro_ne
-        };
+    // 1. Handle Conditionals {{#KEY}}...{{/KEY}}
+    blogHtml = blogHtml.replace(/{{\s*#(\w+)\s*}}([\s\S]*?){{\s*\/\1\s*}}/g, (match, key, innerContent) => {
+        return renderData[key] ? innerContent : '';
+    });
 
-        for (const [key, exists] of Object.entries(conditionVars)) {
-            const regex = new RegExp(`\\{\\{#${key}\\}\\}([\\s\\S]*?)\\{\\{/${key}\\}\\}`, 'g');
-            if (exists) {
-                blogHtml = blogHtml.replace(regex, '$1'); // Keep content
-            } else {
-                blogHtml = blogHtml.replace(regex, ''); // Remove block
-            }
-        }
-    }
+    // 2. Handle Placeholders {{KEY}} (Except BLOG_BODY)
+    blogHtml = blogHtml.replace(/{{\s*(\w+)\s*}}/g, (match, key) => {
+        if (key === 'BLOG_BODY') return match;
+        const val = renderData[key];
+        if (val === undefined) return match;
+        if (typeof val === 'boolean') return val ? 'true' : 'false';
+        return val;
+    });
 
-    // Clear Comments Placeholder
+    // 3. Finally insert BLOG_BODY
+    blogHtml = blogHtml.replaceAll('{{BLOG_BODY}}', htmlContent);
     blogHtml = blogHtml.replaceAll('{{COMMENTS_LIST}}', '');
 
     // ----------------------------------------------------
     // BLOG SUGGESTION ENGINE
     // ----------------------------------------------------
-    // 1. Filter candidates (exclude self)
     const candidates = blogs.filter(b => b.slug !== blog.slug).map(b => {
         let score = 0;
-        // Same Category (+3)
         if (b.category === blog.category) score += 3;
-        // Matching Tags (+1 each)
         if (blog.tags && b.tags) {
             const shared = b.tags.filter(t => blog.tags.includes(t));
             score += shared.length;
         }
-        // Recent is implicit by array order
         return { blog: b, score };
     });
 
-    // 2. Sort by Score
     candidates.sort((a, b) => b.score - a.score);
 
-    // 3. Select Top 6 and Randomize 3
     let topN = candidates.slice(0, 6);
-    // Fisher-Yates Shuffle
     for (let i = topN.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [topN[i], topN[j]] = [topN[j], topN[i]];
     }
     const suggestions = topN.slice(0, 3).map(c => c.blog);
 
-    // 4. Generate HTML
     let suggestionHtml = '';
     if (suggestions.length > 0) {
         suggestionHtml = `
-        <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
-            <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
-            <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                ${suggestions.map(s => {
+            <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+                <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
+                <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    ${suggestions.map(s => {
             return blogCardTemplate
                 .replaceAll('{{POST_IMAGE}}', s.image)
                 .replaceAll('{{POST_TITLE}}', s.title)
@@ -282,22 +281,17 @@ for (const blog of blogs) {
                 .replaceAll('{{POST_SUBDIRECTORY}}', s.subdirectory || 'blogs')
                 .replaceAll('{{POST_CATEGORY}}', s.category)
                 .replaceAll('{{POST_CATEGORY_SLUG}}', s.category.toLowerCase().replace(/ /g, '-'))
-                .replaceAll('{{POST_DATE}}', s.date)
+                .replaceAll('{{POST_DATE}}', s.publishedDate)
                 .replaceAll('{{POST_EXCERPT}}', s.excerpt || '')
                 .replaceAll('{{POST_TAGS}}', (s.tags || []).join(', ').toLowerCase());
         }).join('')}
-            </div>
-        </div>`;
+                </div>
+            </div>`;
     }
 
-    // 5. Inject after Comments
-    // Try to find closing of comments-section
-    const commentsEndIdx = blogHtml.lastIndexOf('</div>'); // Risky if template changes, but let's try to append to article end
-    // Safer: Replace </article> with Suggestion + </article>
     if (blogHtml.includes('</article>')) {
         blogHtml = blogHtml.replace('</article>', `${suggestionHtml}</article>`);
     } else {
-        // Fallback
         blogHtml += suggestionHtml;
     }
 
@@ -315,7 +309,7 @@ for (const blog of blogs) {
             "headline": blog.title,
             "description": blog.excerpt || '',
             "image": { "@type": "ImageObject", "url": blog.image },
-            "datePublished": blog.date,
+            "datePublished": blog.publishedDate,
             "author": { "@type": "Person", "name": "Shankar Aryal" },
             "mainEntityOfPage": { "@type": "WebPage", "@id": url }
         }
@@ -323,7 +317,6 @@ for (const blog of blogs) {
 
     const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${blog.categorySlug}.css">`;
 
-    // Render Full Page (Uses populated footerLatestBlogsHtml!)
     const fullHtml = renderPage(
         blogHtml,
         `${blog.title} | Shankar Aryal`,
@@ -353,7 +346,7 @@ const allBlogsListHtml = blogs.map(post => {
         .replaceAll('{{POST_SUBDIRECTORY}}', post.subdirectory || 'blogs')
         .replaceAll('{{POST_CATEGORY}}', post.category)
         .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
-        .replaceAll('{{POST_DATE}}', post.date)
+        .replaceAll('{{POST_DATE}}', post.publishedDate)
         .replaceAll('{{POST_EXCERPT}}', post.excerpt || '')
         .replaceAll('{{POST_TAGS}}', (post.tags || []).join(', ').toLowerCase());
 }).join('');
@@ -398,7 +391,7 @@ Object.values(tagsMap).forEach(tagData => {
             .replaceAll('{{POST_SLUG}}', post.slug)
             .replaceAll('{{POST_CATEGORY}}', post.category)
             .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
-            .replaceAll('{{POST_DATE}}', post.date)
+            .replaceAll('{{POST_DATE}}', post.publishedDate)
             .replaceAll('{{POST_EXCERPT}}', post.excerpt || '')
             .replaceAll('{{POST_TAGS}}', (post.tags || []).join(', ').toLowerCase());
     }).join('');
