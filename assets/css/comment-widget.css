@@ -24,6 +24,77 @@
     color: var(--text-heading);
 }
 
+.post-stats-header {
+    display: flex;
+    gap: 10px;
+}
+
+.post-stats-header .admin-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+}
+
+/* Post Engagement Bar */
+.post-reactions-bar {
+    margin-bottom: 20px;
+}
+
+.reactions-flex {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.reaction-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.reaction-item:hover {
+    border-color: var(--primary);
+    background: var(--bg-elevated);
+    transform: translateY(-1px);
+}
+
+.reaction-item.has-count {
+    background: var(--white-alpha-05);
+}
+
+.reaction-item .emoji {
+    font-size: 1.8rem;
+}
+
+.reaction-item .count {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-elevated) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
 /* Auth / Login Buttons */
 .comment-auth-buttons {
     display: flex;

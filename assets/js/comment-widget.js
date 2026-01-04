@@ -11,6 +11,7 @@ class CommentWidget {
         this.theme = options.theme || document.documentElement.getAttribute('data-theme') || 'dark';
 
         this.comments = [];
+        this.stats = { views: 0, reactions: [] };
         this.userId = this.getOrCreateUserId();
 
         if (this.container) {
@@ -29,6 +30,7 @@ class CommentWidget {
 
     async init() {
         this.renderLayout();
+        await this.trackView();
         await this.loadComments();
         this.setupEventListeners();
     }
@@ -37,9 +39,19 @@ class CommentWidget {
         this.container.innerHTML = `
             <div class="comment-widget-container">
                 <div class="comment-widget-header">
-                    <h2 class="comment-widget-title">Comments</h2>
-                    <span id="comment-count-badge" class="admin-badge" style="background: var(--bg-elevated); color: var(--text-secondary);">Loading...</span>
+                    <h2 class="comment-widget-title">Engagement</h2>
+                    <div class="post-stats-header">
+                        <span id="view-count-badge" class="admin-badge" style="background: var(--white-alpha-10);"><ion-icon name="eye-outline"></ion-icon> Loading...</span>
+                        <span id="comment-count-badge" class="admin-badge" style="background: var(--bg-elevated);"><ion-icon name="chatbubbles-outline"></ion-icon> Loading...</span>
+                    </div>
                 </div>
+
+                <!-- Post Reactions -->
+                <div id="post-reactions-container" class="post-reactions-bar">
+                    <div class="loading-shimmer" style="height: 30px; border-radius: 15px;"></div>
+                </div>
+
+                <div class="section-divider" style="margin: 20px 0; border-top: 1px solid var(--white-alpha-10);"></div>
 
                 <!-- Auth Buttons -->
                 <div class="comment-auth-buttons">
@@ -73,42 +85,123 @@ class CommentWidget {
         `;
     }
 
+    async trackView() {
+        try {
+            await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'view', post_slug: this.postSlug })
+            });
+        } catch (e) {
+            console.warn('View tracking failed', e);
+        }
+    }
+
     async loadComments() {
         try {
             const response = await fetch(`${this.apiUrl}?post_slug=${this.postSlug}`);
             const data = await response.json();
 
-            // Ensure this.comments is always an array
-            this.comments = Array.isArray(data) ? data : [];
+            // Handle new response structure { comments, stats }
+            this.comments = Array.isArray(data.comments) ? data.comments : [];
+            this.stats = data.stats || { views: 0, reactions: [] };
 
-            const badge = document.getElementById('comment-count-badge');
-            if (badge) {
-                badge.textContent = `${this.comments.length} Comments`;
+            const commentBadge = document.getElementById('comment-count-badge');
+            if (commentBadge) {
+                commentBadge.innerHTML = `<ion-icon name="chatbubbles-outline"></ion-icon> ${this.comments.length} Comments`;
             }
+
+            const viewBadge = document.getElementById('view-count-badge');
+            if (viewBadge) {
+                viewBadge.innerHTML = `<ion-icon name="eye-outline"></ion-icon> ${this.formatNumber(this.stats.views)} Views`;
+            }
+
+            this.renderPostReactions();
             this.renderComments();
         } catch (error) {
             console.error('Failed to load comments:', error);
             this.comments = [];
-            const badge = document.getElementById('comment-count-badge');
-            if (badge) badge.textContent = 'Error';
 
-            document.getElementById('comments-list').innerHTML = `
-                <div style="text-align: center; padding: 20px; color: var(--fiery-rose);">
-                    <p>Failed to load comments.</p>
-                    <small style="opacity: 0.7;">Check if Turso Database is configured correctly.</small>
-                </div>
-            `;
+            const listContainer = document.getElementById('comments-list');
+            if (listContainer) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--fiery-rose);">
+                        <p>Failed to load engagement data.</p>
+                        <small style="opacity: 0.7;">Check if Turso Database is configured correctly.</small>
+                    </div>
+                `;
+            }
         }
+    }
+
+    renderPostReactions() {
+        const container = document.getElementById('post-reactions-container');
+        if (!container) return;
+
+        const list = [
+            { type: '👍', label: 'Like' },
+            { type: '❤️', label: 'Love' },
+            { type: '😂', label: 'Haha' },
+            { type: '🫡', label: 'Respect' },
+            { type: '🤯', label: 'Wow' },
+            { type: '🎉', label: 'Celebrate' },
+            { type: '🚀', label: 'Rocket' }
+        ];
+
+        container.innerHTML = `
+            <div class="reactions-flex">
+                ${list.map(r => {
+            const stat = this.stats.reactions.find(s => s.reaction_type === r.type);
+            const count = stat ? stat.count : 0;
+            return `
+                        <div class="reaction-item ${count > 0 ? 'has-count' : ''}" 
+                             onclick="commentWidget.handlePostReaction('${r.type}')"
+                             title="${r.label}">
+                            <span class="emoji">${r.type}</span>
+                            <span class="count">${count}</span>
+                        </div>
+                    `;
+        }).join('')}
+            </div>
+        `;
+    }
+
+    async handlePostReaction(type) {
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'react',
+                    post_slug: this.postSlug,
+                    user_id: this.userId,
+                    reaction_type: type
+                })
+            });
+
+            if (response.ok) {
+                await this.loadComments();
+            }
+        } catch (error) {
+            console.error('Post reaction error:', error);
+        }
+    }
+
+    formatNumber(num) {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+        return num;
     }
 
     renderComments() {
         const listContainer = document.getElementById('comments-list');
+        if (!listContainer) return;
+
         if (this.comments.length === 0) {
-            listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No comments yet. Be the first to share your thoughts!</p>';
+            listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px; border: 1px dashed var(--white-alpha-10); border-radius: 12px; margin-top: 20px;">No comments yet. Be the first to share your thoughts!</p>';
             return;
         }
 
-        // Separate top-level comments and replies
         const topLevel = this.comments.filter(c => !c.parent_id);
         const replies = this.comments.filter(c => c.parent_id);
 
@@ -118,7 +211,7 @@ class CommentWidget {
     generateCommentHtml(comment, allReplies) {
         const date = new Date(comment.created_at).toLocaleDateString();
         const isAdmin = comment.is_admin === 1;
-        const avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random`;
+        const avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random&color=fff`;
 
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
 
@@ -130,14 +223,16 @@ class CommentWidget {
                 <div class="comment-body">
                     <div class="comment-meta">
                         <span class="author-name">${comment.author_name}</span>
-                        ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}
+                        ${isAdmin ? '<span class="admin-badge" style="background:var(--emerald)">Admin</span>' : ''}
                         <span class="comment-date">${date}</span>
                     </div>
                     <div class="comment-text">${this.escapeHtml(comment.content)}</div>
                     
                     <div class="comment-actions">
                         ${this.generateReactionHtml(comment)}
-                        <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">Reply</button>
+                        <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
+                             <ion-icon name="arrow-undo-outline"></ion-icon> Reply
+                        </button>
                     </div>
 
                     <div id="reply-form-container-${comment.id}"></div>
@@ -162,7 +257,7 @@ class CommentWidget {
         ];
 
         return reactions.map(r => `
-            <div class="reaction-group ${this.hasUserReacted(comment.id, r.type) ? 'active' : ''}" 
+            <div class="reaction-group" 
                  onclick="commentWidget.handleReaction(${comment.id}, '${r.type}')">
                 <span class="reaction-emoji">${r.type}</span>
                 <span class="reaction-count">${r.count}</span>
@@ -170,23 +265,21 @@ class CommentWidget {
         `).join('');
     }
 
-    hasUserReacted(commentId, type) {
-        // This is a placeholder as the current API doesn't return user-specific reaction state
-        // In a real app, you'd check a local cache or the API response
-        return false;
-    }
-
     setupEventListeners() {
         const form = document.getElementById('main-comment-form');
+        if (!form) return;
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const textarea = form.querySelector('textarea');
             const isAnon = document.getElementById('anon-checkbox').checked;
 
+            if (!textarea.value.trim()) return;
+
             await this.postComment({
                 content: textarea.value,
                 is_anonymous: isAnon,
-                author_name: isAnon ? 'Anonymous' : 'Visitor', // Placeholder for actual auth
+                author_name: isAnon ? 'Anonymous' : 'Visitor',
                 parent_id: null
             });
 
@@ -196,6 +289,8 @@ class CommentWidget {
 
     async postComment(data) {
         const submitBtn = document.getElementById('submit-btn');
+        if (!submitBtn) return;
+
         submitBtn.disabled = true;
         submitBtn.textContent = 'Posting...';
 
@@ -225,17 +320,19 @@ class CommentWidget {
 
     showReplyForm(commentId) {
         const container = document.getElementById(`reply-form-container-${commentId}`);
+        if (!container) return;
+
         if (container.innerHTML !== '') {
             container.innerHTML = '';
             return;
         }
 
         container.innerHTML = `
-            <form class="comment-form" style="margin-top: 15px; border-style: dashed;">
+            <form class="comment-form" style="margin-top: 15px; border-style: dashed; padding: 15px;">
                 <textarea class="comment-textarea" placeholder="Write a reply..." required style="min-height: 80px;"></textarea>
                 <div class="form-footer">
-                    <button type="button" class="auth-btn" style="padding: 5px 12px; font-size: 1.2rem;" onclick="this.closest('form').remove()">Cancel</button>
-                    <button type="submit" class="submit-btn" style="padding: 8px 16px; font-size: 1.3rem;">Post Reply</button>
+                    <button type="button" class="auth-btn" style="padding: 5px 12px;" onclick="this.closest('form').remove()">Cancel</button>
+                    <button type="submit" class="submit-btn" style="padding: 8px 16px;">Post Reply</button>
                 </div>
             </form>
         `;
@@ -244,6 +341,8 @@ class CommentWidget {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const textarea = form.querySelector('textarea');
+            if (!textarea.value.trim()) return;
+
             await this.postComment({
                 content: textarea.value,
                 is_anonymous: true,
@@ -276,8 +375,6 @@ class CommentWidget {
 
     setTheme(theme) {
         this.theme = theme;
-        // The widget uses CSS variables from the main theme, 
-        // which are automatically updated by the data-theme attribute on <html>
     }
 
     escapeHtml(text) {
