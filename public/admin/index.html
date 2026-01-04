@@ -336,6 +336,7 @@
             <div class="admin-tab" data-tab="technologies">Technologies</div>
             <div class="admin-tab" data-tab="social-links">Social Links</div>
             <div class="admin-tab" data-tab="certificates">Certificates</div>
+            <div class="admin-tab" data-tab="comments">Comments</div>
             <div class="admin-tab" data-tab="gallery">Gallery</div>
         </div>
 
@@ -507,6 +508,38 @@
                     </tr>
                 </thead>
                 <tbody id="certificates-list"></tbody>
+            </table>
+        </div>
+
+        <!-- COMMENTS TAB -->
+        <div id="comments" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="h2">Manage Comments</h2>
+                <div style="display: flex; gap: 10px;">
+                    <select id="comment-filter-status" style="width: auto; margin: 0;" onchange="loadCommentsAdmin()">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved" selected>Approved</option>
+                        <option value="spam">Spam</option>
+                    </select>
+                    <input type="text" id="comment-search" placeholder="Search by post/author/content..."
+                        style="width: 250px; margin: 0;" onkeyup="loadCommentsAdmin()">
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Post</th>
+                        <th>Author</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-comments-list">
+                    <!-- Comments injected here -->
+                </tbody>
             </table>
         </div>
 
@@ -875,6 +908,24 @@
         };
         window.closeModal = (id) => document.getElementById(id).classList.remove('open');
     </script>
+    <!-- Comment Reply Modal -->
+    <div id="comment-reply-modal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" onclick="closeModal('comment-reply-modal')">&times;</span>
+            <h2 class="h2">Reply to Comment</h2>
+            <div id="reply-to-preview"
+                style="background: var(--bg-elevated); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem;">
+                <!-- Parent comment preview here -->
+            </div>
+            <form id="comment-reply-form">
+                <input type="hidden" id="reply-parent-id">
+                <input type="hidden" id="reply-post-slug">
+                <label>Your Reply (as Admin)</label>
+                <textarea id="reply-content" rows="6" required placeholder="Type your response..."></textarea>
+                <button type="submit" class="btn btn-primary">Send Admin Reply</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

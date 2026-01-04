@@ -201,6 +201,7 @@ for (const blog of blogs) {
     let renderData = {
         ...blog,
         BLOG_TITLE: blog.title,
+        BLOG_SLUG: blog.slug,
         BLOG_DATE: blog.publishedDate,
         PUBLISHED_DATE: blog.publishedDate,
         UPLOAD_DATE: (blog.uploadDate !== blog.publishedDate) ? blog.uploadDate : '',
