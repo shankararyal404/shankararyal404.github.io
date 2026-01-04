@@ -975,11 +975,13 @@ window.loadCommentsAdmin = async () => {
             <td><small>${new Date(c.created_at).toLocaleString()}</small></td>
             <td><span class="admin-badge" style="background:${getStatusColor(c.status)};">${c.status}</span></td>
             <td>
-                <button class="action-btn edit-btn" onclick="openReplyModal(${c.id}, '${c.post_slug}', \`${escapeJS(c.content)}\`, '${escapeJS(c.author_name)}')">Reply</button>
-                <div style="margin-top:5px;">
-                    ${c.status !== 'approved' ? `<button class="action-btn" style="background:var(--emerald);" onclick="updateCommentStatus(${c.id}, 'approved')">Approve</button>` : ''}
-                    ${c.status !== 'spam' ? `<button class="action-btn" style="background:var(--orange-soda);" onclick="updateCommentStatus(${c.id}, 'spam')">Spam</button>` : ''}
-                    <button class="action-btn delete-btn" onclick="deleteCommentAdmin(${c.id})">Delete</button>
+                <div style="display:flex; flex-direction:column; gap:5px;">
+                    <button class="action-btn edit-btn" onclick="openReplyModal(${c.id}, '${c.post_slug}', \`${escapeJS(c.content)}\`, '${escapeJS(c.author_name)}')">Reply</button>
+                    <div style="display:flex; gap:5px;">
+                        ${c.status === 'spam' ? `<button class="action-btn" style="background:var(--emerald);" onclick="updateCommentStatus(${c.id}, 'approved')" title="Approve/Unspam">Approve</button>` : ''}
+                        ${c.status !== 'spam' ? `<button class="action-btn" style="background:var(--orange-soda);" onclick="updateCommentStatus(${c.id}, 'spam')" title="Mark as Spam">Spam</button>` : ''}
+                        <button class="action-btn delete-btn" onclick="deleteCommentAdmin(${c.id})" title="Delete Permanently">Delete</button>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -988,8 +990,7 @@ window.loadCommentsAdmin = async () => {
 
 function getStatusColor(status) {
     if (status === 'approved') return 'var(--emerald)';
-    if (status === 'pending') return 'var(--gold-web-golden)';
-    if (status === 'spam') return 'var(--orange-soda)';
+    if (status === 'spam') return 'var(--fiery-rose)';
     return 'var(--manatee)';
 }
 

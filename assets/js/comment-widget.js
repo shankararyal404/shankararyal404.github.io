@@ -1,6 +1,6 @@
 /**
  * Custom Comment Widget
- * Integrates with Turso-backed API
+ * Integrates with Turso-backed API and Social Auth
  */
 class CommentWidget {
     constructor(options) {
@@ -11,28 +11,69 @@ class CommentWidget {
         this.theme = options.theme || document.documentElement.getAttribute('data-theme') || 'dark';
 
         this.comments = [];
-        this.stats = { views: 0, reactions: [] };
-        this.userId = this.getOrCreateUserId();
+        this.stats = { reactions: [] };
+
+        // Auth State
+        this.isLoggedIn = false;
+        this.user = { name: '', id: '', avatar: '', isAnonymous: true };
 
         if (this.container) {
             this.init();
         }
     }
 
-    getOrCreateUserId() {
-        let userId = localStorage.getItem('comment_user_id');
-        if (!userId) {
-            userId = 'anon_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('comment_user_id', userId);
-        }
-        return userId;
-    }
-
     async init() {
+        this.loadUserData();
         this.renderLayout();
-        await this.trackView();
         await this.loadComments();
         this.setupEventListeners();
+    }
+
+    /**
+     * Loads user data from Social Session or Local Storage
+     */
+    loadUserData() {
+        const authSession = this.getCookie('auth_session');
+        if (authSession) {
+            try {
+                const payload = JSON.parse(atob(authSession.split('.')[1]));
+                this.user = {
+                    name: payload.name,
+                    email: payload.email,
+                    avatar: payload.avatar,
+                    provider: payload.provider,
+                    id: payload.provider_id,
+                    isAnonymous: false
+                };
+                this.isLoggedIn = true;
+            } catch (e) {
+                console.error('Failed to parse auth session', e);
+                this.loadAnonymousData();
+            }
+        } else {
+            this.loadAnonymousData();
+        }
+    }
+
+    loadAnonymousData() {
+        this.user = {
+            name: localStorage.getItem('commentUsername') || '',
+            id: localStorage.getItem('commentUserId') || this.generateAnonId(),
+            isAnonymous: true
+        };
+        if (!localStorage.getItem('commentUserId')) {
+            localStorage.setItem('commentUserId', this.user.id);
+        }
+    }
+
+    generateAnonId() {
+        return `anon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    }
+
+    getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
     renderLayout() {
@@ -41,7 +82,6 @@ class CommentWidget {
                 <div class="comment-widget-header">
                     <h2 class="comment-widget-title">Engagement</h2>
                     <div class="post-stats-header">
-                        <span id="view-count-badge" class="admin-badge" style="background: var(--white-alpha-10);"><ion-icon name="eye-outline"></ion-icon> Loading...</span>
                         <span id="comment-count-badge" class="admin-badge" style="background: var(--bg-elevated);"><ion-icon name="chatbubbles-outline"></ion-icon> Loading...</span>
                     </div>
                 </div>
@@ -53,26 +93,30 @@ class CommentWidget {
 
                 <div class="section-divider" style="margin: 20px 0; border-top: 1px solid var(--white-alpha-10);"></div>
 
-                <!-- Auth Buttons -->
-                <div class="comment-auth-buttons">
-                    <button class="auth-btn active" data-provider="anonymous">
-                        <ion-icon name="person-circle-outline"></ion-icon> Anonymous
-                    </button>
-                    <button class="auth-btn" data-provider="github" onclick="alert('GitHub Login coming soon!')">
-                        <ion-icon name="logo-github"></ion-icon> GitHub
-                    </button>
-                    <button class="auth-btn" data-provider="google" onclick="alert('Google Login coming soon!')">
-                        <ion-icon name="logo-google"></ion-icon> Google
-                    </button>
+                <!-- User Information / Auth -->
+                <div class="comment-auth-section" id="auth-section">
+                    ${this.renderAuthUI()}
                 </div>
 
                 <!-- Comment Form -->
                 <form class="comment-form" id="main-comment-form">
-                    <textarea class="comment-textarea" placeholder="Share your thoughts..." required></textarea>
+                    ${!this.isLoggedIn ? `
+                        <div class="anonymous-inputs">
+                            <input type="text" id="author-name" class="comment-input" 
+                                   value="${this.escapeHtml(this.user.name)}" 
+                                   placeholder="Your Name (Persistent)"
+                                   maxlength="100">
+                        </div>
+                    ` : ''}
+                    
+                    <div style="display:none;">
+                        <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <textarea class="comment-textarea" id="comment-textarea" placeholder="Share your thoughts..." required maxlength="5000"></textarea>
+                    
                     <div class="form-footer">
-                        <label class="anonymous-toggle">
-                            <input type="checkbox" checked id="anon-checkbox"> Post Anonymously
-                        </label>
+                        <span class="char-count" id="char-count">0/5000</span>
                         <button type="submit" class="submit-btn" id="submit-btn">Post Comment</button>
                     </div>
                 </form>
@@ -83,18 +127,56 @@ class CommentWidget {
                 </div>
             </div>
         `;
+
+        // Update char count listener
+        const textarea = document.getElementById('comment-textarea');
+        const countSpan = document.getElementById('char-count');
+        textarea?.addEventListener('input', () => {
+            countSpan.textContent = `${textarea.value.length}/5000`;
+        });
     }
 
-    async trackView() {
-        try {
-            await fetch(this.apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'view', post_slug: this.postSlug })
-            });
-        } catch (e) {
-            console.warn('View tracking failed', e);
+    renderAuthUI() {
+        if (this.isLoggedIn) {
+            return `
+                <div class="user-logged-in">
+                    <img src="${this.user.avatar}" alt="${this.user.name}" class="user-avatar-small">
+                    <span>Logged in as <strong>${this.user.name}</strong></span>
+                    <button class="auth-text-btn" onclick="commentWidget.logout()">Logout</button>
+                </div>
+            `;
+        } else {
+            return `
+                <div class="social-login-prompt">
+                    <span>Sign in to comment with:</span>
+                    <div class="social-buttons">
+                        <button class="social-btn google" onclick="commentWidget.login('google')" title="Login with Google">
+                            <ion-icon name="logo-google"></ion-icon>
+                        </button>
+                        <button class="social-btn github" onclick="commentWidget.login('github')" title="Login with GitHub">
+                            <ion-icon name="logo-github"></ion-icon>
+                        </button>
+                        <button class="social-btn facebook" onclick="commentWidget.login('facebook')" title="Login with Facebook">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </button>
+                        <button class="social-btn twitter" onclick="commentWidget.login('twitter')" title="Login with X">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </button>
+                    </div>
+                    <span class="or-separator">or continue as guest below</span>
+                </div>
+            `;
         }
+    }
+
+    login(provider) {
+        // Store current URL to redirect back after login
+        document.cookie = `redirect_after_login=${window.location.href}; Path=/; Max-Age=3600; Secure; SameSite=Lax`;
+        window.location.href = `/api/auth/${provider}`;
+    }
+
+    logout() {
+        window.location.href = '/api/auth/logout';
     }
 
     async loadComments() {
@@ -102,18 +184,12 @@ class CommentWidget {
             const response = await fetch(`${this.apiUrl}?post_slug=${this.postSlug}`);
             const data = await response.json();
 
-            // Handle new response structure { comments, stats }
             this.comments = Array.isArray(data.comments) ? data.comments : [];
-            this.stats = data.stats || { views: 0, reactions: [] };
+            this.stats = data.stats || { reactions: [] };
 
             const commentBadge = document.getElementById('comment-count-badge');
             if (commentBadge) {
                 commentBadge.innerHTML = `<ion-icon name="chatbubbles-outline"></ion-icon> ${this.comments.length} Comments`;
-            }
-
-            const viewBadge = document.getElementById('view-count-badge');
-            if (viewBadge) {
-                viewBadge.innerHTML = `<ion-icon name="eye-outline"></ion-icon> ${this.formatNumber(this.stats.views)} Views`;
             }
 
             this.renderPostReactions();
@@ -121,15 +197,9 @@ class CommentWidget {
         } catch (error) {
             console.error('Failed to load comments:', error);
             this.comments = [];
-
             const listContainer = document.getElementById('comments-list');
             if (listContainer) {
-                listContainer.innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: var(--fiery-rose);">
-                        <p>Failed to load engagement data.</p>
-                        <small style="opacity: 0.7;">Check if Turso Database is configured correctly.</small>
-                    </div>
-                `;
+                listContainer.innerHTML = `<p style="color:var(--fiery-rose); text-align:center;">Failed to load engagement data.</p>`;
             }
         }
     }
@@ -174,7 +244,7 @@ class CommentWidget {
                 body: JSON.stringify({
                     action: 'react',
                     post_slug: this.postSlug,
-                    user_id: this.userId,
+                    user_id: this.user.id,
                     reaction_type: type
                 })
             });
@@ -185,12 +255,6 @@ class CommentWidget {
         } catch (error) {
             console.error('Post reaction error:', error);
         }
-    }
-
-    formatNumber(num) {
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-        return num;
     }
 
     renderComments() {
@@ -204,13 +268,13 @@ class CommentWidget {
 
         const topLevel = this.comments.filter(c => !c.parent_id);
         const replies = this.comments.filter(c => c.parent_id);
-
         listContainer.innerHTML = topLevel.map(comment => this.generateCommentHtml(comment, replies)).join('');
     }
 
     generateCommentHtml(comment, allReplies) {
         const date = new Date(comment.created_at).toLocaleDateString();
         const isAdmin = comment.is_admin === 1;
+        const isSocial = comment.auth_provider !== 'anonymous';
         const avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random&color=fff`;
 
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
@@ -223,10 +287,11 @@ class CommentWidget {
                 <div class="comment-body">
                     <div class="comment-meta">
                         <span class="author-name">${comment.author_name}</span>
+                        ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
                         ${isAdmin ? '<span class="admin-badge" style="background:var(--emerald)">Admin</span>' : ''}
                         <span class="comment-date">${date}</span>
                     </div>
-                    <div class="comment-text">${this.escapeHtml(comment.content)}</div>
+                    <div class="comment-text">${comment.content}</div>
                     
                     <div class="comment-actions">
                         ${this.generateReactionHtml(comment)}
@@ -245,6 +310,14 @@ class CommentWidget {
                 </div>
             </div>
         `;
+    }
+
+    getProviderIcon(provider) {
+        if (provider === 'google') return '<ion-icon name="logo-google" style="color:#ea4335"></ion-icon>';
+        if (provider === 'github') return '<ion-icon name="logo-github" style="color:#fff"></ion-icon>';
+        if (provider === 'facebook') return '<ion-icon name="logo-facebook" style="color:#1877f2"></ion-icon>';
+        if (provider === 'twitter') return '<ion-icon name="logo-twitter" style="color:#1da1f2"></ion-icon>';
+        return '';
     }
 
     generateReactionHtml(comment) {
@@ -271,19 +344,34 @@ class CommentWidget {
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const textarea = form.querySelector('textarea');
-            const isAnon = document.getElementById('anon-checkbox').checked;
+            const textarea = document.getElementById('comment-textarea');
+            const authorNameInput = document.getElementById('author-name');
+            const honeypot = document.getElementById('honeypot')?.value;
 
-            if (!textarea.value.trim()) return;
+            const content = textarea.value.trim();
+            const authorName = this.isLoggedIn ? this.user.name : (authorNameInput?.value.trim() || 'Anonymous');
+
+            if (!content) return;
+
+            // Persistence
+            if (!this.isLoggedIn && authorNameInput) {
+                localStorage.setItem('commentUsername', authorName);
+                this.user.name = authorName;
+            }
 
             await this.postComment({
-                content: textarea.value,
-                is_anonymous: isAnon,
-                author_name: isAnon ? 'Anonymous' : 'Visitor',
-                parent_id: null
+                content: content,
+                author_name: authorName,
+                author_email: this.user.email || '',
+                author_avatar: this.user.avatar || '',
+                is_anonymous: !this.isLoggedIn,
+                auth_provider: this.isLoggedIn ? this.user.provider : 'anonymous',
+                parent_id: null,
+                honeypot: honeypot
             });
 
             textarea.value = '';
+            document.getElementById('char-count').textContent = '0/5000';
         });
     }
 
@@ -292,6 +380,7 @@ class CommentWidget {
         if (!submitBtn) return;
 
         submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Posting...';
 
         try {
@@ -305,16 +394,19 @@ class CommentWidget {
                 })
             });
 
+            const result = await response.json();
+
             if (response.ok) {
                 await this.loadComments();
             } else {
-                alert('Failed to post comment.');
+                alert(result.error || 'Failed to post comment.');
             }
         } catch (error) {
             console.error('Post comment error:', error);
+            alert('A network error occurred.');
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Post Comment';
+            submitBtn.textContent = originalText;
         }
     }
 
@@ -329,7 +421,7 @@ class CommentWidget {
 
         container.innerHTML = `
             <form class="comment-form" style="margin-top: 15px; border-style: dashed; padding: 15px;">
-                <textarea class="comment-textarea" placeholder="Write a reply..." required style="min-height: 80px;"></textarea>
+                <textarea class="comment-textarea" placeholder="Write a reply..." required style="min-height: 80px;" maxlength="5000"></textarea>
                 <div class="form-footer">
                     <button type="button" class="auth-btn" style="padding: 5px 12px;" onclick="this.closest('form').remove()">Cancel</button>
                     <button type="submit" class="submit-btn" style="padding: 8px 16px;">Post Reply</button>
@@ -341,11 +433,16 @@ class CommentWidget {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const textarea = form.querySelector('textarea');
-            if (!textarea.value.trim()) return;
+            const content = textarea.value.trim();
+            if (!content) return;
 
             await this.postComment({
-                content: textarea.value,
-                is_anonymous: true,
+                content: content,
+                author_name: this.user.name || 'Anonymous',
+                author_email: this.user.email || '',
+                author_avatar: this.user.avatar || '',
+                is_anonymous: !this.isLoggedIn,
+                auth_provider: this.isLoggedIn ? this.user.provider : 'anonymous',
                 parent_id: commentId
             });
             container.innerHTML = '';
@@ -360,24 +457,24 @@ class CommentWidget {
                 body: JSON.stringify({
                     action: 'react',
                     comment_id: commentId,
-                    user_id: this.userId,
+                    user_id: this.user.id,
                     reaction_type: type
                 })
             });
 
             if (response.ok) {
                 await this.loadComments();
+            } else {
+                const result = await response.json();
+                if (response.status === 429) alert(result.error);
             }
         } catch (error) {
             console.error('Reaction error:', error);
         }
     }
 
-    setTheme(theme) {
-        this.theme = theme;
-    }
-
     escapeHtml(text) {
+        if (!text) return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
