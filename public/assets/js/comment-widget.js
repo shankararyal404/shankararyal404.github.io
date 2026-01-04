@@ -11,7 +11,7 @@ class CommentWidget {
         this.theme = options.theme || document.documentElement.getAttribute('data-theme') || 'dark';
 
         this.comments = [];
-        this.stats = { views: 0, reactions: [] };
+        this.stats = { reactions: [] };
 
         // Auth State
         this.isLoggedIn = false;
@@ -25,7 +25,6 @@ class CommentWidget {
     async init() {
         this.loadUserData();
         this.renderLayout();
-        await this.trackView();
         await this.loadComments();
         this.setupEventListeners();
     }
@@ -83,7 +82,6 @@ class CommentWidget {
                 <div class="comment-widget-header">
                     <h2 class="comment-widget-title">Engagement</h2>
                     <div class="post-stats-header">
-                        <span id="view-count-badge" class="admin-badge" style="background: var(--white-alpha-10);"><ion-icon name="eye-outline"></ion-icon> Loading...</span>
                         <span id="comment-count-badge" class="admin-badge" style="background: var(--bg-elevated);"><ion-icon name="chatbubbles-outline"></ion-icon> Loading...</span>
                     </div>
                 </div>
@@ -181,34 +179,17 @@ class CommentWidget {
         window.location.href = '/api/auth/logout';
     }
 
-    async trackView() {
-        try {
-            await fetch(this.apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'view', post_slug: this.postSlug })
-            });
-        } catch (e) {
-            console.warn('View tracking failed', e);
-        }
-    }
-
     async loadComments() {
         try {
             const response = await fetch(`${this.apiUrl}?post_slug=${this.postSlug}`);
             const data = await response.json();
 
             this.comments = Array.isArray(data.comments) ? data.comments : [];
-            this.stats = data.stats || { views: 0, reactions: [] };
+            this.stats = data.stats || { reactions: [] };
 
             const commentBadge = document.getElementById('comment-count-badge');
             if (commentBadge) {
                 commentBadge.innerHTML = `<ion-icon name="chatbubbles-outline"></ion-icon> ${this.comments.length} Comments`;
-            }
-
-            const viewBadge = document.getElementById('view-count-badge');
-            if (viewBadge) {
-                viewBadge.innerHTML = `<ion-icon name="eye-outline"></ion-icon> ${this.formatNumber(this.stats.views)} Views`;
             }
 
             this.renderPostReactions();
@@ -274,12 +255,6 @@ class CommentWidget {
         } catch (error) {
             console.error('Post reaction error:', error);
         }
-    }
-
-    formatNumber(num) {
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-        return num;
     }
 
     renderComments() {

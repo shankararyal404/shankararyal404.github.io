@@ -1,7 +1,6 @@
 -- Step 1: Drop old tables
 DROP TABLE IF EXISTS reactions;
 DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS post_stats;
 
 -- Step 2: Create Comments Table
 CREATE TABLE comments (
@@ -16,7 +15,7 @@ CREATE TABLE comments (
   is_anonymous INTEGER DEFAULT 0,
   auth_provider TEXT DEFAULT 'anonymous',
   is_admin INTEGER DEFAULT 0,
-  status TEXT DEFAULT 'pending',
+  status TEXT DEFAULT 'approved',
   ip_address TEXT,
   FOREIGN KEY (parent_id) REFERENCES comments (id) ON DELETE CASCADE
 );
@@ -33,14 +32,7 @@ CREATE TABLE reactions (
   FOREIGN KEY (comment_id) REFERENCES comments (id) ON DELETE CASCADE
 );
 
--- Step 4: Create Post Stats Table
-CREATE TABLE post_stats (
-  post_slug TEXT PRIMARY KEY,
-  view_count INTEGER DEFAULT 0,
-  last_viewed DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
--- Step 5: Create IP Blocklist (for security)
+-- Step 4: Create IP Blocklist (for security)
 CREATE TABLE ip_blocklist (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ip TEXT UNIQUE NOT NULL,

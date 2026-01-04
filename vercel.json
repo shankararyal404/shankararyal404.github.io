@@ -2,6 +2,58 @@
     "version": 2,
     "rewrites": [
         {
+            "source": "/api/auth/google",
+            "destination": "/api/auth.js?provider=google"
+        },
+        {
+            "source": "/api/auth/google-callback",
+            "destination": "/api/auth.js?provider=google"
+        },
+        {
+            "source": "/api/auth/github",
+            "destination": "/api/auth.js?provider=github"
+        },
+        {
+            "source": "/api/auth/github-callback",
+            "destination": "/api/auth.js?provider=github"
+        },
+        {
+            "source": "/api/auth/facebook",
+            "destination": "/api/auth.js?provider=facebook"
+        },
+        {
+            "source": "/api/auth/facebook-callback",
+            "destination": "/api/auth.js?provider=facebook"
+        },
+        {
+            "source": "/api/auth/twitter",
+            "destination": "/api/auth.js?provider=twitter"
+        },
+        {
+            "source": "/api/auth/twitter-callback",
+            "destination": "/api/auth.js?provider=twitter"
+        },
+        {
+            "source": "/api/auth/logout",
+            "destination": "/api/auth.js?action=logout"
+        },
+        {
+            "source": "/api/auth/verify",
+            "destination": "/api/auth.js?action=verify"
+        },
+        {
+            "source": "/api/projects",
+            "destination": "/api/public.js?type=projects"
+        },
+        {
+            "source": "/api/certificates",
+            "destination": "/api/public.js?type=certificates"
+        },
+        {
+            "source": "/api/admin/comments",
+            "destination": "/api/admin.js?type=comments"
+        },
+        {
             "source": "/api/(.*)",
             "destination": "/api/$1"
         }

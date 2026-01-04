@@ -36,11 +36,7 @@ export default async function handler(req, res) {
                 [post_slug]
             );
 
-            // 2. Fetch Post Stats (Views)
-            const stats = await query(`SELECT view_count FROM post_stats WHERE post_slug = ?`, [post_slug]);
-            const viewCount = stats.length > 0 ? stats[0].view_count : 0;
-
-            // 3. Fetch Post Reactions
+            // 2. Fetch Post Reactions
             const postReactions = await query(
                 `SELECT reaction_type, COUNT(*) as count 
                  FROM reactions 
@@ -52,7 +48,6 @@ export default async function handler(req, res) {
             return res.status(200).json({
                 comments: Array.isArray(comments) ? comments : [],
                 stats: {
-                    views: viewCount,
                     reactions: postReactions || []
                 }
             });
@@ -78,25 +73,6 @@ export default async function handler(req, res) {
             }
         } catch (e) {
             console.error('Blocklist check failed', e);
-        }
-
-        // --- View Count Action ---
-        if (action === 'view') {
-            const { post_slug } = req.body;
-            if (!post_slug) return res.status(400).json({ error: 'post_slug required' });
-
-            try {
-                // Upsert view count
-                await db.execute({
-                    sql: `INSERT INTO post_stats (post_slug, view_count, last_viewed) VALUES (?, 1, CURRENT_TIMESTAMP) 
-                          ON CONFLICT(post_slug) DO UPDATE SET view_count = view_count + 1, last_viewed = CURRENT_TIMESTAMP`,
-                    args: [post_slug]
-                });
-                return res.status(200).json({ message: 'View tracked' });
-            } catch (error) {
-                console.error('View track error:', error);
-                return res.status(500).json({ error: 'Failed to track view' });
-            }
         }
 
         // --- Post Comment Action ---
@@ -144,8 +120,8 @@ export default async function handler(req, res) {
 
             try {
                 const result = await db.execute({
-                    sql: `INSERT INTO comments (post_slug, author_name, author_email, author_avatar, content, parent_id, is_anonymous, auth_provider, ip_address) 
-                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    sql: `INSERT INTO comments (post_slug, author_name, author_email, author_avatar, content, parent_id, is_anonymous, auth_provider, ip_address, status) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'approved')`,
                     args: [
                         post_slug,
                         author_name || 'Anonymous',
