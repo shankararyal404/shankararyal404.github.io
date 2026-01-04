@@ -118,6 +118,7 @@ window.openEditBlog = (slug) => {
     document.getElementById('blog-image').value = blog.cover || blog.image;
     document.getElementById('blog-alt').value = blog.image_alt || '';
     updateImagePreview('blog', blog.cover || blog.image);
+    document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
     document.getElementById('blog-excerpt').value = blog.excerpt || '';
     document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
     document.getElementById('blog-modal-title').innerText = 'Edit Blog';
