@@ -27,9 +27,9 @@ export default async function handler(req, res) {
         // --- CREATE (POST) ---
         if (req.method === 'POST') {
             const { type, action, slug, data } = req.body || {};
-            if (action !== 'create') return res.status(400).json({ message: 'Invalid action for POST' });
 
             if (type === 'blog') {
+                if (action !== 'create') return res.status(400).json({ message: 'Invalid action for blog POST' });
                 // Clean data for frontmatter (remove body content)
                 const metadata = { ...data };
                 delete metadata.content;
@@ -55,13 +55,30 @@ export default async function handler(req, res) {
                 return res.status(201).json({ message: 'Blog created' });
             }
 
-            // Handle other types if needed (e.g. project, certificate) - currently usually JSON updates
+            // --- Consolidated: Item-level CREATE for JSON Collections ---
+            if (['projects', 'certificates', 'education', 'skills', 'social-links'].includes(type)) {
+                const filePath = `content/${type}.json`;
+                const newItem = {
+                    id: Date.now().toString(),
+                    ...req.body,
+                    published: true
+                };
+                delete newItem.type; // Remove routing helper
+
+                await updateJsonFile(filePath, (currentData) => {
+                    if (!Array.isArray(currentData)) return [newItem];
+                    return [...currentData, newItem];
+                }, `Add ${type} item: ${newItem.title || newItem.name || newItem.id}`);
+
+                return res.status(201).json({ message: 'Item created', item: newItem });
+            }
+
             return res.status(400).json({ message: 'Unsupported type for creation' });
         }
 
         // --- UPDATE (PUT) ---
         else if (req.method === 'PUT') {
-            const { type, slug, data } = req.body || {};
+            const { type, slug, data, id } = req.body || {};
 
             if (type === 'blog') {
                 const filePath = `content/blogs/${slug}.md`;
@@ -88,16 +105,27 @@ export default async function handler(req, res) {
                 return res.status(200).json({ message: 'Blog updated' });
             }
 
-            // JSON Files (Hero, About, Skills, etc.)
+            // --- Consolidated: Item-level or Full-array UPDATE for JSON ---
             if (['hero', 'about', 'skills', 'education', 'certificates', 'projects', 'technologies', 'social-links'].includes(type)) {
                 const filePath = `content/${type}.json`;
 
                 await updateJsonFile(filePath, (currentData) => {
-                    // Update: If data is an array (replacing list), return it directly.
-                    // Otherwise merge objects.
-                    if (Array.isArray(data)) {
+                    // 1. Full array update (common in current frontend)
+                    if (data && Array.isArray(data)) {
                         return data;
                     }
+                    // 2. Individual item update
+                    if (id && Array.isArray(currentData)) {
+                        const index = currentData.findIndex(item => item.id == id);
+                        if (index !== -1) {
+                            const updatedPayload = { ...req.body };
+                            delete updatedPayload.type;
+                            delete updatedPayload.id;
+                            currentData[index] = { ...currentData[index], ...updatedPayload };
+                        }
+                        return currentData;
+                    }
+                    // 3. Object update (Hero, About)
                     return { ...currentData, ...data };
                 }, `Update ${type} content`);
 
@@ -109,8 +137,8 @@ export default async function handler(req, res) {
 
         // --- DELETE (DELETE) ---
         else if (req.method === 'DELETE') {
-            // In DELETE body is strictly { type, slug, force }
-            const { type, slug, force } = req.body || {};
+            // In DELETE body is strictly { type, slug, id, force }
+            const { type, slug, id, force } = req.body || {};
 
             if (type === 'blog') {
                 const filePath = `content/blogs/${slug}.md`;
@@ -118,9 +146,7 @@ export default async function handler(req, res) {
                 if (!existingFile) return res.status(404).json({ message: 'Blog not found' });
 
                 if (force) {
-                    // Permanent Delete
-                    // We need deleteFile function from github.js
-                    const { deleteFile } = await import('../lib/github.js'); // Dynamic import to avoid changing top imports if not needed, or just standard import above
+                    const { deleteFile } = await import('../lib/github.js');
                     await deleteFile(filePath, `Delete blog permanently: ${slug}`, existingFile.sha);
                     return res.status(200).json({ message: 'Blog deleted permanently' });
                 }
@@ -128,11 +154,31 @@ export default async function handler(req, res) {
                 // Soft Delete
                 const doc = matter(existingFile.content);
                 doc.data.published = false;
-                doc.data.unpublishedAt = new Date().toISOString(); // Mark timestamp
+                doc.data.unpublishedAt = new Date().toISOString();
 
                 const fileContent = matter.stringify(doc.content, doc.data);
                 await saveFile(filePath, fileContent, `Unpublish blog: ${slug}`, existingFile.sha);
                 return res.status(200).json({ message: 'Blog unpublished' });
+            }
+
+            // --- Consolidated: Item-level DELETE for JSON ---
+            if (['projects', 'certificates', 'education', 'skills', 'social-links'].includes(type)) {
+                if (!id) return res.status(400).json({ message: 'Item ID required for deletion' });
+                const filePath = `content/${type}.json`;
+
+                await updateJsonFile(filePath, (currentData) => {
+                    if (!Array.isArray(currentData)) return currentData;
+                    if (force) {
+                        return currentData.filter(item => item.id != id);
+                    }
+                    // Soft delete
+                    return currentData.map(item => {
+                        if (item.id == id) return { ...item, published: false };
+                        return item;
+                    });
+                }, `${force ? 'Permanent delete' : 'Unpublish'} ${type} item: ${id}`);
+
+                return res.status(200).json({ message: `Item ${force ? 'deleted' : 'unpublished'}` });
             }
 
             return res.status(400).json({ message: 'Delete not supported for this type' });
