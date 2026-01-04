@@ -63,9 +63,8 @@
     line-height: 1.8;
     color: var(--text-secondary, rgba(255, 255, 255, 0.7));
     margin-bottom: 60px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    /* Ensure full width availability */
 }
 
 /* 4. Literature Info Container (Bilingual) */
