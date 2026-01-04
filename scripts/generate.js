@@ -33,7 +33,14 @@ const socialLinks = JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, 'social-li
 
 // 0. Ensure Output Directories Exist
 if (fs.existsSync(OUTPUT_DIR)) {
-    // Optional: Clean output dir if needed (rimraf logic), but for now just ensure exists
+    // Clean specific generated folders to avoid ghost files
+    const foldersToClean = ['blogs', 'blog-post'];
+    foldersToClean.forEach(folder => {
+        const fullPath = path.join(OUTPUT_DIR, folder);
+        if (fs.existsSync(fullPath)) {
+            fs.rmSync(fullPath, { recursive: true, force: true });
+        }
+    });
 } else {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
