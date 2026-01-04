@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         }
 
         try {
-            // Fetch comments for the post
+            // 1. Fetch comments with their reactions
             const comments = await query(
                 `SELECT c.*, 
                  (SELECT COUNT(*) FROM reactions r WHERE r.comment_id = c.id AND r.reaction_type = '👍') as likes,
@@ -27,7 +27,26 @@ export default async function handler(req, res) {
                 [post_slug]
             );
 
-            return res.status(200).json(Array.isArray(comments) ? comments : []);
+            // 2. Fetch Post Stats (Views)
+            const stats = await query(`SELECT view_count FROM post_stats WHERE post_slug = ?`, [post_slug]);
+            const viewCount = stats.length > 0 ? stats[0].view_count : 0;
+
+            // 3. Fetch Post Reactions
+            const postReactions = await query(
+                `SELECT reaction_type, COUNT(*) as count 
+                 FROM reactions 
+                 WHERE post_slug = ? AND comment_id IS NULL 
+                 GROUP BY reaction_type`,
+                [post_slug]
+            );
+
+            return res.status(200).json({
+                comments: Array.isArray(comments) ? comments : [],
+                stats: {
+                    views: viewCount,
+                    reactions: postReactions || []
+                }
+            });
         } catch (error) {
             console.error('Fetch comments error detail:', {
                 message: error.message,
@@ -40,6 +59,25 @@ export default async function handler(req, res) {
 
     if (method === 'POST') {
         const { action } = req.body;
+
+        // --- View Count Action ---
+        if (action === 'view') {
+            const { post_slug } = req.body;
+            if (!post_slug) return res.status(400).json({ error: 'post_slug required' });
+
+            try {
+                // Upsert view count
+                await db.execute({
+                    sql: `INSERT INTO post_stats (post_slug, view_count) VALUES (?, 1) 
+                          ON CONFLICT(post_slug) DO UPDATE SET view_count = view_count + 1`,
+                    args: [post_slug]
+                });
+                return res.status(200).json({ message: 'View tracked' });
+            } catch (error) {
+                console.error('View track error:', error);
+                return res.status(500).json({ error: 'Failed to track view' });
+            }
+        }
 
         if (action === 'comment') {
             const { post_slug, author_name, author_email, content, parent_id, is_anonymous, auth_provider, author_avatar } = req.body;
@@ -72,30 +110,33 @@ export default async function handler(req, res) {
         }
 
         if (action === 'react') {
-            const { comment_id, user_id, reaction_type } = req.body;
+            const { comment_id, post_slug, user_id, reaction_type } = req.body;
 
-            if (!comment_id || !user_id || !reaction_type) {
-                return res.status(400).json({ error: 'comment_id, user_id, and reaction_type are required' });
+            if ((!comment_id && !post_slug) || !user_id || !reaction_type) {
+                return res.status(400).json({ error: 'comment_id or post_slug, user_id, and reaction_type are required' });
             }
 
             try {
-                // Upsert reaction (Unique constraint handles toggle logic or we can do it manually)
-                // For simplicity, let's try to insert, if fails (unique), delete it (toggle off)
-                try {
+                // Toggle reaction logic
+                // Check if exists
+                const existing = await query(
+                    `SELECT id FROM reactions WHERE user_id = ? AND reaction_type = ? AND 
+                     ${comment_id ? 'comment_id = ?' : 'post_slug = ? AND comment_id IS NULL'}`,
+                    [user_id, reaction_type, comment_id || post_slug]
+                );
+
+                if (existing.length > 0) {
                     await db.execute({
-                        sql: `INSERT INTO reactions (comment_id, user_id, reaction_type) VALUES (?, ?, ?)`,
-                        args: [comment_id, user_id, reaction_type]
+                        sql: `DELETE FROM reactions WHERE id = ?`,
+                        args: [existing[0].id]
+                    });
+                    return res.status(200).json({ message: 'Reaction removed' });
+                } else {
+                    await db.execute({
+                        sql: `INSERT INTO reactions (comment_id, post_slug, user_id, reaction_type) VALUES (?, ?, ?, ?)`,
+                        args: [comment_id || null, comment_id ? null : post_slug, user_id, reaction_type]
                     });
                     return res.status(200).json({ message: 'Reaction added' });
-                } catch (e) {
-                    if (e.message.includes('UNIQUE constraint failed')) {
-                        await db.execute({
-                            sql: `DELETE FROM reactions WHERE comment_id = ? AND user_id = ? AND reaction_type = ?`,
-                            args: [comment_id, user_id, reaction_type]
-                        });
-                        return res.status(200).json({ message: 'Reaction removed' });
-                    }
-                    throw e;
                 }
             } catch (error) {
                 console.error('Reaction error:', error);
