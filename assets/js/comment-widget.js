@@ -76,13 +76,28 @@ class CommentWidget {
     async loadComments() {
         try {
             const response = await fetch(`${this.apiUrl}?post_slug=${this.postSlug}`);
-            this.comments = await response.json();
+            const data = await response.json();
 
-            document.getElementById('comment-count-badge').textContent = `${this.comments.length} Comments`;
+            // Ensure this.comments is always an array
+            this.comments = Array.isArray(data) ? data : [];
+
+            const badge = document.getElementById('comment-count-badge');
+            if (badge) {
+                badge.textContent = `${this.comments.length} Comments`;
+            }
             this.renderComments();
         } catch (error) {
             console.error('Failed to load comments:', error);
-            document.getElementById('comments-list').innerHTML = '<p style="color:red;">Failed to load comments. Please refresh.</p>';
+            this.comments = [];
+            const badge = document.getElementById('comment-count-badge');
+            if (badge) badge.textContent = 'Error';
+
+            document.getElementById('comments-list').innerHTML = `
+                <div style="text-align: center; padding: 20px; color: var(--fiery-rose);">
+                    <p>Failed to load comments.</p>
+                    <small style="opacity: 0.7;">Check if Turso Database is configured correctly.</small>
+                </div>
+            `;
         }
     }
 
