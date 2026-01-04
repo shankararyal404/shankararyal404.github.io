@@ -119,6 +119,7 @@ window.openEditBlog = (slug) => {
     document.getElementById('blog-alt').value = blog.image_alt || '';
     updateImagePreview('blog', blog.cover || blog.image);
     document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
+    document.getElementById('blog-original-date').value = blog.original_date || '';
     document.getElementById('blog-excerpt').value = blog.excerpt || '';
     document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
     document.getElementById('blog-modal-title').innerText = 'Edit Blog';
@@ -177,7 +178,8 @@ blogForm.addEventListener('submit', async (e) => {
         image_alt: document.getElementById('blog-alt').value || '',
         excerpt: document.getElementById('blog-excerpt').value,
         tags: document.getElementById('blog-tags').value.split(',').map(t => t.trim()).filter(Boolean),
-        content: document.getElementById('blog-content').value
+        content: document.getElementById('blog-content').value,
+        original_date: document.getElementById('blog-original-date').value
     };
 
     // Add literature-specific fields if category is Literature

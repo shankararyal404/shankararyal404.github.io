@@ -8,8 +8,17 @@
             <!-- Header -->
             <header style="margin-bottom: 30px; text-align: center;">
                 <h1 class="h1" style="font-size: 2.5rem; margin-bottom: 10px;">{{BLOG_TITLE}}</h1>
-                <div class="meta" style="color: var(--text-secondary); font-size: 0.9rem;">
-                    <span>{{BLOG_DATE}}</span> •
+                <div class="meta" style="color: var(--text-secondary); font-size: 1.4rem;">
+                    <span class="meta-item">Published: {{PUBLISHED_DATE}}</span>
+                    {{#UPLOAD_DATE}}<span class="meta-separator">•</span><span class="meta-item">Updated:
+                        {{UPLOAD_DATE}}</span>{{/UPLOAD_DATE}}
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PUBLISHER}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">Written by {{WRITTEN_BY}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PLACE}}</span>
+                    <span class="meta-separator">•</span>
                     <a href="/blogs/tags/{{BLOG_CATEGORY_SLUG}}.html" class="category-tag">{{BLOG_CATEGORY}}</a>
                 </div>
             </header>

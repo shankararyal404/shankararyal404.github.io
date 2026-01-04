@@ -59,12 +59,11 @@
 
 /* 3. Main Poem/Body Content */
 .literature-main-body {
-    font-size: 1.15rem;
+    font-size: 1.6rem;
     line-height: 1.8;
     color: var(--text-secondary, rgba(255, 255, 255, 0.7));
     margin-bottom: 60px;
     width: 100%;
-    /* Ensure full width availability */
 }
 
 /* 4. Literature Info Container (Bilingual) */
@@ -161,7 +160,7 @@
 }
 
 .section-text {
-    font-size: 1.05rem;
+    font-size: 1.5rem;
     line-height: 1.8;
     color: var(--text-secondary, rgba(255, 255, 255, 0.7));
 }
@@ -203,7 +202,7 @@
     }
 
     .literature-main-body {
-        font-size: 1.1rem;
+        font-size: 1.5rem;
     }
 
     .info-header-block {

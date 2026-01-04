@@ -105,7 +105,6 @@ for (const file of blogFiles) {
     // Slug & Basic Data
     const slug = data.slug || file.replace('.md', '');
     const image = data.cover || data.image || `${SITE_URL}/assets/images/default-cover.webp`;
-    const dateObj = new Date(data.date);
 
     // SEO & Classification
     const categorySlug = getCategorySlug(data.category);
@@ -124,16 +123,23 @@ for (const file of blogFiles) {
     const subdirectory = data.subdirectory || 'blogs';
     const url = `${SITE_URL}/${subdirectory}/${slug}.html`;
 
+    // Date Logic
+    const uploadDate = data.date;
+    const publishedDate = data.original_date || data.date;
+    const dateObj = new Date(uploadDate);
+
     blogs.push({
         ...data,
         slug,
         image,
-        content, // Store content for Pass 2
+        content,
+        uploadDate,
+        publishedDate,
         dateObj,
         categorySlug,
         subdirectory,
         url,
-        raw // Keep raw if needed
+        raw
     });
 }
 
@@ -179,7 +185,9 @@ for (const blog of blogs) {
     // Render Basic Blog HTML
     let blogHtml = blogTemplate
         .replaceAll('{{BLOG_TITLE}}', blog.title)
-        .replaceAll('{{BLOG_DATE}}', blog.date)
+        .replaceAll('{{BLOG_DATE}}', blog.publishedDate) // Backwards compatibility
+        .replaceAll('{{PUBLISHED_DATE}}', blog.publishedDate)
+        .replaceAll('{{UPLOAD_DATE}}', blog.uploadDate)
         .replaceAll('{{BLOG_CATEGORY}}', blog.category)
         .replaceAll('{{BLOG_CATEGORY_SLUG}}', blog.categorySlug)
         .replaceAll('{{BLOG_IMAGE}}', blog.image)
