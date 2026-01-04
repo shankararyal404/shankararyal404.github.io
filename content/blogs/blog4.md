@@ -11,7 +11,6 @@ tags:
 cover: /assets/blog-img/crow.avif
 published: true
 subdirectory: blog-post
-image: /assets/blog-img/crow.avif
 type: "Poem (Villanelle)"
 written_by: "शंकर अयार्ल (Shankar Aryal)"
 place: "Bhaktapur, Nepal"
@@ -26,7 +25,7 @@ reflection_en: |
 reflection_ne: |
   यो विलानेल (Villanelle) संरचनाको कविता, "काग" (The Crow), २३ अक्टोबर २०२३ को मध्यरातमा शंकर अयार्लद्वारा रचिएको थियो। यसमा १९ हरफहरू छन् जसमा पाँचवटा टर्सेट (tercet) र अन्तमा एउटा क्वाट्रेन (quatrain) रहेको छ। यसको लय शैली टर्सेटका लागि ABA र क्वाट्रेनका लागि ABAA रहेको छ। यो शैली यसको पुनरावृत्ति प्रकृति र भावनात्मक गहनताका लागि परिचित छ। यसले समाजमा महिलाहरूले भोग्नुपर्ने जटिल यथार्थहरू, सामाजिक दृष्टिकोण, आघात र क्षतिका विषयवस्तुहरू अन्वेषण गर्दछ।
 
-  'काग' ले महिलाहरूले बोक्ने बोझको प्रतीकको रूपमा काम गर्दछ, जसले सामाजिक निर्णय र हिंसाका कारण उनीहरूले भोग्ने पीडा र भावनात्मक उथलपुथललाई प्रतिबिम्बित गर्दछ। श्रीमानको मृत्युको सन्दर्भले शोक र असुरक्षालाई उजागर गर्दछ, जबकि बलात्कारको उल्लेखले महिला सुरक्षाको बारेमा तत्काल चेतना र परिवर्तनको आवश्यकतालाई जोड दिन्छ।
+  'काग' ले महिलाहरूले बोक्ने बोझको प्रतीकको रूपमा काम गर्दछ, जसले सामाजिक निर्णय र हिंसाका कारण उनीहरूले भोग्ने पीडा और भावनात्मक उथलपुथललाई प्रतिबिम्बित गर्दछ। श्रीमानको मृत्युको सन्दर्भले शोक र असुरक्षालाई उजागर गर्दछ, जबकि बलात्कारको उल्लेखले महिला सुरक्षाको बारेमा तत्काल चेतना र परिवर्तनको आवश्यकतालाई जोड दिन्छ।
 
   यस रचनामार्फत, मैले महिलाहरूले सामना गर्ने मौन संघर्षहरूमा प्रकाश पार्ने र उनीहरूको लचिलोपनलाई जोड दिने प्रयास गरेको छु। कागले रूपान्तरणको सम्भावना र महिलाहरूको अनुभवप्रति सहानुभूतिको महत्त्वलाई सम्झाउने काम गर्दछ।
 theme_en: |
@@ -37,56 +36,6 @@ intro_en: |
   Shankar Aryal is a writer who explores themes of life, emotions, and human experiences through poetry and literature.
 intro_ne: |
   शंकर अयार्ल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका विषयवस्तुहरू अन्वेषण गर्ने लेखक हुन्।
-poem_en: |
-  ## The Crow
-
-  The torn song of Chandani running and weeping,  
-  The broken vow of the erased vermillion,  
-  The apocalyptic gaze of the crow on the setting horizon.
-
-  The sky revealed the night's seed,  
-  The melody of cremation burns on the crest,  
-  The torn song of Chandani running and weeping.
-
-  The blood-red sari glimmers in Bhairav's dance,  
-  The cursed sacrifice of the sun in the shadows,  
-  The apocalyptic gaze of the crow on the setting horizon.
-
-  Smiles fell in the agony of the pink flower,  
-  Newborn buds drank tears,  
-  The torn song of Chandani running and weeping.
-
-  Infinity's dance surges in the chest,  
-  Time kept falling in the black armor of the night,  
-  The apocalyptic gaze of the crow on the setting horizon,  
-  The torn song of Chandani running and weeping.
-
-  *-Shankar Aryal*
-poem_ne: |
-  ## काग्
-
-  रुदै भागेकी चाँदनीको चिरिएको गीत,  
-  पुछिएको सिऊदोको टुट्दो व्रत,  
-  अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।
-
-  आकाशले उघार्यो रातको वीर्य,  
-  शिखामा बलिरहेछ दाहको राग,  
-  रुदै भागेकी चाँदनीको चिरिएको गीत।
-
-  भैरवको नृत्यमा झल्किँदैछ रक्तसारी,  
-  छायाँमा सूर्यको अभिशप्त यज्ञ,  
-  अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।
-
-  गुलाबी फुल्को वेदनामा मुस्कान झरे,  
-  नवजात कोपिलाले आँसु पिए,  
-  रुदै भागेकी चाँदनीको चिरिएको गीत।
-
-  सिनामा उर्लिरहेछ अनन्तको नृत्य,  
-  रातको कालो कवचमा समय खसी रह्यो,  
-  अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि,  
-  रुदै भागेकी चाँदनीको चिरिएको गीत।
-
-  *-शंकर अयार्ल*
 ---
 
 ## काग् (The Crow)
@@ -111,6 +60,7 @@ poem_ne: |
 रातको कालो कवचमा समय खसी रह्यो,  
 अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि,  
 रुदै भागेकी चाँदनीको चिरिएको गीत।
+
 
 *-शंकर अयार्ल*
 

@@ -103,8 +103,8 @@
 
 <script>
     // Configuration from Build Script
-    const HAS_EN = {{ HAS_EN }};
-    const HAS_NE = {{ HAS_NE }};
+    const HAS_EN = '{{ HAS_EN }}' === 'true';
+    const HAS_NE = '{{ HAS_NE }}' === 'true';
 
     // Initialize Visibility on Load
     document.addEventListener('DOMContentLoaded', () => {

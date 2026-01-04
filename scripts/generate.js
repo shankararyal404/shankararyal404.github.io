@@ -191,6 +191,8 @@ for (const blog of blogs) {
             .replaceAll('{{PUBLISHER}}', blog.publisher || '')
             .replaceAll('{{HAS_EN}}', hasEn ? 'true' : 'false')
             .replaceAll('{{HAS_NE}}', hasNe ? 'true' : 'false')
+            .replaceAll('{{ HAS_EN }}', hasEn ? 'true' : 'false')
+            .replaceAll('{{ HAS_NE }}', hasNe ? 'true' : 'false')
             .replaceAll('{{REFLECTION_EN}}', blog.reflection_en || '')
             .replaceAll('{{REFLECTION_NE}}', blog.reflection_ne || blog.reflection || '')
             .replaceAll('{{THEME_EN}}', blog.theme_en || '')

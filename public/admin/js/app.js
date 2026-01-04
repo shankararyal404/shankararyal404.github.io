@@ -116,7 +116,9 @@ window.openEditBlog = (slug) => {
     document.getElementById('blog-slug').value = blog.slug;
     document.getElementById('blog-category').value = blog.category;
     document.getElementById('blog-image').value = blog.cover || blog.image;
+    document.getElementById('blog-alt').value = blog.image_alt || '';
     updateImagePreview('blog', blog.cover || blog.image);
+    document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
     document.getElementById('blog-excerpt').value = blog.excerpt || '';
     document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
     document.getElementById('blog-modal-title').innerText = 'Edit Blog';
@@ -129,8 +131,16 @@ window.openEditBlog = (slug) => {
         document.getElementById('lit-written-by').value = blog.written_by || '';
         document.getElementById('lit-place').value = blog.place || '';
         document.getElementById('lit-publisher').value = blog.publisher || '';
-        document.getElementById('lit-theme').value = blog.theme || '';
-        document.getElementById('lit-reflection').value = blog.reflection || '';
+
+        // Bilingual fields with fallbacks
+        document.getElementById('lit-reflection-ne').value = blog.reflection_ne || blog.reflection || '';
+        document.getElementById('lit-reflection-en').value = blog.reflection_en || '';
+
+        document.getElementById('lit-theme-ne').value = blog.theme_ne || blog.theme || '';
+        document.getElementById('lit-theme-en').value = blog.theme_en || '';
+
+        document.getElementById('lit-intro-ne').value = blog.intro_ne || '';
+        document.getElementById('lit-intro-en').value = blog.intro_en || '';
     } else {
         literatureFields.style.display = 'none';
     }
@@ -164,6 +174,7 @@ blogForm.addEventListener('submit', async (e) => {
         slug: document.getElementById('blog-slug').value,
         category: category,
         image: document.getElementById('blog-image').value,
+        image_alt: document.getElementById('blog-alt').value || '',
         excerpt: document.getElementById('blog-excerpt').value,
         tags: document.getElementById('blog-tags').value.split(',').map(t => t.trim()).filter(Boolean),
         content: document.getElementById('blog-content').value
@@ -175,8 +186,16 @@ blogForm.addEventListener('submit', async (e) => {
         data.written_by = document.getElementById('lit-written-by').value;
         data.place = document.getElementById('lit-place').value;
         data.publisher = document.getElementById('lit-publisher').value;
-        data.theme = document.getElementById('lit-theme').value;
-        data.reflection = document.getElementById('lit-reflection').value;
+
+        // Save as individual fields
+        data.reflection_ne = document.getElementById('lit-reflection-ne').value;
+        data.reflection_en = document.getElementById('lit-reflection-en').value;
+
+        data.theme_ne = document.getElementById('lit-theme-ne').value;
+        data.theme_en = document.getElementById('lit-theme-en').value;
+
+        data.intro_ne = document.getElementById('lit-intro-ne').value;
+        data.intro_en = document.getElementById('lit-intro-en').value;
     }
 
     if (id) {
@@ -761,6 +780,7 @@ window.openModal = (id) => {
     if (id === 'blog-modal') {
         document.getElementById('blog-form').reset();
         document.getElementById('blog-id').value = '';
+        document.getElementById('literature-fields').style.display = 'none';
         document.getElementById('blog-modal-title').innerText = 'Add New Blog';
     }
     if (id === 'project-modal') {

@@ -11,7 +11,6 @@ tags:
 cover: /assets/blog-img/poem-11.png
 published: true
 subdirectory: blog-post
-image: /assets/blog-img/poem-11.png
 type: "Poem (Villanelle)"
 written_by: "शंकर अयार्ल (Shankar Aryal)"
 place: "Kathmandu, Nepal"
@@ -37,64 +36,6 @@ intro_en: |
   Shankar Aryal is a writer who explores themes of life, emotions, and human experiences through poetry and literature.
 intro_ne: |
   शंकर अयार्ल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका विषयवस्तुहरू अन्वेषण गर्ने लेखक हुन्।
-poem_en: |
-  ## Canvas of Dreams
-
-  Dreams hidden in the starry cliff, like unwanted pain,  
-  I try to forget, but the night binds me tight,  
-  A glimpse of death on every moment's colorful canvas.
-
-  A burden on my chest, shattered like a heart of glass,  
-  I return there, trapped in perpetual suffering,  
-  Dreams hidden in the starry cliff, like unwanted pain.
-
-  A line of hope, a canvas smeared by the grave,  
-  Life is a fair that brings us closer to death,  
-  A glimpse of death on every moment's colorful canvas.
-
-  Your tears glisten in the darkness,  
-  The colors of my soul hidden in the moonlight's ray,  
-  Dreams hidden in the starry cliff, like unwanted pain.
-
-  An attempt to live in the solitude of midnight,  
-  Even death has woven a shadow of love,  
-  A glimpse of death on every moment's colorful canvas.
-
-  This sky of dreams painted by you,  
-  Brings me to the final shore of life,  
-  Dreams hidden in the starry cliff, like unwanted pain,  
-  A glimpse of death on every moment's colorful canvas.
-
-  *-Shankar Aryal*
-poem_ne: |
-  ## सपनाको क्यानभास
-
-  तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,  
-  म भुल्न खोज्छु, तर रातले मलाई बाँध्छ,  
-  हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।
-
-  छातीमा बोझ, काँचको मनजस्तै चकनाचुर,  
-  त्यहीँ म फर्किन्छु, सधैंको पीडामा फसेको,  
-  तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।
-
-  आशाको रेखा, चिहानले लिपिएको क्यानभास,  
-  जिवनले मृत्युको नजिक ल्याउने मेला,  
-  हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।
-
-  अन्धकारमा झुल्किन्छन् तिम्रा आँशु,  
-  जुन किरणमा लुकेका छन् मेरी आत्माको रंग,  
-  तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो।
-
-  मध्यरातको एकान्तमा बाँच्ने प्रयास,  
-  मृत्युले पनि मायाको छाया बुनेको,  
-  हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।
-
-  तिमीले रंग्याएको यो सपनाको आकाश,  
-  मलाई पुर्याउँछ जीवनको अन्तिम किनारमा,  
-  तारेभिरमा लुकेका सपना, नचाहिँदो पीडा जस्तो,  
-  हर क्षणको रंगीन क्यानभासमा मृत्युको झझल्को।
-
-  *-शंकर अयार्ल*
 ---
 
 ## सपनाको क्यानभास (Canvas of Dreams)

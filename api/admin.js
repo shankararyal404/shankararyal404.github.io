@@ -30,12 +30,16 @@ export default async function handler(req, res) {
             if (action !== 'create') return res.status(400).json({ message: 'Invalid action for POST' });
 
             if (type === 'blog') {
+                // Clean data for frontmatter (remove body content)
+                const metadata = { ...data };
+                delete metadata.content;
+
                 const frontmatter = {
                     id: Date.now().toString(),
                     date: new Date().toISOString().split('T')[0],
                     published: true,
                     subdirectory: 'blog-post', // Default subdirectory
-                    ...data, // Spread all input data (title, slug, category, excerpt, tags, literature fields, etc.)
+                    ...metadata, // Spread filtered data
                 };
 
                 // Align image/cover naming convention
@@ -65,12 +69,17 @@ export default async function handler(req, res) {
                 if (!existingFile) return res.status(404).json({ message: 'Blog not found' });
 
                 const existingDoc = matter(existingFile.content);
+
+                // Clean data for frontmatter (remove body content)
+                const metadata = { ...data };
+                delete metadata.content;
+
                 const newFrontmatter = {
                     ...existingDoc.data,
-                    ...data // Merge new data
+                    ...metadata // Merge new metadata only
                 };
 
-                // Keep distinct fields if not provided
+                // Maintain cover field convention
                 if (data.image) newFrontmatter.cover = data.image;
 
                 const fileContent = matter.stringify(data.content || existingDoc.content, newFrontmatter);

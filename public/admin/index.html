@@ -540,30 +540,71 @@
                     style="display: none; margin-top: 20px; padding: 20px; background: var(--white-alpha-5); border-radius: 8px;">
                     <h3 style="margin-bottom: 15px; color: var(--primary);">Literature Details</h3>
 
-                    <label>Type</label>
-                    <select id="lit-type">
-                        <option value="">Select Type</option>
-                        <option value="Poem">Poem</option>
-                        <option value="Book Study">Book Study</option>
-                        <option value="Essay">Essay</option>
-                        <option value="Story">Story</option>
-                    </select>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label>Type</label>
+                            <select id="lit-type">
+                                <option value="">Select Type</option>
+                                <option value="Poem">Poem</option>
+                                <option value="Book Study">Book Study</option>
+                                <option value="Essay">Essay</option>
+                                <option value="Story">Story</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Written By</label>
+                            <input type="text" id="lit-written-by" placeholder="Author name">
+                        </div>
+                    </div>
 
-                    <label>Written By</label>
-                    <input type="text" id="lit-written-by" placeholder="Author name">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label>Place</label>
+                            <input type="text" id="lit-place" placeholder="e.g., Kathmandu, Nepal">
+                        </div>
+                        <div>
+                            <label>Publisher</label>
+                            <input type="text" id="lit-publisher" placeholder="Publisher name">
+                        </div>
+                    </div>
 
-                    <label>Place</label>
-                    <input type="text" id="lit-place" placeholder="e.g., Kathmandu, Nepal">
+                    <hr style="border: 0; border-top: 1px solid var(--white-alpha-10); margin: 20px 0;">
 
-                    <label>Publisher</label>
-                    <input type="text" id="lit-publisher" placeholder="Publisher name">
+                    <!-- Reflection -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label>Reflection (Nepali)</label>
+                            <textarea id="lit-reflection-ne" rows="4" placeholder="नेपालीमा प्रतिबिम्ब..."></textarea>
+                        </div>
+                        <div>
+                            <label>Reflection (English - Optional)</label>
+                            <textarea id="lit-reflection-en" rows="4" placeholder="Reflection in English..."></textarea>
+                        </div>
+                    </div>
 
-                    <label>Theme</label>
-                    <input type="text" id="lit-theme" placeholder="e.g., Love, Society, Philosophy">
+                    <!-- Theme/Description -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label>Theme / Description (Nepali)</label>
+                            <textarea id="lit-theme-ne" rows="4" placeholder="नेपालीमा विवरण..."></textarea>
+                        </div>
+                        <div>
+                            <label>Theme / Description (English - Optional)</label>
+                            <textarea id="lit-theme-en" rows="4" placeholder="Description in English..."></textarea>
+                        </div>
+                    </div>
 
-                    <label>Reflection</label>
-                    <textarea id="lit-reflection" rows="4"
-                        placeholder="Short reflective paragraph about the literature"></textarea>
+                    <!-- Introduction -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label>Author Introduction (Nepali)</label>
+                            <textarea id="lit-intro-ne" rows="4" placeholder="नेपालीमा परिचय..."></textarea>
+                        </div>
+                        <div>
+                            <label>Author Introduction (English - Optional)</label>
+                            <textarea id="lit-intro-en" rows="4" placeholder="Introduction in English..."></textarea>
+                        </div>
+                    </div>
                 </div>
 
                 <label>Tags (Select multiple or type)</label>
