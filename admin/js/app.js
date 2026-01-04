@@ -928,6 +928,128 @@ window.viewGalleryItem = (path) => {
     });
 };
 
+// --- COMMENTS ---
+let allComments = [];
+
+window.loadCommentsAdmin = async () => {
+    const status = document.getElementById('comment-filter-status').value;
+    const search = document.getElementById('comment-search').value;
+
+    let url = `${API_BASE}/comments`;
+    const params = new URLSearchParams();
+    if (status) params.append('status', status);
+
+    if (params.toString()) url += `?${params.toString()}`;
+
+    try {
+        const res = await fetch(url);
+        if (res.status === 401) {
+            window.location.href = '/admin/login.html';
+            return;
+        }
+        allComments = await res.json();
+    } catch (e) {
+        console.error("Failed to load comments", e);
+        allComments = [];
+    }
+
+    const tbody = document.getElementById('admin-comments-list');
+    if (!tbody) return;
+
+    // Local Search Filter
+    let filtered = allComments;
+    if (search) {
+        const s = search.toLowerCase();
+        filtered = allComments.filter(c =>
+            (c.content && c.content.toLowerCase().includes(s)) ||
+            (c.author_name && c.author_name.toLowerCase().includes(s)) ||
+            (c.post_slug && c.post_slug.toLowerCase().includes(s))
+        );
+    }
+
+    tbody.innerHTML = filtered.map(c => `
+        <tr>
+            <td><small>${c.post_slug}</small></td>
+            <td><strong>${c.author_name}</strong><br><small>${c.author_email || 'No email'}</small></td>
+            <td><div style="max-width:300px; max-height:60px; overflow-y:auto; font-size:0.9rem;">${c.content}</div></td>
+            <td><small>${new Date(c.created_at).toLocaleString()}</small></td>
+            <td><span class="admin-badge" style="background:${getStatusColor(c.status)};">${c.status}</span></td>
+            <td>
+                <button class="action-btn edit-btn" onclick="openReplyModal(${c.id}, '${c.post_slug}', \`${escapeJS(c.content)}\`, '${escapeJS(c.author_name)}')">Reply</button>
+                <div style="margin-top:5px;">
+                    ${c.status !== 'approved' ? `<button class="action-btn" style="background:var(--emerald);" onclick="updateCommentStatus(${c.id}, 'approved')">Approve</button>` : ''}
+                    ${c.status !== 'spam' ? `<button class="action-btn" style="background:var(--orange-soda);" onclick="updateCommentStatus(${c.id}, 'spam')">Spam</button>` : ''}
+                    <button class="action-btn delete-btn" onclick="deleteCommentAdmin(${c.id})">Delete</button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+};
+
+function getStatusColor(status) {
+    if (status === 'approved') return 'var(--emerald)';
+    if (status === 'pending') return 'var(--gold-web-golden)';
+    if (status === 'spam') return 'var(--orange-soda)';
+    return 'var(--manatee)';
+}
+
+function escapeJS(str) {
+    if (!str) return '';
+    return str.replace(/`/g, "\\`").replace(/\${/g, "\\${");
+}
+
+window.updateCommentStatus = async (id, status) => {
+    const res = await fetch(`${API_BASE}/comments`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status })
+    });
+    if (res.ok) loadCommentsAdmin();
+};
+
+window.deleteCommentAdmin = async (id) => {
+    if (!confirm('Delete this comment and all its replies?')) return;
+    const res = await fetch(`${API_BASE}/comments?id=${id}`, {
+        method: 'DELETE'
+    });
+    if (res.ok) loadCommentsAdmin();
+};
+
+window.openReplyModal = (id, slug, content, author) => {
+    document.getElementById('reply-parent-id').value = id;
+    document.getElementById('reply-post-slug').value = slug;
+    document.getElementById('reply-to-preview').innerHTML = `<strong>Replying to ${author}:</strong><br><em>"${content}"</em>`;
+    document.getElementById('reply-content').value = '';
+    document.getElementById('comment-reply-modal').classList.add('open');
+};
+
+const replyForm = document.getElementById('comment-reply-form');
+if (replyForm) {
+    replyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const body = {
+            post_slug: document.getElementById('reply-post-slug').value,
+            parent_id: parseInt(document.getElementById('reply-parent-id').value),
+            content: document.getElementById('reply-content').value
+        };
+
+        const res = await fetch(`${API_BASE}/comments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (res.ok) {
+            window.closeModal('comment-reply-modal');
+            loadCommentsAdmin();
+        } else {
+            alert('Failed to post reply');
+        }
+    });
+}
+
+document.querySelector('[data-tab="comments"]')?.addEventListener('click', loadCommentsAdmin);
+
 /* --- LOADING DATA --- */
 function loadAllData() {
     loadBlogs();
@@ -938,6 +1060,7 @@ function loadAllData() {
     loadSocialLinks();
     loadCertificates();
     loadGallery();
+    loadCommentsAdmin();
 }
 
 // Init

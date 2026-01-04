@@ -292,17 +292,19 @@ Through this poem i wanted convey that "**losing and gaining are two sides of th
                 <span class="bold">Tags:</span> <a href="/blogs/tags/poem.html" class="tag">Poem</a>, <a href="/blogs/tags/nepali literature.html" class="tag">Nepali Literature</a>, <a href="/blogs/tags/spirituality.html" class="tag">Spirituality</a>
             </div>
 
-            <!-- Comments Section -->
-            <div class="comments-section">
-                <h3 class="h3">Comments</h3>
-                <div class="giscus"></div>
-                <script src="https://giscus.app/client.js" data-repo="shankararyal404/shankararyal404.github.io"
-                    data-repo-id="R_kgDOQoXjXg" data-category="Announcements" data-category-id="DIC_kwDOQoXjXs4C0bt8"
-                    data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="1"
-                    data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" data-loading="lazy"
-                    crossorigin="anonymous" async>
-                    </script>
+            <div id="comment-widget-container" class="comments-section"
+                style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
             </div>
+            <link rel="stylesheet" href="/assets/css/comment-widget.css">
+            <script src="/assets/js/comment-widget.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    initCommentWidget({
+                        postSlug: 'blog8',
+                        containerId: 'comment-widget-container'
+                    });
+                });
+            </script>
         
             <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
                 <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
