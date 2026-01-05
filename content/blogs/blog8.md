@@ -123,6 +123,7 @@ intro_ne: >
   वेबसाइट](https://www.shankararyal404.com.np) मा हेर्न सकिन्छ।
 image: /assets/blog-img/andhakarko-yatri.avif
 image_alt: TravelerofDarknessShankarAryal
+original_date: '2024-11-19'
 ---
 <div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
 
