@@ -109,68 +109,75 @@
 [data-theme="light"] {
     /* Backgrounds */
     --bg-primary: hsl(210, 20%, 98%);
-    --bg-secondary: hsl(210, 25%, 95%);
+    --bg-secondary: hsl(210, 20%, 94%);
+    /* Slightly darker for depth */
     --bg-card: hsl(0, 0%, 100%);
     --bg-elevated: hsl(0, 0%, 100%);
 
+    /* UI Accents (Muted versions of primary for backgrounds) */
+    --bg-accent-subtle: hsla(7, 96%, 35%, 0.05);
+
     /* Glass Morphism */
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.1);
 
     /* Text Colors */
-    --text-primary: hsl(220, 20%, 15%);
-    --text-secondary: hsl(220, 10%, 40%);
-    --text-muted: hsl(220, 8%, 55%);
-    --text-heading: hsl(220, 20%, 15%);
+    --text-primary: hsl(220, 25%, 12%);
+    /* Darker for better accessibility */
+    --text-secondary: hsl(220, 15%, 35%);
+    --text-muted: hsl(220, 10%, 50%);
+    --text-heading: hsl(220, 30%, 10%);
 
     /* Accent Colors */
-    --primary: hsl(7, 96%, 55%);
-    --primary-glow: hsla(7, 96%, 55%, 0.15);
-    --secondary: hsl(230, 80%, 45%);
+    --primary: hsl(7, 96%, 45%);
+    /* Slightly more saturated for light mode */
+    --primary-glow: hsla(7, 96%, 45%, 0.15);
+    --secondary: hsl(230, 80%, 40%);
 
     /* Borders */
-    --border-subtle: rgba(0, 0, 0, 0.06);
-    --border-medium: rgba(0, 0, 0, 0.12);
-    --border-strong: rgba(0, 0, 0, 0.18);
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-medium: rgba(0, 0, 0, 0.15);
+    --border-strong: rgba(0, 0, 0, 0.25);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
-    --shadow-elevated: 0 12px 24px rgba(0, 0, 0, 0.1);
+    /* Shadows (Softer in light mode) */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+    --shadow-elevated: 0 10px 30px rgba(7, 96, 45, 0.1);
 
-    /* Background Gradients */
-    --bg-gradient-1: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 20%);
-    --bg-gradient-2: radial-gradient(circle at 90% 80%, rgba(251, 113, 133, 0.08) 0%, transparent 20%);
+    /* Background Gradients (More visible in light mode) */
+    --bg-gradient-1: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%);
+    --bg-gradient-2: radial-gradient(circle at 90% 80%, rgba(251, 113, 133, 0.1) 0%, transparent 40%);
 
     /* Navbar */
-    --navbar-bg: rgba(255, 255, 255, 0.8);
+    --navbar-bg: rgba(255, 255, 255, 0.85);
     --navbar-border: rgba(0, 0, 0, 0.08);
 
     /* Footer */
-    --footer-bg-start: hsl(210, 20%, 96%);
-    --footer-bg-end: hsl(210, 20%, 93%);
+    --footer-bg-start: hsl(210, 20%, 95%);
+    --footer-bg-end: hsl(210, 20%, 90%);
 
     /* Code Blocks */
-    --code-bg: hsl(210, 15%, 95%);
-    --code-text: hsl(220, 15%, 30%);
+    --code-bg: hsl(210, 20%, 94%);
+    --code-text: hsl(220, 20%, 20%);
 
-    /* Blog Category Colors (Slightly adjusted for light mode) */
-    --tag-poem: hsl(353, 83%, 55%);
-    --tag-thoughts: hsl(45, 100%, 45%);
-    --tag-project: hsl(196, 84%, 53%);
-    --tag-tech: hsl(222, 88%, 50%);
-    --tag-opinion: hsl(50, 100%, 48%);
+    /* Blog Category Colors */
+    --tag-poem: hsl(353, 83%, 45%);
+    --tag-thoughts: hsl(45, 100%, 35%);
+    --tag-project: hsl(196, 84%, 40%);
+    --tag-tech: hsl(222, 88%, 40%);
+    --tag-opinion: hsl(50, 100%, 35%);
 }
 
-/* Semantic Aliases (Backwards Compatibility) */
+/* Semantic Aliases */
 :root {
     --bg-dark: var(--bg-primary);
+    --bg-surface: var(--bg-card);
     --text-light: var(--text-secondary);
     --heading-light: var(--text-heading);
     --white-alpha-5: var(--glass-bg);
     --white-alpha-10: var(--glass-border);
-    --gunmetal: var(--bg-elevated);
+    --gunmetal: var(--bg-secondary);
 }
 
 /* Reset & Base */
@@ -335,7 +342,7 @@ img {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-link {
@@ -470,9 +477,9 @@ img {
 /* Forms shared */
 input,
 textarea {
-    background: var(--glass-bg) !important;
-    border: 1px solid var(--glass-border) !important;
-    color: var(--white) !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-medium) !important;
+    color: var(--text-primary) !important;
     border-radius: var(--radius-sm) !important;
     transition: var(--transition-smooth);
 }

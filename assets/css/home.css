@@ -1,11 +1,13 @@
 /* Hero Section */
 .hero {
     min-height: 90vh;
-    /* Taller hero */
     display: flex;
     align-items: center;
     padding-top: 80px;
-    background: radial-gradient(circle at 70% 20%, rgba(30, 64, 175, 0.15) 0%, transparent 40%);
+    background: radial-gradient(circle at 75% 25%, var(--primary-glow) 0%, transparent 45%),
+        radial-gradient(circle at 25% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 45%);
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -25,8 +27,7 @@
 
 .hero-title {
     font-size: clamp(3.5rem, 5vw, 6rem);
-    color: #3b82f6;
-    /* Blue shade from image */
+    color: var(--secondary);
     margin-bottom: 10px;
     line-height: 1.1;
 }
@@ -76,7 +77,7 @@
 .stat-divider {
     width: 1px;
     height: 40px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-medium);
 }
 
 /* Buttons */
@@ -87,7 +88,7 @@
 
 .btn-outline {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-medium);
     color: var(--text-primary);
     padding: 12px 28px;
     border-radius: 50px;
@@ -96,8 +97,8 @@
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--text-primary);
+    background: var(--bg-accent-subtle, rgba(0, 0, 0, 0.05));
+    border-color: var(--primary);
 }
 
 /* Hero Profile Card (Right Side) */
@@ -137,7 +138,7 @@
     position: absolute;
     top: -10px;
     right: -10px;
-    background: #2563eb;
+    background: var(--secondary);
     color: white;
     padding: 6px 14px;
     border-radius: 20px;
@@ -161,7 +162,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,7 +170,6 @@
     font-size: 1.2rem;
     transition: var(--transition-smooth);
     position: relative;
-    /* Ensure text can be seen outside */
     overflow: visible;
 }
 
@@ -204,7 +204,7 @@
     background: var(--primary);
     color: var(--white);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+    box-shadow: 0 5px 15px var(--primary-glow);
 }
 
 .icon-btn:hover .btn-text {
