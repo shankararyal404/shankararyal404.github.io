@@ -28,48 +28,48 @@ reflection_en: >-
   physical, mental, and spiritual.
 
 
-  **The Physical Journey (The Search for Love)**: The lover wandering through
-  the streets represents our universal search for connection. It's about finding
+  The Physical Journey (The Search for Love) : The lover wandering through the
+  streets represents our universal search for connection. It’s about finding
   someone or something to complete us, even when it feels just out of reach.
 
 
-  **The Mental Journey (Self-Discovery)**: This journey is about shedding
-  ignorance and discovering our true selves. It's not about acquiring knowledge
-  but about unlearning and finding clarity.
+  The Mental Journey (Self-Discovery) : This journey is about shedding ignorance
+  and discovering our true selves. It’s not about acquiring knowledge but about
+  unlearning and finding clarity.
 
 
-  **The Spiritual Journey (The Quest for Liberation)**: The ultimate goal in the
+  The Spiritual Journey (The Quest for Liberation) : The ultimate goal in the
   poem is liberation—the search for peace and unity, transcending dualities and
   finding deeper meaning.
 
 
-  Through this poem i wanted convey that "**losing and gaining are two sides of
-  the same coin**". In life's journey, losing is a form of gaining. Every loss
-  brings u
+  Through this poem i wanted convey that "losing and gaining are two sides of
+  the same coin". In life’s journey, losing is a form of gaining. Every loss
+  brings us closer to something deeper and more meaningful. And this journey? It
+  never truly ends. It's eternal. Every step we take in the search for truth,
+  love, or enlightenment, leads to another step, and the cycle continues
 reflection_ne: >-
-  अन्धकारको यात्री (The Traveler of Darkness) लेख्नु मेरो लागि एउटा यात्रा
-  थियो—जसले मानव अनुभवका गहिरा पक्षहरूलाई अन्वेषण गर्‍यो। यो कविता हामीले जीवनमा
-  भोग्ने तीन प्रकारका यात्राहरूको प्रतिबिम्ब हो: शारीरिक, मानसिक र आध्यात्मिक।
+  अन्धकारको यात्री लेख्दा म मेरो जीवनका तीन प्रमुख यात्रालाई परख्न चाहन्थें। यी
+  यात्रा भौतिक, मानसिक र आध्यात्मिक छन्।
 
 
-  **शारीरिक यात्रा (प्रेमको खोजी)**: सडकमा भौंतारिने प्रेमीले हाम्रो सम्बन्धको
-  सार्वभौमिक खोजीलाई प्रतिनिधित्व गर्दछ। यो आफूलाई पूर्ण बनाउन कसैलाई वा केही
-  चीज खोज्ने बारे हो, यद्यपि यो पहुँचभन्दा बाहिर महसुस हुन्छ।
+  भौतिक यात्रा: प्रेमीको खोजीलाई मैले प्रेम र सम्बन्धको खोजीको रूपमा प्रस्तुत
+  गरेको छु। हामी सबै कसैसँग जोडिन चाहन्छौं, केही पाउन चाहन्छौं, जुन कहिल्यै
+  पुर्ण रूपमा प्राप्त हुँदैन।
 
 
-  **मानसिक यात्रा (आत्म-खोज)**: यो यात्रा अज्ञानता त्याग्न र हाम्रो वास्तविक
-  स्वरूप पत्ता लगाउने बारे हो। यो ज्ञान प्राप्त गर्ने बारे होइन तर नचाहिने
-  कुराहरू बिर्सने र स्पष्टता खोज्ने बारे हो।
+  मानसिक यात्रा: आत्मखोजको यात्रा हो। अज्ञानबाट ज्ञानतर्फको यात्रा, जसमा हामीले
+  हाम्रा भ्रम र अज्ञानलाई हटाउँदै साँचो ज्ञान र सत्यको खोजी गर्छौं।
 
 
-  **आध्यात्मिक यात्रा (मुक्तिको खोजी)**: कविताको अन्तिम लक्ष्य मुक्ति हो—शान्ति
-  र एकताको खोजी, द्वन्द्वभन्दा माथि उठेर गहिरो अर्थ फेला पार्नु।
+  आध्यात्मिक यात्रा: यो यात्रा मुक्तिको खोजी हो। अस्तित्वका द्वैतबाट परे
+  सत्यतर्फको यात्रा। यो स्वतन्त्रता र शान्तिको यात्रा हो।
 
 
-  यस कवितामार्फत म यो सन्देश दिन चाहन्छु कि "**गुमाउनु र पाउनु एउटै सिक्काका दुई
-  पाटा हुन्**"। जीवनको यात्रामा, गुमाउनु पाउनुको एउटा रूप हो। हरेक क्षतिले
-  हामीलाई केही गहिरो र अर्थपूर्ण कुराको नजिक ल्याउँछ। र यो यात्रा? यो कहिल्यै
-  समाप्त हुँदैन। यो 
+  कविताको मुख्य सन्देश यो हो कि "हराउनु र पाउनु एउटै सिक्काका दुई पाटा हुन्"।
+  जीवनको यात्रामा हराउनु नै पाउनु हो। प्रत्येक हराइले हामीलाई नयाँ ज्ञान र अनुभव
+  ल्याउँछ, र यो यात्रा निरन्तर चलिरहेको छ। हरेक पाटोमा केही नयाँ छ, र यसले
+  हाम्रो यात्रा अनन्त बनाउँछ।
 theme_en: >-
   अन्धकारको यात्री is a profound exploration of human life's journey, weaving
   together themes of love, self-discovery, and spiritual awakening. The poem is
