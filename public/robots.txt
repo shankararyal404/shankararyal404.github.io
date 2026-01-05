@@ -7,4 +7,23 @@ Disallow: /assets/js/
 # Keep images visible for Google Images
 Allow: /assets/images/
 
+# Block AI Bots & Scrapers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: OmgilibBot
+Disallow: /
+
 Sitemap: https://www.shankararyal404.com.np/sitemap.xml

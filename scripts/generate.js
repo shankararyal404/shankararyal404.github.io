@@ -845,7 +845,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 fs.writeFileSync(path.join(OUTPUT_DIR, 'sitemap.xml'), sitemap);
 console.log('Generated: sitemap.xml');
 
-// Robots.txt: Strict Blocking
+// Robots.txt: Strict Blocking & AI Protection
 const robots = `User-agent: *
 Allow: /
 Disallow: /admin/
@@ -854,6 +854,25 @@ Disallow: /assets/css/
 Disallow: /assets/js/
 # Keep images visible for Google Images
 Allow: /assets/images/
+
+# Block AI Bots & Scrapers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: OmgilibBot
+Disallow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml`;
 
