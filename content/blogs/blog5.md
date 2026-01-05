@@ -14,7 +14,7 @@ cover: /assets/blog-img/grave-call.avif
 published: true
 subdirectory: blog-post
 type: Poem
-written_by: शंकर अयार्ल (Shankar Aryal)
+written_by: शंकर अर्याल(Shankar Aryal)
 place: 'Kathmandu, Nepal'
 publisher: Self-published
 theme: 'Mortality, memory, introspection, and the intersection of life and death'
@@ -62,10 +62,11 @@ intro_en: >
   Shankar Aryal is a writer who explores themes of life, emotions, and human
   experiences through poetry and literature.
 intro_ne: >
-  शंकर अयार्ल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका
+  शंकर अर्याल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका
   विषयवस्तुहरू अन्वेषण गर्ने लेखक हुन्।
 image: /assets/blog-img/grave-call.avif
 image_alt: doesgravecall
+original_date: '2024-01-01'
 ---
 <div style="text-align:center; max-width:720px; margin:0 auto;">
 
@@ -145,7 +146,7 @@ image_alt: doesgravecall
 </div>
 
 <div style="text-align:right; margin-top:35px;">
-- शंकर अयार्ल
+- शंकर अर्याल
 </div>
 
 </div>
