@@ -9,7 +9,7 @@ tags:
   - Poem
 cover: >-
   https://raw.githubusercontent.com/shankararyal404/shankararyal404.github.io/refs/heads/main/assets/images/Shankararyal2.avif
-published: true
+published: false
 image: >-
   https://raw.githubusercontent.com/shankararyal404/shankararyal404.github.io/refs/heads/main/assets/images/Shankararyal2.avif
 image_alt: shankararya;
