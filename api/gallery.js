@@ -21,7 +21,9 @@ export default async function handler(req, res) {
                     'assets/images/global',
                     'assets/images/hero',
                     'assets/images/projects',
-                    'assets/images/certificates'
+                    'assets/images/certificates',
+                    'assets/images/blogs',
+                    'assets/blog-img'
                 ];
 
                 let foundFiles = [];
