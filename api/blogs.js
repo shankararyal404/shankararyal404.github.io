@@ -10,6 +10,7 @@ export default async function handler(req, res) {
 
     try {
         if (slug) {
+            console.log('API: Fetching single blog for slug:', slug);
             // GET SINGLE BLOG
             const path = `content/blogs/${slug}.md`;
             try {

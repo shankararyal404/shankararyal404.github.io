@@ -135,12 +135,21 @@ window.openEditBlog = async (slug) => {
 
     // 3. Fetch Full Data (Fetch-on-Demand)
     try {
+        console.log('Fetching full blog content for slug:', slug);
         const res = await fetch(`/api/blogs?slug=${slug}`);
-        if (!res.ok) throw new Error('Failed to fetch full blog content');
+        if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
         const fullBlog = await res.json();
+        console.log('Full blog data received:', fullBlog);
 
         // Populate Content
-        document.getElementById('blog-content').value = fullBlog.content || '';
+        const contentArea = document.getElementById('blog-content');
+        if (contentArea) {
+            contentArea.value = fullBlog.content || '';
+            if (!fullBlog.content) {
+                console.warn('Fetched blog content is empty!');
+                showToast('Warning: Blog body appears to be empty.', 'warning');
+            }
+        }
         document.getElementById('blog-modal-title').innerText = 'Edit Blog';
 
         // Populate Literature Fields if applicable
@@ -161,9 +170,12 @@ window.openEditBlog = async (slug) => {
             document.getElementById('lit-intro-en').value = fullBlog.intro_en || '';
         }
     } catch (err) {
-        console.error(err);
+        console.error('Error fetching blog content:', err);
         showToast('Error loading blog content: ' + err.message, 'error');
-        document.getElementById('blog-content').value = 'Error: Failed to load content.';
+        const contentArea = document.getElementById('blog-content');
+        if (contentArea) {
+            contentArea.value = 'Error: Failed to load content body. ' + err.message;
+        }
         document.getElementById('blog-modal-title').innerText = 'Edit Blog (Error)';
     }
 };
