@@ -63,18 +63,41 @@ const blogIndexTemplate = fs.readFileSync(path.join(TEMPLATE_DIR, 'blog-index.ht
 
 let footerLatestBlogsHtml = ''; // Will be populated after blogs are processed
 
+// Helper: Sanitize Meta Strings (SEO)
+function sanitizeMeta(str) {
+    if (!str) return '';
+    return str
+        .replace(/\r?\n|\r/g, ' ') // Replace newlines with space
+        .replace(/\s+/g, ' ')      // Collapse multiple spaces
+        .replace(/"/g, '&quot;')   // Escape quotes for attributes
+        .trim();
+}
+
+// Helper: Ensure Absolute URL
+function getAbsoluteUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+    return `${SITE_URL}${cleanUrl}`;
+}
+
 // Helper: Render Page
 function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 'website', canonicalUrl = '', jsonLd = '', keywords = '', categoryCSSLink = '', robots = 'index, follow') {
+    const cleanTitle = sanitizeMeta(pageTitle);
+    const cleanDesc = sanitizeMeta(metaDescription);
+    const cleanKeywords = sanitizeMeta(keywords);
+    const absImage = getAbsoluteUrl(metaImage);
+
     let html = baseTemplate
-        .replaceAll('{{TITLE}}', pageTitle)
-        .replaceAll('{{DESCRIPTION}}', metaDescription)
-        .replaceAll('{{KEYWORDS}}', keywords)
+        .replaceAll('{{TITLE}}', cleanTitle)
+        .replaceAll('{{DESCRIPTION}}', cleanDesc)
+        .replaceAll('{{KEYWORDS}}', cleanKeywords)
         .replaceAll('{{ROBOTS}}', robots)
         .replaceAll('{{CANONICAL}}', canonicalUrl)
         .replaceAll('{{OG_TYPE}}', metaType)
-        .replaceAll('{{OG_TITLE}}', pageTitle)
-        .replaceAll('{{OG_DESCRIPTION}}', metaDescription)
-        .replaceAll('{{OG_IMAGE}}', metaImage)
+        .replaceAll('{{OG_TITLE}}', cleanTitle)
+        .replaceAll('{{OG_DESCRIPTION}}', cleanDesc)
+        .replaceAll('{{OG_IMAGE}}', absImage)
         .replaceAll('{{JSON_LD}}', jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '')
         .replaceAll('{{CATEGORY_CSS}}', categoryCSSLink)
         .replaceAll('{{CONTENT}}', bodyHtml)

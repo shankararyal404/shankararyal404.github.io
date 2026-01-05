@@ -42,7 +42,7 @@ async function apiCall(body = {}, method = 'POST') {
         return await res.json();
     } catch (err) {
         console.error(err);
-        showToast('Operation failed: ' + err.message, 'error');
+        alert('Operation failed: ' + err.message);
         return null;
     }
 }
@@ -104,16 +104,14 @@ window.republishBlog = async (slug) => {
             unpublishedAt: null
         }
     }, 'PUT');
-    showToast('Blog republished successfully!', 'success');
     loadBlogs();
 };
 
-window.openEditBlog = async (slug) => {
-    // 1. Initial UI Setup (Load from memory first for instant response)
+window.openEditBlog = (slug) => {
     const blog = allBlogs.find(b => b.slug === slug);
     if (!blog) return;
 
-    document.getElementById('blog-id').value = blog.slug;
+    document.getElementById('blog-id').value = blog.slug; // slug is key
     document.getElementById('blog-title').value = blog.title;
     document.getElementById('blog-slug').value = blog.slug;
     document.getElementById('blog-category').value = blog.category;
@@ -123,61 +121,32 @@ window.openEditBlog = async (slug) => {
     document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
     document.getElementById('blog-original-date').value = blog.original_date || '';
     document.getElementById('blog-excerpt').value = blog.excerpt || '';
+    document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
+    document.getElementById('blog-modal-title').innerText = 'Edit Blog';
 
-    // Set literature fields UI based on category
+    // Set literature fields if applicable
     const literatureFields = document.getElementById('literature-fields');
-    literatureFields.style.display = blog.category === 'Literature' ? 'block' : 'none';
+    if (blog.category === 'Literature') {
+        literatureFields.style.display = 'block';
+        document.getElementById('lit-type').value = blog.type || '';
+        document.getElementById('lit-written-by').value = blog.written_by || '';
+        document.getElementById('lit-place').value = blog.place || '';
+        document.getElementById('lit-publisher').value = blog.publisher || '';
 
-    // 2. Loading State for Content
-    document.getElementById('blog-content').value = 'Loading full content...';
-    document.getElementById('blog-modal-title').innerText = `Edit Blog: ${blog.title} (Loading...)`;
-    document.getElementById('blog-modal').classList.add('open');
+        // Bilingual fields with fallbacks
+        document.getElementById('lit-reflection-ne').value = blog.reflection_ne || blog.reflection || '';
+        document.getElementById('lit-reflection-en').value = blog.reflection_en || '';
 
-    // 3. Fetch Full Data (Fetch-on-Demand)
-    try {
-        console.log('Fetching full blog content for slug:', slug);
-        const res = await fetch(`/api/blogs?slug=${slug}`);
-        if (!res.ok) throw new Error(`Fetch failed with status ${res.status}`);
-        const fullBlog = await res.json();
-        console.log('Full blog data received:', fullBlog);
+        document.getElementById('lit-theme-ne').value = blog.theme_ne || blog.theme || '';
+        document.getElementById('lit-theme-en').value = blog.theme_en || '';
 
-        // Populate Content
-        const contentArea = document.getElementById('blog-content');
-        if (contentArea) {
-            contentArea.value = fullBlog.content || '';
-            if (!fullBlog.content) {
-                console.warn('Fetched blog content is empty!');
-                showToast('Warning: Blog body appears to be empty.', 'warning');
-            }
-        }
-        document.getElementById('blog-modal-title').innerText = 'Edit Blog';
-
-        // Populate Literature Fields if applicable
-        if (fullBlog.category === 'Literature') {
-            document.getElementById('lit-type').value = fullBlog.type || '';
-            document.getElementById('lit-written-by').value = fullBlog.written_by || '';
-            document.getElementById('lit-place').value = fullBlog.place || '';
-            document.getElementById('lit-publisher').value = fullBlog.publisher || '';
-
-            // Bilingual fields
-            document.getElementById('lit-reflection-ne').value = fullBlog.reflection_ne || fullBlog.reflection || '';
-            document.getElementById('lit-reflection-en').value = fullBlog.reflection_en || '';
-
-            document.getElementById('lit-theme-ne').value = fullBlog.theme_ne || fullBlog.theme || '';
-            document.getElementById('lit-theme-en').value = fullBlog.theme_en || '';
-
-            document.getElementById('lit-intro-ne').value = fullBlog.intro_ne || '';
-            document.getElementById('lit-intro-en').value = fullBlog.intro_en || '';
-        }
-    } catch (err) {
-        console.error('Error fetching blog content:', err);
-        showToast('Error loading blog content: ' + err.message, 'error');
-        const contentArea = document.getElementById('blog-content');
-        if (contentArea) {
-            contentArea.value = 'Error: Failed to load content body. ' + err.message;
-        }
-        document.getElementById('blog-modal-title').innerText = 'Edit Blog (Error)';
+        document.getElementById('lit-intro-ne').value = blog.intro_ne || '';
+        document.getElementById('lit-intro-en').value = blog.intro_en || '';
+    } else {
+        literatureFields.style.display = 'none';
     }
+
+    document.getElementById('blog-modal').classList.add('open');
 };
 
 // Blog Form
@@ -247,7 +216,6 @@ blogForm.addEventListener('submit', async (e) => {
             data: data
         }, 'POST');
     }
-    showToast(`Blog ${id ? 'updated' : 'created'} successfully!`, 'success');
     window.closeModal('blog-modal');
     loadBlogs();
 });
@@ -326,7 +294,6 @@ if (projectForm) {
         }, 'PUT');
 
         if (result) {
-            showToast(`Project ${id ? 'updated' : 'created'} successfully!`, 'success');
             closeModal('project-modal');
             loadProjects();
         }
@@ -398,7 +365,7 @@ if (certForm) {
         }, 'PUT');
 
         if (result) {
-            showToast('Certificate saved successfully!', 'success');
+            alert('Certificate saved successfully!');
             closeModal('certificate-modal');
             loadCertificates();
         }
@@ -413,7 +380,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-        showToast('File size exceeds 5MB', 'warning');
+        alert('File size exceeds 5MB');
         input.value = '';
         return;
     }
@@ -434,7 +401,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
         }
 
         if (!category || !finalSlug) {
-            showToast('Please select a Category and ensure Title/Slug is filled before uploading.', 'warning');
+            alert('Please select a Category and ensure Title/Slug is filled before uploading.');
             input.value = '';
             return;
         }
@@ -478,7 +445,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
 
     } catch (error) {
         console.error(error);
-        showToast('Image upload failed: ' + error.message, 'error');
+        alert('Image upload failed: ' + error.message);
         if (previewContainer) previewContainer.innerHTML = '<span style="color:var(--fiery-rose)">Failed</span>';
         input.value = '';
     }
@@ -546,7 +513,6 @@ window.deleteItem = async (type, id, force = false) => {
     }, 'PUT');
 
     if (result) {
-        showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} item ${force ? 'deleted permanently' : 'unpublished/removed'}`, 'info');
         if (type === 'projects') loadProjects();
         if (type === 'education') loadEducation();
         if (type === 'skills') loadSkills();
@@ -887,20 +853,15 @@ function renderGallery(items) {
     }
 
     grid.innerHTML = items.map(item => `
-        <div class="gallery-item">
-            <div class="copy-path-btn" onclick="copyGalleryPath('${item.path}')" title="Copy Path">
-                <ion-icon name="copy-outline"></ion-icon>
-            </div>
-            <div onclick="viewGalleryItem('${item.path}')" style="cursor:pointer">
-                ${item.unused ? '<span class="unused-badge">Unused</span>' : ''}
-                <img src="/${item.path}" class="gallery-thumb" loading="lazy" 
-                     onerror="this.style.background='linear-gradient(135deg, #1a1d26 0%, #0d1017 100%)'; this.style.border='2px dashed var(--fiery-rose)'; this.alt='Missing Image';">
-                <div class="gallery-meta">
-                    <div class="gallery-name" title="${item.path}">${item.path.split('/').pop()}</div>
-                    <div style="display:flex; justify-content:space-between;">
-                        <span>${(item.size / 1024).toFixed(1)} KB</span>
-                        <span>${item.width}x${item.height}</span>
-                    </div>
+        <div class="gallery-item" onclick="viewGalleryItem('${item.path}')">
+            ${item.unused ? '<span class="unused-badge">Unused</span>' : ''}
+            <img src="/${item.path}" class="gallery-thumb" loading="lazy" 
+                 onerror="this.style.background='linear-gradient(135deg, #1a1d26 0%, #0d1017 100%)'; this.style.border='2px dashed var(--fiery-rose)'; this.alt='Missing Image';">
+            <div class="gallery-meta">
+                <div class="gallery-name" title="${item.path}">${item.path.split('/').pop()}</div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>${(item.size / 1024).toFixed(1)} KB</span>
+                    <span>${item.width}x${item.height}</span>
                 </div>
             </div>
         </div>
@@ -958,17 +919,12 @@ window.filterGallery = () => {
 };
 
 window.viewGalleryItem = (path) => {
+    // Simple View functionality
     const item = allGalleryItems.find(i => i.path === path);
-    showToast(`<strong>Image Info:</strong><br>Path: /${path}<br>Alt: ${item.alt || '-'}<br>Dimensions: ${item.width}x${item.height}`, 'info', 5000);
-};
-
-window.copyGalleryPath = (path) => {
-    const fullPath = `/${path}`;
-    navigator.clipboard.writeText(fullPath).then(() => {
-        showToast(`Copied Path: ${fullPath}`, 'success');
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        showToast('Failed to copy path', 'error');
+    // Could open a modal details view here. For now, simple Alert + Copy.
+    const url = `${window.location.origin}/${path}`;
+    navigator.clipboard.writeText(`/${path}`).then(() => {
+        alert(`Copied Path: /${path}\n\nInfo:\nAlt: ${item.alt || '-'}\nSize: ${item.width}x${item.height}`);
     });
 };
 

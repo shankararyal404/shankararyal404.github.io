@@ -80,14 +80,14 @@ if (contactForm) {
       const result = await res.json();
 
       if (res.ok) {
-        alert('Message sent successfully! I will get back to you soon.');
+        showToast('Message sent successfully! I will get back to you soon.', 'success');
         contactForm.reset();
       } else {
-        alert('Error: ' + result.message);
+        showToast('Error: ' + result.message, 'error');
       }
     } catch (err) {
       console.error(err);
-      alert('Failed to send message. Please try again.');
+      showToast('Failed to send message. Please try again.', 'error');
     } finally {
       btn.innerText = originalText;
       btn.disabled = false;
@@ -96,7 +96,7 @@ if (contactForm) {
 }
 
 // Certificate Modal Functions
-window.openCertificateModal = function(element) {
+window.openCertificateModal = function (element) {
   const modal = document.getElementById('certificate-modal');
   const title = element.getAttribute('data-cert-title');
   const issuer = element.getAttribute('data-cert-issuer');
@@ -114,12 +114,12 @@ window.openCertificateModal = function(element) {
   document.body.style.overflow = 'hidden';
 };
 
-window.closeCertificateModal = function(event) {
+window.closeCertificateModal = function (event) {
   // If event is passed and it's not clicking the overlay, don't close
   if (event && event.target.closest('.cert-modal-content') && !event.target.classList.contains('cert-modal-close')) {
     return;
   }
-  
+
   const modal = document.getElementById('certificate-modal');
   modal.classList.remove('active');
   document.body.style.overflow = '';
