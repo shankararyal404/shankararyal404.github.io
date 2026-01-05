@@ -399,11 +399,11 @@ class CommentWidget {
             if (response.ok) {
                 await this.loadComments();
             } else {
-                alert(result.error || 'Failed to post comment.');
+                showToast(result.error || 'Failed to post comment.', 'error');
             }
         } catch (error) {
             console.error('Post comment error:', error);
-            alert('A network error occurred.');
+            showToast('A network error occurred.', 'error');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
@@ -466,7 +466,7 @@ class CommentWidget {
                 await this.loadComments();
             } else {
                 const result = await response.json();
-                if (response.status === 429) alert(result.error);
+                if (response.status === 429) showToast(result.error, 'warning');
             }
         } catch (error) {
             console.error('Reaction error:', error);
