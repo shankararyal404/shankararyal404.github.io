@@ -48,8 +48,19 @@
     <meta property="og:title" content="Literature Articles | Shankar Aryal">
     <meta property="og:description" content="Explore 4 articles about Literature by Shankar Aryal. Insights on electrical engineering, web development, and technology.">
     <meta property="og:image" content="https://www.shankararyal404.com.np/assets/images/default-cover.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/literature.html">
     <meta property="og:site_name" content="Shankar Aryal">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JRDNSWRVE2');
+    </script>
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -346,6 +357,19 @@
                     closeMenu();
                 });
             });
+        });
+    </script>
+
+    <!-- Content Protection Script -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('copy', event => {
+            event.preventDefault();
+            if (typeof showToast === 'function') {
+                showToast('Content copying is restricted for security reasons.', 'warning');
+            } else {
+                alert('Content copying is restricted.');
+            }
         });
     </script>
 </body>
