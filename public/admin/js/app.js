@@ -42,7 +42,7 @@ async function apiCall(body = {}, method = 'POST') {
         return await res.json();
     } catch (err) {
         console.error(err);
-        alert('Operation failed: ' + err.message);
+        showToast('Operation failed: ' + err.message, 'error');
         return null;
     }
 }
@@ -104,6 +104,7 @@ window.republishBlog = async (slug) => {
             unpublishedAt: null
         }
     }, 'PUT');
+    showToast('Blog republished successfully!', 'success');
     loadBlogs();
 };
 
@@ -216,6 +217,7 @@ blogForm.addEventListener('submit', async (e) => {
             data: data
         }, 'POST');
     }
+    showToast(`Blog ${id ? 'updated' : 'created'} successfully!`, 'success');
     window.closeModal('blog-modal');
     loadBlogs();
 });
@@ -294,6 +296,7 @@ if (projectForm) {
         }, 'PUT');
 
         if (result) {
+            showToast(`Project ${id ? 'updated' : 'created'} successfully!`, 'success');
             closeModal('project-modal');
             loadProjects();
         }
@@ -365,7 +368,7 @@ if (certForm) {
         }, 'PUT');
 
         if (result) {
-            alert('Certificate saved successfully!');
+            showToast('Certificate saved successfully!', 'success');
             closeModal('certificate-modal');
             loadCertificates();
         }
@@ -380,7 +383,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-        alert('File size exceeds 5MB');
+        showToast('File size exceeds 5MB', 'warning');
         input.value = '';
         return;
     }
@@ -401,7 +404,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
         }
 
         if (!category || !finalSlug) {
-            alert('Please select a Category and ensure Title/Slug is filled before uploading.');
+            showToast('Please select a Category and ensure Title/Slug is filled before uploading.', 'warning');
             input.value = '';
             return;
         }
@@ -445,7 +448,7 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
 
     } catch (error) {
         console.error(error);
-        alert('Image upload failed: ' + error.message);
+        showToast('Image upload failed: ' + error.message, 'error');
         if (previewContainer) previewContainer.innerHTML = '<span style="color:var(--fiery-rose)">Failed</span>';
         input.value = '';
     }
@@ -513,6 +516,7 @@ window.deleteItem = async (type, id, force = false) => {
     }, 'PUT');
 
     if (result) {
+        showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} item ${force ? 'deleted permanently' : 'unpublished/removed'}`, 'info');
         if (type === 'projects') loadProjects();
         if (type === 'education') loadEducation();
         if (type === 'skills') loadSkills();
@@ -853,15 +857,20 @@ function renderGallery(items) {
     }
 
     grid.innerHTML = items.map(item => `
-        <div class="gallery-item" onclick="viewGalleryItem('${item.path}')">
-            ${item.unused ? '<span class="unused-badge">Unused</span>' : ''}
-            <img src="/${item.path}" class="gallery-thumb" loading="lazy" 
-                 onerror="this.style.background='linear-gradient(135deg, #1a1d26 0%, #0d1017 100%)'; this.style.border='2px dashed var(--fiery-rose)'; this.alt='Missing Image';">
-            <div class="gallery-meta">
-                <div class="gallery-name" title="${item.path}">${item.path.split('/').pop()}</div>
-                <div style="display:flex; justify-content:space-between;">
-                    <span>${(item.size / 1024).toFixed(1)} KB</span>
-                    <span>${item.width}x${item.height}</span>
+        <div class="gallery-item">
+            <div class="copy-path-btn" onclick="copyGalleryPath('${item.path}')" title="Copy Path">
+                <ion-icon name="copy-outline"></ion-icon>
+            </div>
+            <div onclick="viewGalleryItem('${item.path}')" style="cursor:pointer">
+                ${item.unused ? '<span class="unused-badge">Unused</span>' : ''}
+                <img src="/${item.path}" class="gallery-thumb" loading="lazy" 
+                     onerror="this.style.background='linear-gradient(135deg, #1a1d26 0%, #0d1017 100%)'; this.style.border='2px dashed var(--fiery-rose)'; this.alt='Missing Image';">
+                <div class="gallery-meta">
+                    <div class="gallery-name" title="${item.path}">${item.path.split('/').pop()}</div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>${(item.size / 1024).toFixed(1)} KB</span>
+                        <span>${item.width}x${item.height}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -919,12 +928,17 @@ window.filterGallery = () => {
 };
 
 window.viewGalleryItem = (path) => {
-    // Simple View functionality
     const item = allGalleryItems.find(i => i.path === path);
-    // Could open a modal details view here. For now, simple Alert + Copy.
-    const url = `${window.location.origin}/${path}`;
-    navigator.clipboard.writeText(`/${path}`).then(() => {
-        alert(`Copied Path: /${path}\n\nInfo:\nAlt: ${item.alt || '-'}\nSize: ${item.width}x${item.height}`);
+    showToast(`<strong>Image Info:</strong><br>Path: /${path}<br>Alt: ${item.alt || '-'}<br>Dimensions: ${item.width}x${item.height}`, 'info', 5000);
+};
+
+window.copyGalleryPath = (path) => {
+    const fullPath = `/${path}`;
+    navigator.clipboard.writeText(fullPath).then(() => {
+        showToast(`Copied Path: ${fullPath}`, 'success');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        showToast('Failed to copy path', 'error');
     });
 };
 
@@ -975,11 +989,13 @@ window.loadCommentsAdmin = async () => {
             <td><small>${new Date(c.created_at).toLocaleString()}</small></td>
             <td><span class="admin-badge" style="background:${getStatusColor(c.status)};">${c.status}</span></td>
             <td>
-                <button class="action-btn edit-btn" onclick="openReplyModal(${c.id}, '${c.post_slug}', \`${escapeJS(c.content)}\`, '${escapeJS(c.author_name)}')">Reply</button>
-                <div style="margin-top:5px;">
-                    ${c.status !== 'approved' ? `<button class="action-btn" style="background:var(--emerald);" onclick="updateCommentStatus(${c.id}, 'approved')">Approve</button>` : ''}
-                    ${c.status !== 'spam' ? `<button class="action-btn" style="background:var(--orange-soda);" onclick="updateCommentStatus(${c.id}, 'spam')">Spam</button>` : ''}
-                    <button class="action-btn delete-btn" onclick="deleteCommentAdmin(${c.id})">Delete</button>
+                <div style="display:flex; flex-direction:column; gap:5px;">
+                    <button class="action-btn edit-btn" onclick="openReplyModal(${c.id}, '${c.post_slug}', \`${escapeJS(c.content)}\`, '${escapeJS(c.author_name)}')">Reply</button>
+                    <div style="display:flex; gap:5px;">
+                        ${c.status === 'spam' ? `<button class="action-btn" style="background:var(--emerald);" onclick="updateCommentStatus(${c.id}, 'approved')" title="Approve/Unspam">Approve</button>` : ''}
+                        ${c.status !== 'spam' ? `<button class="action-btn" style="background:var(--orange-soda);" onclick="updateCommentStatus(${c.id}, 'spam')" title="Mark as Spam">Spam</button>` : ''}
+                        <button class="action-btn delete-btn" onclick="deleteCommentAdmin(${c.id})" title="Delete Permanently">Delete</button>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -988,8 +1004,7 @@ window.loadCommentsAdmin = async () => {
 
 function getStatusColor(status) {
     if (status === 'approved') return 'var(--emerald)';
-    if (status === 'pending') return 'var(--gold-web-golden)';
-    if (status === 'spam') return 'var(--orange-soda)';
+    if (status === 'spam') return 'var(--fiery-rose)';
     return 'var(--manatee)';
 }
 

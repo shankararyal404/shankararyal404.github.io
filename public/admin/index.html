@@ -45,49 +45,73 @@
 
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/toast.css">
     <style>
         /* Admin specific styles */
         body {
             padding-top: 100px;
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
         }
 
-
-
         .dashboard-container {
-            max-width: 1200px;
+            max-width: var(--container-width);
             margin: 0 auto;
             padding: 20px;
         }
 
         .admin-nav {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 30px;
             border-bottom: 1px solid var(--border-medium);
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .admin-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .admin-tab {
             cursor: pointer;
-            padding: 10px 20px;
+            padding: 12px 24px;
             color: var(--text-secondary);
-            border-radius: 5px;
-            transition: all 0.3s;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth);
             white-space: nowrap;
+            font-weight: 500;
+            font-size: 1.5rem;
         }
 
         .admin-tab:hover {
-            background: var(--independence);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         .admin-tab.active {
             color: var(--white);
             background: var(--primary);
+            box-shadow: 0 4px 12px var(--primary-glow);
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .tab-content.active {
@@ -96,79 +120,98 @@
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             text-align: left;
-            color: var(--cadet-blue-crayola);
-            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 600;
         }
 
         input,
         textarea,
         select {
             width: 100%;
-            padding: 12px;
-            background: var(--gunmetal);
-            border: 1px solid var(--border-medium);
-            color: var(--text-primary);
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 14px;
+            background: var(--bg-secondary) !important;
+            border: 1px solid var(--border-medium) !important;
+            color: var(--text-primary) !important;
+            border-radius: var(--radius-sm);
+            margin-bottom: 25px;
             font-family: inherit;
+            font-size: 1.5rem;
+            transition: var(--transition-smooth);
         }
 
         select option {
-            background: var(--gunmetal);
-            color: var(--white);
-            padding: 10px;
-        }
-
-        select option:hover {
-            background: var(--independence);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         input:focus,
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .data-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-secondary);
+            margin-top: 20px;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            background: var(--gunmetal);
-            border-radius: 8px;
-            overflow: hidden;
+            background: transparent;
         }
 
         .data-table th,
         .data-table td {
-            padding: 15px;
+            padding: 16px;
             text-align: left;
-            border-bottom: 1px solid var(--independence);
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 1.4rem;
         }
 
         .data-table th {
-            background: var(--space-cadet);
+            background: var(--bg-secondary);
             color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
 
         .data-table tr:hover {
-            background: var(--independence);
+            background: rgba(var(--primary-rgb, 255, 87, 87), 0.03);
         }
 
         .action-btn {
-            padding: 5px 10px;
-            border-radius: 4px;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             border: none;
-            font-size: 0.8rem;
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-right: 5px;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .edit-btn {
-            background: var(--blue-crayola);
+            background: var(--secondary);
             color: white;
+        }
+
+        .edit-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
         }
 
         .delete-btn {
@@ -176,47 +219,12 @@
             color: white;
         }
 
-        /* Upload UI */
-        .upload-group {
-            margin-bottom: 20px;
+        .delete-btn:hover {
+            background: var(--rufous);
+            transform: translateY(-1px);
         }
 
-        .upload-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .upload-preview {
-            width: 80px;
-            height: 80px;
-            border-radius: 5px;
-            background: var(--gunmetal);
-            border: 1px dashed var(--independence);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .upload-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .upload-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex: 1;
-        }
-
+        /* Modal Overhaul */
         .modal {
             display: none;
             position: fixed;
@@ -224,9 +232,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             overflow-y: auto;
+            padding: 20px;
             align-items: center;
             justify-content: center;
         }
@@ -236,77 +246,143 @@
         }
 
         .modal-content {
-            background: var(--space-cadet);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 850px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-subtle);
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            line-height: 1;
         }
 
-        /* Gallery Styles */
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        /* Gallery Overhaul */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
         }
 
         .gallery-item {
-            background: var(--gunmetal);
-            border: 1px solid var(--independence);
-            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: var(--transition-smooth);
             position: relative;
+            box-shadow: var(--shadow-sm);
         }
 
         .gallery-item:hover {
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-item .copy-path-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 6px;
+            border-radius: var(--radius-sm);
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-medium);
+            z-index: 5;
+            backdrop-filter: blur(4px);
+        }
+
+        .gallery-item:hover .copy-path-btn {
+            opacity: 1;
+        }
+
+        .gallery-item .copy-path-btn:hover {
+            background: var(--primary);
+            color: white;
             border-color: var(--primary);
         }
 
         .gallery-thumb {
             width: 100%;
-            height: 120px;
+            height: 150px;
             object-fit: cover;
-            background: #000;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .gallery-meta {
-            padding: 8px;
-            font-size: 0.8rem;
-            color: var(--cadet-blue-crayola);
+            padding: 12px;
         }
 
         .gallery-name {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 4px;
-            font-weight: 500;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 1.3rem;
             color: var(--text-primary);
         }
 
         .unused-badge {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 10px;
+            right: 10px;
             background: var(--fiery-rose);
             color: white;
-            font-size: 0.6rem;
-            padding: 2px 5px;
-            border-radius: 3px;
+            font-size: 1rem;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 25px;
+            }
+
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 10px;
+                font-size: 1.3rem;
+            }
+
+            .admin-tab {
+                padding: 10px 16px;
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -366,33 +442,37 @@
                 <h2 class="h2">Manage Blogs</h2>
                 <button class="btn btn-primary" onclick="openModal('blog-modal')">+ New Blog</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="blogs-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blogs-list"></tbody>
+                </table>
+            </div>
 
             <!-- ARCHIVED BLOGS SECTION -->
             <h3 class="h3" style="margin-top: 40px; color: var(--fiery-rose);">Unpublished / Archived Blogs</h3>
-            <p style="color: var(--manatee); font-size: 0.9rem; margin-bottom: 20px;">
+            <p style="color: var(--text-muted); font-size: 1.3rem; margin-bottom: 20px;">
                 Note: Unpublished blogs will be permanently deleted if they remain unpublished for more than 6 months.
             </p>
-            <table class="data-table" style="border: 1px solid var(--fiery-rose);">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Unpublished At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="archived-blogs-list"></tbody>
-            </table>
+            <div class="data-table-wrapper" style="border: 1px solid var(--fiery-rose);">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Unpublished At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archived-blogs-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- PROJECTS TAB -->
@@ -401,19 +481,21 @@
                 <h2 class="h2">Manage Projects</h2>
                 <button class="btn btn-primary" onclick="openModal('project-modal')">+ New Project</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Tags</th>
-                        <th>Links</th>
-                        <th>Status</th>
-                        <th>Sort</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="projects-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Tags</th>
+                            <th>Links</th>
+                            <th>Status</th>
+                            <th>Sort</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projects-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- EDUCATION TAB -->
@@ -422,17 +504,19 @@
                 <h2 class="h2">Manage Education</h2>
                 <button class="btn btn-primary" onclick="openModal('education-modal')">+ New Education</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Institution</th>
-                        <th>Degree</th>
-                        <th>Period</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="education-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Institution</th>
+                            <th>Degree</th>
+                            <th>Period</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="education-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- SKILLS TAB -->
@@ -441,17 +525,19 @@
                 <h2 class="h2">Manage Skills</h2>
                 <button class="btn btn-primary" onclick="openModal('skill-modal')">+ New Skill</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Skill</th>
-                        <th>Category</th>
-                        <th>Level</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="skills-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Category</th>
+                            <th>Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="skills-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- TECHNOLOGIES TAB -->
@@ -460,17 +546,19 @@
                 <h2 class="h2">Manage Technologies</h2>
                 <button class="btn btn-primary" onclick="openModal('tech-modal')">+ New Technology</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Icon</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="technologies-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Icon</th>
+                            <th>Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="technologies-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- SOCIAL LINKS TAB -->
@@ -479,17 +567,19 @@
                 <h2 class="h2">Social Links</h2>
                 <button class="btn btn-primary" onclick="openModal('social-modal')">+ New Social Link</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Platform</th>
-                        <th>URL</th>
-                        <th>Visible</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="social-links-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Platform</th>
+                            <th>URL</th>
+                            <th>Visible</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="social-links-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- CERTIFICATES TAB -->
@@ -498,17 +588,19 @@
                 <h2 class="h2">Manage Certificates</h2>
                 <button class="btn btn-primary" onclick="openModal('certificate-modal')">+ New Certificate</button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Issuer</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="certificates-list"></tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Issuer</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="certificates-list"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- COMMENTS TAB -->
@@ -517,30 +609,31 @@
                 <h2 class="h2">Manage Comments</h2>
                 <div style="display: flex; gap: 10px;">
                     <select id="comment-filter-status" style="width: auto; margin: 0;" onchange="loadCommentsAdmin()">
-                        <option value="">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="approved" selected>Approved</option>
-                        <option value="spam">Spam</option>
+                        <option value="">All Status (Approved + Spam)</option>
+                        <option value="approved" selected>Approved (Visible)</option>
+                        <option value="spam">Spam (Hidden)</option>
                     </select>
                     <input type="text" id="comment-search" placeholder="Search by post/author/content..."
                         style="width: 250px; margin: 0;" onkeyup="loadCommentsAdmin()">
                 </div>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Post</th>
-                        <th>Author</th>
-                        <th>Content</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-comments-list">
-                    <!-- Comments injected here -->
-                </tbody>
-            </table>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Post</th>
+                            <th>Author</th>
+                            <th>Content</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-comments-list">
+                        <!-- Comments injected here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
@@ -898,6 +991,7 @@
 
     <!-- Import logic -->
     <script type="module" src="../assets/js/theme.js"></script>
+    <script src="../assets/js/toast.js"></script>
     <script type="module" src="/admin/js/app.js"></script>
     <script>
         // Modal helpers

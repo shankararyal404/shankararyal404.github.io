@@ -73,11 +73,8 @@
 }
 
 .blog-card-inner {
-    background: var(--bg-card, #1a1a2e);
-    /* Fallback dark */
-    background: rgba(255, 255, 255, 0.03);
-    /* Glass effect base */
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
     border-radius: 16px;
     overflow: hidden;
     height: 100%;
@@ -242,7 +239,7 @@
 .comments-section {
     margin-top: 60px;
     padding-top: 40px;
-    border-top: 1px solid var(--white-alpha-10);
+    border-top: 1px solid var(--border-medium);
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -253,11 +250,11 @@
 }
 
 .comment-item {
-    background: var(--white-alpha-5);
+    background: var(--bg-secondary);
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    border: 1px solid var(--white-alpha-10);
+    border: 1px solid var(--border-subtle);
     animation: fadeIn 0.5s ease;
 }
 
@@ -355,8 +352,8 @@
 }
 
 .layout-project blockquote {
-    background: var(--gunmetal);
-    border-left: 4px solid var(--accent);
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--secondary);
     padding: 20px;
     border-radius: 0 8px 8px 0;
 }
@@ -410,7 +407,7 @@
 
 /* Poem Layout */
 .tag-layout-poem {
-    background-image: radial-gradient(circle at 50% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 60%);
+    background-image: radial-gradient(circle at 50% 50%, var(--primary-glow) 0%, transparent 60%);
 }
 
 .tag-layout-poem .section-title {
@@ -452,7 +449,7 @@
 
 /* Thoughts / Opinion Layout */
 .tag-layout-thoughts {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-primary);
 }
 
 .tag-layout-thoughts .section-title {

@@ -1,11 +1,13 @@
 /* Hero Section */
 .hero {
     min-height: 90vh;
-    /* Taller hero */
     display: flex;
     align-items: center;
     padding-top: 80px;
-    background: radial-gradient(circle at 70% 20%, rgba(30, 64, 175, 0.15) 0%, transparent 40%);
+    background: radial-gradient(circle at 75% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 25% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 45%);
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -25,8 +27,7 @@
 
 .hero-title {
     font-size: clamp(3.5rem, 5vw, 6rem);
-    color: #3b82f6;
-    /* Blue shade from image */
+    color: var(--secondary);
     margin-bottom: 10px;
     line-height: 1.1;
 }
@@ -76,7 +77,7 @@
 .stat-divider {
     width: 1px;
     height: 40px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-medium);
 }
 
 /* Buttons */
@@ -87,7 +88,7 @@
 
 .btn-outline {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-medium);
     color: var(--text-primary);
     padding: 12px 28px;
     border-radius: 50px;
@@ -96,8 +97,8 @@
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--text-primary);
+    background: var(--bg-accent-subtle, rgba(0, 0, 0, 0.05));
+    border-color: var(--primary);
 }
 
 /* Hero Profile Card (Right Side) */
@@ -112,14 +113,19 @@
     width: 100%;
     max-width: 340px;
     background: var(--bg-card);
-    /* Unified background */
     border-radius: 30px;
     padding: 15px;
-    /* Revert to padded look so image is surrounded */
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(59, 130, 246, 0.15);
+    border: 1px solid var(--border-subtle);
     margin: 0 auto;
-    /* Allow badge to pop out */
     overflow: visible;
+    transition: var(--transition-smooth);
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 10px 40px rgba(59, 130, 246, 0.25);
+    border-color: var(--secondary);
 }
 
 .hero-main-img {
@@ -135,16 +141,18 @@
 
 .badge-student {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    background: #2563eb;
+    top: -15px;
+    right: -15px;
+    background: var(--primary);
     color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px var(--primary-glow);
     z-index: 2;
+    border: 2px solid var(--bg-card);
+    letter-spacing: 0.5px;
 }
 
 .hero-card-footer {
@@ -161,7 +169,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,7 +177,6 @@
     font-size: 1.2rem;
     transition: var(--transition-smooth);
     position: relative;
-    /* Ensure text can be seen outside */
     overflow: visible;
 }
 
@@ -204,7 +211,7 @@
     background: var(--primary);
     color: var(--white);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+    box-shadow: 0 5px 15px var(--primary-glow);
 }
 
 .icon-btn:hover .btn-text {
@@ -317,6 +324,20 @@
     color: #f0db4f;
 }
 
+.icon-flash {
+    top: 50%;
+    right: -40px;
+    color: var(--primary);
+    animation-delay: 1.5s;
+}
+
+.icon-chip {
+    bottom: -10px;
+    right: 20px;
+    color: #22c55e;
+    animation-delay: 2.5s;
+}
+
 .about-subtitle {
     font-size: 1.4rem;
     color: var(--primary);
@@ -389,11 +410,6 @@
     margin-left: 10px;
 }
 
-.timeline-item {
-    position: relative;
-    margin-bottom: 40px;
-}
-
 .timeline-item::before {
     content: '';
     position: absolute;
@@ -403,7 +419,15 @@
     height: 16px;
     background: var(--primary);
     border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--bg-dark);
+    box-shadow: 0 0 0 4px var(--bg-primary);
+}
+
+.timeline-date {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: inline-block;
 }
 
 /* Skills */
@@ -593,14 +617,18 @@
 .project-content-overlay {
     position: relative;
     z-index: 2;
-    padding: 30px;
+    padding: 25px;
     width: 100%;
-    transform: translateY(20px);
-    transition: transform 0.5s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.4) 100%);
+    transition: all 0.5s ease;
 }
 
 .project-card:hover .project-content-overlay {
-    transform: translateY(0);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(7, 96, 61, 0.4) 100%);
 }
 
 .project-title {
@@ -613,26 +641,33 @@
 
 .project-desc {
     color: var(--text-secondary);
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.1s;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    line-height: 1.6;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-.project-card:hover .project-desc {
-    opacity: 1;
-    transform: translateY(0);
+    transition: all 0.5s ease;
 }
 
 .project-tags {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    max-height: 85px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.project-tags::-webkit-scrollbar {
+    width: 4px;
+}
+
+.project-tags::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
 
 .tech-pill {
@@ -651,22 +686,14 @@
 .project-link-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: var(--white);
     color: var(--black);
-    padding: 10px 24px;
+    padding: 8px 20px;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     transition: all 0.3s ease;
-    margin-top: 10px;
-    opacity: 0;
-    transform: translateY(10px);
-}
-
-.project-card:hover .project-link-btn {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .project-link-btn:hover {
@@ -719,6 +746,18 @@
 .cert-content p {
     color: var(--text-secondary);
     font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.credential-link {
+    font-size: 1.4rem !important;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.credential-link:hover {
+    text-decoration: underline;
+    transform: translateX(5px);
 }
 
 /* Certificate Modal */
