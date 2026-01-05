@@ -15,7 +15,7 @@ cover: /assets/blog-img/andhakarko-yatri.avif
 published: true
 subdirectory: blog-post
 type: Poem
-written_by: शंकर अयार्ल (Shankar Aryal)
+written_by: शंकर अर्याल (Shankar Aryal)
 place: 'Kathmandu, Nepal'
 publisher: Self-published
 theme: >-
@@ -112,7 +112,7 @@ intro_en: >
   creative expression. Learn more about his journey and projects on his
   [personal website](https://www.shankararyal404.com.np).
 intro_ne: >
-  शंकर अयार्ल आफूलाई लेखक मान्दैनन्, तर उनी कहिलेकाहीं कवितामार्फत आफ्ना
+  शंकर अर्याल आफूलाई लेखक मान्दैनन्, तर उनी कहिलेकाहीं कवितामार्फत आफ्ना
   विचारहरू व्यक्त गर्छन् जसमा जीवन, मृत्यु, भावना र अस्तित्वगत संघर्षका
   विषयवस्तुहरू हुने गर्दछन्। पूर्णकालीन कवि नभए तापनि उनका कार्यहरू—जस्तै
   "अन्धकारको यात्री", "सपनाको क्यानभास", "काग्", र "चिहानले पुकार छ?"—तिनीहरूको
@@ -185,7 +185,7 @@ original_date: '2024-11-19'
 </div>
 
 <div class="author" style="text-align:right; margin-top:30px;">
-- शंकर अयार्ल
+- शंकर अर्याल
 </div>
 
 </div>
