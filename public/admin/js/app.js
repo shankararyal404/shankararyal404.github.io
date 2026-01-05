@@ -108,11 +108,12 @@ window.republishBlog = async (slug) => {
     loadBlogs();
 };
 
-window.openEditBlog = (slug) => {
+window.openEditBlog = async (slug) => {
+    // 1. Initial UI Setup (Load from memory first for instant response)
     const blog = allBlogs.find(b => b.slug === slug);
     if (!blog) return;
 
-    document.getElementById('blog-id').value = blog.slug; // slug is key
+    document.getElementById('blog-id').value = blog.slug;
     document.getElementById('blog-title').value = blog.title;
     document.getElementById('blog-slug').value = blog.slug;
     document.getElementById('blog-category').value = blog.category;
@@ -122,32 +123,49 @@ window.openEditBlog = (slug) => {
     document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
     document.getElementById('blog-original-date').value = blog.original_date || '';
     document.getElementById('blog-excerpt').value = blog.excerpt || '';
-    document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
-    document.getElementById('blog-modal-title').innerText = 'Edit Blog';
 
-    // Set literature fields if applicable
+    // Set literature fields UI based on category
     const literatureFields = document.getElementById('literature-fields');
-    if (blog.category === 'Literature') {
-        literatureFields.style.display = 'block';
-        document.getElementById('lit-type').value = blog.type || '';
-        document.getElementById('lit-written-by').value = blog.written_by || '';
-        document.getElementById('lit-place').value = blog.place || '';
-        document.getElementById('lit-publisher').value = blog.publisher || '';
+    literatureFields.style.display = blog.category === 'Literature' ? 'block' : 'none';
 
-        // Bilingual fields with fallbacks
-        document.getElementById('lit-reflection-ne').value = blog.reflection_ne || blog.reflection || '';
-        document.getElementById('lit-reflection-en').value = blog.reflection_en || '';
-
-        document.getElementById('lit-theme-ne').value = blog.theme_ne || blog.theme || '';
-        document.getElementById('lit-theme-en').value = blog.theme_en || '';
-
-        document.getElementById('lit-intro-ne').value = blog.intro_ne || '';
-        document.getElementById('lit-intro-en').value = blog.intro_en || '';
-    } else {
-        literatureFields.style.display = 'none';
-    }
-
+    // 2. Loading State for Content
+    document.getElementById('blog-content').value = 'Loading full content...';
+    document.getElementById('blog-modal-title').innerText = `Edit Blog: ${blog.title} (Loading...)`;
     document.getElementById('blog-modal').classList.add('open');
+
+    // 3. Fetch Full Data (Fetch-on-Demand)
+    try {
+        const res = await fetch(`/api/blogs?slug=${slug}`);
+        if (!res.ok) throw new Error('Failed to fetch full blog content');
+        const fullBlog = await res.json();
+
+        // Populate Content
+        document.getElementById('blog-content').value = fullBlog.content || '';
+        document.getElementById('blog-modal-title').innerText = 'Edit Blog';
+
+        // Populate Literature Fields if applicable
+        if (fullBlog.category === 'Literature') {
+            document.getElementById('lit-type').value = fullBlog.type || '';
+            document.getElementById('lit-written-by').value = fullBlog.written_by || '';
+            document.getElementById('lit-place').value = fullBlog.place || '';
+            document.getElementById('lit-publisher').value = fullBlog.publisher || '';
+
+            // Bilingual fields
+            document.getElementById('lit-reflection-ne').value = fullBlog.reflection_ne || fullBlog.reflection || '';
+            document.getElementById('lit-reflection-en').value = fullBlog.reflection_en || '';
+
+            document.getElementById('lit-theme-ne').value = fullBlog.theme_ne || fullBlog.theme || '';
+            document.getElementById('lit-theme-en').value = fullBlog.theme_en || '';
+
+            document.getElementById('lit-intro-ne').value = fullBlog.intro_ne || '';
+            document.getElementById('lit-intro-en').value = fullBlog.intro_en || '';
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Error loading blog content: ' + err.message, 'error');
+        document.getElementById('blog-content').value = 'Error: Failed to load content.';
+        document.getElementById('blog-modal-title').innerText = 'Edit Blog (Error)';
+    }
 };
 
 // Blog Form
