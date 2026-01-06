@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/poem.html">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -143,7 +152,7 @@
     data-category-slug="literature" data-tags="poem, nepali literature, spirituality">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/andhakarko-yatri.avif" alt="अन्धकारको यात्री | Traveler of Darkness" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/andhakarko-yatri.avif" alt="अन्धकारको यात्री | Traveler of Darkness" loading="lazy" class="blog-banner" width="626" height="447">
             <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
         </div>
         <div class="blog-content">
@@ -151,10 +160,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-19</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog8.html">अन्धकारको यात्री | Traveler of Darkness</a>
+                <a href="/blog-post/blog8.html">अन्धकारको यात्री | Traveler of Darkness</a>
             </h3>
             <p class="blog-text">A profound Nepali poem exploring life's journeys through themes of love, self-discovery, and spiritual awakening.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog8.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog8.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
@@ -162,7 +171,7 @@
     data-category-slug="literature" data-tags="poem, nepali literature">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/grave-call.avif" alt="चिहानले पुकार छ? | Does the Grave Call?" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/grave-call.avif" alt="चिहानले पुकार छ? | Does the Grave Call?" loading="lazy" class="blog-banner" width="770" height="844">
             <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
         </div>
         <div class="blog-content">
@@ -170,10 +179,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-27</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog5.html">चिहानले पुकार छ? | Does the Grave Call?</a>
+                <a href="/blog-post/blog5.html">चिहानले पुकार छ? | Does the Grave Call?</a>
             </h3>
             <p class="blog-text">A profound Nepali poem exploring themes of mortality, memory, and the silent dialogues that occur between life and death.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog5.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog5.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
@@ -181,7 +190,7 @@
     data-category-slug="literature" data-tags="poem, nepali literature">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/crow.avif" alt="काग् | The Crow" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/crow.avif" alt="काग् | The Crow" loading="lazy" class="blog-banner" width="1344" height="768">
             <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
         </div>
         <div class="blog-content">
@@ -189,10 +198,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-26</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog4.html">काग् | The Crow</a>
+                <a href="/blog-post/blog4.html">काग् | The Crow</a>
             </h3>
             <p class="blog-text">A Villanelle poem exploring the complex realities faced by women in society, delving into themes of societal perception, trauma, and loss.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog4.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog4.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
@@ -200,7 +209,7 @@
     data-category-slug="literature" data-tags="poem, nepali literature">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/poem-11.png" alt="सपनाको क्यानभास | Canvas of Dreams" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/poem-11.png" alt="सपनाको क्यानभास | Canvas of Dreams" loading="lazy" class="blog-banner" width="807" height="672">
             <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
         </div>
         <div class="blog-content">
@@ -208,10 +217,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-06</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog2.html">सपनाको क्यानभास | Canvas of Dreams</a>
+                <a href="/blog-post/blog2.html">सपनाको क्यानभास | Canvas of Dreams</a>
             </h3>
             <p class="blog-text">शंकर अयार्ल द्वारा लिखित विलानेल संरचनाको नेपाली कविता 'सपनाको क्यानभास' - जीवन, मृत्यु र सपनाहरूको गहन चित्रण।</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog2.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog2.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>

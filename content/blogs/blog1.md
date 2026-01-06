@@ -1,6 +1,6 @@
 ---
 id: '1728259200000'
-title: "The Future of Web Development: Insights from LearnMe Founder Shankar Aryal"
+title: "Future of Web Development: LearnMe Founder's View"
 date: '2024-10-07'
 slug: blog1
 category: Information and Study

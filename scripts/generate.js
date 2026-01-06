@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import sharp from 'sharp';
 // import yaml from 'js-yaml'; // Unused and missing dependency
 
 // Custom Marked Renderer for Skeleton Loading
@@ -63,6 +64,63 @@ const blogIndexTemplate = fs.readFileSync(path.join(TEMPLATE_DIR, 'blog-index.ht
 
 let footerLatestBlogsHtml = ''; // Will be populated after blogs are processed
 
+// Helper: Get Image Dimensions (Async)
+// Helper: Get Image Dimensions (Async)
+async function getDimensions(src) {
+    if (!src || src.startsWith('http') || src.startsWith('//')) return null;
+    try {
+        const cleanSrc = src.split('?')[0];
+        const relativePath = cleanSrc.startsWith('/') ? cleanSrc.slice(1) : cleanSrc;
+
+        // 1. Try Source (Preferred)
+        const sourcePath = path.join(process.cwd(), relativePath);
+        if (fs.existsSync(sourcePath)) {
+            const metadata = await sharp(sourcePath).metadata();
+            return { width: metadata.width, height: metadata.height };
+        }
+
+        // 2. Try Public (Fallback)
+        const publicPath = path.join(process.cwd(), 'public', relativePath);
+        if (fs.existsSync(publicPath)) {
+            const metadata = await sharp(publicPath).metadata();
+            return { width: metadata.width, height: metadata.height };
+        }
+    } catch (e) {
+        console.warn('Could not get dimensions for', src, e.message);
+    }
+    return null;
+}
+
+// Helper: Inject Dimensions into HTML (Async)
+async function injectDimensions(html) {
+    if (!html) return html;
+    const imgRegex = /<img([^>]+)src=["']([^"']+)["']([^>]*)>/g;
+    const matches = [...html.matchAll(imgRegex)];
+    let newHtml = html;
+
+    // Use a map to avoid multiple replaces of same string if needed,
+    // but here we just replace strict matches.
+    for (const match of matches) {
+        const [fullTag, beforeSrc, src, afterSrc] = match;
+        if (fullTag.includes('width=') && fullTag.includes('height=')) continue;
+
+        const dims = await getDimensions(src);
+        if (dims) {
+            // Reconstruct tag with width/height
+            // Check if width/height already partially exist
+            let newAttrs = '';
+            if (!fullTag.includes('width=')) newAttrs += ` width="${dims.width}"`;
+            if (!fullTag.includes('height=')) newAttrs += ` height="${dims.height}"`;
+
+            if (newAttrs) {
+                const newTag = `<img${beforeSrc}src="${src}"${afterSrc}${newAttrs}>`;
+                newHtml = newHtml.replace(fullTag, newTag);
+            }
+        }
+    }
+    return newHtml;
+}
+
 // Helper: Sanitize Meta Strings (SEO)
 function sanitizeMeta(str) {
     if (!str) return '';
@@ -81,8 +139,8 @@ function getAbsoluteUrl(url) {
     return `${SITE_URL}${cleanUrl}`;
 }
 
-// Helper: Render Page
-function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 'website', canonicalUrl = '', jsonLd = '', keywords = '', categoryCSSLink = '', robots = 'index, follow') {
+// Helper: Render Page (Async now)
+async function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 'website', canonicalUrl = '', jsonLd = '', keywords = '', categoryCSSLink = '', robots = 'index, follow') {
     const cleanTitle = sanitizeMeta(pageTitle);
     const cleanDesc = sanitizeMeta(metaDescription);
     const cleanKeywords = sanitizeMeta(keywords);
@@ -106,6 +164,9 @@ function renderPage(bodyHtml, pageTitle, metaDescription, metaImage, metaType = 
             <li><a href="${s.url}" target="_blank" class="social-link" title="${s.platform}"><ion-icon name="${s.icon}"></ion-icon></a></li>
         `).join(''))
         .replaceAll('{{FOOTER_BLOGS}}', footerLatestBlogsHtml || '<li>No blogs yet.</li>');
+
+    // Inject Dimensions before returning
+    html = await injectDimensions(html);
 
     return html;
 }
@@ -231,7 +292,7 @@ for (const blog of blogs) {
         BLOG_CATEGORY: blog.category,
         BLOG_CATEGORY_SLUG: blog.categorySlug,
         BLOG_IMAGE: blog.image,
-        BLOG_TAGS: (blog.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase()}.html" class="tag">${t}</a>`).join(', '),
+        BLOG_TAGS: (blog.tags || []).map(t => `<a href="/blogs/tags/${t.toLowerCase().replace(/ /g, '-')}.html" class="tag">${t}</a>`).join(', '),
         WRITTEN_BY: blog.written_by || '',
         PLACE: blog.place || '',
         PUBLISHER: blog.publisher || '',
@@ -341,7 +402,7 @@ for (const blog of blogs) {
 
     const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${blog.categorySlug}.css">`;
 
-    const fullHtml = renderPage(
+    const fullHtml = await renderPage(
         blogHtml,
         `${blog.title} | Shankar Aryal`,
         blog.excerpt || '',
@@ -381,7 +442,7 @@ const blogIndexHtml = blogIndexTemplate
     // In case user wants to filter
     .replace('{{TAG_CLOUD}}', '');
 
-const fullBlogIndexHtml = renderPage(
+const fullBlogIndexHtml = await renderPage(
     blogIndexHtml,
     `All Blogs | Shankar Aryal`,
     `Read all articles, tutorials, and insights by Shankar Aryal.`,
@@ -396,7 +457,7 @@ console.log(`Generated: blogs/index.html`);
 // 2. Process Tags
 // (Directory created at startup)
 
-Object.values(tagsMap).forEach(tagData => {
+for (const tagData of Object.values(tagsMap)) {
     const tagSlug = tagData.name.toLowerCase().replace(/ /g, '-');
     const tagUrl = `${SITE_URL}/blogs/tags/${tagSlug}.html`;
 
@@ -413,6 +474,7 @@ Object.values(tagsMap).forEach(tagData => {
             .replaceAll('{{POST_IMAGE}}', post.image)
             .replaceAll('{{POST_TITLE}}', post.title)
             .replaceAll('{{POST_SLUG}}', post.slug)
+            .replaceAll('{{POST_SUBDIRECTORY}}', post.subdirectory || 'blogs')
             .replaceAll('{{POST_CATEGORY}}', post.category)
             .replaceAll('{{POST_CATEGORY_SLUG}}', post.category.toLowerCase().replace(/ /g, '-'))
             .replaceAll('{{POST_DATE}}', post.publishedDate)
@@ -478,7 +540,7 @@ Object.values(tagsMap).forEach(tagData => {
 
     const jsonLd = [breadcrumbLd, collectionLd];
 
-    const fullHtml = renderPage(
+    const fullHtml = await renderPage(
         tagHtml,
         `${tagData.name} Articles | Shankar Aryal`,
         tagDescription,
@@ -491,13 +553,13 @@ Object.values(tagsMap).forEach(tagData => {
 
     fs.writeFileSync(path.join(tagsOutputDir, `${tagSlug}.html`), fullHtml);
     console.log(`Generated: blogs/tags/${tagSlug}.html`);
-});
+}
 
 // 2.5 Process Static Pages (Privacy, 404, etc)
 const pagesDir = path.join(CONTENT_DIR, 'pages');
 if (fs.existsSync(pagesDir)) {
     const pageFiles = fs.readdirSync(pagesDir).filter(f => f.endsWith('.md'));
-    pageFiles.forEach(file => {
+    for (const file of pageFiles) {
         const raw = fs.readFileSync(path.join(pagesDir, file), 'utf-8');
         const { data, content } = matter(raw);
         const htmlContent = marked.parse(content);
@@ -509,7 +571,7 @@ if (fs.existsSync(pagesDir)) {
         const slug = file.replace('.md', '');
         const outputName = slug === '404' ? '404.html' : `${slug}.html`;
 
-        const fullHtml = renderPage(
+        const fullHtml = await renderPage(
             pageHtml,
             `${data.title} | Shankar Aryal`,
             data.description || data.title,
@@ -520,7 +582,7 @@ if (fs.existsSync(pagesDir)) {
 
         fs.writeFileSync(path.join(OUTPUT_DIR, outputName), fullHtml);
         console.log(`Generated: ${outputName}`);
-    });
+    }
 }
 
 // 3. Process Index
@@ -797,7 +859,7 @@ const websiteLd = {
 
 const indexJsonLd = [personLd, websiteLd];
 
-const indexFullHtml = renderPage(
+const indexFullHtml = await renderPage(
     indexContent,
     "Shankar Aryal | Electrical Engineer & Full Stack Developer",
     "Shankar Aryal - Electrical Engineer & Full Stack Developer from Nepal. Explore my innovative projects and portfolio showcasing my skills!",
