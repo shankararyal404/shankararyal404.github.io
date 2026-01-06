@@ -14,7 +14,7 @@ cover: /assets/blog-img/crow.avif
 published: true
 subdirectory: blog-post
 type: Poem
-written_by: शंकर अयार्ल (Shankar Aryal)
+written_by: शंकर अर्याल (Shankar Aryal)
 place: 'Bhaktapur, Nepal'
 publisher: Self-published
 theme: >-
@@ -68,10 +68,11 @@ intro_en: >
   Shankar Aryal is a writer who explores themes of life, emotions, and human
   experiences through poetry and literature.
 intro_ne: >
-  शंकर अयार्ल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका
+  शंकर अर्याल कविता र साहित्यको माध्यमबाट जीवन, भावना र मानव अनुभवका
   विषयवस्तुहरू अन्वेषण गर्ने लेखक हुन्।
 image: /assets/blog-img/crow.avif
 image_alt: crow
+original_date: '2023-10-23'
 ---
 <div style="text-align:center; max-width:720px; margin:0 auto;">
 
@@ -80,7 +81,7 @@ image_alt: crow
 <div>
 
 <div style="margin-top:26px;">
-<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनीको चिरिएको गीत,</p>
+<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनी चिसिएको गीत,</p>
 <p style="margin:2px 0; line-height:1.35;">पुछिएको सिऊदोको टुट्दो व्रत,</p>
 <p style="margin:2px 0; line-height:1.35;">अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि।</p>
 </div>
@@ -88,7 +89,7 @@ image_alt: crow
 <div style="margin-top:26px;">
 <p style="margin:2px 0; line-height:1.35;">आकाशले उघार्यो रातको वीर्य,</p>
 <p style="margin:2px 0; line-height:1.35;">शिखामा बलिरहेछ दाहको राग,</p>
-<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनीको चिरिएको गीत।</p>
+<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनी चिसिएको गीत।</p>
 </div>
 
 <div style="margin-top:26px;">
@@ -100,20 +101,20 @@ image_alt: crow
 <div style="margin-top:26px;">
 <p style="margin:2px 0; line-height:1.35;">गुलाबी फुल्को वेदनामा मुस्कान झरे,</p>
 <p style="margin:2px 0; line-height:1.35;">नवजात कोपिलाले आँसु पिए,</p>
-<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनीको चिरिएको गीत।</p>
+<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनी चिसिएको गीत।</p>
 </div>
 
 <div style="margin-top:26px;">
 <p style="margin:2px 0; line-height:1.35;">सिनामा उर्लिरहेछ अनन्तको नृत्य,</p>
 <p style="margin:2px 0; line-height:1.35;">रातको कालो कवचमा समय खसी रह्यो,</p>
 <p style="margin:2px 0; line-height:1.35;">अस्ताउँदो क्षितिजमा कागको प्रलय दृष्टि,</p>
-<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनीको चिरिएको गीत।</p>
+<p style="margin:2px 0; line-height:1.35;">रुदै भागेकी चाँदनी चिसिएको गीत।</p>
 </div>
 
 </div>
 
 <div style="text-align:right; margin-top:35px;">
-- शंकर अयार्ल
+- शंकर अर्याल
 </div>
 
 </div>
