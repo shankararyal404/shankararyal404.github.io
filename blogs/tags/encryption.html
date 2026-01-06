@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/encryption.html">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -143,7 +152,7 @@
     data-category-slug="technology" data-tags="security, encryption, python">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner">
+            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner" width="452" height="257">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
@@ -151,10 +160,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-01</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
+                <a href="/blog-post/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
             </h3>
             <p class="blog-text">CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog6.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog6.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>

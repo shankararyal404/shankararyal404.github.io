@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/security.html">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -143,7 +152,7 @@
     data-category-slug="technology" data-tags="security, network security, ethical hacking">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/port8(1).png" alt="ShadowStrike: Advanced Network Security Testing" loading="lazy" class="blog-banner">
+            <img src="/assets/images/port8(1).png" alt="ShadowStrike: Advanced Network Security Testing" loading="lazy" class="blog-banner" width="1920" height="1080">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
@@ -151,10 +160,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-02</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog7.html">ShadowStrike: Advanced Network Security Testing</a>
+                <a href="/blog-post/blog7.html">ShadowStrike: Advanced Network Security Testing</a>
             </h3>
             <p class="blog-text">ShadowStrike: Advanced Network Security Testing toolkit empowering ethical hackers with cutting-edge network security tools for authorized testing environments.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog7.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog7.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
@@ -162,7 +171,7 @@
     data-category-slug="technology" data-tags="security, encryption, python">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner">
+            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner" width="452" height="257">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
@@ -170,10 +179,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-01</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
+                <a href="/blog-post/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
             </h3>
             <p class="blog-text">CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog6.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog6.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>

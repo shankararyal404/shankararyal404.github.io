@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/cyber-security.html">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -143,7 +152,7 @@
     data-category-slug="technology" data-tags="cyber security, machine learning, network security">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/cyber.png" alt="Quantum Shield: Revolutionary Cybersecurity Solution" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/cyber.png" alt="Quantum Shield: Revolutionary Cybersecurity Solution" loading="lazy" class="blog-banner" width="481" height="359">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
@@ -151,10 +160,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2020-01-01</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog3.html">Quantum Shield: Revolutionary Cybersecurity Solution</a>
+                <a href="/blog-post/blog3.html">Quantum Shield: Revolutionary Cybersecurity Solution</a>
             </h3>
             <p class="blog-text">Quantum Shield: Revolutionary Cybersecurity Solution leveraging quantum-inspired algorithms and machine learning for unparalleled network protection.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog3.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog3.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>

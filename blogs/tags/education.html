@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np/blogs/tags/education.html">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -139,11 +148,11 @@
         <p style="text-align: center; margin-bottom: 40px;">Reading 1 posts about {{TAG_NAME}}.</p>
 
         <div class="card-grid">
-            <div class="blog-card reveal" data-title="The Future of Web Development: Insights from LearnMe Founder Shankar Aryal" data-category="Information and Study"
+            <div class="blog-card reveal" data-title="Future of Web Development: LearnMe Founder's View" data-category="Information and Study"
     data-category-slug="information-and-study" data-tags="tech, web development, education">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/blog-learnme-1.png" alt="The Future of Web Development: Insights from LearnMe Founder Shankar Aryal" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/blog-learnme-1.png" alt="Future of Web Development: LearnMe Founder's View" loading="lazy" class="blog-banner" width="560" height="546">
             <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
         </div>
         <div class="blog-content">
@@ -151,10 +160,10 @@
                 <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-07</span>
             </div>
             <h3 class="blog-title">
-                <a href="/{{POST_SUBDIRECTORY}}/blog1.html">The Future of Web Development: Insights from LearnMe Founder Shankar Aryal</a>
+                <a href="/blog-post/blog1.html">Future of Web Development: LearnMe Founder's View</a>
             </h3>
             <p class="blog-text">Discover the latest trends in web development, including full-stack development, JavaScript frameworks, serverless architecture, and PWAs. Learn how LearnMe is shaping the future of web development education.</p>
-            <a href="/{{POST_SUBDIRECTORY}}/blog1.html" class="read-more">Read Article <ion-icon
+            <a href="/blog-post/blog1.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>

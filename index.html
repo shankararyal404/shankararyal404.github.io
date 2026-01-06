@@ -53,13 +53,22 @@
     <meta property="og:url" content="https://www.shankararyal404.com.np">
     <meta property="og:site_name" content="Shankar Aryal">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2"></script>
+    <!-- Google tag (gtag.js) - Deferred -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-JRDNSWRVE2');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
     </script>
 
     <!-- Twitter Card -->
@@ -142,7 +151,7 @@
     <div class="hero-card-wrapper">
         <div class="hero-card">
             <div class="badge-student">Engineering Student</div>
-            <img src="/assets/images/shankararyal.jpg" alt="Shankar Aryal" class="hero-main-img">
+            <img src="/assets/images/shankararyal.jpg" alt="Shankar Aryal" class="hero-main-img" width="960" height="958">
             <div class="hero-card-footer">
                 <a href="/assets/resume.pdf" target="_blank" class="icon-btn">
                     <ion-icon name="print-outline"></ion-icon>
@@ -202,13 +211,13 @@
             
     <div class="about-collage">
         <div class="about-img-main">
-            <img src="/assets/images/Shankararyal1.avif" alt="Working">
+            <img src="/assets/images/Shankararyal1.avif" alt="Working" width="800" height="1067">
             <div class="floating-icon icon-react"><ion-icon name="logo-react"></ion-icon></div>
             <div class="floating-icon icon-python"><ion-icon name="logo-python"></ion-icon></div>
             <div class="floating-icon icon-angular"><ion-icon name="logo-angular"></ion-icon></div>
         </div>
         <div class="about-img-sub">
-             <img src="/assets/images/Shankararyal2.avif" alt="Profile">
+             <img src="/assets/images/Shankararyal2.avif" alt="Profile" width="400" height="511">
              <div class="floating-icon icon-js"><ion-icon name="logo-javascript"></ion-icon></div>
         </div>
     </div>
@@ -529,7 +538,7 @@
         <div class="card-grid" style="margin-top: 30px;">
             
     <div class="certificate-card reveal">
-         <img src="/assets/images/certificates/matlab-and-latex.avif" alt="Matlab and Latex" class="cert-img">
+         <img src="/assets/images/certificates/matlab-and-latex.avif" alt="Matlab and Latex" class="cert-img" width="800" height="576">
          <div class="cert-content">
             <h3 class="h3">Matlab and Latex</h3>
             <p>Khowpa College Of Enginerring</p>
@@ -538,7 +547,7 @@
     </div>
 
     <div class="certificate-card reveal">
-         <img src="/assets/images/certificates/industrial-control-system.avif" alt="Industrial Control System" class="cert-img">
+         <img src="/assets/images/certificates/industrial-control-system.avif" alt="Industrial Control System" class="cert-img" width="800" height="566">
          <div class="cert-content">
             <h3 class="h3">Industrial Control System</h3>
             <p>CISA</p>
@@ -547,7 +556,7 @@
     </div>
 
     <div class="certificate-card reveal">
-         <img src="/assets/images/certificates/legacy-responsive-web-design-v8.avif" alt="Legacy Responsive Web Desgin V8" class="cert-img">
+         <img src="/assets/images/certificates/legacy-responsive-web-design-v8.avif" alt="Legacy Responsive Web Desgin V8" class="cert-img" width="800" height="540">
          <div class="cert-content">
             <h3 class="h3">Legacy Responsive Web Desgin V8</h3>
             <p>FreeCodeCamp</p>
@@ -556,7 +565,7 @@
     </div>
 
     <div class="certificate-card reveal">
-         <img src="/assets/images/certificates/college-algebra-with-python.avif" alt="College Algebra With Python" class="cert-img">
+         <img src="/assets/images/certificates/college-algebra-with-python.avif" alt="College Algebra With Python" class="cert-img" width="800" height="539">
          <div class="cert-content">
             <h3 class="h3">College Algebra With Python</h3>
             <p>FreeCodeCamp</p>
@@ -565,7 +574,7 @@
     </div>
 
     <div class="certificate-card reveal">
-         <img src="/assets/images/certificates/attack-methodologies-in-it-ics.avif" alt="Attack Methodologies in IT & ICS" class="cert-img">
+         <img src="/assets/images/certificates/attack-methodologies-in-it-ics.avif" alt="Attack Methodologies in IT & ICS" class="cert-img" width="800" height="614">
          <div class="cert-content">
             <h3 class="h3">Attack Methodologies in IT & ICS</h3>
             <p>CISA</p>
@@ -584,7 +593,7 @@
         <div class="card-grid" style="margin-top: 30px;">
             
     <div class="project-card reveal">
-        <img src="/assets/images/projects/shadowstrike.avif" alt="ShadowStrike" class="project-bg-img" loading="lazy">
+        <img src="/assets/images/projects/shadowstrike.avif" alt="ShadowStrike" class="project-bg-img" loading="lazy" width="1920" height="1080">
         <div class="project-content-overlay">
             <h3 class="h3 project-title">ShadowStrike</h3>
             <p class="project-desc">ShadowStrike is a network security assessment toolkit designed for educational and ethical hacking purposes</p>
@@ -606,7 +615,7 @@
     </div>
 
     <div class="project-card reveal">
-        <img src="/assets/images/projects/learnmeedu.avif" alt="LearnMeEdu" class="project-bg-img" loading="lazy">
+        <img src="/assets/images/projects/learnmeedu.avif" alt="LearnMeEdu" class="project-bg-img" loading="lazy" width="1072" height="797">
         <div class="project-content-overlay">
             <h3 class="h3 project-title">LearnMeEdu</h3>
             <p class="project-desc">A modern e-learning platform built with HTML, CSS, JavaScript, and Bootstrap.</p>
@@ -640,7 +649,7 @@
     data-category-slug="literature" data-tags="poem, nepali literature, spirituality">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/blog-img/andhakarko-yatri.avif" alt="अन्धकारको यात्री | Traveler of Darkness" loading="lazy" class="blog-banner">
+            <img src="/assets/blog-img/andhakarko-yatri.avif" alt="अन्धकारको यात्री | Traveler of Darkness" loading="lazy" class="blog-banner" width="626" height="447">
             <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
         </div>
         <div class="blog-content">
@@ -659,7 +668,7 @@
     data-category-slug="technology" data-tags="security, network security, ethical hacking">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/port8(1).png" alt="ShadowStrike: Advanced Network Security Testing" loading="lazy" class="blog-banner">
+            <img src="/assets/images/port8(1).png" alt="ShadowStrike: Advanced Network Security Testing" loading="lazy" class="blog-banner" width="1920" height="1080">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
@@ -678,7 +687,7 @@
     data-category-slug="technology" data-tags="security, encryption, python">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner">
+            <img src="/assets/images/cryptoguard.png" alt="CryptoGuard: Enterprise-Grade File Encryption Solution" loading="lazy" class="blog-banner" width="452" height="257">
             <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
