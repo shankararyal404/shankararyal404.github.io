@@ -400,7 +400,7 @@ for (const blog of blogs) {
         }
     ];
 
-    const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${blog.categorySlug}.css">`;
+    const categoryCSSLink = `<link rel="stylesheet" href="/assets/css/blog/${blog.categorySlug}.css?v=${Date.now()}">`;
 
     const fullHtml = await renderPage(
         blogHtml,

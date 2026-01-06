@@ -20,7 +20,7 @@
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 15px;
-    color: var(--white);
+    color: var(--text-heading);
     letter-spacing: -0.5px;
 }
 
@@ -31,11 +31,11 @@
     flex-wrap: wrap;
     gap: 12px;
     font-size: 0.95rem;
-    color: var(--manatee);
+    color: var(--text-muted);
 }
 
 .meta-separator {
-    color: var(--white-alpha-10);
+    color: var(--border-color);
     opacity: 0.5;
 }
 
@@ -46,7 +46,7 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--white-alpha-10);
+    border: 1px solid var(--border-subtle);
 }
 
 .literature-hero-image img {
@@ -61,7 +61,7 @@
 .literature-main-body {
     font-size: 1.6rem;
     line-height: 1.8;
-    color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+    color: var(--text-secondary);
     margin-bottom: 60px;
     width: 100%;
 }
@@ -72,9 +72,9 @@
     margin-bottom: 60px;
     border-radius: 24px;
     overflow: hidden;
-    background: var(--eerie-black-1);
+    background: var(--bg-card);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--white-alpha-10);
+    border: 1px solid var(--border-subtle);
     backdrop-filter: blur(10px);
 }
 
@@ -83,19 +83,19 @@
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(30, 64, 175, 0.05) 100%);
     padding: 50px 30px;
     text-align: center;
-    border-bottom: 1px solid var(--white-alpha-10);
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .container-title {
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 12px;
-    color: var(--white);
+    color: var(--text-heading);
 }
 
 .container-meta {
     font-size: 0.9rem;
-    color: var(--manatee);
+    color: var(--text-muted);
     margin-bottom: 25px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -110,27 +110,27 @@
 
 .lang-btn {
     padding: 10px 32px;
-    border: 1px solid var(--white-alpha-20);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
     border-radius: 100px;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: var(--white);
+    color: var(--text-primary);
     letter-spacing: 0.5px;
 }
 
 .lang-btn.active {
-    background: var(--white);
-    color: var(--eerie-black-1);
-    border-color: var(--white);
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .lang-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--white-alpha-40);
+    background: var(--bg-primary);
+    border-color: var(--border-color);
 }
 
 /* Info Body Content */
@@ -151,7 +151,7 @@
     font-size: 1.4rem;
     margin-bottom: 20px;
     font-weight: 700;
-    color: var(--white);
+    color: var(--text-heading);
     display: flex;
     align-items: center;
     padding-left: 18px;
@@ -162,7 +162,7 @@
 .section-text {
     font-size: 1.5rem;
     line-height: 1.8;
-    color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+    color: var(--text-secondary);
 }
 
 .section-text p {
@@ -174,21 +174,21 @@
     margin-top: 60px;
     margin-bottom: 40px;
     padding-top: 30px;
-    border-top: 1px solid var(--white-alpha-10);
+    border-top: 1px solid var(--border-subtle);
     text-align: center;
-    color: var(--manatee);
+    color: var(--text-muted);
 }
 
 .literature-tags .bold {
     font-weight: 700;
-    color: var(--light-gray);
+    color: var(--text-primary);
     margin-right: 10px;
 }
 
 .comments-section {
     margin-top: 80px;
     padding-top: 40px;
-    border-top: 1px solid var(--white-alpha-10);
+    border-top: 1px solid var(--border-subtle);
 }
 
 /* Responsive Adjustments */
