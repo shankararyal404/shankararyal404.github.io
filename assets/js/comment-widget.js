@@ -32,27 +32,34 @@ class CommentWidget {
     /**
      * Loads user data from Social Session or Local Storage
      */
-    loadUserData() {
-        const authSession = this.getCookie('auth_session');
-        if (authSession) {
-            try {
-                const payload = JSON.parse(atob(authSession.split('.')[1]));
-                this.user = {
-                    name: payload.name,
-                    email: payload.email,
-                    avatar: payload.avatar,
-                    provider: payload.provider,
-                    id: payload.provider_id,
-                    isAnonymous: false
-                };
-                this.isLoggedIn = true;
-            } catch (e) {
-                console.error('Failed to parse auth session', e);
-                this.loadAnonymousData();
+    async loadUserData() {
+        // Optimistic check: if we have a redirect cookie, we might be logging in
+        // But for HttpOnly cookies, we MUST ask the backend
+        try {
+            const res = await fetch('/api/auth?action=verify');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.authenticated && data.user) {
+                    this.user = {
+                        name: data.user.name,
+                        email: data.user.email || '', // Backend might not expose email for privacy in public endpoints, but verify action usually does for the user themselves
+                        avatar: data.user.avatar,
+                        provider: data.user.provider || 'social',
+                        id: data.user.provider_id || data.user.id || this.generateAnonId(),
+                        isAnonymous: false
+                    };
+                    this.isLoggedIn = true;
+                    this.renderLayout(); // Re-render to show logged in state
+                    return; // Stop here, we are good
+                }
             }
-        } else {
-            this.loadAnonymousData();
+        } catch (e) {
+            console.warn('Auth verification failed', e);
         }
+
+        // Fallback to anonymous
+        this.loadAnonymousData();
+        this.renderLayout();
     }
 
     loadAnonymousData() {
@@ -70,6 +77,7 @@ class CommentWidget {
         return `anon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     }
 
+    // getCookie helper is no longer critical for auth session but kept for other needs if any
     getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -155,9 +163,6 @@ class CommentWidget {
                         </button>
                         <button class="social-btn github" onclick="commentWidget.login('github')" title="Login with GitHub">
                             <ion-icon name="logo-github"></ion-icon>
-                        </button>
-                        <button class="social-btn facebook" onclick="commentWidget.login('facebook')" title="Login with Facebook">
-                            <ion-icon name="logo-facebook"></ion-icon>
                         </button>
                         <button class="social-btn twitter" onclick="commentWidget.login('twitter')" title="Login with X">
                             <ion-icon name="logo-twitter"></ion-icon>
@@ -315,7 +320,6 @@ class CommentWidget {
     getProviderIcon(provider) {
         if (provider === 'google') return '<ion-icon name="logo-google" style="color:#ea4335"></ion-icon>';
         if (provider === 'github') return '<ion-icon name="logo-github" style="color:#fff"></ion-icon>';
-        if (provider === 'facebook') return '<ion-icon name="logo-facebook" style="color:#1877f2"></ion-icon>';
         if (provider === 'twitter') return '<ion-icon name="logo-twitter" style="color:#1da1f2"></ion-icon>';
         return '';
     }

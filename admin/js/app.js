@@ -107,46 +107,65 @@ window.republishBlog = async (slug) => {
     loadBlogs();
 };
 
-window.openEditBlog = (slug) => {
-    const blog = allBlogs.find(b => b.slug === slug);
-    if (!blog) return;
+window.openEditBlog = async (slug) => {
+    // Show loading state if desired, or just wait
+    // Ideally we might want a spinner, but for now we'll just wait
 
-    document.getElementById('blog-id').value = blog.slug; // slug is key
-    document.getElementById('blog-title').value = blog.title;
-    document.getElementById('blog-slug').value = blog.slug;
-    document.getElementById('blog-category').value = blog.category;
-    document.getElementById('blog-image').value = blog.cover || blog.image;
-    document.getElementById('blog-alt').value = blog.image_alt || '';
-    updateImagePreview('blog', blog.cover || blog.image);
-    document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
-    document.getElementById('blog-original-date').value = blog.original_date || '';
-    document.getElementById('blog-excerpt').value = blog.excerpt || '';
-    document.getElementById('blog-content').value = blog.content || ''; // Might need to fetch content if not in list
-    document.getElementById('blog-modal-title').innerText = 'Edit Blog';
+    // First, find the basic info from the list to show partial data immediately if we wanted
+    // But let's just fetch the fresh data to be safe and complete
 
-    // Set literature fields if applicable
-    const literatureFields = document.getElementById('literature-fields');
-    if (blog.category === 'Literature') {
-        literatureFields.style.display = 'block';
-        document.getElementById('lit-type').value = blog.type || '';
-        document.getElementById('lit-written-by').value = blog.written_by || '';
-        document.getElementById('lit-place').value = blog.place || '';
-        document.getElementById('lit-publisher').value = blog.publisher || '';
+    try {
+        const res = await fetch(`/api/blogs?slug=${slug}`);
+        if (!res.ok) throw new Error('Failed to fetch blog details');
 
-        // Bilingual fields with fallbacks
-        document.getElementById('lit-reflection-ne').value = blog.reflection_ne || blog.reflection || '';
-        document.getElementById('lit-reflection-en').value = blog.reflection_en || '';
+        const blog = await res.json();
 
-        document.getElementById('lit-theme-ne').value = blog.theme_ne || blog.theme || '';
-        document.getElementById('lit-theme-en').value = blog.theme_en || '';
+        if (!blog) return;
 
-        document.getElementById('lit-intro-ne').value = blog.intro_ne || '';
-        document.getElementById('lit-intro-en').value = blog.intro_en || '';
-    } else {
-        literatureFields.style.display = 'none';
+        document.getElementById('blog-id').value = blog.slug; // slug is key
+        document.getElementById('blog-title').value = blog.title || '';
+        document.getElementById('blog-slug').value = blog.slug || '';
+        document.getElementById('blog-category').value = blog.category || '';
+        document.getElementById('blog-image').value = blog.cover || blog.image || '';
+        document.getElementById('blog-alt').value = blog.image_alt || '';
+        updateImagePreview('blog', blog.cover || blog.image);
+        document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
+        document.getElementById('blog-original-date').value = blog.original_date || '';
+        document.getElementById('blog-excerpt').value = blog.excerpt || '';
+
+        // NOW we have the content!
+        document.getElementById('blog-content').value = blog.content || '';
+
+        document.getElementById('blog-modal-title').innerText = 'Edit Blog';
+
+        // Set literature fields if applicable
+        const literatureFields = document.getElementById('literature-fields');
+        if (blog.category === 'Literature') {
+            literatureFields.style.display = 'block';
+            document.getElementById('lit-type').value = blog.type || '';
+            document.getElementById('lit-written-by').value = blog.written_by || '';
+            document.getElementById('lit-place').value = blog.place || '';
+            document.getElementById('lit-publisher').value = blog.publisher || '';
+
+            // Bilingual fields with fallbacks
+            document.getElementById('lit-reflection-ne').value = blog.reflection_ne || blog.reflection || '';
+            document.getElementById('lit-reflection-en').value = blog.reflection_en || '';
+
+            document.getElementById('lit-theme-ne').value = blog.theme_ne || blog.theme || '';
+            document.getElementById('lit-theme-en').value = blog.theme_en || '';
+
+            document.getElementById('lit-intro-ne').value = blog.intro_ne || '';
+            document.getElementById('lit-intro-en').value = blog.intro_en || '';
+        } else {
+            literatureFields.style.display = 'none';
+        }
+
+        document.getElementById('blog-modal').classList.add('open');
+
+    } catch (e) {
+        console.error("Error fetching blog details:", e);
+        alert("Failed to load blog details. Please check console.");
     }
-
-    document.getElementById('blog-modal').classList.add('open');
 };
 
 // Blog Form

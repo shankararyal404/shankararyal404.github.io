@@ -215,11 +215,7 @@
     border-color: #333;
 }
 
-.social-btn.facebook:hover {
-    background: #1877f2;
-    color: white;
-    border-color: #1877f2;
-}
+
 
 .social-btn.twitter:hover {
     background: #000;
