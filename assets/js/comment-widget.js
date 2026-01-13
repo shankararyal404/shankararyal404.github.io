@@ -23,8 +23,7 @@ class CommentWidget {
     }
 
     async init() {
-        this.loadUserData();
-        this.renderLayout();
+        await this.loadUserData();
         await this.loadComments();
         this.setupEventListeners();
     }
