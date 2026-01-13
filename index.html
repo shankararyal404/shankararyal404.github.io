@@ -66,7 +66,10 @@
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
-                gtag('config', 'G-JRDNSWRVE2');
+                gtag('config', 'G-JRDNSWRVE2', {
+                    'cookie_domain': 'auto',
+                    'cookie_flags': 'SameSite=None;Secure'
+                });
             }, 5000); // 5 seconds delay
         });
     </script>
