@@ -31,21 +31,31 @@ class CommentWidget {
 
     async fetchCsrfToken() {
         try {
-            // Append timestamp to prevent caching (fix for 304 Not Modified issue)
+            console.log('Fetching CSRF token...');
             const res = await fetch(`/api/auth?action=csrf&t=${Date.now()}`, { credentials: 'include' });
+            console.log('CSRF Fetch Response:', res.status, res.statusText);
+
             if (res.ok) {
                 const data = await res.json();
-                this.csrfToken = data.csrfToken;
+                console.log('CSRF Token received:', data.csrfToken ? 'Yes' : 'No');
+                if (data.csrfToken) {
+                    this.csrfToken = data.csrfToken;
+                    return true;
+                }
+            } else {
+                console.error('CSRF Fetch failed with status:', res.status);
             }
         } catch (e) {
-            console.warn('Failed to fetch CSRF token:', e);
+            console.error('Failed to fetch CSRF token (Network/Parse):', e);
         }
+        return false;
     }
 
     /**
      * Loads user data from Social Session or Local Storage
      */
     async loadUserData() {
+        // ... existing loadUserData code ...
         // Optimistic check: if we have a redirect cookie, we might be logging in
         // But for HttpOnly cookies, we MUST ask the backend
         try {
@@ -55,27 +65,24 @@ class CommentWidget {
                 if (data.authenticated && data.user) {
                     this.user = {
                         name: data.user.name,
-                        email: data.user.email || '', // Backend might not expose email for privacy in public endpoints, but verify action usually does for the user themselves
+                        email: data.user.email || '',
                         avatar: data.user.avatar,
                         provider: data.user.provider || 'social',
                         id: data.user.provider_id || data.user.id || this.generateAnonId(),
                         isAnonymous: false
                     };
                     this.isLoggedIn = true;
-                    this.renderLayout(); // Re-render to show logged in state
-                    return; // Stop here, we are good
+                    this.renderLayout();
+                    return;
                 }
             }
         } catch (e) {
             console.warn('Auth verification failed', e);
         }
 
-        // Fallback to anonymous
         this.loadAnonymousData();
         this.renderLayout();
     }
-
-    // ... skip ...
 
     async postComment(data, isRetry = false) {
         const submitBtn = document.getElementById('submit-btn');
@@ -84,6 +91,19 @@ class CommentWidget {
         submitBtn.disabled = true;
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Posting...';
+
+        // 1. Ensure we have a token
+        if (!this.csrfToken) {
+            console.warn('CSRF token missing before post. Attempting fetch...');
+            const success = await this.fetchCsrfToken();
+            if (!success || !this.csrfToken) {
+                console.error('CRITICAL: Cannot post comment. CSRF token is missing and fetch failed.');
+                showToast('Security token missing. Please refresh the page.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                return;
+            }
+        }
 
         try {
             const response = await fetch(this.apiUrl, {
