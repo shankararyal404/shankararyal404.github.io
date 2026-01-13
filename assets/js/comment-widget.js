@@ -23,9 +23,22 @@ class CommentWidget {
     }
 
     async init() {
+        await this.fetchCsrfToken();
         await this.loadUserData();
         await this.loadComments();
         this.setupEventListeners();
+    }
+
+    async fetchCsrfToken() {
+        try {
+            const res = await fetch('/api/auth?action=csrf');
+            if (res.ok) {
+                const data = await res.json();
+                this.csrfToken = data.csrfToken;
+            }
+        } catch (e) {
+            console.warn('Failed to fetch CSRF token:', e);
+        }
     }
 
     /**
@@ -249,7 +262,8 @@ class CommentWidget {
                     action: 'react',
                     post_slug: this.postSlug,
                     user_id: this.user.id,
-                    reaction_type: type
+                    reaction_type: type,
+                    csrf_token: this.csrfToken
                 })
             });
 
@@ -393,6 +407,7 @@ class CommentWidget {
                 body: JSON.stringify({
                     action: 'comment',
                     post_slug: this.postSlug,
+                    csrf_token: this.csrfToken,
                     ...data
                 })
             });
@@ -461,7 +476,8 @@ class CommentWidget {
                     action: 'react',
                     comment_id: commentId,
                     user_id: this.user.id,
-                    reaction_type: type
+                    reaction_type: type,
+                    csrf_token: this.csrfToken
                 })
             });
 
