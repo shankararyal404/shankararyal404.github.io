@@ -31,7 +31,7 @@ class CommentWidget {
 
     async fetchCsrfToken() {
         try {
-            const res = await fetch('/api/auth?action=csrf');
+            const res = await fetch('/api/auth?action=csrf', { credentials: 'include' });
             if (res.ok) {
                 const data = await res.json();
                 this.csrfToken = data.csrfToken;
@@ -48,7 +48,7 @@ class CommentWidget {
         // Optimistic check: if we have a redirect cookie, we might be logging in
         // But for HttpOnly cookies, we MUST ask the backend
         try {
-            const res = await fetch('/api/auth?action=verify');
+            const res = await fetch('/api/auth?action=verify', { credentials: 'include' });
             if (res.ok) {
                 const data = await res.json();
                 if (data.authenticated && data.user) {
@@ -72,6 +72,122 @@ class CommentWidget {
         // Fallback to anonymous
         this.loadAnonymousData();
         this.renderLayout();
+    }
+
+    // ... skip ...
+
+    async postComment(data, isRetry = false) {
+        const submitBtn = document.getElementById('submit-btn');
+        if (!submitBtn) return;
+
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Posting...';
+
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    action: 'comment',
+                    post_slug: this.postSlug,
+                    csrf_token: this.csrfToken,
+                    ...data
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                await this.loadComments();
+            } else if (response.status === 403 && !isRetry) {
+                console.warn('CSRF Token invalid, refreshing and retrying...');
+                await this.fetchCsrfToken();
+                // Update csrf_token in the data just in case, though usually grabbed from this.csrfToken
+                // Recursively call postComment with retry=true
+                submitBtn.disabled = false; // reset state before retry
+                submitBtn.textContent = originalText;
+                return this.postComment(data, true);
+            } else {
+                showToast(result.error || 'Failed to post comment.', 'error');
+                // Re-enable button if we are not retrying or if retry failed
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        } catch (error) {
+            console.error('Post comment error:', error);
+            showToast('A network error occurred.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        } finally {
+            // Only reset if success or final failure (handled above inside logic for retry)
+            // But to be safe, if we are NOT retrying, we reset.
+            // If response.ok (success), we reset.
+            // Converting this logic is tricky with the finally block running always.
+            // Better to manage button state explicitly in cases.
+            if (submitBtn.textContent === 'Posting...' && !isRetry) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+    }
+
+    // ... skip ...
+
+    async handleReaction(commentId, type, isRetry = false) {
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    action: 'react',
+                    comment_id: commentId,
+                    user_id: this.user.id,
+                    reaction_type: type,
+                    csrf_token: this.csrfToken
+                })
+            });
+
+            if (response.ok) {
+                await this.loadComments();
+            } else if (response.status === 403 && !isRetry) {
+                await this.fetchCsrfToken();
+                return this.handleReaction(commentId, type, true);
+            } else {
+                const result = await response.json();
+                if (response.status === 429) showToast(result.error, 'warning');
+            }
+        } catch (error) {
+            console.error('Reaction error:', error);
+        }
+    }
+
+    async handlePostReaction(type, isRetry = false) {
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    action: 'react',
+                    post_slug: this.postSlug,
+                    user_id: this.user.id,
+                    reaction_type: type,
+                    csrf_token: this.csrfToken
+                })
+            });
+
+            if (response.ok) {
+                await this.loadComments();
+            } else if (response.status === 403 && !isRetry) {
+                await this.fetchCsrfToken();
+                return this.handlePostReaction(type, true);
+            }
+        } catch (error) {
+            console.error('Post reaction error:', error);
+        }
     }
 
     loadAnonymousData() {
