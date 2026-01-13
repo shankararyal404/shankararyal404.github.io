@@ -31,7 +31,8 @@ class CommentWidget {
 
     async fetchCsrfToken() {
         try {
-            const res = await fetch('/api/auth?action=csrf', { credentials: 'include' });
+            // Append timestamp to prevent caching (fix for 304 Not Modified issue)
+            const res = await fetch(`/api/auth?action=csrf&t=${Date.now()}`, { credentials: 'include' });
             if (res.ok) {
                 const data = await res.json();
                 this.csrfToken = data.csrfToken;
