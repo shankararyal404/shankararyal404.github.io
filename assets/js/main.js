@@ -4,27 +4,11 @@ import { renderFooter } from './navbar.js';
 let scrollObserver;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile Nav Toggle Logic (Inlined for reliability)
+  // Mobile Nav Toggle Logic is completely handled by inline script in base.html
+  // This ensures the menu works even before main.js loads/hydrates
   const navToggler = document.querySelector('[data-nav-toggler]');
-  const navbarList = document.querySelector('.navbar-list');
-  const body = document.body;
-
-  // Mobile Nav Toggle is handled by inline script in base.html to ensure reliability
-  // See templates/base.html for the logic.
-  if (navToggler && navbarList) {
-    console.log('Mobile Nav Logic: Handled by Inline Script');
-
-    // Close when clicking a link
-    const navLinks = document.querySelectorAll('.navbar-link');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navbarList.classList.remove('active');
-        navToggler.classList.remove('active');
-        body.classList.remove('nav-active');
-      });
-    });
-  } else {
-    console.error('Nav elements not found in DOM');
+  if (!navToggler) {
+    // Silent return or debug log if strictly needed, but better to keep console clean
   }
 
   renderFooter();

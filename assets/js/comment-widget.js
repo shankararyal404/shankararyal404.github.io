@@ -353,9 +353,34 @@ class CommentWidget {
         }
     }
 
-    // ... renderPostReactions ...
+    renderPostReactions() {
+        const container = document.getElementById('post-reactions-container');
+        if (!container) return;
 
-    // ... handlePostReaction ...
+        const defaults = [
+            { type: '🔥', count: 0 },
+            { type: '🤯', count: 0 },
+            { type: '👏', count: 0 },
+            { type: '❤️', count: 0 }
+        ];
+
+        // Merge logic
+        if (this.stats && Array.isArray(this.stats.reactions)) {
+            this.stats.reactions.forEach(stat => {
+                const def = defaults.find(d => d.type === stat.reaction_type);
+                if (def) def.count = stat.count;
+            });
+        }
+
+        container.innerHTML = defaults.map(r => `
+            <button class="post-reaction-btn ${r.count > 0 ? 'has-count' : ''}" 
+                    onclick="commentWidget.handlePostReaction('${r.type}')"
+                    style="background:var(--bg-card); border:1px solid var(--border-subtle); padding:5px 10px; border-radius:20px; cursor:pointer; margin-right:5px; transition:all 0.2s;">
+                <span style="font-size:1.2rem;">${r.type}</span>
+                <span style="font-size:0.9rem; font-weight:bold; margin-left:5px; color:var(--text-secondary);">${r.count}</span>
+            </button>
+        `).join('');
+    }
 
     renderComments() {
         const listContainer = document.getElementById('comments-list');
