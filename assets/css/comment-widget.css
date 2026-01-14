@@ -126,6 +126,29 @@
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+
+.comment-item[data-depth="0"] {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.comment-item[data-depth="1"] {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.comment-item[data-depth="2"] {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.comment-item[data-depth="3"] {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.comment-item[data-depth="4"] {
+    background: rgba(255, 255, 255, 0.10);
 }
 
 .comment-avatar img {
@@ -136,17 +159,25 @@
 
 .comment-wrapper {
     flex: 1;
+    min-width: 0;
 }
 
 .comment-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 8px;
+}
+
+.meta-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .author-name {
     font-weight: 700;
-    margin-right: 8px;
 }
 
 .reply-to-text {
@@ -161,6 +192,7 @@
     border-radius: 4px;
     text-transform: uppercase;
     font-weight: 800;
+    color: white;
 }
 
 .comment-date {
@@ -168,16 +200,39 @@
     color: var(--comment-muted);
 }
 
+.collapse-toggle {
+    background: none;
+    border: none;
+    color: var(--comment-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 5px;
+}
+
+.collapse-toggle:hover {
+    color: var(--primary-color);
+}
+
 .comment-text {
     line-height: 1.6;
     margin-bottom: 10px;
+    word-break: break-word;
 }
 
 /* Actions & Reactions */
 .comment-actions {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.action-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .reaction-group {
@@ -189,6 +244,53 @@
     padding: 4px 8px;
     border-radius: 20px;
     font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.reaction-group:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Reaction Hub (Pop-up Menu) */
+.reaction-hub-container {
+    position: relative;
+    display: inline-block;
+}
+
+.reaction-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: var(--comment-bg);
+    border: 1px solid var(--comment-border);
+    border-radius: 30px;
+    padding: 5px 10px;
+    display: flex;
+    gap: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.reaction-hub-container:hover .reaction-menu,
+.reaction-hub-container:focus-within .reaction-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-5px);
+}
+
+.vibe-badge {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
 
 .reply-trigger {
@@ -198,13 +300,29 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-/* Replies Indentation */
+/* Replies Indentation & Visual Threading */
 .replies-container {
     margin-top: 15px;
-    padding-left: 15px;
-    border-left: 2px solid var(--comment-border);
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    /* Visual Continuity Line */
+    transition: border-left-color 0.2s;
+}
+
+.replies-container:hover {
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Capped Indentation */
+.comment-item[data-depth="3"] .replies-container,
+.comment-item[data-depth="4"] .replies-container {
+    padding-left: 10px;
+    margin-left: 5px;
 }
 
 .no-comments {
@@ -219,6 +337,13 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+
+.post-reactions-bar::-webkit-scrollbar {
+    display: none;
 }
 
 .post-reaction-btn {
@@ -231,6 +356,7 @@
     gap: 6px;
     align-items: center;
     color: white;
+    white-space: nowrap;
 }
 
 .post-reaction-btn.has-count {
@@ -244,7 +370,25 @@
 
 .reply-form-active {
     margin-top: 15px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.02);
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid var(--comment-border);
+}
+
+/* Continue Thread Link */
+.continue-thread-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 59, 59, 0.2);
     border-radius: 8px;
+}
+
+.continue-thread-link:hover {
+    background: rgba(255, 59, 59, 0.1);
 }

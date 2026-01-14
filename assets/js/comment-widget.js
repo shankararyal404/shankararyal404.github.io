@@ -402,9 +402,24 @@ class CommentWidget {
             return;
         }
 
-        const topLevel = this.comments.filter(c => !c.parent_id);
-        const replies = this.comments.filter(c => c.parent_id);
-        listContainer.innerHTML = topLevel.map(comment => this.generateCommentHtml(comment, replies, 0)).join('');
+        // Support Focus Mode (Single Thread View)
+        const urlParams = new URLSearchParams(window.location.search);
+        const focusId = parseInt(urlParams.get('focus_comment'));
+
+        let rootComments;
+        if (focusId && this.comments.some(c => c.id === focusId)) {
+            rootComments = this.comments.filter(c => c.id === focusId);
+            listContainer.innerHTML = `
+                <div class="focus-notice">
+                    <span>Viewing single comment thread.</span>
+                    <a href="${window.location.pathname}">View all comments</a>
+                </div>
+            ` + rootComments.map(comment => this.generateCommentHtml(comment, this.comments, 0)).join('');
+        } else {
+            const topLevel = this.comments.filter(c => !c.parent_id);
+            const replies = this.comments.filter(c => c.parent_id);
+            listContainer.innerHTML = topLevel.map(comment => this.generateCommentHtml(comment, replies, 0)).join('');
+        }
     }
 
     generateCommentHtml(comment, allReplies, depth) {
@@ -416,20 +431,32 @@ class CommentWidget {
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
         const childCount = childReplies.length;
 
+        // "Continue this thread" logic for depth > 5
+        if (depth > 5) {
+            return `
+                <div class="continue-thread-box">
+                    <a href="?focus_comment=${comment.id}" class="continue-thread-link">
+                        Continue this thread ➔
+                    </a>
+                </div>
+            `;
+        }
+
         let replyToHtml = '';
-        if (comment.parent_id) {
+        if (comment.parent_id && depth === 0) {
+            // Only show "in reply to" if we are in focus mode (depth 0 but has parent)
             const parent = this.comments.find(c => c.id === comment.parent_id);
             if (parent) {
                 replyToHtml = `<span class="reply-to-text">in reply to <strong>${this.escapeHtml(parent.author_name)}</strong></span>`;
             }
         }
 
-        const VISIBLE_LIMIT = 3;
+        const VISIBLE_LIMIT = 5;
         const visibleReplies = childReplies.slice(0, VISIBLE_LIMIT);
         const hiddenReplies = childReplies.slice(VISIBLE_LIMIT);
 
         return `
-            <div class="comment-item" id="comment-${comment.id}" data-depth="${depth}">
+            <div class="comment-item" id="comment-${comment.id}" data-depth="${Math.min(depth, 4)}">
                 <div class="comment-avatar"><img src="${avatar}" alt="${this.escapeHtml(comment.author_name)}"></div>
                 <div class="comment-wrapper">
                     <div class="comment-header">
@@ -442,18 +469,22 @@ class CommentWidget {
                         </div>
                         <button class="collapse-toggle" onclick="commentWidget.toggleComment(${comment.id}, ${childCount})">[–]</button>
                     </div>
+                    
                     <div class="comment-content-wrapper" id="comment-content-${comment.id}">
                         <div class="comment-body">
                             <div class="comment-text">${this.escapeHtml(comment.content)}</div>
                             <div class="comment-actions">
-                                ${this.generateReactionHtml(comment)}
-                                <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
-                                    <ion-icon name="arrow-undo-outline"></ion-icon> Reply
-                                </button>
+                                <div class="action-left">
+                                    ${depth === 0 ? this.generateReactionHtml(comment) : this.generateCompactReactionHtml(comment)}
+                                    <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
+                                        <ion-icon name="arrow-undo-outline"></ion-icon> Reply
+                                    </button>
+                                </div>
                             </div>
                             <div id="reply-form-container-${comment.id}"></div>
                         </div>
                     </div>
+
                     ${childReplies.length > 0 ? `
                         <div class="replies-container" id="replies-${comment.id}">
                             ${visibleReplies.map(reply => this.generateCommentHtml(reply, allReplies, depth + 1)).join('')}
@@ -467,6 +498,40 @@ class CommentWidget {
                             ` : ''}
                         </div>
                     ` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    generateCompactReactionHtml(comment) {
+        const reactions = [
+            { type: '👍', count: comment.likes || 0 }, { type: '❤️', count: comment.hearts || 0 },
+            { type: '😂', count: comment.laughs || 0 }, { type: '🫡', count: comment.salutes || 0 },
+            { type: '🤯', count: comment.mindblown || 0 }
+        ];
+
+        const totalReactions = reactions.reduce((sum, r) => sum + r.count, 0);
+        const activeReactions = reactions.filter(r => r.count > 0).sort((a, b) => b.count - a.count);
+        const topTwo = activeReactions.slice(0, 2);
+
+        let vibeHtml = '';
+        if (totalReactions > 0) {
+            const icons = topTwo.map(r => r.type).join('');
+            vibeHtml = `<div class="vibe-badge">${icons} ${totalReactions}</div>`;
+        }
+
+        return `
+            <div class="reaction-hub-container">
+                <button class="reaction-group" style="border: none; background: rgba(255,255,255,0.05);">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                    ${vibeHtml}
+                </button>
+                <div class="reaction-menu">
+                    ${reactions.map(r => `
+                        <span class="reaction-item" onclick="commentWidget.handleReaction(${comment.id}, '${r.type}')" title="${r.type}">
+                            ${r.type}
+                        </span>
+                    `).join('')}
                 </div>
             </div>
         `;
@@ -583,19 +648,19 @@ class CommentWidget {
             const isHidden = repliesWrapper?.style.display === 'none';
             if (isHidden) {
                 if (repliesWrapper) repliesWrapper.style.display = 'block';
-                btn.innerHTML = '[–]';
+                if (btn) btn.innerHTML = '[–]';
             } else {
                 if (repliesWrapper) repliesWrapper.style.display = 'none';
-                btn.innerHTML = `[+] (${childCount} child${childCount === 1 ? '' : 'ren'})`;
+                if (btn) btn.innerHTML = `[+] (${childCount} child${childCount === 1 ? '' : 'ren'})`;
             }
         } else {
             const isHidden = contentWrapper.style.display === 'none';
             if (isHidden) {
                 contentWrapper.style.display = 'block';
-                btn.innerHTML = '[–]';
+                if (btn) btn.innerHTML = '[–]';
             } else {
                 contentWrapper.style.display = 'none';
-                btn.innerHTML = '[+]';
+                if (btn) btn.innerHTML = '[+]';
             }
         }
     }
