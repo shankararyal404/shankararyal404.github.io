@@ -113,40 +113,59 @@ class CommentWidget {
             const result = await response.json();
 
             if (response.ok) {
-                await this.loadComments();
+                // Construct comment for local append
+                const newComment = {
+                    id: result.id,
+                    post_slug: this.postSlug,
+                    content: data.content,
+                    author_name: data.author_name,
+                    author_avatar: data.author_avatar,
+                    created_at: new Date().toISOString(),
+                    parent_id: data.parent_id || null,
+                    auth_provider: data.auth_provider,
+                    is_admin: result.is_admin || 0,
+                    likes: 0, hearts: 0, laughs: 0, salutes: 0, mindblown: 0
+                };
+
+                this.comments.push(newComment);
+
+                // Clear inputs
+                const textarea = document.getElementById('comment-textarea');
+                if (textarea) textarea.value = '';
+                const charCount = document.getElementById('char-count');
+                if (charCount) charCount.textContent = '0/5000';
+
+                // Close reply forms
+                document.querySelectorAll('.reply-form-active').forEach(f => f.remove());
+
+                // Update UI without full re-fetch
+                this.renderComments();
+
+                // Update Badge
+                const commentBadge = document.getElementById('comment-count-badge');
+                if (commentBadge) {
+                    commentBadge.innerHTML = `<ion-icon name="chatbubbles-outline"></ion-icon> ${this.comments.length} Comments`;
+                }
+
+                showToast('Comment posted!', 'success');
             } else if (response.status === 403 && !isRetry) {
-                console.warn('CSRF Token invalid, refreshing and retrying...');
                 await this.fetchCsrfToken();
-                // Update csrf_token in the data just in case, though usually grabbed from this.csrfToken
-                // Recursively call postComment with retry=true
-                submitBtn.disabled = false; // reset state before retry
+                submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
                 return this.postComment(data, true);
             } else {
                 showToast(result.error || 'Failed to post comment.', 'error');
-                // Re-enable button if we are not retrying or if retry failed
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
             }
         } catch (error) {
             console.error('Post comment error:', error);
             showToast('A network error occurred.', 'error');
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
         } finally {
-            // Only reset if success or final failure (handled above inside logic for retry)
-            // But to be safe, if we are NOT retrying, we reset.
-            // If response.ok (success), we reset.
-            // Converting this logic is tricky with the finally block running always.
-            // Better to manage button state explicitly in cases.
-            if (submitBtn.textContent === 'Posting...' && !isRetry) {
+            if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }
         }
     }
-
-    // ... skip ...
 
     async handleReaction(commentId, type, isRetry = false) {
         try {
@@ -164,7 +183,18 @@ class CommentWidget {
             });
 
             if (response.ok) {
-                await this.loadComments();
+                // Update local counts for better UX
+                const comment = this.comments.find(c => c.id == commentId);
+                if (comment) {
+                    const keyMap = { '👍': 'likes', '❤️': 'hearts', '😂': 'laughs', '🫡': 'salutes', '🤯': 'mindblown' };
+                    const key = keyMap[type];
+                    if (key) {
+                        const result = await response.json();
+                        if (result.message === 'Reaction added') comment[key] = (comment[key] || 0) + 1;
+                        else if (result.message === 'Reaction removed') comment[key] = Math.max(0, (comment[key] || 0) - 1);
+                        this.renderComments();
+                    }
+                }
             } else if (response.status === 403 && !isRetry) {
                 await this.fetchCsrfToken();
                 return this.handleReaction(commentId, type, true);
@@ -193,7 +223,7 @@ class CommentWidget {
             });
 
             if (response.ok) {
-                await this.loadComments();
+                await this.loadComments(); // Re-fetch for post-level reactions simplifies merge logic
             } else if (response.status === 403 && !isRetry) {
                 await this.fetchCsrfToken();
                 return this.handlePostReaction(type, true);
@@ -218,7 +248,6 @@ class CommentWidget {
         return `anon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     }
 
-    // getCookie helper is no longer critical for auth session but kept for other needs if any
     getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -235,19 +264,16 @@ class CommentWidget {
                     </div>
                 </div>
 
-                <!-- Post Reactions -->
                 <div id="post-reactions-container" class="post-reactions-bar">
                     <div class="loading-shimmer" style="height: 30px; border-radius: 15px;"></div>
                 </div>
 
                 <div class="section-divider" style="margin: 20px 0; border-top: 1px solid var(--white-alpha-10);"></div>
 
-                <!-- User Information / Auth -->
                 <div class="comment-auth-section" id="auth-section">
                     ${this.renderAuthUI()}
                 </div>
 
-                <!-- Comment Form -->
                 <form class="comment-form" id="main-comment-form">
                     ${!this.isLoggedIn ? `
                         <div class="anonymous-inputs">
@@ -270,18 +296,14 @@ class CommentWidget {
                     </div>
                 </form>
 
-                <!-- Comments List -->
-                <div class="comments-list" id="comments-list">
-                    <!-- Loaded dynamically -->
-                </div>
+                <div class="comments-list" id="comments-list"></div>
             </div>
         `;
 
-        // Update char count listener
         const textarea = document.getElementById('comment-textarea');
         const countSpan = document.getElementById('char-count');
         textarea?.addEventListener('input', () => {
-            countSpan.textContent = `${textarea.value.length}/5000`;
+            if (countSpan) countSpan.textContent = `${textarea.value.length}/5000`;
         });
     }
 
@@ -289,8 +311,8 @@ class CommentWidget {
         if (this.isLoggedIn) {
             return `
                 <div class="user-logged-in">
-                    <img src="${this.user.avatar}" alt="${this.user.name}" class="user-avatar-small">
-                    <span>Logged in as <strong>${this.user.name}</strong></span>
+                    <img src="${this.user.avatar}" alt="${this.escapeHtml(this.user.name)}" class="user-avatar-small">
+                    <span>Logged in as <strong>${this.escapeHtml(this.user.name)}</strong></span>
                     <button class="auth-text-btn" onclick="commentWidget.logout()">Logout</button>
                 </div>
             `;
@@ -299,15 +321,9 @@ class CommentWidget {
                 <div class="social-login-prompt">
                     <span>Sign in to comment with:</span>
                     <div class="social-buttons">
-                        <button class="social-btn google" onclick="commentWidget.login('google')" title="Login with Google">
-                            <ion-icon name="logo-google"></ion-icon>
-                        </button>
-                        <button class="social-btn github" onclick="commentWidget.login('github')" title="Login with GitHub">
-                            <ion-icon name="logo-github"></ion-icon>
-                        </button>
-                        <button class="social-btn twitter" onclick="commentWidget.login('twitter')" title="Login with X">
-                            <ion-icon name="logo-twitter"></ion-icon>
-                        </button>
+                        <button class="social-btn google" onclick="commentWidget.login('google')" title="Login with Google"><ion-icon name="logo-google"></ion-icon></button>
+                        <button class="social-btn github" onclick="commentWidget.login('github')" title="Login with GitHub"><ion-icon name="logo-github"></ion-icon></button>
+                        <button class="social-btn twitter" onclick="commentWidget.login('twitter')" title="Login with X"><ion-icon name="logo-twitter"></ion-icon></button>
                     </div>
                     <span class="or-separator">or continue as guest below</span>
                 </div>
@@ -316,7 +332,6 @@ class CommentWidget {
     }
 
     login(provider) {
-        // Store current URL to redirect back after login
         const isProd = window.location.hostname.includes('shankararyal404.com.np');
         const domain = isProd ? 'Domain=.shankararyal404.com.np;' : '';
         document.cookie = `redirect_after_login=${window.location.href}; Path=/; ${domain} Max-Age=3600; Secure; SameSite=Lax`;
@@ -333,7 +348,7 @@ class CommentWidget {
             const data = await response.json();
 
             this.comments = (Array.isArray(data.comments) ? data.comments : [])
-                .filter(c => c.content && c.content.trim().length > 0); // Filter "ghost" comments
+                .filter(c => c.content && c.content.trim().length > 0);
             this.stats = data.stats || { reactions: [] };
 
             const commentBadge = document.getElementById('comment-count-badge');
@@ -345,7 +360,6 @@ class CommentWidget {
             this.renderComments();
         } catch (error) {
             console.error('Failed to load comments:', error);
-            this.comments = [];
             const listContainer = document.getElementById('comments-list');
             if (listContainer) {
                 listContainer.innerHTML = `<p style="color:var(--fiery-rose); text-align:center;">Failed to load engagement data.</p>`;
@@ -358,13 +372,10 @@ class CommentWidget {
         if (!container) return;
 
         const defaults = [
-            { type: '🔥', count: 0 },
-            { type: '🤯', count: 0 },
-            { type: '👏', count: 0 },
-            { type: '❤️', count: 0 }
+            { type: '🔥', count: 0 }, { type: '🤯', count: 0 },
+            { type: '👏', count: 0 }, { type: '❤️', count: 0 }
         ];
 
-        // Merge logic
         if (this.stats && Array.isArray(this.stats.reactions)) {
             this.stats.reactions.forEach(stat => {
                 const def = defaults.find(d => d.type === stat.reaction_type);
@@ -374,10 +385,9 @@ class CommentWidget {
 
         container.innerHTML = defaults.map(r => `
             <button class="post-reaction-btn ${r.count > 0 ? 'has-count' : ''}" 
-                    onclick="commentWidget.handlePostReaction('${r.type}')"
-                    style="background:var(--bg-card); border:1px solid var(--border-subtle); padding:5px 10px; border-radius:20px; cursor:pointer; margin-right:5px; transition:all 0.2s;">
-                <span style="font-size:1.2rem;">${r.type}</span>
-                <span style="font-size:0.9rem; font-weight:bold; margin-left:5px; color:var(--text-secondary);">${r.count}</span>
+                    onclick="commentWidget.handlePostReaction('${r.type}')">
+                <span>${r.type}</span>
+                <span class="count">${r.count}</span>
             </button>
         `).join('');
     }
@@ -387,7 +397,7 @@ class CommentWidget {
         if (!listContainer) return;
 
         if (this.comments.length === 0) {
-            listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px; border: 1px dashed var(--white-alpha-10); border-radius: 12px; margin-top: 20px;">No comments yet. Be the first to share your thoughts!</p>';
+            listContainer.innerHTML = '<p class="no-comments">No comments yet. Be the first to share your thoughts!</p>';
             return;
         }
 
@@ -403,57 +413,55 @@ class CommentWidget {
         const avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random&color=fff`;
 
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
+        const childCount = childReplies.length;
 
-        // Pagination Logic: Show 3, Hide Rest
+        let replyToHtml = '';
+        if (comment.parent_id) {
+            const parent = this.comments.find(c => c.id === comment.parent_id);
+            if (parent) {
+                replyToHtml = `<span class="reply-to-text">in reply to <strong>${this.escapeHtml(parent.author_name)}</strong></span>`;
+            }
+        }
+
         const VISIBLE_LIMIT = 3;
         const visibleReplies = childReplies.slice(0, VISIBLE_LIMIT);
         const hiddenReplies = childReplies.slice(VISIBLE_LIMIT);
 
         return `
-
             <div class="comment-item" id="comment-${comment.id}" data-depth="${depth}">
-                <div class="comment-avatar">
-                    <img src="${avatar}" alt="${comment.author_name}">
-                </div>
+                <div class="comment-avatar"><img src="${avatar}" alt="${this.escapeHtml(comment.author_name)}"></div>
                 <div class="comment-wrapper">
                     <div class="comment-header">
                         <div class="meta-left">
-                            <span class="author-name">${comment.author_name}</span>
+                            <span class="author-name">${this.escapeHtml(comment.author_name)}</span>
                             ${replyToHtml}
                             ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
-                            ${isAdmin ? '<span class="admin-badge" style="background:var(--emerald)">Admin</span>' : ''}
-                            <span class="comment-date" data-timestamp="${comment.created_at}">${date}</span>
+                            ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}
+                            <span class="comment-date">${date}</span>
                         </div>
-                        <button class="collapse-toggle" onclick="commentWidget.toggleComment(${comment.id}, ${childCount})" title="Collapse Thread">
-                            [–]
-                        </button>
+                        <button class="collapse-toggle" onclick="commentWidget.toggleComment(${comment.id}, ${childCount})">[–]</button>
                     </div>
-                    
                     <div class="comment-content-wrapper" id="comment-content-${comment.id}">
                         <div class="comment-body">
-                            <div class="comment-text">${comment.content}</div>
-                            
+                            <div class="comment-text">${this.escapeHtml(comment.content)}</div>
                             <div class="comment-actions">
                                 ${this.generateReactionHtml(comment)}
                                 <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
-                                     <ion-icon name="arrow-undo-outline"></ion-icon> Reply
+                                    <ion-icon name="arrow-undo-outline"></ion-icon> Reply
                                 </button>
                             </div>
-
                             <div id="reply-form-container-${comment.id}"></div>
                         </div>
                     </div>
-
                     ${childReplies.length > 0 ? `
                         <div class="replies-container" id="replies-${comment.id}">
                             ${visibleReplies.map(reply => this.generateCommentHtml(reply, allReplies, depth + 1)).join('')}
-                            
                             ${hiddenReplies.length > 0 ? `
                                 <div id="more-replies-${comment.id}" style="display:none;">
                                     ${hiddenReplies.map(reply => this.generateCommentHtml(reply, allReplies, depth + 1)).join('')}
                                 </div>
                                 <button class="show-more-btn" onclick="commentWidget.toggleReplies(${comment.id}, this)">
-                                    <ion-icon name="return-down-forward-outline"></ion-icon> Show ${hiddenReplies.length} more replies
+                                    Show ${hiddenReplies.length} more replies
                                 </button>
                             ` : ''}
                         </div>
@@ -465,34 +473,63 @@ class CommentWidget {
 
     getProviderIcon(provider) {
         if (provider === 'google') return '<ion-icon name="logo-google" style="color:#ea4335"></ion-icon>';
-        if (provider === 'github') return '<ion-icon name="logo-github" style="color:#fff"></ion-icon>';
+        if (provider === 'github') return '<ion-icon name="logo-github"></ion-icon>';
         if (provider === 'twitter') return '<ion-icon name="logo-twitter" style="color:#1da1f2"></ion-icon>';
         return '';
     }
 
     generateReactionHtml(comment) {
         const reactions = [
-            { type: '👍', count: comment.likes || 0 },
-            { type: '❤️', count: comment.hearts || 0 },
-            { type: '😂', count: comment.laughs || 0 },
-            { type: '🫡', count: comment.salutes || 0 },
+            { type: '👍', count: comment.likes || 0 }, { type: '❤️', count: comment.hearts || 0 },
+            { type: '😂', count: comment.laughs || 0 }, { type: '🫡', count: comment.salutes || 0 },
             { type: '🤯', count: comment.mindblown || 0 }
         ];
-
         return reactions.map(r => `
-            <div class="reaction-group" 
-                 onclick="commentWidget.handleReaction(${comment.id}, '${r.type}')">
+            <div class="reaction-group" onclick="commentWidget.handleReaction(${comment.id}, '${r.type}')">
                 <span class="reaction-emoji">${r.type}</span>
                 <span class="reaction-count">${r.count}</span>
             </div>
         `).join('');
     }
 
+    showReplyForm(parentId) {
+        // Remove existing active reply forms
+        document.querySelectorAll('.reply-form-active').forEach(e => e.remove());
+
+        const container = document.getElementById(`reply-form-container-${parentId}`);
+        if (!container) return;
+
+        const form = document.createElement('div');
+        form.className = 'reply-form-active';
+        form.innerHTML = `
+            <textarea class="comment-textarea" id="reply-textarea-${parentId}" placeholder="Write a reply..." required maxlength="2000"></textarea>
+            <div class="form-footer">
+                <button class="auth-text-btn" onclick="this.parentElement.parentElement.remove()">Cancel</button>
+                <button class="submit-btn" onclick="commentWidget.submitReply(${parentId})">Post Reply</button>
+            </div>
+        `;
+        container.appendChild(form);
+    }
+
+    async submitReply(parentId) {
+        const textarea = document.getElementById(`reply-textarea-${parentId}`);
+        const content = textarea?.value.trim();
+        if (!content) return;
+
+        await this.postComment({
+            content: content,
+            author_name: this.user.name || 'Anonymous',
+            author_email: this.user.email || '',
+            author_avatar: this.user.avatar || '',
+            is_anonymous: !this.isLoggedIn,
+            auth_provider: this.isLoggedIn ? this.user.provider : 'anonymous',
+            parent_id: parentId
+        });
+    }
+
     setupEventListeners() {
         const form = document.getElementById('main-comment-form');
-        if (!form) return;
-
-        form.addEventListener('submit', async (e) => {
+        form?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const textarea = document.getElementById('comment-textarea');
             const authorNameInput = document.getElementById('author-name');
@@ -503,7 +540,6 @@ class CommentWidget {
 
             if (!content) return;
 
-            // Persistence
             if (!this.isLoggedIn && authorNameInput) {
                 localStorage.setItem('commentUsername', authorName);
                 this.user.name = authorName;
@@ -519,137 +555,7 @@ class CommentWidget {
                 parent_id: null,
                 honeypot: honeypot
             });
-
-            textarea.value = '';
-            document.getElementById('char-count').textContent = '0/5000';
         });
-    }
-
-    async postComment(data) {
-        const submitBtn = document.getElementById('submit-btn');
-        if (!submitBtn) return;
-
-        submitBtn.disabled = true;
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Posting...';
-
-        try {
-            const response = await fetch(this.apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'comment',
-                    post_slug: this.postSlug,
-                    csrf_token: this.csrfToken,
-                    ...data
-                })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                // Optimistic Update: Append comment locally
-                // We need the ID from the server results
-                const newId = result.id;
-
-                const newComment = {
-                    id: newId,
-                    post_slug: this.postSlug,
-                    content: data.content,
-                    author_name: data.author_name,
-                    author_avatar: data.author_avatar,
-                    created_at: new Date().toISOString(),
-                    parent_id: data.parent_id || null,
-                    auth_provider: data.auth_provider,
-                    is_admin: 0 // Assume not admin for this immediate update unless authenticated as such (can't easily know)
-                };
-
-                // Insert into internal array
-                this.comments.push(newComment);
-
-                // Render just this new comment? No, easier to re-render for consistency OR append.
-                // Re-rendering is safe and fast enough for < 100 comments.
-                // Optimistic UI usually means "don't wait for server", but here we waited for 200 OK (which is fast).
-                // True optimistic means show IT before 200 OK.
-                // The user requested: "When API returns 200, construct object... manually append."
-
-                // Let's do a full re-render for safety vs complexity of finding the right DOM insertion point manually.
-                // Actually, manual append is better for "flash" animations.
-
-                // 1. Update Badge
-                const commentBadge = document.getElementById('comment-count-badge');
-                if (commentBadge) {
-                    commentBadge.innerHTML = `<ion-icon name="chatbubbles-outline"></ion-icon> ${this.comments.length} Comments`;
-                }
-
-                // 2. Clear "No comments" message if it exists
-                const listContainer = document.getElementById('comments-list');
-                if (listContainer.innerHTML.includes('No comments yet')) {
-                    listContainer.innerHTML = '';
-                }
-
-                // 3. Generate HTML
-                // We need 'allReplies' for the generator, which is just this.comments currently.
-                // But only if we re-render everything.
-                // If we append, we need to know WHERE.
-
-                if (newComment.parent_id) {
-                    // It's a reply. Find parent container.
-                    const parentContainer = document.getElementById(`replies-${newComment.parent_id}`);
-                    const newHtml = this.generateCommentHtml(newComment, [], 99); // Depth irrelevant for now or calc it
-                    // Recalculating depth is hard without tree traversal.
-                    // Let's stick to valid "Re-fetch is slow" -> "Re-render from memory is fast".
-                    // The user specifically asked to "Manually append... Do not re-fetch".
-                    // So I will NOT call loadComments(). I will update this.comments and re-render OR append.
-
-                    // Re-rendering from local memory (this.comments) is effectively "instant" compared to network.
-                    // Doing manual DOM manipulation for nested threading is error-prone.
-                    // I will re-render from local state. This satisfies "Do not re-fetch".
-                    this.renderComments();
-                } else {
-                    // Top level
-                    const newHtml = this.generateCommentHtml(newComment, [], 0);
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = newHtml;
-                    listContainer.appendChild(tempDiv.firstElementChild);
-                }
-
-                if (container) container.innerHTML = ''; // Close reply form
-            } else {
-                showToast(result.error || 'Failed to post comment.', 'error');
-            }
-        } catch (error) {
-            console.error('Post comment error:', error);
-            showToast('A network error occurred.', 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-        }
-    }
-
-    async handleReaction(commentId, type) {
-        try {
-            const response = await fetch(this.apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'react',
-                    comment_id: commentId,
-                    user_id: this.user.id,
-                    reaction_type: type,
-                    csrf_token: this.csrfToken
-                })
-            });
-
-            if (response.ok) {
-                await this.loadComments();
-            } else {
-                const result = await response.json();
-                if (response.status === 429) showToast(result.error, 'warning');
-            }
-        } catch (error) {
-            console.error('Reaction error:', error);
-        }
     }
 
     escapeHtml(text) {
@@ -662,7 +568,6 @@ class CommentWidget {
     toggleReplies(parentId, btn) {
         const hiddenContainer = document.getElementById(`more-replies-${parentId}`);
         if (hiddenContainer) {
-            // Fade in effect could be added here, but block is fine for now
             hiddenContainer.style.display = 'block';
             if (btn) btn.style.display = 'none';
         }
@@ -670,50 +575,21 @@ class CommentWidget {
 
     toggleComment(id, childCount = 0) {
         const contentWrapper = document.getElementById(`comment-content-${id}`);
-        // If replies-id exists, toggle it too? 
-        // Logic: Reddit style collapses everything EXCEPT header.
-        // So we toggle contentWrapper (which includes body + replies-container inside it as per my new HTML structure? 
-        // Wait, my new HTML structure puts replies-container INSIDE comment-wrapper but usually AFTER content-wrapper or INSIDE?
-        // Let's check my previous edit to generateCommentHtml:
-        // Structure:
-        // comment-wrapper
-        //   comment-header
-        //   comment-content-wrapper (id=comment-content-{id})
-        //      comment-body
-        //      replies-container (id=replies-{id})  <-- Wait, replies used to be inside content-wrapper
-
-        // Let's verify the `generateCommentHtml` usage.
-        // It seems `replies-container` IS inside `comment-wrapper` but NOT `comment-content-wrapper`?
-        // Actually, looking at my previous edit:
-        // <div class="comment-content-wrapper" id="comment-content-${comment.id}"> ... </div>
-        // ${childReplies.length > 0 ? ` ... (replies container) ... ` : ''}
-        // So replies are OUTSIDE content-wrapper but inside comment-wrapper.
-
-        // To collapse "everything except header", we need to hide BOTH content-wrapper AND replies-container.
         const repliesWrapper = document.getElementById(`replies-${id}`);
         const btn = document.querySelector(`#comment-${id} .collapse-toggle`);
-
         const isHidden = contentWrapper.style.display === 'none';
 
         if (isHidden) {
-            // EXPAND
             contentWrapper.style.display = 'block';
             if (repliesWrapper) repliesWrapper.style.display = 'block';
-            btn.innerHTML = '[–]';
-            btn.title = 'Collapse Thread';
+            if (btn) btn.innerHTML = '[–]';
         } else {
-            // COLLAPSE
             contentWrapper.style.display = 'none';
             if (repliesWrapper) repliesWrapper.style.display = 'none';
-
-            const countLabel = childCount > 0 ? ` (${childCount} children)` : '';
-            btn.innerHTML = `[+]${countLabel}`;
-            btn.title = 'Expand Thread';
+            if (btn) btn.innerHTML = `[+]${childCount > 0 ? ` (${childCount} children)` : ''}`;
         }
     }
 }
 
-// Global initialization helper
-window.initCommentWidget = (options) => {
-    window.commentWidget = new CommentWidget(options);
-};
+window.initCommentWidget = (options) => { window.commentWidget = new CommentWidget(options); };
+
