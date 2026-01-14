@@ -373,7 +373,8 @@ class CommentWidget {
 
         const defaults = [
             { type: '🔥', count: 0 }, { type: '🤯', count: 0 },
-            { type: '👏', count: 0 }, { type: '❤️', count: 0 }
+            { type: '👏', count: 0 }, { type: '❤️', count: 0 },
+            { type: '👍', count: 0 }, { type: '🫡', count: 0 }
         ];
 
         if (this.stats && Array.isArray(this.stats.reactions)) {
@@ -574,19 +575,28 @@ class CommentWidget {
     }
 
     toggleComment(id, childCount = 0) {
-        const contentWrapper = document.getElementById(`comment-content-${id}`);
         const repliesWrapper = document.getElementById(`replies-${id}`);
+        const contentWrapper = document.getElementById(`comment-content-${id}`);
         const btn = document.querySelector(`#comment-${id} .collapse-toggle`);
-        const isHidden = contentWrapper.style.display === 'none';
 
-        if (isHidden) {
-            contentWrapper.style.display = 'block';
-            if (repliesWrapper) repliesWrapper.style.display = 'block';
-            if (btn) btn.innerHTML = '[–]';
+        if (childCount > 0) {
+            const isHidden = repliesWrapper?.style.display === 'none';
+            if (isHidden) {
+                if (repliesWrapper) repliesWrapper.style.display = 'block';
+                btn.innerHTML = '[–]';
+            } else {
+                if (repliesWrapper) repliesWrapper.style.display = 'none';
+                btn.innerHTML = `[+] (${childCount} child${childCount === 1 ? '' : 'ren'})`;
+            }
         } else {
-            contentWrapper.style.display = 'none';
-            if (repliesWrapper) repliesWrapper.style.display = 'none';
-            if (btn) btn.innerHTML = `[+]${childCount > 0 ? ` (${childCount} children)` : ''}`;
+            const isHidden = contentWrapper.style.display === 'none';
+            if (isHidden) {
+                contentWrapper.style.display = 'block';
+                btn.innerHTML = '[–]';
+            } else {
+                contentWrapper.style.display = 'none';
+                btn.innerHTML = '[+]';
+            }
         }
     }
 }
