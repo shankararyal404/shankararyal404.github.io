@@ -31,22 +31,16 @@ class CommentWidget {
 
     async fetchCsrfToken() {
         try {
-            console.log('Fetching CSRF token...');
             const res = await fetch(`/api/auth?action=csrf&t=${Date.now()}`, { credentials: 'include' });
-            console.log('CSRF Fetch Response:', res.status, res.statusText);
-
             if (res.ok) {
                 const data = await res.json();
-                console.log('CSRF Token received:', data.csrfToken ? 'Yes' : 'No');
                 if (data.csrfToken) {
                     this.csrfToken = data.csrfToken;
                     return true;
                 }
-            } else {
-                console.error('CSRF Fetch failed with status:', res.status);
             }
         } catch (e) {
-            console.error('Failed to fetch CSRF token (Network/Parse):', e);
+            console.warn('Failed to fetch CSRF token', e);
         }
         return false;
     }
@@ -94,10 +88,8 @@ class CommentWidget {
 
         // 1. Ensure we have a token
         if (!this.csrfToken) {
-            console.warn('CSRF token missing before post. Attempting fetch...');
             const success = await this.fetchCsrfToken();
             if (!success || !this.csrfToken) {
-                console.error('CRITICAL: Cannot post comment. CSRF token is missing and fetch failed.');
                 showToast('Security token missing. Please refresh the page.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -325,7 +317,9 @@ class CommentWidget {
 
     login(provider) {
         // Store current URL to redirect back after login
-        document.cookie = `redirect_after_login=${window.location.href}; Path=/; Max-Age=3600; Secure; SameSite=Lax`;
+        const isProd = window.location.hostname.includes('shankararyal404.com.np');
+        const domain = isProd ? 'Domain=.shankararyal404.com.np;' : '';
+        document.cookie = `redirect_after_login=${window.location.href}; Path=/; ${domain} Max-Age=3600; Secure; SameSite=Lax`;
         window.location.href = `/api/auth/${provider}`;
     }
 
@@ -423,10 +417,10 @@ class CommentWidget {
 
         const topLevel = this.comments.filter(c => !c.parent_id);
         const replies = this.comments.filter(c => c.parent_id);
-        listContainer.innerHTML = topLevel.map(comment => this.generateCommentHtml(comment, replies)).join('');
+        listContainer.innerHTML = topLevel.map(comment => this.generateCommentHtml(comment, replies, 0)).join('');
     }
 
-    generateCommentHtml(comment, allReplies) {
+    generateCommentHtml(comment, allReplies, depth) {
         const date = new Date(comment.created_at).toLocaleDateString();
         const isAdmin = comment.is_admin === 1;
         const isSocial = comment.auth_provider !== 'anonymous';
@@ -435,33 +429,43 @@ class CommentWidget {
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
 
         return `
-            <div class="comment-item" id="comment-${comment.id}">
+            <div class="comment-item" id="comment-${comment.id}" data-depth="${depth}">
                 <div class="comment-avatar">
                     <img src="${avatar}" alt="${comment.author_name}">
                 </div>
-                <div class="comment-body">
-                    <div class="comment-meta">
-                        <span class="author-name">${comment.author_name}</span>
-                        ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
-                        ${isAdmin ? '<span class="admin-badge" style="background:var(--emerald)">Admin</span>' : ''}
-                        <span class="comment-date">${date}</span>
-                    </div>
-                    <div class="comment-text">${comment.content}</div>
-                    
-                    <div class="comment-actions">
-                        ${this.generateReactionHtml(comment)}
-                        <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
-                             <ion-icon name="arrow-undo-outline"></ion-icon> Reply
+                <div class="comment-wrapper">
+                    <div class="comment-header">
+                        <div class="meta-left">
+                            <span class="author-name">${comment.author_name}</span>
+                            ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
+                            ${isAdmin ? '<span class="admin-badge" style="background:var(--emerald)">Admin</span>' : ''}
+                            <span class="comment-date">${date}</span>
+                        </div>
+                        <button class="collapse-toggle" onclick="commentWidget.toggleComment(${comment.id})" title="Collapse Thread">
+                            [–]
                         </button>
                     </div>
+                    
+                    <div class="comment-content-wrapper" id="comment-content-${comment.id}">
+                        <div class="comment-body">
+                            <div class="comment-text">${comment.content}</div>
+                            
+                            <div class="comment-actions">
+                                ${this.generateReactionHtml(comment)}
+                                <button class="reply-trigger" onclick="commentWidget.showReplyForm(${comment.id})">
+                                     <ion-icon name="arrow-undo-outline"></ion-icon> Reply
+                                </button>
+                            </div>
 
-                    <div id="reply-form-container-${comment.id}"></div>
-
-                    ${childReplies.length > 0 ? `
-                        <div class="replies-container">
-                            ${childReplies.map(reply => this.generateCommentHtml(reply, allReplies)).join('')}
+                            <div id="reply-form-container-${comment.id}"></div>
                         </div>
-                    ` : ''}
+
+                        ${childReplies.length > 0 ? `
+                            <div class="replies-container">
+                                ${childReplies.map(reply => this.generateCommentHtml(reply, allReplies, depth + 1)).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
                 </div>
             </div>
         `;
@@ -634,6 +638,21 @@ class CommentWidget {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    toggleComment(id) {
+        const contentWrapper = document.getElementById(`comment-content-${id}`);
+        const btn = document.querySelector(`#comment-${id} .collapse-toggle`);
+
+        if (contentWrapper.style.display === 'none') {
+            contentWrapper.style.display = 'block';
+            btn.innerHTML = '[–]';
+            btn.title = 'Collapse Thread';
+        } else {
+            contentWrapper.style.display = 'none';
+            btn.innerHTML = '[+]';
+            btn.title = 'Expand Thread';
+        }
     }
 }
 
