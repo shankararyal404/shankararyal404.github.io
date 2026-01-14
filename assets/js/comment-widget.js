@@ -431,20 +431,22 @@ class CommentWidget {
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
         const childCount = childReplies.length;
 
-        // "Continue this thread" logic for depth > 5
-        if (depth > 5) {
+        const isSmallScreen = window.innerWidth < 600;
+        const visualDepth = isSmallScreen ? Math.min(depth, 2) : Math.min(depth, 4);
+
+        // "Drill-Down" logic for deep threads (depth >= 5)
+        if (depth >= 5 && childCount > 0) {
             return `
                 <div class="continue-thread-box">
-                    <a href="?focus_comment=${comment.id}" class="continue-thread-link">
-                        Continue this thread ➔
-                    </a>
+                    <button class="continue-thread-link" onclick="commentWidget.focusThread(${comment.id})">
+                        View ${childCount} more repl${childCount === 1 ? 'y' : 'ies'} →
+                    </button>
                 </div>
             `;
         }
 
         let replyToHtml = '';
-        if (comment.parent_id && depth === 0) {
-            // Only show "in reply to" if we are in focus mode (depth 0 but has parent)
+        if (comment.parent_id && (depth === 0 || isSmallScreen)) {
             const parent = this.comments.find(c => c.id === comment.parent_id);
             if (parent) {
                 replyToHtml = `<span class="reply-to-text">in reply to <strong>${this.escapeHtml(parent.author_name)}</strong></span>`;
@@ -456,7 +458,7 @@ class CommentWidget {
         const hiddenReplies = childReplies.slice(VISIBLE_LIMIT);
 
         return `
-            <div class="comment-item" id="comment-${comment.id}" data-depth="${Math.min(depth, 4)}">
+            <div class="comment-item" id="comment-${comment.id}" data-depth="${visualDepth}">
                 <div class="comment-avatar"><img src="${avatar}" alt="${this.escapeHtml(comment.author_name)}"></div>
                 <div class="comment-wrapper">
                     <div class="comment-header">
@@ -501,6 +503,14 @@ class CommentWidget {
                 </div>
             </div>
         `;
+    }
+
+    focusThread(commentId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('focus_comment', commentId);
+        window.history.pushState({}, '', url);
+        this.renderComments();
+        this.container.scrollIntoView({ behavior: 'smooth' });
     }
 
     generateCompactReactionHtml(comment) {
