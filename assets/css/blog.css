@@ -317,23 +317,45 @@
     margin-bottom: 8px;
 }
 
+/* --- Visual Threading (Reddit Style) --- */
 .replies-container {
     margin-top: 12px;
-    border-left: 2px solid var(--white-alpha-10);
-    padding-left: 12px;
+    padding-left: 15px;
     margin-left: 5px;
-    /* Alignment fix */
+    border-left: 2px solid var(--white-alpha-10);
+    /* The Thread Line */
+    transition: border-color 0.2s ease;
 }
 
-/* Hover effect on threadline */
+/* Hover Effect: Trace the conversation path */
 .replies-container:hover {
     border-left-color: var(--white-alpha-20);
+}
+
+/* Make deeper threads distinct */
+.comment-item[data-depth="1"] .replies-container {
+    border-left-color: rgba(255, 255, 255, 0.08);
+}
+
+.comment-item[data-depth="2"] .replies-container {
+    border-left-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Reply Token */
+.reply-to-badge {
+    font-size: 0.8rem;
+    color: var(--primary);
+    background: rgba(var(--primary-rgb, 37, 99, 235), 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* Comment Form */
 .comment-form {
     background: var(--bg-card);
-    /* Specific background for form */
     padding: 20px;
     border-radius: 12px;
     border: 1px solid var(--border-subtle);
@@ -348,31 +370,27 @@
 /* Mobile Responsive Threading */
 @media (max-width: 768px) {
     .replies-container {
-        padding-left: 8px;
+        padding-left: 10px;
+        /* Reduced indentation */
         margin-left: 2px;
-        border-left-width: 1px;
+        border-left-width: 2px;
+        /* Keep visible but thin */
     }
 
     .comment-avatar img {
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
     }
 
-    /* Flat hierarchy for deep comments to save space */
-    .comment-item[data-depth="3"] .replies-container,
+    .comment-header {
+        font-size: 0.85rem;
+    }
+
+    /* On very deep threads, prevent squishing */
     .comment-item[data-depth="4"] .replies-container,
     .comment-item[data-depth="5"] .replies-container {
-        border-left: none;
-        padding-left: 0;
-        margin-left: 0;
-    }
-
-    /* Visual spacer for flattened comments */
-    .comment-item[data-depth="3"] .comment-item,
-    .comment-item[data-depth="4"] .comment-item {
-        border-top: 1px solid var(--white-alpha-05);
-        padding-top: 10px;
-        margin-top: 10px;
+        border-left: 1px solid var(--white-alpha-10);
+        padding-left: 6px;
     }
 }
 
