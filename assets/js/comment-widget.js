@@ -136,7 +136,7 @@ class CommentWidget {
                 if (charCount) charCount.textContent = '0/5000';
 
                 // Close reply forms
-                document.querySelectorAll('.reply-form-active').forEach(f => f.remove());
+                document.querySelectorAll('.reply-form-active, .reply-modal-overlay').forEach(f => f.remove());
 
                 // Update UI without full re-fetch
                 this.renderComments();
@@ -560,21 +560,50 @@ class CommentWidget {
 
     showReplyForm(parentId) {
         // Remove existing active reply forms
-        document.querySelectorAll('.reply-form-active').forEach(e => e.remove());
+        document.querySelectorAll('.reply-form-active, .reply-modal-overlay').forEach(e => e.remove());
 
+        const commentEl = document.getElementById(`comment-${parentId}`);
+        const depth = parseInt(commentEl?.getAttribute('data-depth') || '0');
         const container = document.getElementById(`reply-form-container-${parentId}`);
         if (!container) return;
 
-        const form = document.createElement('div');
-        form.className = 'reply-form-active';
-        form.innerHTML = `
-            <textarea class="comment-textarea" id="reply-textarea-${parentId}" placeholder="Write a reply..." required maxlength="2000"></textarea>
-            <div class="form-footer">
-                <button class="auth-text-btn" onclick="this.parentElement.parentElement.remove()">Cancel</button>
-                <button class="submit-btn" onclick="commentWidget.submitReply(${parentId})">Post Reply</button>
+        const isMobile = window.innerWidth <= 768;
+        const useModal = isMobile || depth >= 2;
+
+        if (useModal) {
+            this.showReplyModal(parentId);
+        } else {
+            const form = document.createElement('div');
+            form.className = 'reply-form-active';
+            form.innerHTML = `
+                <textarea class="comment-textarea" id="reply-textarea-${parentId}" placeholder="Write a reply..." required maxlength="2000"></textarea>
+                <div class="form-footer">
+                    <button class="auth-text-btn" onclick="this.parentElement.parentElement.remove()">Cancel</button>
+                    <button class="submit-btn" onclick="commentWidget.submitReply(${parentId})">Post Reply</button>
+                </div>
+            `;
+            container.appendChild(form);
+            form.querySelector('textarea').focus();
+        }
+    }
+
+    showReplyModal(parentId) {
+        const overlay = document.createElement('div');
+        overlay.className = 'reply-modal-overlay';
+        overlay.innerHTML = `
+            <div class="reply-modal">
+                <div class="modal-header">
+                    <h3>Reply to Comment</h3>
+                    <button onclick="this.closest('.reply-modal-overlay').remove()"><ion-icon name="close-outline"></ion-icon></button>
+                </div>
+                <textarea class="comment-textarea" id="reply-textarea-${parentId}" placeholder="Write your reply..." required maxlength="2000"></textarea>
+                <div class="modal-footer">
+                    <button class="submit-btn full-width" onclick="commentWidget.submitReply(${parentId})">Post Reply</button>
+                </div>
             </div>
         `;
-        container.appendChild(form);
+        document.body.appendChild(overlay);
+        overlay.querySelector('textarea').focus();
     }
 
     async submitReply(parentId) {

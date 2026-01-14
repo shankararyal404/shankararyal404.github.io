@@ -309,20 +309,39 @@
 .replies-container {
     margin-top: 15px;
     padding-left: 20px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    /* Visual Continuity Line */
+    border-left: 1px solid #333;
+    /* Vertical Thread Line */
     transition: border-left-color 0.2s;
 }
 
 .replies-container:hover {
-    border-left-color: rgba(255, 255, 255, 0.2);
+    border-left-color: var(--primary-color);
 }
 
-/* Capped Indentation */
+/* Capped Indentation (Hard Cap Logic) */
+.comment-item[data-depth="2"] .replies-container,
 .comment-item[data-depth="3"] .replies-container,
 .comment-item[data-depth="4"] .replies-container {
-    padding-left: 10px;
-    margin-left: 5px;
+    padding-left: 15px;
+}
+
+/* Mobile Responsive Squashing Fixes */
+@media (max-width: 768px) {
+    .replies-container {
+        padding-left: 15px;
+        /* Level 1: 15px */
+    }
+
+    /* Hard Cap: Level 2+ stops at 20px total (cumulative) */
+    .comment-item[data-depth="1"] .replies-container .replies-container {
+        padding-left: 5px;
+    }
+
+    .comment-item[data-depth="2"] .replies-container,
+    .comment-item[data-depth="3"] .replies-container,
+    .comment-item[data-depth="4"] .replies-container {
+        padding-left: 5px;
+    }
 }
 
 .no-comments {
@@ -389,6 +408,97 @@
     border-radius: 8px;
 }
 
-.continue-thread-link:hover {
-    background: rgba(255, 59, 59, 0.1);
+/* Reply Modal (Mobile/Deep Thread Fix) */
+.reply-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.reply-modal {
+    background: var(--comment-bg);
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    border: 1px solid var(--comment-border);
+    animation: modalSlideUp 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--comment-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    color: var(--comment-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.reply-modal .comment-textarea {
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    min-height: 200px;
+    background: transparent;
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--comment-border);
+}
+
+.submit-btn.full-width {
+    width: 100%;
+}
+
+@media (max-width: 480px) {
+    .reply-modal {
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+
+    .reply-modal-overlay {
+        padding: 0;
+    }
+
+    .reply-modal .comment-textarea {
+        flex: 1;
+    }
 }
