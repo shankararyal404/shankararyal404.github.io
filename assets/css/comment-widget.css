@@ -559,9 +559,12 @@
 @media (max-width: 480px) {
     .reply-modal {
         height: 100%;
+        height: 100dvh;
         max-height: 100%;
         border-radius: 0;
         border: none;
+        overflow: hidden;
+        /* Ensure flex behavior works */
     }
 
     .reply-modal-overlay {
@@ -570,5 +573,9 @@
 
     .reply-modal .comment-textarea {
         flex: 1;
+        min-height: 150px;
+        overflow-y: auto;
+        padding: 15px;
+        /* Slightly tighter padding for mobile */
     }
 }
