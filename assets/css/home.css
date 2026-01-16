@@ -33,10 +33,11 @@
 }
 
 .hero-role {
-    font-size: clamp(2rem, 3vw, 3.5rem);
-    color: var(--text-muted);
-    font-weight: 400;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    color: var(--primary);
+    font-weight: 500;
     margin-bottom: 25px;
+    letter-spacing: 0.5px;
 }
 
 .hero-desc {
