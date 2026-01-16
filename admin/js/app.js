@@ -1097,3 +1097,134 @@ checkSession().then(() => {
     // Fallback redirect
     window.location.href = '/admin/login.html';
 });
+
+// --- COMMENTS MANAGMENT ---
+window.loadCommentsAdmin = async () => {
+    const list = document.getElementById('comments-list'); // Actually admin-comments-list in HTML
+    const statusFilter = document.getElementById('comment-filter-status')?.value || '';
+    const search = document.getElementById('comment-search')?.value.toLowerCase() || '';
+
+    // Fix ID if mismatched in HTML (HTML has admin-comments-list)
+    const container = document.getElementById('admin-comments-list') || list;
+    if (!container) return; // Tab might not be active or ID mismatch
+
+    container.innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+
+    try {
+        // Fetch comments via admin API (GET /api/admin?type=comments)
+        let url = `${API_BASE}?type=comments`;
+        if (statusFilter) url += `&status=${statusFilter}`;
+
+        const res = await fetch(url);
+        const comments = await res.json();
+
+        if (!Array.isArray(comments) || comments.length === 0) {
+            container.innerHTML = '<tr><td colspan="6">No comments found.</td></tr>';
+            return;
+        }
+
+        const filtered = comments.filter(c => {
+            if (!search) return true;
+            return (c.content?.toLowerCase().includes(search) ||
+                c.author_name?.toLowerCase().includes(search) ||
+                c.post_slug?.toLowerCase().includes(search));
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<tr><td colspan="6">No matching comments.</td></tr>';
+            return;
+        }
+
+        container.innerHTML = filtered.map(c => `
+            <tr class="${c.status === 'spam' ? 'spam-row' : ''}">
+                <td>
+                    <a href="/blog-post/${c.post_slug}.html" target="_blank">${c.post_slug}</a>
+                </td>
+                <td>
+                    <div style="font-weight:bold">${c.author_name}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted)">${c.author_email || '-'}</div>
+                </td>
+                <td>
+                    <div class="comment-content-preview" title="${c.content.replace(/"/g, '&quot;')}">${c.content.substring(0, 100)}${c.content.length > 100 ? '...' : ''}</div>
+                </td>
+                <td>${new Date(c.created_at).toLocaleDateString()}</td>
+                <td>
+                    <span class="status-badge ${c.status}">${c.status}</span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        ${c.status !== 'approved' ?
+                `<button class="btn-icon" onclick="updateCommentStatus('${c.id}', 'approved')" title="Approve">✅</button>` :
+                `<button class="btn-icon" onclick="updateCommentStatus('${c.id}', 'spam')" title="Mark as Spam">🚫</button>`
+            }
+                        <button class="btn-icon" onclick="openReplyModal('${c.id}', '${c.post_slug}')" title="Reply">↩️</button>
+                        <button class="btn-icon delete" onclick="deleteCommentAdmin('${c.id}')" title="Delete">🗑️</button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+    } catch (e) {
+        console.error(e);
+        container.innerHTML = '<tr><td colspan="6" style="color:var(--fiery-rose)">Failed to load comments</td></tr>';
+    }
+};
+
+window.updateCommentStatus = async (id, status) => {
+    if (!confirm(`Mark this comment as ${status}?`)) return;
+    try {
+        await apiCall({ type: 'comments', id, status }, 'PUT');
+        loadCommentsAdmin();
+    } catch (e) {
+        alert('Failed to update status: ' + e.message);
+    }
+};
+
+window.deleteCommentAdmin = async (id) => {
+    if (!confirm('Permanently delete this comment and its replies?')) return;
+    try {
+        await apiCall({ type: 'comments', id }, 'DELETE');
+        loadCommentsAdmin();
+    } catch (e) {
+        alert('Failed to delete comment: ' + e.message);
+    }
+};
+
+// Reply Modal
+window.openReplyModal = (parentId, slug) => {
+    document.getElementById('reply-parent-id').value = parentId;
+    document.getElementById('reply-post-slug').value = slug;
+    document.getElementById('reply-content').value = '';
+
+    // Show preview
+    const preview = document.getElementById('reply-to-preview');
+    if (preview) preview.innerHTML = `Replying to comment #${parentId} on ${slug}`;
+
+    openModal('comment-reply-modal');
+};
+
+const replyForm = document.getElementById('comment-reply-form');
+if (replyForm) {
+    replyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const parentId = document.getElementById('reply-parent-id').value;
+        const slug = document.getElementById('reply-post-slug').value;
+        const content = document.getElementById('reply-content').value;
+
+        try {
+            await apiCall({
+                type: 'comments',
+                action: 'reply',
+                post_slug: slug,
+                parent_id: parentId,
+                content: content
+            }, 'POST');
+
+            closeModal('comment-reply-modal');
+            alert('Reply posted successfully!');
+            loadCommentsAdmin();
+        } catch (e) {
+            alert('Failed to post reply: ' + e.message);
+        }
+    });
+}
