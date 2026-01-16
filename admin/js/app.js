@@ -408,10 +408,22 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     formData.append('file', file);
     formData.append('section', section);
 
+    const blogFolderMapping = {
+        'Literature': 'assets/images/blogs/literature',
+        'Information and Study': 'assets/images/blogs/study',
+        'Technology': 'assets/images/blogs/technology',
+        'Thoughts / Opinion': 'assets/images/blogs/thoughts',
+        'Article': 'assets/images/blogs/article',
+        'General': 'assets/images/blogs/general',
+        'Politics': 'assets/images/blogs/politics',
+        'Philosophy': 'assets/images/blogs/philosophy'
+    };
+
     if (section === 'blogs') {
         const category = document.getElementById('blog-category').value;
         const slug = document.getElementById('blog-slug').value;
         const title = document.getElementById('blog-title').value;
+        const alt = document.getElementById('blog-alt').value;
 
         let finalSlug = slug;
         if (!finalSlug && title) {
@@ -424,8 +436,12 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
             input.value = '';
             return;
         }
-        formData.append('category', category);
-        formData.append('slug', finalSlug);
+
+        const targetFolder = blogFolderMapping[category] || `assets/images/blogs/${category.toLowerCase()}`;
+        formData.append('targetFolder', targetFolder);
+        formData.append('customName', finalSlug);
+        formData.append('altText', alt || '');
+        formData.append('section', 'blogs');
     }
 
     // Show Loading
@@ -903,33 +919,44 @@ window.syncGallery = async () => {
     }
 };
 
-window.handleGalleryUpload = async (input) => {
-    // Re-use the existing file upload logic but for Gallery
-    // We can pass a dummy section 'gallery' or 'global'
-    // But handleFileUpload expects specific inputs for sections (like category for blogs).
-    // Let's make handleFileUpload more robust or just use a direct call here.
+const galleryUploadForm = document.getElementById('gallery-upload-form');
+if (galleryUploadForm) {
+    galleryUploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('gallery-upload-input');
+        const file = input.files[0];
+        if (!file) return;
 
-    const file = input.files[0];
-    if (!file) return;
+        const targetFolder = document.getElementById('gallery-upload-folder').value;
+        const customName = document.getElementById('gallery-upload-name').value;
+        const altText = document.getElementById('gallery-upload-alt').value;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('section', 'gallery'); // Will map to assets/images/gallery/ usually, or we can enforce root?
-    // api/upload logic: if section not blogs/projects/etc, it goes to assets/images/<section>
-    // Let's put it in 'uploads' or 'global'
-    formData.append('section', 'global');
+        const btn = document.getElementById('gallery-upload-btn');
+        btn.innerText = 'Uploading...';
+        btn.disabled = true;
 
-    try {
-        const res = await fetch('/api/upload', { method: 'POST', body: formData });
-        if (!res.ok) throw new Error((await res.json()).error);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('targetFolder', targetFolder);
+        formData.append('customName', customName);
+        formData.append('altText', altText);
+        formData.append('section', 'gallery');
 
-        await loadGallery(); // Reload to see new image
-        alert('Image uploaded!');
-    } catch (e) {
-        alert('Upload failed: ' + e.message);
-    }
-    input.value = '';
-};
+        try {
+            const res = await fetch('/api/upload', { method: 'POST', body: formData });
+            if (!res.ok) throw new Error((await res.json()).error);
+
+            alert('Image uploaded and optimized successfully!');
+            closeModal('gallery-upload-modal');
+            loadGallery();
+        } catch (e) {
+            alert('Upload failed: ' + e.message);
+        } finally {
+            btn.innerText = 'Start Upload';
+            btn.disabled = false;
+        }
+    });
+}
 
 window.filterGallery = () => {
     const term = document.getElementById('gallery-search').value.toLowerCase();
@@ -954,11 +981,11 @@ window.loadCommentsAdmin = async () => {
     const status = document.getElementById('comment-filter-status').value;
     const search = document.getElementById('comment-search').value;
 
-    let url = `${API_BASE}/comments`;
+    let url = `${API_BASE}?type=comments`;
     const params = new URLSearchParams();
     if (status) params.append('status', status);
 
-    if (params.toString()) url += `?${params.toString()}`;
+    if (params.toString()) url += `&${params.toString()}`;
 
     try {
         const res = await fetch(url);
@@ -1019,18 +1046,20 @@ function escapeJS(str) {
 }
 
 window.updateCommentStatus = async (id, status) => {
-    const res = await fetch(`${API_BASE}/comments`, {
+    const res = await fetch(`${API_BASE}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status })
+        body: JSON.stringify({ type: 'comments', id, status })
     });
     if (res.ok) loadCommentsAdmin();
 };
 
 window.deleteCommentAdmin = async (id) => {
     if (!confirm('Delete this comment and all its replies?')) return;
-    const res = await fetch(`${API_BASE}/comments?id=${id}`, {
-        method: 'DELETE'
+    const res = await fetch(`${API_BASE}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'comments', id })
     });
     if (res.ok) loadCommentsAdmin();
 };
@@ -1048,12 +1077,14 @@ if (replyForm) {
     replyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const body = {
+            type: 'comments',
+            action: 'reply',
             post_slug: document.getElementById('reply-post-slug').value,
             parent_id: parseInt(document.getElementById('reply-parent-id').value),
             content: document.getElementById('reply-content').value
         };
 
-        const res = await fetch(`${API_BASE}/comments`, {
+        const res = await fetch(`${API_BASE}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
