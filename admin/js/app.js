@@ -398,6 +398,14 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     const file = input.files[0];
     if (!file) return;
 
+    // AVIF Format Validation (except for favicons)
+    const isAVIFRequired = !file.name.match(/favicon\.(ico|svg)$/i);
+    if (isAVIFRequired && !file.type.includes('avif') && !file.name.endsWith('.avif')) {
+        alert('⚠️ Only AVIF format is allowed for images!\n\nPlease convert your image to AVIF format before uploading.\nYou can use online tools like squoosh.app or avif.io');
+        input.value = '';
+        return;
+    }
+
     if (file.size > 5 * 1024 * 1024) {
         alert('File size exceeds 5MB');
         input.value = '';
@@ -408,22 +416,10 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     formData.append('file', file);
     formData.append('section', section);
 
-    const blogFolderMapping = {
-        'Literature': 'assets/images/blogs/literature',
-        'Information and Study': 'assets/images/blogs/study',
-        'Technology': 'assets/images/blogs/technology',
-        'Thoughts / Opinion': 'assets/images/blogs/thoughts',
-        'Article': 'assets/images/blogs/article',
-        'General': 'assets/images/blogs/general',
-        'Politics': 'assets/images/blogs/politics',
-        'Philosophy': 'assets/images/blogs/philosophy'
-    };
-
     if (section === 'blogs') {
         const category = document.getElementById('blog-category').value;
         const slug = document.getElementById('blog-slug').value;
         const title = document.getElementById('blog-title').value;
-        const alt = document.getElementById('blog-alt').value;
 
         let finalSlug = slug;
         if (!finalSlug && title) {
@@ -436,12 +432,8 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
             input.value = '';
             return;
         }
-
-        const targetFolder = blogFolderMapping[category] || `assets/images/blogs/${category.toLowerCase()}`;
-        formData.append('targetFolder', targetFolder);
-        formData.append('customName', finalSlug);
-        formData.append('altText', alt || '');
-        formData.append('section', 'blogs');
+        formData.append('category', category);
+        formData.append('slug', finalSlug);
     }
 
     // Show Loading
@@ -450,20 +442,6 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
     if (previewContainer) previewContainer.innerHTML = '<span style="font-size:0.8rem">Uploading...</span>';
 
     try {
-        const token = localStorage.getItem('adminToken'); // Assuming token storage
-        // Note: admin.js uses cookie based auth usually or implicit on backend? 
-        // Logic in admin.js checkSession calls /api/admin/auth/me usually.
-        // But actual calls use cookie?
-        // Wait, app.js apiCall doesn't send token header explicitly.
-        // It relies on cookies if it's same origin.
-        // But our upload.js checks header.
-        // Let's rely on cookie if upload.js removes header check OR we implement token storage.
-        // Current app.js doesn't seem to use Bearer token. 
-        // It just calls /api/admin.
-        // So I should probably rely on Cookie in upload.js too or just pass Authorization if I have it.
-        // Re-reading app.js: It imports checkSession.
-        // I will attempt simple fetch. If it 401s, user needs to login.
-
         const res = await fetch('/api/upload', {
             method: 'POST',
             body: formData
@@ -477,6 +455,11 @@ window.handleFileUpload = async (input, section, type = 'cover') => {
         const data = await res.json();
         document.getElementById(`${prefix}-image`).value = data.path;
         updateImagePreview(prefix, data.path);
+
+        // Show success message with path info
+        if (previewContainer) {
+            previewContainer.innerHTML = `<span style="color:var(--primary);font-size:0.8rem">✓ Uploaded to: ${data.path}</span>`;
+        }
 
     } catch (error) {
         console.error(error);
@@ -919,44 +902,33 @@ window.syncGallery = async () => {
     }
 };
 
-const galleryUploadForm = document.getElementById('gallery-upload-form');
-if (galleryUploadForm) {
-    galleryUploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const input = document.getElementById('gallery-upload-input');
-        const file = input.files[0];
-        if (!file) return;
+window.handleGalleryUpload = async (input) => {
+    // Re-use the existing file upload logic but for Gallery
+    // We can pass a dummy section 'gallery' or 'global'
+    // But handleFileUpload expects specific inputs for sections (like category for blogs).
+    // Let's make handleFileUpload more robust or just use a direct call here.
 
-        const targetFolder = document.getElementById('gallery-upload-folder').value;
-        const customName = document.getElementById('gallery-upload-name').value;
-        const altText = document.getElementById('gallery-upload-alt').value;
+    const file = input.files[0];
+    if (!file) return;
 
-        const btn = document.getElementById('gallery-upload-btn');
-        btn.innerText = 'Uploading...';
-        btn.disabled = true;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('section', 'gallery'); // Will map to assets/images/gallery/ usually, or we can enforce root?
+    // api/upload logic: if section not blogs/projects/etc, it goes to assets/images/<section>
+    // Let's put it in 'uploads' or 'global'
+    formData.append('section', 'global');
 
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('targetFolder', targetFolder);
-        formData.append('customName', customName);
-        formData.append('altText', altText);
-        formData.append('section', 'gallery');
+    try {
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        if (!res.ok) throw new Error((await res.json()).error);
 
-        try {
-            const res = await fetch('/api/upload', { method: 'POST', body: formData });
-            if (!res.ok) throw new Error((await res.json()).error);
-
-            alert('Image uploaded and optimized successfully!');
-            closeModal('gallery-upload-modal');
-            loadGallery();
-        } catch (e) {
-            alert('Upload failed: ' + e.message);
-        } finally {
-            btn.innerText = 'Start Upload';
-            btn.disabled = false;
-        }
-    });
-}
+        await loadGallery(); // Reload to see new image
+        alert('Image uploaded!');
+    } catch (e) {
+        alert('Upload failed: ' + e.message);
+    }
+    input.value = '';
+};
 
 window.filterGallery = () => {
     const term = document.getElementById('gallery-search').value.toLowerCase();
@@ -981,11 +953,11 @@ window.loadCommentsAdmin = async () => {
     const status = document.getElementById('comment-filter-status').value;
     const search = document.getElementById('comment-search').value;
 
-    let url = `${API_BASE}?type=comments`;
+    let url = `${API_BASE}/comments`;
     const params = new URLSearchParams();
     if (status) params.append('status', status);
 
-    if (params.toString()) url += `&${params.toString()}`;
+    if (params.toString()) url += `?${params.toString()}`;
 
     try {
         const res = await fetch(url);
@@ -1046,20 +1018,18 @@ function escapeJS(str) {
 }
 
 window.updateCommentStatus = async (id, status) => {
-    const res = await fetch(`${API_BASE}`, {
+    const res = await fetch(`${API_BASE}/comments`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'comments', id, status })
+        body: JSON.stringify({ id, status })
     });
     if (res.ok) loadCommentsAdmin();
 };
 
 window.deleteCommentAdmin = async (id) => {
     if (!confirm('Delete this comment and all its replies?')) return;
-    const res = await fetch(`${API_BASE}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'comments', id })
+    const res = await fetch(`${API_BASE}/comments?id=${id}`, {
+        method: 'DELETE'
     });
     if (res.ok) loadCommentsAdmin();
 };
@@ -1077,14 +1047,12 @@ if (replyForm) {
     replyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const body = {
-            type: 'comments',
-            action: 'reply',
             post_slug: document.getElementById('reply-post-slug').value,
             parent_id: parseInt(document.getElementById('reply-parent-id').value),
             content: document.getElementById('reply-content').value
         };
 
-        const res = await fetch(`${API_BASE}`, {
+        const res = await fetch(`${API_BASE}/comments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

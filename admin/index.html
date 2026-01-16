@@ -395,7 +395,9 @@
                     <input type="text" id="gallery-search" placeholder="Search images..."
                         style="padding: 8px; width: 200px; margin:0;" onkeyup="filterGallery()">
                     <button class="btn btn-outline" onclick="syncGallery()">Sync</button>
-                    <button class="btn btn-primary" onclick="openModal('gallery-upload-modal')">Upload New</button>
+                    <label for="gallery-upload-input" class="btn btn-primary">Upload New</label>
+                    <input type="file" id="gallery-upload-input" accept="image/*" style="display:none"
+                        onchange="handleGalleryUpload(this)">
                 </div>
             </div>
 
@@ -763,42 +765,6 @@
                         }
                     }
                 </script>
-            </form>
-        </div>
-    </div>
-
-    <!-- Gallery Upload Modal -->
-    <div id="gallery-upload-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('gallery-upload-modal')">&times;</span>
-            <h2 class="h2">Upload Image to Gallery</h2>
-            <form id="gallery-upload-form">
-                <label>Target Folder</label>
-                <select id="gallery-upload-folder" required>
-                    <option value="assets/images/blogs">assets/images/blogs</option>
-                    <option value="assets/images/blogs/article">assets/images/blogs/article</option>
-                    <option value="assets/images/blogs/general">assets/images/blogs/general</option>
-                    <option value="assets/images/blogs/literature">assets/images/blogs/literature</option>
-                    <option value="assets/images/blogs/study">assets/images/blogs/study</option>
-                    <option value="assets/images/blogs/technology">assets/images/blogs/technology</option>
-                    <option value="assets/images/blogs/thoughts">assets/images/blogs/thoughts</option>
-                    <option value="assets/images/blogs/politics">assets/images/blogs/politics</option>
-                    <option value="assets/images/blogs/philosophy">assets/images/blogs/philosophy</option>
-                    <option value="assets/images/certificates">assets/images/certificates</option>
-                    <option value="assets/images/projects">assets/images/projects</option>
-                    <option value="assets/images/shankararyal">assets/images/shankararyal</option>
-                </select>
-
-                <label>File Name (optional, will be sanitized)</label>
-                <input type="text" id="gallery-upload-name" placeholder="e.g. my-awesome-photo">
-
-                <label>Alt Text (Required for SEO)</label>
-                <input type="text" id="gallery-upload-alt" placeholder="Describe the image" required>
-
-                <label>Select File</label>
-                <input type="file" id="gallery-upload-input" accept="image/*" required>
-
-                <button type="submit" class="btn btn-primary" id="gallery-upload-btn">Start Upload</button>
             </form>
         </div>
     </div>
