@@ -400,6 +400,20 @@
     scrollbar-width: none;
 }
 
+.comment-count-badge {
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .post-reactions-bar::-webkit-scrollbar {
     display: none;
 }

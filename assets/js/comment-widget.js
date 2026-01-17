@@ -260,7 +260,7 @@ class CommentWidget {
                 <div class="comment-widget-header">
                     <h2 class="comment-widget-title">Engagement</h2>
                     <div class="post-stats-header">
-                        <span id="comment-count-badge" class="admin-badge" style="background: var(--bg-elevated);"><ion-icon name="chatbubbles-outline"></ion-icon> Loading...</span>
+                        <span id="comment-count-badge" class="comment-count-badge"><ion-icon name="chatbubbles-outline"></ion-icon> Loading...</span>
                     </div>
                 </div>
 
