@@ -51,7 +51,7 @@
     border-radius: 50%;
     border: 1px solid var(--comment-border);
     background: var(--comment-bg);
-    color: white;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,6 +63,7 @@
 .social-btn:hover {
     transform: translateY(-2px);
     border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .user-logged-in {
