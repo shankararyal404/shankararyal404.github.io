@@ -426,7 +426,11 @@ class CommentWidget {
         const date = new Date(comment.created_at).toLocaleDateString();
         const isAdmin = comment.is_admin === 1;
         const isSocial = comment.auth_provider !== 'anonymous';
-        const avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random&color=fff`;
+
+        let avatar = comment.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.author_name)}&background=random&color=fff`;
+        if (isAdmin) {
+            avatar = '/assets/images/shankararyal/admin.avif';
+        }
 
         const childReplies = allReplies.filter(r => r.parent_id === comment.id);
         const childCount = childReplies.length;
@@ -464,6 +468,13 @@ class CommentWidget {
                     <div class="comment-header">
                         <div class="meta-left">
                             <span class="author-name">${this.escapeHtml(comment.author_name)}</span>
+                            ${isAdmin ? `
+                                <span class="verified-badge" title="Verified Admin">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--emerald)">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                                    </svg>
+                                </span>
+                            ` : ''}
                             ${replyToHtml}
                             ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
                             ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}

@@ -1017,57 +1017,10 @@ function escapeJS(str) {
     return str.replace(/`/g, "\\`").replace(/\${/g, "\\${");
 }
 
-window.updateCommentStatus = async (id, status) => {
-    const res = await fetch(`${API_BASE}/comments`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status })
-    });
-    if (res.ok) loadCommentsAdmin();
-};
-
-window.deleteCommentAdmin = async (id) => {
-    if (!confirm('Delete this comment and all its replies?')) return;
-    const res = await fetch(`${API_BASE}/comments?id=${id}`, {
-        method: 'DELETE'
-    });
-    if (res.ok) loadCommentsAdmin();
-};
-
-window.openReplyModal = (id, slug, content, author) => {
-    document.getElementById('reply-parent-id').value = id;
-    document.getElementById('reply-post-slug').value = slug;
-    document.getElementById('reply-to-preview').innerHTML = `<strong>Replying to ${author}:</strong><br><em>"${content}"</em>`;
-    document.getElementById('reply-content').value = '';
-    document.getElementById('comment-reply-modal').classList.add('open');
-};
-
-const replyForm = document.getElementById('comment-reply-form');
-if (replyForm) {
-    replyForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const body = {
-            post_slug: document.getElementById('reply-post-slug').value,
-            parent_id: parseInt(document.getElementById('reply-parent-id').value),
-            content: document.getElementById('reply-content').value
-        };
-
-        const res = await fetch(`${API_BASE}/comments`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (res.ok) {
-            window.closeModal('comment-reply-modal');
-            loadCommentsAdmin();
-        } else {
-            alert('Failed to post reply');
-        }
-    });
-}
-
-document.querySelector('[data-tab="comments"]')?.addEventListener('click', loadCommentsAdmin);
+// --- LOADING DATA ---
+document.querySelector('[data-tab="comments"]')?.addEventListener('click', () => {
+    if (window.loadCommentsAdmin) window.loadCommentsAdmin();
+});
 
 /* --- LOADING DATA --- */
 function loadAllData() {
@@ -1152,13 +1105,13 @@ window.loadCommentsAdmin = async () => {
                     <span class="status-badge ${c.status}">${c.status}</span>
                 </td>
                 <td>
-                    <div class="action-buttons">
+                    <div class="action-buttons" style="display:flex; gap:5px;">
                         ${c.status !== 'approved' ?
-                `<button class="btn-icon" onclick="updateCommentStatus('${c.id}', 'approved')" title="Approve">✅</button>` :
-                `<button class="btn-icon" onclick="updateCommentStatus('${c.id}', 'spam')" title="Mark as Spam">🚫</button>`
+                `<button class="action-btn" style="background:var(--emerald); padding:5px 10px; font-size:0.8rem;" onclick="updateCommentStatus('${c.id}', 'approved')">Approve</button>` :
+                `<button class="action-btn" style="background:var(--orange-soda); padding:5px 10px; font-size:0.8rem;" onclick="updateCommentStatus('${c.id}', 'spam')">Spam</button>`
             }
-                        <button class="btn-icon" onclick="openReplyModal('${c.id}', '${c.post_slug}')" title="Reply">↩️</button>
-                        <button class="btn-icon delete" onclick="deleteCommentAdmin('${c.id}')" title="Delete">🗑️</button>
+                        <button class="action-btn edit-btn" style="padding:5px 10px; font-size:0.8rem;" onclick="openReplyModal('${c.id}', '${c.post_slug}', '${c.content.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', '${c.author_name}')">Reply</button>
+                        <button class="action-btn delete-btn" style="padding:5px 10px; font-size:0.8rem;" onclick="deleteCommentAdmin('${c.id}')">Delete</button>
                     </div>
                 </td>
             </tr>
