@@ -840,6 +840,9 @@ window.openModal = (id) => {
 
 // --- GALLERY ---
 let allGalleryItems = [];
+let currentPickerTarget = null;
+let currentPickerPreview = null;
+let currentDetailPath = null;
 
 async function loadGallery() {
     const galleryGrid = document.getElementById('gallery-grid');
@@ -861,8 +864,8 @@ async function loadGallery() {
     }
 }
 
-function renderGallery(items) {
-    const grid = document.getElementById('gallery-grid');
+function renderGallery(items, targetGridId = 'gallery-grid', isPicker = false) {
+    const grid = document.getElementById(targetGridId);
     if (!grid) return;
 
     if (items.length === 0) {
@@ -871,13 +874,13 @@ function renderGallery(items) {
     }
 
     grid.innerHTML = items.map(item => `
-        <div class="gallery-item" onclick="viewGalleryItem('${item.path}')">
+        <div class="gallery-item" onclick="${isPicker ? `selectGalleryImage('${item.path}')` : `viewGalleryItem('${item.path}')`}">
             ${item.unused ? '<span class="unused-badge">Unused</span>' : ''}
             <img src="/${item.path}" class="gallery-thumb" loading="lazy" 
                  onerror="this.style.background='linear-gradient(135deg, #1a1d26 0%, #0d1017 100%)'; this.style.border='2px dashed var(--fiery-rose)'; this.alt='Missing Image';">
             <div class="gallery-meta">
                 <div class="gallery-name" title="${item.path}">${item.path.split('/').pop()}</div>
-                <div style="display:flex; justify-content:space-between;">
+                <div style="display:flex; justify-content:space-between; font-size: 0.8em; color: var(--text-muted);">
                     <span>${(item.size / 1024).toFixed(1)} KB</span>
                     <span>${item.width}x${item.height}</span>
                 </div>
@@ -932,18 +935,94 @@ window.handleGalleryUpload = async (input) => {
 
 window.filterGallery = () => {
     const term = document.getElementById('gallery-search').value.toLowerCase();
-    const filtered = allGalleryItems.filter(i => i.path.toLowerCase().includes(term) || (i.alt && i.alt.toLowerCase().includes(term)));
+    const filtered = allGalleryItems.filter(i => i.path.toLowerCase().includes(term));
     renderGallery(filtered);
 };
 
+window.openGalleryPicker = (targetInputId, previewId) => {
+    currentPickerTarget = targetInputId;
+    currentPickerPreview = previewId;
+
+    document.getElementById('gallery-picker-modal').classList.add('open');
+    renderGallery(allGalleryItems, 'picker-grid', true);
+};
+
+window.selectGalleryImage = (path) => {
+    if (currentPickerTarget) {
+        const finalPath = path.startsWith('/') ? path : '/' + path;
+        document.getElementById(currentPickerTarget).value = finalPath;
+        const prefix = currentPickerTarget.split('-')[0];
+        updateImagePreview(prefix, finalPath);
+    }
+    window.closeModal('gallery-picker-modal');
+    currentPickerTarget = null;
+    currentPickerPreview = null;
+};
+
+window.filterPicker = () => {
+    const term = document.getElementById('picker-search').value.toLowerCase();
+    const filtered = allGalleryItems.filter(i => i.path.toLowerCase().includes(term));
+    renderGallery(filtered, 'picker-grid', true);
+};
+
 window.viewGalleryItem = (path) => {
-    // Simple View functionality
     const item = allGalleryItems.find(i => i.path === path);
-    // Could open a modal details view here. For now, simple Alert + Copy.
-    const url = `${window.location.origin}/${path}`;
-    navigator.clipboard.writeText(`/${path}`).then(() => {
-        alert(`Copied Path: /${path}\n\nInfo:\nAlt: ${item.alt || '-'}\nSize: ${item.width}x${item.height}`);
-    });
+    if (!item) return;
+
+    currentDetailPath = path;
+    document.getElementById('detail-img').src = `/${path}`;
+    document.getElementById('detail-name').innerText = path.split('/').pop();
+    document.getElementById('detail-path').innerText = `/${path}`;
+    document.getElementById('detail-dims').innerText = `${item.width} x ${item.height} px`;
+    document.getElementById('detail-size').innerText = `${(item.size / 1024).toFixed(2)} KB`;
+    document.getElementById('detail-section').innerText = item.section || 'General';
+
+    document.getElementById('gallery-details-modal').classList.add('open');
+};
+
+window.copyDetailPath = () => {
+    if (currentDetailPath) {
+        navigator.clipboard.writeText(`/${currentDetailPath}`).then(() => {
+            const btn = document.getElementById('btn-copy-path');
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.style.borderColor = 'var(--emerald)';
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.style.borderColor = '';
+            }, 2000);
+        });
+    }
+};
+
+window.deleteGalleryAsset = async () => {
+    if (!currentDetailPath) return;
+    if (!confirm(`Are you sure you want to PERMANENTLY delete /${currentDetailPath}?\n\nThis will remove the file from the server and cannot be undone.`)) return;
+
+    const btn = document.getElementById('btn-delete-asset');
+    btn.innerText = 'Deleting...';
+    btn.disabled = true;
+
+    try {
+        // Physical Delete
+        const res = await fetch(`/api/upload?path=/${currentDetailPath}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('Failed to delete physical file');
+
+        // Metadata Delete (Sync takes care of it, but let's be fast)
+        await fetch('/api/gallery', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ path: currentDetailPath })
+        });
+
+        window.closeModal('gallery-details-modal');
+        await loadGallery();
+    } catch (e) {
+        alert('Delete failed: ' + e.message);
+    } finally {
+        btn.innerText = 'Delete Asset';
+        btn.disabled = false;
+    }
 };
 
 // --- COMMENTS ---
