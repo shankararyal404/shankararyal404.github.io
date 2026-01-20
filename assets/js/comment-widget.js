@@ -467,17 +467,17 @@ class CommentWidget {
                 <div class="comment-wrapper">
                     <div class="comment-header">
                         <div class="meta-left">
-                            <span class="author-name">${this.escapeHtml(comment.author_name)}</span>
+                            <span class="author-name">${isAdmin ? 'Shankar' : this.escapeHtml(comment.author_name)}</span>
                             ${isAdmin ? `
                                 <span class="verified-badge" title="Verified Admin">
                                     <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--emerald)">
                                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
                                     </svg>
                                 </span>
+                                <span class="admin-badge">Admin</span>
                             ` : ''}
                             ${replyToHtml}
                             ${isSocial ? `<span class="auth-provider-badge">${this.getProviderIcon(comment.auth_provider)}</span>` : ''}
-                            ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}
                             <span class="comment-date">${date}</span>
                         </div>
                         <button class="collapse-toggle" onclick="commentWidget.toggleComment(${comment.id}, ${childCount})">[–]</button>

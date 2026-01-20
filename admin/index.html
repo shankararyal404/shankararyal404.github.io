@@ -814,7 +814,7 @@
                             <span style="font-size: 0.7rem; color: var(--manatee);">No image</span>
                         </div>
                         <div class="upload-controls">
-                            <input type="file" id="blog-file" accept="image/*" class="file-input"
+                            <input type="file" id="blog-file" accept="image/*" class="file-input" style="display: none;"
                                 onchange="handleFileUpload(this, 'blogs', 'cover')">
                             <div style="display:flex; gap:10px; margin-bottom:15px;">
                                 <label for="blog-file" class="btn btn-outline"
@@ -881,7 +881,7 @@
                         </div>
                         <div class="upload-controls">
                             <input type="file" id="project-file" accept="image/*" class="file-input"
-                                onchange="handleFileUpload(this, 'projects', 'cover')">
+                                style="display: none;" onchange="handleFileUpload(this, 'projects', 'cover')">
                             <div style="display:flex; gap:10px; margin-bottom:15px;">
                                 <label for="project-file" class="btn btn-outline"
                                     style="padding: 10px 15px; font-size: 1.2rem; flex:1; text-align:center;">Upload
@@ -1047,7 +1047,7 @@
                             <span style="font-size: 0.7rem; color: var(--manatee);">No image</span>
                         </div>
                         <div class="upload-controls">
-                            <input type="file" id="cert-file" accept="image/*" class="file-input"
+                            <input type="file" id="cert-file" accept="image/*" class="file-input" style="display: none;"
                                 onchange="handleFileUpload(this, 'certificates', 'cover')">
                             <div style="display:flex; gap:10px; margin-bottom:15px;">
                                 <label for="cert-file" class="btn btn-outline"
@@ -1092,7 +1092,7 @@
             <form id="comment-reply-form">
                 <input type="hidden" id="reply-parent-id">
                 <input type="hidden" id="reply-post-slug">
-                <label>Your Reply (as Admin)</label>
+                <label>Your Reply (as Shankar)</label>
                 <textarea id="reply-content" rows="6" required placeholder="Type your response..."></textarea>
                 <button type="submit" class="btn btn-primary">Send Admin Reply</button>
             </form>
