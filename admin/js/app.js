@@ -244,16 +244,13 @@ blogForm.addEventListener('submit', async (e) => {
             // User cancelled notification, but build proceeds
         } else {
             try {
-                // We need the slug. If created, data.slug should be valid.
-                await fetch('/api/notify', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        slug: data.slug,
-                        title: data.title,
-                        excerpt: data.excerpt,
-                        image: data.image
-                    })
+                // Now targeting unified /api/admin with type: 'notify'
+                await apiCall({
+                    type: 'notify',
+                    slug: data.slug,
+                    title: data.title,
+                    excerpt: data.excerpt,
+                    image: data.image
                 });
                 alert('Notification emails queued/sent.');
             } catch (err) {
