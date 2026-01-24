@@ -132,6 +132,7 @@ window.openEditBlog = async (slug) => {
         document.getElementById('blog-tags').value = (blog.tags || []).join(', ');
         document.getElementById('blog-original-date').value = blog.original_date || '';
         document.getElementById('blog-excerpt').value = blog.excerpt || '';
+        document.getElementById('blog-notify').checked = false; // Reset to false by default on edit
 
         // NOW we have the content!
         document.getElementById('blog-content').value = blog.content || '';
@@ -235,6 +236,33 @@ blogForm.addEventListener('submit', async (e) => {
             data: data
         }, 'POST');
     }
+
+    // Handle Notification
+    const notifyChecked = document.getElementById('blog-notify').checked;
+    if (notifyChecked) {
+        if (!confirm('Are you sure you want to send email notifications to all subscribers?')) {
+            // User cancelled notification, but build proceeds
+        } else {
+            try {
+                // We need the slug. If created, data.slug should be valid.
+                await fetch('/api/notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug: data.slug,
+                        title: data.title,
+                        excerpt: data.excerpt,
+                        image: data.image
+                    })
+                });
+                alert('Notification emails queued/sent.');
+            } catch (err) {
+                console.error('Notification failed:', err);
+                alert('Blog saved, but email notification failed.');
+            }
+        }
+    }
+
     window.closeModal('blog-modal');
     loadBlogs();
 });

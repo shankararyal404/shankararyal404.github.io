@@ -724,6 +724,20 @@
                 <label>Original Published Date (Optional)</label>
                 <input type="date" id="blog-original-date">
 
+                <div
+                    style="margin: 20px 0; padding: 15px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                    <label class="checkbox-container"
+                        style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="blog-notify" style="width: 20px; height: 20px; margin: 0;">
+                        <span style="font-weight: 600; color: var(--text-primary);">Send Email Notification to
+                            Subscribers</span>
+                    </label>
+                    <p style="margin-top: 5px; font-size: 0.9rem; color: var(--text-secondary);">
+                        If checked, an email will be sent to all verified subscribers when you save (if not already
+                        sent).
+                    </p>
+                </div>
+
                 <!-- Literature-Specific Fields (Hidden by default) -->
                 <div id="literature-fields"
                     style="display: none; margin-top: 20px; padding: 20px; background: var(--white-alpha-5); border-radius: 8px;">
