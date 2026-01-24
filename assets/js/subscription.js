@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
 
                 if (res.ok) {
-                    showMessage('Success! Please check your email to verify.', 'success');
+                    showToast('Success! Please check your email to verify.', 'success');
                     subForm.reset();
                 } else {
-                    showMessage(data.error || 'Something went wrong.', 'error');
+                    showToast(data.error || 'Something went wrong.', 'error');
                 }
             } catch (err) {
                 console.error(err);
-                showMessage('Network error. Please try again.', 'error');
+                showToast('Network error. Please try again.', 'error');
             } finally {
                 btn.innerText = originalBtnText;
                 btn.disabled = false;
@@ -47,13 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function showMessage(text, type) {
-        msgBox.innerText = text;
-        msgBox.className = `sub-message ${type}`;
-        setTimeout(() => {
-            msgBox.innerText = '';
-            msgBox.className = 'sub-message';
-        }, 5000);
+    // Helper to check URL parameters for subscription status
+    const params = new URLSearchParams(window.location.search);
+    const subStatus = params.get('subscription');
+    if (subStatus) {
+        if (subStatus === 'verified') {
+            showToast('Subscription verified! Welcome to the newsletter.', 'success', 5000);
+        } else if (subStatus === 'unsubscribed') {
+            showToast('You have been unsubscribed successfully.', 'info', 5000);
+        }
+        // Clean up URL without reload
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
     }
 });
 
