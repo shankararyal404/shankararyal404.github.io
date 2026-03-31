@@ -130,7 +130,7 @@
     <link rel="stylesheet" href="/assets/css/home.css?v=10">
     <link rel="stylesheet" href="/assets/css/blog.css?v=10">
     <link rel="stylesheet" href="/assets/css/toast.css">
-    <link rel="stylesheet" href="/assets/css/blog/technology.css?v=1774969739492">
+    <link rel="stylesheet" href="/assets/css/blog/technology.css?v=1774970531150">
 </head>
 
 <body id="top">
@@ -181,7 +181,7 @@
                 <div class="tech-meta">
                     <span>2024-11-02</span>
                     <span>•</span>
-                    <span>14 min read</span>
+                    <span>2 min read</span>
                 </div>
             </header>
 
@@ -197,566 +197,136 @@
             </div>
 
             <div class="tech-content markdown-body">
-                <p><strong>ShadowStrike</strong> is a comprehensive security testing platform designed for ethical hackers, penetration testers, and security researchers. Built from the ground up with .NET 8 and WPF, it provides a modern, high-performance alternative to traditional security tools.</p>
-<h3 id="why-shadowstrike">Why ShadowStrike?</h3>
-<ul>
-<li><strong>High Performance</strong>: Built with .NET 8 for maximum speed and efficiency</li>
-<li><strong>Modern UI</strong>: Beautiful Material Design interface with dark theme</li>
-<li><strong>Comprehensive</strong>: OSINT, DDoS testing, injection testing, and more</li>
-<li><strong>Intelligent</strong>: Automated vulnerability detection and reporting</li>
-<li><strong>Persistent</strong>: Automatic logging and historical scan management</li>
-<li><strong>Evasion</strong>: Advanced techniques to bypass WAFs and security measures</li>
-</ul>
-<hr>
-<h2 id="features">Features</h2>
-<h3 id="osint--reconnaissance">OSINT &amp; Reconnaissance</h3>
-<ul>
-<li><strong>Target Analysis</strong>: Comprehensive information gathering</li>
-<li><strong>DNS Intelligence</strong>: A/MX/NS records, subdomain enumeration</li>
-<li><strong>WHOIS Lookup</strong>: Domain registration and ownership details</li>
-<li><strong>SSL/TLS Analysis</strong>: Certificate validation and security assessment</li>
-<li><strong>Email Security</strong>: SPF, DKIM, DMARC record verification</li>
-<li><strong>Technology Detection</strong>: Server, CMS, framework identification</li>
-<li><strong>WAF Detection</strong>: Identify security products (Cloudflare, AWS WAF, etc.)</li>
-<li><strong>Port Scanning</strong>: Detect open ports and running services</li>
-</ul>
-<h3 id="ddos-attack-modules">DDoS Attack Modules</h3>
-<ul>
-<li><strong>HTTP Flood (Layer 7)</strong>: Application-layer attacks with customizable threads</li>
-<li><strong>SYN Flood (Layer 4)</strong>: TCP handshake exploitation</li>
-<li><strong>UDP Flood (Layer 4)</strong>: Bandwidth exhaustion attacks</li>
-<li><strong>Real-time Monitoring</strong>: Live attack statistics and performance metrics</li>
-</ul>
-<h3 id="injection-testing">Injection Testing</h3>
-<ul>
-<li><strong>SQL Injection</strong>: Error-based and time-based blind SQLi detection</li>
-<li><strong>File Upload Testing</strong>: Multiple bypass techniques (double extension, null byte, etc.)</li>
-<li><strong>Auto Exploit</strong>: Automated vulnerability discovery and exploitation</li>
-<li><strong>Defacement Mode</strong>: Database content modification capabilities</li>
-<li><strong>Browser Mode</strong>: Stealth testing using real Chrome browser</li>
-<li><strong>Advanced SQLi</strong>: Union-based, boolean-based, and stacked queries</li>
-</ul>
-<h3 id="logging--history">Logging &amp; History</h3>
-<ul>
-<li><strong>Automatic Logging</strong>: Every scan automatically saved as JSON</li>
-<li><strong>Historical Reports</strong>: View and reload past assessments</li>
-<li><strong>Load into Dashboard</strong>: Restore previous scan states without re-scanning</li>
-<li><strong>Export Capabilities</strong>: JSON format for integration with other tools</li>
-</ul>
-<h3 id="help--documentation">Help &amp; Documentation</h3>
-<ul>
-<li><strong>Comprehensive Guide</strong>: Detailed explanations for beginners</li>
-<li><strong>Module Documentation</strong>: In-depth coverage of all features</li>
-<li><strong>Parameter Explanations</strong>: Understand what each option does</li>
-<li><strong>Best Practices</strong>: Security testing guidelines and tips</li>
-</ul>
-<hr>
-<hr>
-<h2 id="installation">Installation</h2>
-<h3 id="supported-platforms">Supported Platforms</h3>
-<ul>
-<li><strong>Windows 10/11 (64-bit &amp; 32-bit)</strong></li>
-<li><em>Note: Linux and macOS are currently NOT supported due to Windows-specific dependencies.</em></li>
-</ul>
-<h3 id="option-1-installer-recommended">Option 1: Installer (Recommended)</h3>
-<p>Download the latest installer from the <a href="https://github.com/MrShankarAryal/ShadowStrike/releases">Releases</a> page.</p>
+                <blockquote>
+<p><strong>⚠️ Important Security Notice</strong></p>
+<p>ShadowStrike is designed exclusively for <strong>educational purposes</strong> and <strong>ethical security testing</strong>. Use ShadowStrike only in authorized testing environments, maintain proper documentation, and follow responsible disclosure practices.</p>
+</blockquote>
+<p>In the ever-evolving landscape of cybersecurity, staying ahead of threats is crucial. ShadowStrike emerges as a cutting-edge solution that empowers ethical hackers with advanced network security testing capabilities.</p>
+<h2 id="application-interface">Application Interface</h2>
+<h3 id="main-dashboard">Main Dashboard</h3>
+<p>
+            <div class="img-wrapper skeleton-box">
+                <img src="/assets/images/port8(1).png" 
+                     alt="ShadowStrike Main Interface" 
+                     title="" 
+                     srcset="/assets/images/port8(1)-480w.png 480w, /assets/images/port8(1)-800w.png 800w, /assets/images/port8(1)-1200w.png 1200w"
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     loading="lazy" 
+                     decoding="async" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-box');">
+            </div>
+<em>The main reconnaissance dashboard showing target analysis and network intelligence gathering</em></p>
+<h3 id="network-scanning">Network Scanning</h3>
+<p>
+            <div class="img-wrapper skeleton-box">
+                <img src="/assets/images/port8(3).png" 
+                     alt="Network Scan Results" 
+                     title="" 
+                     srcset="/assets/images/port8(3)-480w.png 480w, /assets/images/port8(3)-800w.png 800w, /assets/images/port8(3)-1200w.png 1200w"
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     loading="lazy" 
+                     decoding="async" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-box');">
+            </div>
+<em>Real-time network scanning results with port detection and service identification</em></p>
+<h3 id="attack-simulation">Attack Simulation</h3>
+<p>
+            <div class="img-wrapper skeleton-box">
+                <img src="/assets/images/port8(2).png" 
+                     alt="Attack Mode Interface" 
+                     title="" 
+                     srcset="/assets/images/port8(2)-480w.png 480w, /assets/images/port8(2)-800w.png 800w, /assets/images/port8(2)-1200w.png 1200w"
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     loading="lazy" 
+                     decoding="async" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-box');">
+            </div>
+<em>Advanced attack simulation interface for controlled security testing</em></p>
+<h3 id="vulnerability-analysis">Vulnerability Analysis</h3>
+<p>
+            <div class="img-wrapper skeleton-box">
+                <img src="/assets/images/port8(4).png" 
+                     alt="Vulnerability Assessment" 
+                     title="" 
+                     srcset="/assets/images/port8(4)-480w.png 480w, /assets/images/port8(4)-800w.png 800w, /assets/images/port8(4)-1200w.png 1200w"
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     loading="lazy" 
+                     decoding="async" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-box');">
+            </div>
+<em>Comprehensive vulnerability assessment and threat evaluation dashboard</em></p>
+<h3 id="reporting-system">Reporting System</h3>
+<p>
+            <div class="img-wrapper skeleton-box">
+                <img src="/assets/images/port8(5).png" 
+                     alt="Security Reports" 
+                     title="" 
+                     srcset="/assets/images/port8(5)-480w.png 480w, /assets/images/port8(5)-800w.png 800w, /assets/images/port8(5)-1200w.png 1200w"
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     loading="lazy" 
+                     decoding="async" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-box');">
+            </div>
+<em>Detailed logging and reporting system for thorough security assessment documentation</em></p>
+<h2 id="the-shadowstrike-advantage">The ShadowStrike Advantage</h2>
+<h3 id="advanced-reconnaissance">Advanced Reconnaissance</h3>
+<p>Comprehensive network vulnerability scanning with intelligent port and service detection.</p>
+<h3 id="adaptive-attack-simulation">Adaptive Attack Simulation</h3>
+<p>Sophisticated attack modes including SYN Flood, HTTP DDoS, and custom exploit testing.</p>
+<h3 id="detailed-logging">Detailed Logging</h3>
+<p>Real-time, customizable logging for thorough security assessment documentation.</p>
+<h2 id="toolkit-workflow">Toolkit Workflow</h2>
 <ol>
-<li>Download <code>ShadowStrike-Setup-v2.1.0.exe</code></li>
-<li>Run the installer</li>
-<li>Follow the installation wizard</li>
-<li>Launch from Start Menu or Desktop shortcut</li>
+<li><strong>Reconnaissance</strong>: Intelligent network intelligence gathering</li>
+<li><strong>Analysis</strong>: Advanced vulnerability evaluation</li>
+<li><strong>Simulation</strong>: Precision-targeted controlled attacks</li>
+<li><strong>Documentation</strong>: Comprehensive interaction logging</li>
 </ol>
-<p><strong>Features:</strong></p>
-<ul>
-<li>✅ Automatic installation to Program Files</li>
-<li>✅ Start Menu and Desktop shortcuts with icon</li>
-<li>✅ Clean uninstall support</li>
-<li>✅ No .NET installation required (bundled)</li>
-</ul>
-<h3 id="option-2-portable-version">Option 2: Portable Version</h3>
-<p>Download the portable version from the <a href="https://github.com/MrShankarAryal/ShadowStrike/releases">Releases</a> page.</p>
-<ol>
-<li>Download <code>ShadowStrike-v2.1.0-Portable.zip</code></li>
-<li>Extract to any folder</li>
-<li>Run <code>ShadowStrike.UI.exe</code></li>
-</ol>
-<p><strong>Features:</strong></p>
-<ul>
-<li>✅ No installation required</li>
-<li>✅ Run from USB drive or any location</li>
-<li>✅ Perfect for portable use</li>
-</ul>
-<h3 id="option-3-build-from-source">Option 3: Build from Source</h3>
-<p>For developers who want to build from source:</p>
-<pre><code class="language-bash"># Clone the repository
-git clone https://github.com/MrShankarAryal/ShadowStrike.git
+<h2 id="user-documentation">User Documentation</h2>
+<h3 id="installation">Installation</h3>
+<pre><code class="language-bash">git clone https://github.com/MrShankarAryal/ShadowStrike.git
 cd ShadowStrike
-
-# Restore dependencies
-dotnet restore
-
-# Build the solution
-dotnet build --configuration Release
-
-# Run the application
-dotnet run --project ShadowStrike.UI/ShadowStrike.UI.csproj
+pip install -r requirements.txt
+python gui.py
 </code></pre>
-<p><strong>Prerequisites:</strong></p>
+<h3 id="11-reconnaissance">1.1. Reconnaissance</h3>
+<p><strong>Start Recon:</strong></p>
 <ul>
-<li>.NET 8 SDK</li>
-<li>Windows 10/11</li>
-<li>Administrator privileges (for raw socket operations)</li>
+<li>Enter the Target IP</li>
+<li>Click Start Recon</li>
+<li>Review results in log box</li>
 </ul>
-<hr>
-<h2 id="usage">Usage</h2>
-<h3 id="quick-start">Quick Start</h3>
-<ol>
-<li><p><strong>Launch ShadowStrike</strong></p>
-<pre><code class="language-bash">dotnet run --project ShadowStrike.UI/ShadowStrike.UI.csproj
-</code></pre>
-</li>
-<li><p><strong>Perform Reconnaissance</strong></p>
+<h3 id="12-attack-modes">1.2. Attack Modes</h3>
+<p><strong>Choose Attack Mode:</strong></p>
 <ul>
-<li>Navigate to <strong>Dashboard</strong></li>
-<li>Enter target URL/IP (e.g., <code>http://example.com</code>)</li>
-<li>Click <strong>&quot;Analyze Target&quot;</strong></li>
-<li>Review OSINT data, technology stack, and vulnerabilities</li>
+<li><strong>SYN Flood</strong>: TCP connection overload</li>
+<li><strong>HTTP DDoS</strong>: Web server stress testing</li>
+<li><strong>Stealth Probe</strong>: Low-profile scanning</li>
 </ul>
-</li>
-<li><p><strong>Execute Security Tests</strong></p>
-<ul>
-<li>Choose appropriate module (DDoS, Injection)</li>
-<li>Configure parameters</li>
-<li>Monitor real-time results</li>
-</ul>
-</li>
-<li><p><strong>Review History</strong></p>
-<ul>
-<li>Go to <strong>Logs &amp; History</strong></li>
-<li>View past scans</li>
-<li>Load reports into Dashboard</li>
-</ul>
-</li>
-</ol>
-<h3 id="command-line-options">Command Line Options</h3>
-<pre><code class="language-bash"># Run in release mode
-dotnet run --project ShadowStrike.UI/ShadowStrike.UI.csproj --configuration Release
-
-# Build without running
-dotnet build --configuration Release
-
-# Clean build artifacts
-dotnet clean
-</code></pre>
-<hr>
-<h2 id="modules">Modules</h2>
-<h3 id="1-dashboard-osint-engine">1. Dashboard (OSINT Engine)</h3>
-<p><strong>Purpose</strong>: Gather comprehensive intelligence about the target</p>
-<p><strong>Capabilities</strong>:</p>
-<ul>
-<li>DNS record enumeration (A, MX, NS, TXT)</li>
-<li>WHOIS information retrieval</li>
-<li>SSL/TLS certificate analysis</li>
-<li>Email security verification (SPF, DKIM, DMARC)</li>
-<li>Technology stack fingerprinting</li>
-<li>WAF detection</li>
-<li>Port scanning (common ports: 21, 22, 80, 443, 3306, etc.)</li>
-<li>Vulnerability assessment</li>
-</ul>
-<p><strong>Output</strong>: Detailed report with all gathered intelligence</p>
-<hr>
-<h3 id="2-http-flood">2. HTTP Flood</h3>
-<p><strong>Purpose</strong>: Test web server resilience against application-layer attacks</p>
-<p><strong>Parameters</strong>:</p>
-<ul>
-<li><strong>Threads</strong>: Number of concurrent connections (50-500+)</li>
-<li><strong>Timeout</strong>: Response wait time in seconds (0.5-5s)</li>
-</ul>
-<p><strong>How it works</strong>: Floods the target with HTTP GET/POST requests to exhaust server resources (CPU, RAM, bandwidth)</p>
-<p><strong>Best for</strong>: Small to medium web servers, shared hosting</p>
-<hr>
-<h3 id="3-syn-flood">3. SYN Flood</h3>
-<p><strong>Purpose</strong>: Test network infrastructure against TCP handshake exploitation</p>
-<p><strong>Parameters</strong>:</p>
-<ul>
-<li><strong>Packet Size</strong>: Payload size in bytes (64-1024)</li>
-</ul>
-<p><strong>How it works</strong>: Sends SYN packets without completing the 3-way handshake, filling the connection table</p>
-<p><strong>Best for</strong>: Servers with limited connection tables, older network equipment</p>
-<p><strong>Note</strong>: Requires administrator privileges</p>
-<hr>
-<h3 id="4-udp-flood">4. UDP Flood</h3>
-<p><strong>Purpose</strong>: Test bandwidth and processing capacity</p>
-<p><strong>How it works</strong>: Sends UDP packets to random ports, forcing ICMP &quot;Destination Unreachable&quot; responses</p>
-<p><strong>Best for</strong>: Game servers, VoIP services, DNS servers</p>
-<hr>
-<h3 id="5-injection-testing">5. Injection Testing</h3>
-<p><strong>SQL Injection</strong>:</p>
-<ul>
-<li>Error-based detection</li>
-<li>Time-based blind SQLi</li>
-<li>Union-based queries</li>
-<li>Boolean-based blind SQLi</li>
-<li>Stacked queries</li>
-</ul>
-<p><strong>File Upload Testing</strong>:</p>
-<ul>
-<li>Double extension bypass (<code>shell.php.jpg</code>)</li>
-<li>Null byte injection (<code>shell.php%00.jpg</code>)</li>
-<li>Content-Type manipulation</li>
-<li>MIME type bypass</li>
-</ul>
-<p><strong>Advanced Features</strong>:</p>
-<ul>
-<li><strong>Auto Exploit</strong>: Automated crawling and vulnerability discovery</li>
-<li><strong>Defacement</strong>: Database content modification</li>
-<li><strong>Browser Mode</strong>: Stealth testing with real Chrome browser</li>
-</ul>
-<hr>
-<h3 id="6-logs--history">6. Logs &amp; History</h3>
-<p><strong>Features</strong>:</p>
-<ul>
-<li>Automatic JSON logging of all scans</li>
-<li>Historical scan viewer with Dark Dimmed theme</li>
-<li>Load previous reports without re-scanning</li>
-<li>Export capabilities</li>
-<li>Clear all logs option</li>
-<li>Improved UI with consistent styling</li>
-</ul>
-<p><strong>Storage Location</strong>: <code>Logs/</code> directory</p>
-<hr>
-<h2 id="architecture">Architecture</h2>
+<h2 id="developer-documentation">Developer Documentation</h2>
 <h3 id="project-structure">Project Structure</h3>
-<pre><code>ShadowStrike/
-├── ShadowStrike.Core/          # Core business logic
-│   ├── OsintEngine.cs          # OSINT intelligence gathering
-│   ├── DnsAnalyzer.cs          # DNS record analysis
-│   ├── SslAnalyzer.cs          # SSL/TLS certificate validation
-│   ├── TargetAnalyzer.cs       # Technology detection
-│   ├── VulnerabilityHunter.cs  # Vulnerability assessment
-│   ├── HttpFlooder.cs          # HTTP flood implementation
-│   ├── SynFlooder.cs           # SYN flood implementation
-│   ├── UdpFlooder.cs           # UDP flood implementation
-│   ├── SqlInjector.cs          # SQL injection testing
-│   ├── FileUploadTester.cs     # File upload vulnerability testing
-│   ├── SiteCrawler.cs          # Web crawler for auto-exploit
-│   └── HistoryManager.cs       # Logging and history management
-│
-├── ShadowStrike.UI/            # WPF user interface
-│   ├── Views/                  # XAML views
-│   │   ├── DashboardView.xaml  # OSINT dashboard
-│   │   ├── HttpFloodView.xaml  # HTTP flood UI
-│   │   ├── SynFloodView.xaml   # SYN flood UI
-│   │   ├── UdpFloodView.xaml   # UDP flood UI
-│   │   ├── InjectionView.xaml  # Injection testing UI
-│   │   ├── LogsView.xaml       # History viewer
-│   │   ├── TerminalView.xaml   # Terminal interface
-│   │   └── HelpWindow.xaml     # Help documentation
-│   ├── MainWindow.xaml         # Main application window
-│   ├── AppState.cs             # Application state management
-│   └── img/                    # Application resources
-│
-├── Logs/                       # Automatic scan logs (JSON)
-├── README.md                   # This file
-└── LICENSE                     # MIT License
+<pre><code>ShadowStrikeAuto/
+├── core/
+│   ├── recon.py
+│   ├── auto_attack.py
+│   └── exploit_module.py
+├── config/
+└── utils/
 </code></pre>
-<h3 id="technology-stack">Technology Stack</h3>
-<ul>
-<li><strong>Framework</strong>: .NET 8.0</li>
-<li><strong>UI</strong>: WPF (Windows Presentation Foundation)</li>
-<li><strong>Design</strong>: Material Design In XAML Toolkit</li>
-<li><strong>Language</strong>: C# 12</li>
-<li><strong>Networking</strong>: System.Net, HttpClient</li>
-<li><strong>DNS</strong>: DnsClient.NET</li>
-<li><strong>Browser Automation</strong>: Selenium WebDriver (Chrome)</li>
-</ul>
+<h3 id="key-components">Key Components</h3>
+<p><strong>Reconnaissance Module</strong><br>Handles target data collection including port scanning and OS detection.</p>
+<p><strong>Attack Module</strong><br>Coordinates attack strategies based on reconnaissance data.</p>
+<h2 id="elevate-your-security-testing">Elevate Your Security Testing</h2>
+<p>ShadowStrike provides professional-grade network security assessment capabilities.</p>
+<p><strong>Download:</strong> <a href="https://github.com/MrShankarAryal/ShadowStrike/archive/refs/heads/main.zip">Get ShadowStrike</a></p>
 <hr>
-<h2 id="legal-disclaimer">Legal Disclaimer</h2>
-<p><strong>IMPORTANT</strong>: This tool is designed for <strong>authorized security testing only</strong>.</p>
-<h3 id="legal-use-only">Legal Use Only</h3>
+<p><strong>Legal and Ethical Requirements:</strong></p>
 <ul>
-<li>~ <strong>Authorized Testing</strong>: Only test systems you own or have explicit written permission to test</li>
-<li>~ <strong>Educational Purposes</strong>: Learning about security vulnerabilities and defense mechanisms</li>
-<li>~ <strong>Penetration Testing</strong>: Professional security assessments with proper authorization</li>
-<li>~ <strong>Bug Bounty Programs</strong>: Participating in legitimate bug bounty programs</li>
+<li>Use ShadowStrike only in authorized testing environments</li>
+<li>Maintain proper documentation</li>
+<li>Follow responsible disclosure practices</li>
+<li>Respect privacy and legal boundaries</li>
 </ul>
-<h3 id="prohibited-use">Prohibited Use</h3>
-<ul>
-<li>~ <strong>Unauthorized Access</strong>: Testing systems without permission is illegal</li>
-<li>~ <strong>Malicious Intent</strong>: Using this tool to harm or disrupt services</li>
-<li>~ <strong>Data Theft</strong>: Extracting sensitive information without authorization</li>
-<li>~ <strong>Criminal Activity</strong>: Any use that violates local, state, or federal laws</li>
-</ul>
-<h3 id="disclaimer">Disclaimer</h3>
-<p>The author and contributors of ShadowStrike are <strong>not responsible</strong> for any misuse of this tool. By using this software, you agree to use it <strong>ethically and legally</strong>. Unauthorized use may result in:</p>
-<ul>
-<li>Criminal prosecution</li>
-<li>Civil lawsuits</li>
-<li>Financial penalties</li>
-<li>Imprisonment</li>
-</ul>
-<p><strong>Always obtain proper authorization before conducting security assessments.</strong></p>
-<hr>
-<h2 id="contributing">Contributing</h2>
-<p>Contributions are welcome! Please follow these guidelines:</p>
-<h3 id="how-to-contribute">How to Contribute</h3>
-<ol>
-<li><strong>Fork the repository</strong></li>
-<li><strong>Create a feature branch</strong> (<code>git checkout -b feature/AmazingFeature</code>)</li>
-<li><strong>Commit your changes</strong> (<code>git commit -m &#39;Add some AmazingFeature&#39;</code>)</li>
-<li><strong>Push to the branch</strong> (<code>git push origin feature/AmazingFeature</code>)</li>
-<li><strong>Open a Pull Request</strong></li>
-</ol>
-<h3 id="code-standards">Code Standards</h3>
-<ul>
-<li>Follow C# coding conventions</li>
-<li>Add XML documentation comments</li>
-<li>Write unit tests for new features</li>
-<li>Ensure all tests pass before submitting PR</li>
-<li>Update README.md if adding new features</li>
-</ul>
-<h3 id="reporting-issues">Reporting Issues</h3>
-<ul>
-<li>Use the <a href="https://github.com/MrShankarAryal/ShadowStrike/issues">GitHub Issues</a> page</li>
-<li>Provide detailed description of the problem</li>
-<li>Include steps to reproduce</li>
-<li>Attach screenshots if applicable</li>
-</ul>
-<hr>
-<h2 id="author">Author</h2>
-<p><strong>Shankar Aryal</strong></p>
-<ul>
-<li>GitHub: <a href="https://github.com/MrShankarAryal">@MrShankarAryal</a></li>
-<li>Email: <a href="mailto:&#83;&#x68;&#97;&#x64;&#x6f;&#119;&#83;&#116;&#x72;&#105;&#107;&#x65;&#x43;&#111;&#x6e;&#116;&#97;&#99;&#116;&#x40;&#115;&#104;&#97;&#110;&#107;&#x61;&#114;&#x61;&#x72;&#x79;&#97;&#x6c;&#52;&#48;&#52;&#x2e;&#99;&#111;&#109;&#46;&#110;&#112;">&#83;&#x68;&#97;&#x64;&#x6f;&#119;&#83;&#116;&#x72;&#105;&#107;&#x65;&#x43;&#111;&#x6e;&#116;&#97;&#99;&#116;&#x40;&#115;&#104;&#97;&#110;&#107;&#x61;&#114;&#x61;&#x72;&#x79;&#97;&#x6c;&#52;&#48;&#52;&#x2e;&#99;&#111;&#109;&#46;&#110;&#112;</a></li>
-<li>Website: <a href="https://shankararyal404.com.np">shankararyal404.com.np</a></li>
-</ul>
-<h3 id="version-history">Version History</h3>
-<ul>
-<li><strong>Version 2.0</strong> (2025) - Complete .NET 8 rewrite with WPF UI</li>
-<li><strong>Version 1.0</strong> (2024) - Original Python implementation</li>
-</ul>
-<hr>
-<h2 id="�️-roadmap">�️ Roadmap</h2>
-<ul>
-<li><input disabled="" type="checkbox"> <strong>Cross-Platform Support</strong>: Linux and macOS support via CLI or Avalonia UI</li>
-<li><input disabled="" type="checkbox"> <strong>Cloud Integration</strong>: Remote scanning and reporting</li>
-<li><input disabled="" type="checkbox"> <strong>Plugin System</strong>: API for community-developed modules</li>
-<li><input disabled="" type="checkbox"> <strong>AI Enhancement</strong>: Advanced threat detection models</li>
-</ul>
-<hr>
-<h2 id="�-license">� License</h2>
-<p>This project is licensed under the <strong>MIT License</strong> - see the <a href="LICENSE">LICENSE</a> file for details.</p>
-<pre><code>MIT License
-
-Copyright (c) 2025 Shankar Aryal
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-</code></pre>
-<hr>
-<h2 id="acknowledgments">Acknowledgments</h2>
-<ul>
-<li><a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design In XAML</a> - Beautiful UI components</li>
-<li><a href="https://github.com/MichaCo/DnsClient.NET">DnsClient.NET</a> - DNS resolution library</li>
-<li>Double extension bypass (<code>shell.php.jpg</code>)</li>
-<li>Null byte injection (<code>shell.php%00.jpg</code>)</li>
-<li>Content-Type manipulation</li>
-<li>MIME type bypass</li>
-</ul>
-<p><strong>Advanced Features</strong>:</p>
-<ul>
-<li><strong>Auto Exploit</strong>: Automated crawling and vulnerability discovery</li>
-<li><strong>Defacement</strong>: Database content modification</li>
-<li><strong>Browser Mode</strong>: Stealth testing with real Chrome browser</li>
-</ul>
-<hr>
-<h3 id="6-logs--history-1">6. Logs &amp; History</h3>
-<p><strong>Features</strong>:</p>
-<ul>
-<li>Automatic JSON logging of all scans</li>
-<li>Historical scan viewer with Dark Dimmed theme</li>
-<li>Load previous reports without re-scanning</li>
-<li>Export capabilities</li>
-<li>Clear all logs option</li>
-<li>Improved UI with consistent styling</li>
-</ul>
-<p><strong>Storage Location</strong>: <code>Logs/</code> directory</p>
-<hr>
-<h2 id="architecture-1">Architecture</h2>
-<h3 id="project-structure-1">Project Structure</h3>
-<pre><code>ShadowStrike/
-├── ShadowStrike.Core/          # Core business logic
-│   ├── OsintEngine.cs          # OSINT intelligence gathering
-│   ├── DnsAnalyzer.cs          # DNS record analysis
-│   ├── SslAnalyzer.cs          # SSL/TLS certificate validation
-│   ├── TargetAnalyzer.cs       # Technology detection
-│   ├── VulnerabilityHunter.cs  # Vulnerability assessment
-│   ├── HttpFlooder.cs          # HTTP flood implementation
-│   ├── SynFlooder.cs           # SYN flood implementation
-│   ├── UdpFlooder.cs           # UDP flood implementation
-│   ├── SqlInjector.cs          # SQL injection testing
-│   ├── FileUploadTester.cs     # File upload vulnerability testing
-│   ├── SiteCrawler.cs          # Web crawler for auto-exploit
-│   └── HistoryManager.cs       # Logging and history management
-│
-├── ShadowStrike.UI/            # WPF user interface
-│   ├── Views/                  # XAML views
-│   │   ├── DashboardView.xaml  # OSINT dashboard
-│   │   ├── HttpFloodView.xaml  # HTTP flood UI
-│   │   ├── SynFloodView.xaml   # SYN flood UI
-│   │   ├── UdpFloodView.xaml   # UDP flood UI
-│   │   ├── InjectionView.xaml  # Injection testing UI
-│   │   ├── LogsView.xaml       # History viewer
-│   │   ├── TerminalView.xaml   # Terminal interface
-│   │   └── HelpWindow.xaml     # Help documentation
-│   ├── MainWindow.xaml         # Main application window
-│   ├── AppState.cs             # Application state management
-│   └── img/                    # Application resources
-│
-├── Logs/                       # Automatic scan logs (JSON)
-├── README.md                   # This file
-└── LICENSE                     # MIT License
-</code></pre>
-<h3 id="technology-stack-1">Technology Stack</h3>
-<ul>
-<li><strong>Framework</strong>: .NET 8.0</li>
-<li><strong>UI</strong>: WPF (Windows Presentation Foundation)</li>
-<li><strong>Design</strong>: Material Design In XAML Toolkit</li>
-<li><strong>Language</strong>: C# 12</li>
-<li><strong>Networking</strong>: System.Net, HttpClient</li>
-<li><strong>DNS</strong>: DnsClient.NET</li>
-<li><strong>Browser Automation</strong>: Selenium WebDriver (Chrome)</li>
-</ul>
-<hr>
-<h2 id="legal-disclaimer-1">Legal Disclaimer</h2>
-<p><strong>IMPORTANT</strong>: This tool is designed for <strong>authorized security testing only</strong>.</p>
-<h3 id="legal-use-only-1">Legal Use Only</h3>
-<ul>
-<li>Authorized Testing: Only test systems you own or have explicit written permission to test</li>
-<li>Educational Purposes: Learning about security vulnerabilities and defense mechanisms</li>
-<li>Penetration Testing: Professional security assessments with proper authorization</li>
-<li>Bug Bounty Programs: Participating in legitimate bug bounty programs</li>
-</ul>
-<h3 id="prohibited-use-1">Prohibited Use</h3>
-<ul>
-<li>Unauthorized Access: Testing systems without permission is illegal</li>
-<li>Malicious Intent: Using this tool to harm or disrupt services</li>
-<li>Data Theft: Extracting sensitive information without authorization</li>
-<li>Criminal Activity: Any use that violates local, state, or federal laws</li>
-</ul>
-<h3 id="disclaimer-1">Disclaimer</h3>
-<p>The author and contributors of ShadowStrike are <strong>not responsible</strong> for any misuse of this tool. By using this software, you agree to use it <strong>ethically and legally</strong>. Unauthorized use may result in:</p>
-<ul>
-<li>Criminal prosecution</li>
-<li>Civil lawsuits</li>
-<li>Financial penalties</li>
-<li>Imprisonment</li>
-</ul>
-<p><strong>Always obtain proper authorization before conducting security assessments.</strong></p>
-<hr>
-<h2 id="contributing-1">Contributing</h2>
-<p>Contributions are welcome! Please follow these guidelines:</p>
-<h3 id="how-to-contribute-1">How to Contribute</h3>
-<ol>
-<li><strong>Fork the repository</strong></li>
-<li><strong>Create a feature branch</strong> (<code>git checkout -b feature/AmazingFeature</code>)</li>
-<li><strong>Commit your changes</strong> (<code>git commit -m &#39;Add some AmazingFeature&#39;</code>)</li>
-<li><strong>Push to the branch</strong> (<code>git push origin feature/AmazingFeature</code>)</li>
-<li><strong>Open a Pull Request</strong></li>
-</ol>
-<h3 id="code-standards-1">Code Standards</h3>
-<ul>
-<li>Follow C# coding conventions</li>
-<li>Add XML documentation comments</li>
-<li>Write unit tests for new features</li>
-<li>Ensure all tests pass before submitting PR</li>
-<li>Update README.md if adding new features</li>
-</ul>
-<h3 id="reporting-issues-1">Reporting Issues</h3>
-<ul>
-<li>Use the <a href="https://github.com/MrShankarAryal/ShadowStrike/issues">GitHub Issues</a> page</li>
-<li>Provide detailed description of the problem</li>
-<li>Include steps to reproduce</li>
-<li>Attach screenshots if applicable</li>
-</ul>
-<hr>
-<h2 id="author-1">Author</h2>
-<p><strong>Shankar Aryal</strong></p>
-<ul>
-<li>GitHub: <a href="https://github.com/MrShankarAryal">@MrShankarAryal</a></li>
-<li>Email: <a href="mailto:&#83;&#104;&#x61;&#100;&#x6f;&#119;&#83;&#116;&#114;&#x69;&#x6b;&#101;&#67;&#x6f;&#110;&#x74;&#x61;&#99;&#116;&#64;&#x73;&#104;&#97;&#110;&#x6b;&#97;&#x72;&#97;&#114;&#x79;&#97;&#108;&#52;&#48;&#x34;&#46;&#99;&#111;&#x6d;&#46;&#110;&#x70;">&#83;&#104;&#x61;&#100;&#x6f;&#119;&#83;&#116;&#114;&#x69;&#x6b;&#101;&#67;&#x6f;&#110;&#x74;&#x61;&#99;&#116;&#64;&#x73;&#104;&#97;&#110;&#x6b;&#97;&#x72;&#97;&#114;&#x79;&#97;&#108;&#52;&#48;&#x34;&#46;&#99;&#111;&#x6d;&#46;&#110;&#x70;</a></li>
-<li>Website: <a href="https://shankararyal404.com.np">shankararyal404.com.np</a></li>
-</ul>
-<h3 id="version-history-1">Version History</h3>
-<ul>
-<li><strong>Version 2.0</strong> (2025) - Complete .NET 8 rewrite with WPF UI</li>
-<li><strong>Version 1.0</strong> (2024) - Original Python implementation</li>
-</ul>
-<hr>
-<h2 id="roadmap">Roadmap</h2>
-<ul>
-<li><input disabled="" type="checkbox"> <strong>Cross-Platform Support</strong>: Linux and macOS support via CLI or Avalonia UI</li>
-<li><input disabled="" type="checkbox"> <strong>Cloud Integration</strong>: Remote scanning and reporting</li>
-<li><input disabled="" type="checkbox"> <strong>Plugin System</strong>: API for community-developed modules</li>
-<li><input disabled="" type="checkbox"> <strong>Auto Enhancement</strong>: Advanced threat detection models</li>
-</ul>
-<hr>
-<h2 id="license">License</h2>
-<p>This project is licensed under the <strong>MIT License</strong> - see the <a href="LICENSE">LICENSE</a> file for details.</p>
-<pre><code>MIT License
-
-Copyright (c) 2025 Shankar Aryal
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-</code></pre>
-<hr>
-<h2 id="acknowledgments-1">Acknowledgments</h2>
-<ul>
-<li><a href="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design In XAML</a> - Beautiful UI components</li>
-<li><a href="https://github.com/MichaCo/DnsClient.NET">DnsClient.NET</a> - DNS resolution library</li>
-<li><a href="https://www.selenium.dev/">Selenium WebDriver</a> - Browser automation</li>
-<li><a href="https://dotnet.microsoft.com/platform/community">.NET Community</a> - Amazing framework and support</li>
-</ul>
-<hr>
-<h2 id="support">Support</h2>
-<p>For support, email <a href="mailto:&#83;&#x68;&#97;&#100;&#111;&#x77;&#x53;&#116;&#114;&#105;&#107;&#101;&#x43;&#x6f;&#x6e;&#116;&#x61;&#x63;&#x74;&#64;&#x73;&#104;&#x61;&#110;&#x6b;&#x61;&#114;&#x61;&#x72;&#x79;&#97;&#108;&#52;&#x30;&#x34;&#x2e;&#99;&#x6f;&#109;&#46;&#x6e;&#112;">&#83;&#x68;&#97;&#100;&#111;&#x77;&#x53;&#116;&#114;&#105;&#107;&#101;&#x43;&#x6f;&#x6e;&#116;&#x61;&#x63;&#x74;&#64;&#x73;&#104;&#x61;&#110;&#x6b;&#x61;&#114;&#x61;&#x72;&#x79;&#97;&#108;&#52;&#x30;&#x34;&#x2e;&#99;&#x6f;&#109;&#46;&#x6e;&#112;</a> or open an issue on GitHub.</p>
-<hr>
-<div align="center">
-
-<p><strong>Star this repository if you find it helpful!</strong></p>
-<p>Made by <a href="https://github.com/MrShankarAryal">Shankar Aryal</a></p>
-</div>
 
             </div>
 
@@ -822,15 +392,15 @@ SOFTWARE.
             <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
                 <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
                 <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                    <div class="blog-card reveal" data-title="चिहानले पुकार छ? | Does the Grave Call?" data-category="Literature"
-    data-category-slug="literature" data-tags="poem, nepali literature">
+                    <div class="blog-card reveal" data-title="अन्धकारको यात्री | Traveler of Darkness" data-category="Literature"
+    data-category-slug="literature" data-tags="poem, nepali literature, spirituality">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/blogs/literature/grave-call.avif" 
-             alt="चिहानले पुकार छ? | Does the Grave Call?" 
-             srcset="/assets/images/blogs/literature/grave-call-480w.avif 480w, /assets/images/blogs/literature/grave-call-800w.avif 800w, /assets/images/blogs/literature/grave-call-1200w.avif 1200w" 
+            <img src="/assets/images/blogs/literature/andhakarko-yatri.avif" 
+             alt="अन्धकारको यात्री | Traveler of Darkness" 
+             srcset="/assets/images/blogs/literature/andhakarko-yatri-480w.avif 480w, /assets/images/blogs/literature/andhakarko-yatri-800w.avif 800w, /assets/images/blogs/literature/andhakarko-yatri-1200w.avif 1200w" 
              sizes="(max-width: 768px) 100vw, 400px"
-              width="770" height="844"
+              width="626" height="447"
              loading="lazy" 
              decoding="async"
              class="blog-banner">
@@ -838,65 +408,65 @@ SOFTWARE.
         </div>
         <div class="blog-content">
             <div class="blog-meta">
-                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-01-01</span>
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-19</span>
             </div>
             <h3 class="blog-title">
-                <a href="/blog-post/blog5.html">चिहानले पुकार छ? | Does the Grave Call?</a>
+                <a href="/blog-post/blog8.html">अन्धकारको यात्री | Traveler of Darkness</a>
             </h3>
-            <p class="blog-text">A profound Nepali poem exploring themes of mortality, memory, and the silent dialogues that occur between life and death.</p>
-            <a href="/blog-post/blog5.html" class="read-more">Read Article <ion-icon
+            <p class="blog-text">A profound Nepali poem exploring life's journeys through themes of love, self-discovery, and spiritual awakening.</p>
+            <a href="/blog-post/blog8.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
-</div><div class="blog-card reveal" data-title="Future of Web Development: LearnMe Founder's View" data-category="Information and Study"
-    data-category-slug="information-and-study" data-tags="tech, web development, education">
+</div><div class="blog-card reveal" data-title="CryptoGuard: Enterprise-Grade File Encryption Solution" data-category="Technology"
+    data-category-slug="technology" data-tags="security, encryption, python">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/blogs/study/blog-learnme-1.avif" 
-             alt="Future of Web Development: LearnMe Founder's View" 
-             srcset="/assets/images/blogs/study/blog-learnme-1-480w.avif 480w, /assets/images/blogs/study/blog-learnme-1-800w.avif 800w, /assets/images/blogs/study/blog-learnme-1-1200w.avif 1200w" 
+            <img src="/assets/images/blogs/technology/cryptoguard.avif" 
+             alt="CryptoGuard: Enterprise-Grade File Encryption Solution" 
+             srcset="/assets/images/blogs/technology/cryptoguard-480w.avif 480w, /assets/images/blogs/technology/cryptoguard-800w.avif 800w, /assets/images/blogs/technology/cryptoguard-1200w.avif 1200w" 
              sizes="(max-width: 768px) 100vw, 400px"
-              width="560" height="546"
+              width="452" height="257"
              loading="lazy" 
              decoding="async"
              class="blog-banner">
-            <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
+            <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
             <div class="blog-meta">
-                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-07</span>
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-01</span>
             </div>
             <h3 class="blog-title">
-                <a href="/blog-post/blog1.html">Future of Web Development: LearnMe Founder's View</a>
+                <a href="/blog-post/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a>
             </h3>
-            <p class="blog-text">Discover the latest trends in web development, including full-stack development, JavaScript frameworks, serverless architecture, and PWAs. Learn how LearnMe is shaping the future of web development education.</p>
-            <a href="/blog-post/blog1.html" class="read-more">Read Article <ion-icon
+            <p class="blog-text">CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.</p>
+            <a href="/blog-post/blog6.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
-</div><div class="blog-card reveal" data-title="काग् | The Crow" data-category="Literature"
-    data-category-slug="literature" data-tags="poem, nepali literature">
+</div><div class="blog-card reveal" data-title="Quantum Shield: Revolutionary Cybersecurity Solution" data-category="Technology"
+    data-category-slug="technology" data-tags="cyber security, machine learning, network security">
     <div class="blog-card-inner">
         <div class="blog-banner-box">
-            <img src="/assets/images/blogs/literature/crow.avif" 
-             alt="काग् | The Crow" 
-             srcset="/assets/images/blogs/literature/crow-480w.avif 480w, /assets/images/blogs/literature/crow-800w.avif 800w, /assets/images/blogs/literature/crow-1200w.avif 1200w" 
+            <img src="/assets/images/blogs/technology/cyber.avif" 
+             alt="Quantum Shield: Revolutionary Cybersecurity Solution" 
+             srcset="/assets/images/blogs/technology/cyber-480w.avif 480w, /assets/images/blogs/technology/cyber-800w.avif 800w, /assets/images/blogs/technology/cyber-1200w.avif 1200w" 
              sizes="(max-width: 768px) 100vw, 400px"
-              width="1344" height="768"
+              width="481" height="359"
              loading="lazy" 
              decoding="async"
              class="blog-banner">
-            <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
+            <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
         </div>
         <div class="blog-content">
             <div class="blog-meta">
-                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2023-10-23</span>
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2020-01-01</span>
             </div>
             <h3 class="blog-title">
-                <a href="/blog-post/blog4.html">काग् | The Crow</a>
+                <a href="/blog-post/blog3.html">Quantum Shield: Revolutionary Cybersecurity Solution</a>
             </h3>
-            <p class="blog-text">A Villanelle poem exploring the complex realities faced by women in society, delving into themes of societal perception, trauma, and loss.</p>
-            <a href="/blog-post/blog4.html" class="read-more">Read Article <ion-icon
+            <p class="blog-text">Quantum Shield: Revolutionary Cybersecurity Solution leveraging quantum-inspired algorithms and machine learning for unparalleled network protection.</p>
+            <a href="/blog-post/blog3.html" class="read-more">Read Article <ion-icon
                     name="arrow-forward-outline"></ion-icon></a>
         </div>
     </div>
