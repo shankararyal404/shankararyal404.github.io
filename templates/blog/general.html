@@ -1,0 +1,83 @@
+<section class="section blog-single blog-general">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link">← Back to Blogs</a>
+
+        <article class="blog-content general-article glass-panel">
+            <header>
+                <h1 class="h1">{{BLOG_TITLE}}</h1>
+                <div class="meta">
+                    <span>{{BLOG_DATE}}</span> •
+                    <span>{{READ_TIME}} min read</span> •
+                    <a href="/blogs/tags/{{BLOG_CATEGORY_SLUG}}.html" class="category-tag">{{BLOG_CATEGORY}}</a>
+                </div>
+            </header>
+
+            <div class="blog-cover">
+                {{BLOG_IMAGE_TAG}}
+            </div>
+
+            <div class="markdown-body">
+                {{BLOG_BODY}}
+            </div>
+
+            <div class="tags-container">
+                <span>Tags:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+
+            <!-- Subscription Box -->
+            <div class="subscription-box">
+                <h3>Subscribe to my Blog</h3>
+                <p>Get the latest articles and insights delivered straight to your inbox. No spam, just quality content.
+                </p>
+                <form id="subscription-form" class="sub-form">
+                    <input type="email" id="sub-email" class="sub-input" placeholder="Enter your email" required>
+                    <button type="submit" class="sub-btn">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Share Buttons & Engagement -->
+            <div class="share-container share-bottom"
+                style="margin-top: 40px; border-top: 1px solid var(--white-alpha-10); padding-top: 30px;">
+                <span class="share-label">Share this post:</span>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ENCODED_URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn facebook" title="Share on Facebook"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="https://twitter.com/intent/tweet?text={{ENCODED_TITLE}}&url={{ENCODED_URL}}"
+                        target="_blank" rel="noopener noreferrer" class="share-btn twitter" title="Share on X"><ion-icon
+                            name="logo-twitter"></ion-icon></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ENCODED_URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn linkedin" title="Share on LinkedIn"><ion-icon
+                            name="logo-linkedin"></ion-icon></a>
+                    <a href="https://reddit.com/submit?url={{ENCODED_URL}}&title={{ENCODED_TITLE}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn reddit" title="Share on Reddit"><ion-icon
+                            name="logo-reddit"></ion-icon></a>
+                    <a href="https://api.whatsapp.com/send?text={{ENCODED_TITLE}} {{ENCODED_URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn whatsapp" title="Share on WhatsApp"><ion-icon
+                            name="logo-whatsapp"></ion-icon></a>
+                    <a href="mailto:?subject={{ENCODED_TITLE}}&body=Check out this article: {{ENCODED_URL}}"
+                        target="_blank" rel="noopener noreferrer" class="share-btn email"
+                        title="Share via Email"><ion-icon name="mail-outline"></ion-icon></a>
+                </div>
+            </div>
+
+            <div id="comment-widget-container" class="comments-section"
+                style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+            </div>
+            <link rel="stylesheet" href="/assets/css/comment-widget.css">
+            <link rel="stylesheet" href="/assets/css/engagement.css">
+            <script src="/assets/js/comment-widget.js"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    initCommentWidget({
+                        postSlug: '{{BLOG_SLUG}}',
+                        containerId: 'comment-widget-container'
+                    });
+                });
+            </script>
+        </article>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "tech-1",
+        "name": "React",
+        "icon": "logo-react",
+        "link": "https://reactjs.org/"
+    },
+    {
+        "id": "tech-2",
+        "name": "Python",
+        "icon": "logo-python",
+        "link": "https://www.python.org/"
+    },
+    {
+        "id": "tech-3",
+        "name": "Node.js",
+        "icon": "logo-nodejs",
+        "link": "https://nodejs.org/"
+    }
+]

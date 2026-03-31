@@ -1,0 +1,115 @@
+/* Technology Blog Styling */
+
+.blog-technology {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+}
+
+.tech-article {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.tech-header {
+    margin-bottom: 40px;
+}
+
+.tech-category {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--blue-crayola);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.tech-title {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.tech-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--manatee);
+}
+
+.tech-cover {
+    margin-bottom: 40px;
+}
+
+.tech-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tech-content {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--light-gray);
+}
+
+.tech-content code {
+    background: #2d2d2d;
+    color: #e6e6e6;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.tech-content pre {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    border-left: 4px solid var(--blue-crayola);
+}
+
+.tech-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.tech-content h2,
+.tech-content h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.tags-container {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--independence);
+}
+
+.comments-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--white-alpha-10);
+}
+
+@media (max-width: 768px) {
+    .tech-title {
+        font-size: 2rem;
+    }
+
+    .tech-content {
+        font-size: 1rem;
+    }
+}

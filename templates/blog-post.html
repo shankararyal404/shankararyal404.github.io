@@ -1,0 +1,125 @@
+<section class="section blog-single">
+    <div class="container">
+        <!-- Breadcrumb or Back Link -->
+        <a href="/blogs/index.html" class="btn-link" style="margin-bottom: 20px; display: inline-block;">← Back to
+            Blogs</a>
+
+        <article class="blog-content glass-panel {{BLOG_TYPE_CLASS}}" style="padding: 40px; border-radius: 12px;">
+            <!-- Header -->
+            <header style="margin-bottom: 30px; text-align: center;">
+                <h1 class="h1" style="font-size: 2.5rem; margin-bottom: 10px;">{{BLOG_TITLE}}</h1>
+                <div class="meta" style="color: var(--text-secondary); font-size: 1.4rem;">
+                    <span class="meta-item">Published: {{PUBLISHED_DATE}}</span>
+                    {{#UPLOAD_DATE}}<span class="meta-separator">•</span><span class="meta-item">Updated:
+                        {{UPLOAD_DATE}}</span>{{/UPLOAD_DATE}}
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PUBLISHER}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">Written by {{WRITTEN_BY}}</span>
+                    <span class="meta-separator">•</span>
+                    <span class="meta-item">{{PLACE}}</span>
+                    <span class="meta-separator">•</span>
+                    <a href="/blogs/tags/{{BLOG_CATEGORY_SLUG}}.html" class="category-tag">{{BLOG_CATEGORY}}</a>
+                </div>
+            </header>
+
+            <!-- Cover Image -->
+            <div class="blog-cover" style="margin-bottom: 40px;">
+                {{BLOG_IMAGE_TAG}}
+            </div>
+
+            <!-- Content -->
+            <div class="markdown-body" style="line-height: 1.8; color: var(--text-secondary);">
+                {{BLOG_BODY}}
+            </div>
+
+            <!-- Tags -->
+            <div class="tags-container"
+                style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--independence);">
+                <span style="font-weight: bold; margin-right: 10px;">Tags:</span>
+                {{BLOG_TAGS}}
+            </div>
+
+
+            <!-- Subscription Box -->
+            <div class="subscription-box">
+                <h3>Subscribe to my Blog</h3>
+                <p>Get the latest articles and insights delivered straight to your inbox. No spam, just quality content.
+                </p>
+                <form id="subscription-form" class="sub-form">
+                    <input type="email" id="sub-email" class="sub-input" placeholder="Enter your email" required>
+                    <button type="submit" class="sub-btn">Subscribe</button>
+                </form>
+                <div id="sub-message" class="sub-message"></div>
+            </div>
+
+            <!-- Share Buttons (Bottom) -->
+            <div class="share-container share-bottom">
+                <span class="share-label">Share this post:</span>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn facebook"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="https://twitter.com/intent/tweet?text={{BLOG_TITLE}}&url={{SITE_URL}}{{URL}}"
+                        target="_blank" rel="noopener noreferrer" class="share-btn twitter"><ion-icon
+                            name="logo-twitter"></ion-icon></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn linkedin"><ion-icon
+                            name="logo-linkedin"></ion-icon></a>
+                    <a href="https://reddit.com/submit?url={{SITE_URL}}{{URL}}&title={{BLOG_TITLE}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn reddit"><ion-icon name="logo-reddit"></ion-icon></a>
+                    <a href="https://api.whatsapp.com/send?text={{BLOG_TITLE}} {{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn whatsapp"><ion-icon
+                            name="logo-whatsapp"></ion-icon></a>
+                </div>
+            </div>
+
+            <!-- Comment Widget -->
+            <div id="comment-widget-container" class="comments-section"
+                style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+            </div>
+
+
+            <!-- Share Buttons (Top) -->
+            <div class="share-container" style="justify-content: center; margin-bottom: 30px;">
+                <span class="share-label">Share:</span>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn facebook" title="Share on Facebook"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="https://twitter.com/intent/tweet?text={{BLOG_TITLE}}&url={{SITE_URL}}{{URL}}"
+                        target="_blank" rel="noopener noreferrer" class="share-btn twitter" title="Share on X"><ion-icon
+                            name="logo-twitter"></ion-icon></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn linkedin" title="Share on LinkedIn"><ion-icon
+                            name="logo-linkedin"></ion-icon></a>
+                    <a href="https://reddit.com/submit?url={{SITE_URL}}{{URL}}&title={{BLOG_TITLE}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn reddit" title="Share on Reddit"><ion-icon
+                            name="logo-reddit"></ion-icon></a>
+                    <a href="https://api.whatsapp.com/send?text={{BLOG_TITLE}} {{SITE_URL}}{{URL}}" target="_blank"
+                        rel="noopener noreferrer" class="share-btn whatsapp" title="Share on WhatsApp"><ion-icon
+                            name="logo-whatsapp"></ion-icon></a>
+                    <a href="mailto:?subject={{BLOG_TITLE}}&body=Check out this article: {{SITE_URL}}{{URL}}"
+                        target="_blank" rel="noopener noreferrer" class="share-btn email"
+                        title="Share via Email"><ion-icon name="mail-outline"></ion-icon></a>
+                </div>
+            </div>
+
+            <!-- Comment Widget Styles & Scripts -->
+            <link rel="stylesheet" href="/assets/css/comment-widget.css">
+            <link rel="stylesheet" href="/assets/css/engagement.css">
+            <script src="/assets/js/comment-widget.js"></script>
+            <script src="/assets/js/subscription.js"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    initCommentWidget({
+                        postSlug: '{{BLOG_SLUG}}',
+                        containerId: 'comment-widget-container'
+                    });
+                });
+            </script>
+
+        </article>
+    </div>
+</section>

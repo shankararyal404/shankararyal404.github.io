@@ -1,0 +1,228 @@
+/* Literature Blog Styling */
+
+.blog-literature {
+    background: transparent;
+}
+
+.literature-article {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* 1. Top Page Header (Centered) */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-heading);
+    letter-spacing: -0.5px;
+}
+
+.page-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.meta-separator {
+    color: var(--border-color);
+    opacity: 0.5;
+}
+
+/* 2. Hero Image */
+.literature-hero-image {
+    width: 100%;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+}
+
+.literature-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+/* 3. Main Poem/Body Content */
+.literature-main-body {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+/* 4. Literature Info Container (Bilingual) */
+.literature-info-container {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(10px);
+}
+
+/* Updated header block: More subtle glass feel */
+.info-header-block {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(30, 64, 175, 0.05) 100%);
+    padding: 50px 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.container-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-heading);
+}
+
+.container-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Language Toggle Buttons */
+.info-header-block .language-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.lang-btn {
+    padding: 10px 32px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.lang-btn.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.lang-btn:hover:not(.active) {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+/* Info Body Content */
+.info-body-block {
+    padding: 40px;
+}
+
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Refined Red Accent Bar Header */
+.info-section .section-heading {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    padding-left: 18px;
+    border-left: 4px solid #ef4444;
+    /* Keep the red accent, but more refined */
+}
+
+.section-text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.section-text p {
+    margin-bottom: 15px;
+}
+
+/* Additional elements */
+.literature-tags {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-subtle);
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.literature-tags .bold {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-right: 10px;
+}
+
+.comments-section {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.2rem;
+    }
+
+    .literature-hero-image {
+        margin-bottom: 40px;
+    }
+
+    .literature-main-body {
+        font-size: 1.5rem;
+    }
+
+    .info-header-block {
+        padding: 40px 20px;
+    }
+
+    .container-title {
+        font-size: 2rem;
+    }
+
+    .info-body-block {
+        padding: 30px 20px;
+    }
+
+    .info-section .section-heading {
+        font-size: 1.3rem;
+    }
+
+    .lang-btn {
+        padding: 10px 30px;
+        font-size: 1rem;
+    }
+}

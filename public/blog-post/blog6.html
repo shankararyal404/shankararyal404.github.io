@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO METADATA -->
+    <title>CryptoGuard: Enterprise-Grade File Encryption Solution | Shankar Aryal</title>
+    <meta name="description" content="CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.">
+    <meta name="keywords" content="Technology, Security, Encryption, Python">
+    <meta name="author" content="Shankar Aryal">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.shankararyal404.com.np/blog-post/blog6.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://www.shankararyal404.com.np/blog-post/blog6.html">
+    <meta property="og:site_name" content="Shankar Aryal">
+    <meta property="og:title" content="CryptoGuard: Enterprise-Grade File Encryption Solution | Shankar Aryal">
+    <meta property="og:description" content="CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.">
+    <meta property="og:image" content="https://www.shankararyal404.com.np/assets/images/blogs/technology/cryptoguard.jpg">
+    <meta property="og:image:secure_url" content="https://www.shankararyal404.com.np/assets/images/blogs/technology/cryptoguard.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="CryptoGuard: Enterprise-Grade File Encryption Solution">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="fb:app_id" content="1190738489837282">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ShankarAryal404">
+    <meta name="twitter:creator" content="@ShankarAryal404">
+    <meta name="twitter:url" content="https://www.shankararyal404.com.np/blog-post/blog6.html">
+    <meta name="twitter:title" content="CryptoGuard: Enterprise-Grade File Encryption Solution | Shankar Aryal">
+    <meta name="twitter:description" content="CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.">
+    <meta name="twitter:image" content="https://www.shankararyal404.com.np/assets/images/blogs/technology/cryptoguard.jpg">
+    <meta name="twitter:image:alt" content="CryptoGuard: Enterprise-Grade File Encryption Solution">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- PWA & Mobile -->
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0a0a0c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Shankar">
+
+    <!-- Windows Tiles -->
+    <meta name="msapplication-TileColor" content="#0a0a0c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.shankararyal404.com.np"},{"@type":"ListItem","position":2,"name":"Blogs","item":"https://www.shankararyal404.com.np/blogs/index.html"},{"@type":"ListItem","position":3,"name":"Technology","item":"https://www.shankararyal404.com.np/blogs/tags/technology.html"},{"@type":"ListItem","position":4,"name":"CryptoGuard: Enterprise-Grade File Encryption Solution","item":"https://www.shankararyal404.com.np/blog-post/blog6.html"}]},{"@context":"https://schema.org","@type":"BlogPosting","headline":"CryptoGuard: Enterprise-Grade File Encryption Solution","description":"CryptoGuard: Enterprise-Grade File Encryption Solution providing AES encryption for superior data security.","image":{"@type":"ImageObject","url":"/assets/images/blogs/technology/cryptoguard.avif"},"datePublished":"2024-11-01","author":{"@type":"Person","name":"Shankar Aryal"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.shankararyal404.com.np/blog-post/blog6.html"}}]</script>
+
+    <!-- Theme Script (Prevent flash, but placed after critical meta tags for crawlers) -->
+    <script>
+        (function () {
+            const STORAGE_KEY = 'theme-preference';
+            const SOURCE_KEY = 'theme-source';
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const source = localStorage.getItem(SOURCE_KEY);
+
+            let theme = 'dark'; // Default
+
+            // Priority 1: Manual user selection
+            if (saved && source === 'manual') {
+                theme = saved;
+            }
+            // Priority 2: System preference
+            else if (window.matchMedia) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                theme = prefersDark ? 'dark' : 'light';
+
+                // Save system preference
+                if (!saved || source !== 'manual') {
+                    localStorage.setItem(STORAGE_KEY, theme);
+                    localStorage.setItem(SOURCE_KEY, 'system');
+                }
+            }
+
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <!-- Google tag (gtag.js) - Deferred -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Defer GTM further to prevent forced reflow and prioritize LCP
+            setTimeout(() => {
+                const script = document.createElement('script');
+                script.src = "https://www.googletagmanager.com/gtag/js?id=G-JRDNSWRVE2";
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-JRDNSWRVE2');
+            }, 5000); // 5 seconds delay
+        });
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Open+Sans:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/css/main.css?v=10">
+    <link rel="stylesheet" href="/assets/css/navbar.css?v=10">
+    <link rel="stylesheet" href="/assets/css/footer.css?v=10">
+    <link rel="stylesheet" href="/assets/css/home.css?v=10">
+    <link rel="stylesheet" href="/assets/css/blog.css?v=10">
+    <link rel="stylesheet" href="/assets/css/toast.css">
+    <link rel="stylesheet" href="/assets/css/blog/technology.css?v=1774968726118">
+</head>
+
+<body id="top">
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-overlay" data-nav-overlay></div>
+
+    <!-- Pre-rendered Navbar -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="text-gradient">Shankar</span>Aryal
+            </a>
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link">Home</a></li>
+                    <li><a href="/#about" class="navbar-link">About</a></li>
+                    <li><a href="/#education" class="navbar-link">Education</a></li>
+                    <li><a href="/#skills" class="navbar-link">Skills</a></li>
+                    <li><a href="/#portfolio" class="navbar-link">Portfolio</a></li>
+                    <li><a href="/#certificates" class="navbar-link">CC & LC</a></li>
+                    <li><a href="/blogs/index.html" class="navbar-link">Blog</a></li>
+                    <li><a href="/#contact" class="navbar-link">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                            <ion-icon name="sunny-outline" class="theme-icon light"></ion-icon>
+                            <ion-icon name="moon-outline" class="theme-icon dark"></ion-icon>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" class="open"></ion-icon>
+                <ion-icon name="close-outline" class="close"></ion-icon>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="section blog-single blog-technology">
+    <div class="container">
+        <a href="/blogs/index.html" class="btn-link">← Back to Blogs</a>
+
+        <article class="blog-content tech-article">
+            <header class="tech-header">
+                <div class="tech-category">Technology</div>
+                <h1 class="tech-title">CryptoGuard: Enterprise-Grade File Encryption Solution</h1>
+                <div class="tech-meta">
+                    <span>2024-11-01</span>
+                    <span>•</span>
+                    <span>2 min read</span>
+                </div>
+            </header>
+
+            <div class="tech-cover">
+                <img src="/assets/images/blogs/technology/cryptoguard.avif" 
+             alt="CryptoGuard: Enterprise-Grade File Encryption Solution" 
+             srcset="/assets/images/blogs/technology/cryptoguard-480w.avif 480w, /assets/images/blogs/technology/cryptoguard-800w.avif 800w, /assets/images/blogs/technology/cryptoguard-1200w.avif 1200w" 
+             sizes="(max-width: 1200px) 100vw, 1200px"
+              width="452" height="257"
+             loading="eager" 
+             fetchpriority="high"
+             class="blog-banner">
+            </div>
+
+            <div class="tech-content markdown-body">
+                <p>In an era where data breaches and cyber threats are increasingly sophisticated, organizations need robust, user-friendly encryption solutions. CryptoGuard emerges as a comprehensive answer to this challenge, offering military-grade encryption with an intuitive interface that makes advanced security accessible to all users.</p>
+<h2 id="enterprise-security-features">Enterprise Security Features</h2>
+<h3 id="advanced-encryption">Advanced Encryption</h3>
+<ul>
+<li>AES-GCM encryption protocol</li>
+<li>Secure key derivation implementation</li>
+<li>Authentication-encrypted data</li>
+<li>Memory-safe operations</li>
+</ul>
+<h3 id="performance-optimization">Performance Optimization</h3>
+<ul>
+<li>Chunk-based processing engine</li>
+<li>Multithreaded operations</li>
+<li>Efficient memory management</li>
+<li>Progress monitoring system</li>
+</ul>
+<h2 id="implementation-guide">Implementation Guide</h2>
+<h3 id="1-environment-setup">1. Environment Setup</h3>
+<pre><code class="language-bash">python -m venv CryptoGuard_env
+</code></pre>
+<h3 id="2-dependencies-installation">2. Dependencies Installation</h3>
+<pre><code class="language-bash">pip install pycryptodomex
+pip install cx_freeze
+pip install PyQt5
+</code></pre>
+<h3 id="3-application-launch">3. Application Launch</h3>
+<pre><code class="language-bash">python CryptoGuardApp.py
+</code></pre>
+<h2 id="technical-architecture">Technical Architecture</h2>
+<p>CryptoGuard&#39;s architecture is built on a modular design philosophy, separating concerns between security operations and user interface management. This approach ensures maintainability while facilitating future enhancements.</p>
+<h3 id="core-components">Core Components</h3>
+<ul>
+<li>Encryption Engine Module</li>
+<li>Key Management System</li>
+<li>File Processing Service</li>
+<li>Error Handling Framework</li>
+</ul>
+<h3 id="interface-layer">Interface Layer</h3>
+<ul>
+<li>PyQt5-based GUI System</li>
+<li>Progress Tracking Interface</li>
+<li>File Selection Module</li>
+<li>User Notification System</li>
+</ul>
+<h2 id="development-roadmap">Development Roadmap</h2>
+<p>Our commitment to continuous improvement drives an ambitious development roadmap focused on enhancing security, performance, and user experience:</p>
+<ul>
+<li>Integration with enterprise key management systems</li>
+<li>Support for cloud storage providers</li>
+<li>Advanced audit logging capabilities</li>
+<li>Cross-platform mobile applications</li>
+<li>Hardware security module (HSM) support</li>
+</ul>
+<blockquote>
+<p><strong>Security Best Practices</strong></p>
+<p>CryptoGuard implements industry-standard security practices and is regularly audited for vulnerabilities. We recommend keeping your installation updated with the latest security patches and following our comprehensive security guidelines for optimal protection.</p>
+</blockquote>
+<h2 id="getting-started">Getting Started</h2>
+<p>Ready to enhance your organization&#39;s data security? Contact our team for implementation support:</p>
+<ul>
+<li><strong>Email</strong>: <a href="mailto:&#115;&#x68;&#97;&#x6e;&#107;&#x61;&#x72;&#97;&#114;&#121;&#97;&#x6c;&#55;&#51;&#x37;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#115;&#x68;&#97;&#x6e;&#107;&#x61;&#x72;&#97;&#114;&#121;&#97;&#x6c;&#55;&#51;&#x37;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></li>
+<li><strong>GitHub</strong>: <a href="https://github.com/mrshankararyal">@MrShankarAryal</a></li>
+<li><strong>Documentation</strong>: <a href="https://mrshankararyal.github.io">mrshankararyal.github.io</a></li>
+</ul>
+
+            </div>
+
+            <div class="tags-container">
+                <span>Tags:</span>
+                <a href="/blogs/tags/security.html" class="tag">Security</a>, <a href="/blogs/tags/encryption.html" class="tag">Encryption</a>, <a href="/blogs/tags/python.html" class="tag">Python</a>
+            </div>
+
+
+            <!-- Subscription Box -->
+            <div class="subscription-box">
+                <h3>Subscribe to my Blog</h3>
+                <p>Get the latest articles and insights delivered straight to your inbox. No spam, just quality content.
+                </p>
+                <form id="subscription-form" class="sub-form">
+                    <input type="email" id="sub-email" class="sub-input" placeholder="Enter your email" required>
+                    <button type="submit" class="sub-btn">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Share Buttons & Engagement -->
+            <div class="share-container share-bottom"
+                style="margin-top: 40px; border-top: 1px solid var(--white-alpha-10); padding-top: 30px;">
+                <span class="share-label">Share this post:</span>
+                <div class="share-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html" target="_blank"
+                        rel="noopener noreferrer" class="share-btn facebook" title="Share on Facebook"><ion-icon
+                            name="logo-facebook"></ion-icon></a>
+                    <a href="https://twitter.com/intent/tweet?text=CryptoGuard%3A%20Enterprise-Grade%20File%20Encryption%20Solution&url=https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html"
+                        target="_blank" rel="noopener noreferrer" class="share-btn twitter" title="Share on X"><ion-icon
+                            name="logo-twitter"></ion-icon></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html" target="_blank"
+                        rel="noopener noreferrer" class="share-btn linkedin" title="Share on LinkedIn"><ion-icon
+                            name="logo-linkedin"></ion-icon></a>
+                    <a href="https://reddit.com/submit?url=https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html&title=CryptoGuard%3A%20Enterprise-Grade%20File%20Encryption%20Solution" target="_blank"
+                        rel="noopener noreferrer" class="share-btn reddit" title="Share on Reddit"><ion-icon
+                            name="logo-reddit"></ion-icon></a>
+                    <a href="https://api.whatsapp.com/send?text=CryptoGuard%3A%20Enterprise-Grade%20File%20Encryption%20Solution https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html" target="_blank"
+                        rel="noopener noreferrer" class="share-btn whatsapp" title="Share on WhatsApp"><ion-icon
+                            name="logo-whatsapp"></ion-icon></a>
+                    <a href="mailto:?subject=CryptoGuard%3A%20Enterprise-Grade%20File%20Encryption%20Solution&body=Check out this article: https%3A%2F%2Fwww.shankararyal404.com.np%2Fblog-post%2Fblog6.html"
+                        target="_blank" rel="noopener noreferrer" class="share-btn email"
+                        title="Share via Email"><ion-icon name="mail-outline"></ion-icon></a>
+                </div>
+            </div>
+
+            <div id="comment-widget-container" class="comments-section"
+                style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+            </div>
+            <link rel="stylesheet" href="/assets/css/comment-widget.css">
+            <link rel="stylesheet" href="/assets/css/engagement.css">
+            <script src="/assets/js/comment-widget.js"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    initCommentWidget({
+                        postSlug: 'blog6',
+                        containerId: 'comment-widget-container'
+                    });
+                });
+            </script>
+        
+            <div class="blog-suggestions" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--white-alpha-10);">
+                <h3 class="" style="margin-bottom: 25px; font-size: 1.5rem;">Recommended for you</h3>
+                <div class="suggestion-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div class="blog-card reveal" data-title="ShadowStrike: Advanced Network Security Testing" data-category="Technology"
+    data-category-slug="technology" data-tags="security, network security, ethical hacking">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/blogs/technology/port8(1).avif" 
+             alt="ShadowStrike: Advanced Network Security Testing" 
+             srcset="/assets/images/blogs/technology/port8(1)-480w.avif 480w, /assets/images/blogs/technology/port8(1)-800w.avif 800w, /assets/images/blogs/technology/port8(1)-1200w.avif 1200w" 
+             sizes="(max-width: 768px) 100vw, 400px"
+              width="1600" height="900"
+             loading="lazy" 
+             decoding="async"
+             class="blog-banner">
+            <a href="/blogs/tags/technology.html" class="card-badge">Technology</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-02</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blog-post/blog7.html">ShadowStrike: Advanced Network Security Testing</a>
+            </h3>
+            <p class="blog-text">ShadowStrike: Advanced Network Security Testing toolkit empowering ethical hackers with cutting-edge network security tools for authorized testing environments.</p>
+            <a href="/blog-post/blog7.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="अन्धकारको यात्री | Traveler of Darkness" data-category="Literature"
+    data-category-slug="literature" data-tags="poem, nepali literature, spirituality">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/blogs/literature/andhakarko-yatri.avif" 
+             alt="अन्धकारको यात्री | Traveler of Darkness" 
+             srcset="/assets/images/blogs/literature/andhakarko-yatri-480w.avif 480w, /assets/images/blogs/literature/andhakarko-yatri-800w.avif 800w, /assets/images/blogs/literature/andhakarko-yatri-1200w.avif 1200w" 
+             sizes="(max-width: 768px) 100vw, 400px"
+              width="626" height="447"
+             loading="lazy" 
+             decoding="async"
+             class="blog-banner">
+            <a href="/blogs/tags/literature.html" class="card-badge">Literature</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-11-19</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blog-post/blog8.html">अन्धकारको यात्री | Traveler of Darkness</a>
+            </h3>
+            <p class="blog-text">A profound Nepali poem exploring life's journeys through themes of love, self-discovery, and spiritual awakening.</p>
+            <a href="/blog-post/blog8.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div><div class="blog-card reveal" data-title="Future of Web Development: LearnMe Founder's View" data-category="Information and Study"
+    data-category-slug="information-and-study" data-tags="tech, web development, education">
+    <div class="blog-card-inner">
+        <div class="blog-banner-box">
+            <img src="/assets/images/blogs/study/blog-learnme-1.avif" 
+             alt="Future of Web Development: LearnMe Founder's View" 
+             srcset="/assets/images/blogs/study/blog-learnme-1-480w.avif 480w, /assets/images/blogs/study/blog-learnme-1-800w.avif 800w, /assets/images/blogs/study/blog-learnme-1-1200w.avif 1200w" 
+             sizes="(max-width: 768px) 100vw, 400px"
+              width="560" height="546"
+             loading="lazy" 
+             decoding="async"
+             class="blog-banner">
+            <a href="/blogs/tags/information-and-study.html" class="card-badge">Information and Study</a>
+        </div>
+        <div class="blog-content">
+            <div class="blog-meta">
+                <span class="publish-date"><ion-icon name="calendar-outline"></ion-icon> 2024-10-07</span>
+            </div>
+            <h3 class="blog-title">
+                <a href="/blog-post/blog1.html">Future of Web Development: LearnMe Founder's View</a>
+            </h3>
+            <p class="blog-text">Discover the latest trends in web development, including full-stack development, JavaScript frameworks, serverless architecture, and PWAs. Learn how LearnMe is shaping the future of web development education.</p>
+            <a href="/blog-post/blog1.html" class="read-more">Read Article <ion-icon
+                    name="arrow-forward-outline"></ion-icon></a>
+        </div>
+    </div>
+</div>
+                </div>
+            </div></article>
+    </div>
+</section>
+    </main>
+
+    <!-- Pre-rendered Footer -->
+    <footer class="footer">
+        <div class="container icon-container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand & Social -->
+                <div class="footer-col">
+                    <a href="/" class="logo" style="display:inline-block; margin-bottom: 20px;">
+                        <span class="text-gradient">Shankar</span>Aryal
+                    </a>
+                    <p style="margin-bottom: 20px; color: var(--manatee);">
+                        Building digital experiences with passion and precision. Connected with the world through code.
+                    </p>
+                    <ul class="social-list">
+                        
+            <li><a href="https://github.com/mrshankararyal" target="_blank" class="social-link" title="GitHub"><ion-icon name="logo-github"></ion-icon></a></li>
+        
+            <li><a href="https://www.linkedin.com/in/shankararyal/" target="_blank" class="social-link" title="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+        
+            <li><a href="https://www.facebook.com/ShankarAryal01" target="_blank" class="social-link" title="Facebook"><ion-icon name="logo-facebook"></ion-icon></a></li>
+        
+            <li><a href="https://www.instagram.com/mrshankararyal/" target="_blank" class="social-link" title="Instagram"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        
+            <li><a href="https://x.com/ShankarAryal404" target="_blank" class="social-link" title="Twitter"><ion-icon name="logo-twitter"></ion-icon></a></li>
+        
+                    </ul>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#portfolio">Portfolio</a></li>
+                        <li><a href="/#certificates">Certificates</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Legal -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <!-- Add Terms if/when available -->
+                    </ul>
+                </div>
+
+                <!-- Col 4: Latest Blogs -->
+                <div class="footer-col">
+                    <h3 class="h4 footer-title">Latest Blogs</h3>
+                    <ul class="footer-links">
+                        
+    <li><a href="/blog-post/blog8.html">अन्धकारको यात्री | Traveler of Darkness</a></li>
+
+    <li><a href="/blog-post/blog7.html">ShadowStrike: Advanced Network Security Testing</a></li>
+
+    <li><a href="/blog-post/blog6.html">CryptoGuard: Enterprise-Grade File Encryption Solution</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2026 Shankar Aryal. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script type="module" src="/assets/js/theme.js"></script>
+    <script src="/assets/js/toast.js"></script>
+    <script src="/assets/js/subscription.js"></script>
+    <script type="module" src="/assets/js/main.js?v=10"></script>
+    <script src="/assets/js/comment-widget.js?v=csrf-fix"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.querySelector('.nav-toggle-btn');
+            const nav = document.querySelector('.navbar-list');
+            const overlay = document.querySelector('.nav-overlay');
+            const body = document.body;
+            const navLinks = document.querySelectorAll('.navbar-link');
+
+            if (!btn || !nav || !overlay) {
+                console.error('Navigation elements not found');
+                return;
+            }
+
+            // Function to close the menu
+            function closeMenu() {
+                nav.classList.remove('active');
+                btn.classList.remove('active');
+                overlay.classList.remove('active');
+                body.classList.remove('nav-active');
+            }
+
+            // Function to open the menu
+            function openMenu() {
+                nav.classList.add('active');
+                btn.classList.add('active');
+                overlay.classList.add('active');
+                body.classList.add('nav-active');
+            }
+
+            // Function to toggle the menu
+            function toggleMenu(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (nav.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            // Toggle menu on button click
+            btn.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking overlay
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking on any navigation link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    // Allow the link to navigate, but close the menu
+                    closeMenu();
+                });
+            });
+        });
+    </script>
+
+    <!-- Content Protection Script -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('copy', event => {
+            event.preventDefault();
+            if (typeof showToast === 'function') {
+                showToast('Content copying is restricted for security reasons.', 'warning');
+            } else {
+                alert('Content copying is restricted.');
+            }
+        });
+    </script>
+</body>
+
+</html>

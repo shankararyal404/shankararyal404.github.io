@@ -1,0 +1,233 @@
+[
+  {
+    "path": "assets/images/projects/learnmeedu.avif",
+    "section": "projects",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 27982,
+    "created": "2026-01-01T18:01:26.636Z",
+    "updated": "2026-01-01T18:01:26.636Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/certificates/attack-methodologies-in-it-ics.avif",
+    "section": "certificates",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 16025,
+    "created": "2026-01-01T18:01:26.636Z",
+    "updated": "2026-01-01T18:01:26.636Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/certificates/college-algebra-with-python.avif",
+    "section": "certificates",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 29210,
+    "created": "2026-01-01T18:01:26.636Z",
+    "updated": "2026-01-01T18:01:26.636Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/certificates/industrial-control-system.avif",
+    "section": "certificates",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 119658,
+    "created": "2026-01-01T18:01:26.636Z",
+    "updated": "2026-01-01T18:01:26.636Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/certificates/matlab-and-latex.avif",
+    "section": "certificates",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 30635,
+    "created": "2026-01-01T18:01:26.636Z",
+    "updated": "2026-01-01T18:01:26.636Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/certificates/legacy-responsive-web-design-v8.avif",
+    "section": "certificates",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 30433,
+    "created": "2026-01-01T21:13:49.991Z",
+    "updated": "2026-01-01T21:13:49.991Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/projects/shadowstrike.avif",
+    "section": "projects",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 26493,
+    "created": "2026-01-01T21:20:24.622Z",
+    "updated": "2026-01-01T21:20:24.622Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/literature/andhakarko-yatri.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 18950,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/literature/crow.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 236209,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/literature/grave-call.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 47506,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/literature/poem-11.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 23068,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/study/blog-learnme-1.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 16283,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/technology/blog-learnme-1.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 16283,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/technology/cryptoguard.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 5711,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/technology/cyber.avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 7446,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/blogs/technology/port8(1).avif",
+    "section": "blogs",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 20260,
+    "created": "2026-01-16T15:51:39.935Z",
+    "updated": "2026-01-16T15:51:39.935Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/shankararyal/Shankararyal1.avif",
+    "section": "shankararyal",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 20712,
+    "created": "2026-01-17T05:28:06.542Z",
+    "updated": "2026-01-17T05:28:06.542Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/shankararyal/Shankararyal2.avif",
+    "section": "shankararyal",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 8196,
+    "created": "2026-01-17T05:28:06.542Z",
+    "updated": "2026-01-17T05:28:06.542Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/shankararyal/admin.avif",
+    "section": "shankararyal",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 396485,
+    "created": "2026-01-17T05:28:06.542Z",
+    "updated": "2026-01-17T05:28:06.542Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/shankararyal/shankararyal.avif",
+    "section": "shankararyal",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 43940,
+    "created": "2026-01-17T05:28:06.542Z",
+    "updated": "2026-01-17T05:28:06.542Z",
+    "unused": false
+  },
+  {
+    "path": "assets/images/shankararyal/shankararyal.jpg",
+    "section": "shankararyal",
+    "alt": "",
+    "width": 0,
+    "height": 0,
+    "size": 157715,
+    "created": "2026-01-23T17:16:09.047Z",
+    "updated": "2026-01-23T17:16:09.047Z",
+    "unused": false
+  }
+]

@@ -1,0 +1,181 @@
+/* Philosophy Blog Category Styles */
+
+.blog-philosophy {
+    --philosophy-primary: hsl(30, 60%, 45%);
+    --philosophy-secondary: hsl(30, 40%, 35%);
+    --philosophy-accent: hsl(45, 80%, 50%);
+    --philosophy-bg: hsl(30, 20%, 98%);
+}
+
+[data-theme="dark"] .blog-philosophy {
+    --philosophy-primary: hsl(30, 50%, 55%);
+    --philosophy-secondary: hsl(30, 30%, 45%);
+    --philosophy-accent: hsl(45, 70%, 60%);
+    --philosophy-bg: hsl(30, 15%, 12%);
+}
+
+.philosophy-article {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.philosophy-article header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--philosophy-primary);
+}
+
+.philosophy-article h1 {
+    color: var(--philosophy-primary);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    font-family: 'Georgia', serif;
+}
+
+.philosophy-article .meta {
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.philosophy-article .category-tag {
+    background: var(--philosophy-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.philosophy-article .category-tag:hover {
+    background: var(--philosophy-secondary);
+}
+
+.philosophy-article .blog-cover {
+    margin-bottom: 40px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.philosophy-article .blog-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.philosophy-article .markdown-body {
+    font-size: 1.8rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+    font-family: 'Georgia', serif;
+}
+
+.philosophy-article .markdown-body h2 {
+    color: var(--philosophy-primary);
+    font-size: 2.4rem;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-left: 4px solid var(--philosophy-primary);
+    padding-left: 20px;
+}
+
+.philosophy-article .markdown-body h3 {
+    color: var(--philosophy-secondary);
+    font-size: 2rem;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.philosophy-article .markdown-body p {
+    margin-bottom: 25px;
+    text-align: justify;
+}
+
+.philosophy-article .markdown-body blockquote {
+    border-left: 4px solid var(--philosophy-accent);
+    padding-left: 25px;
+    margin: 35px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    padding: 25px;
+    border-radius: var(--radius-md);
+    font-size: 1.9rem;
+}
+
+.philosophy-article .markdown-body ul,
+.philosophy-article .markdown-body ol {
+    margin-bottom: 25px;
+    padding-left: 35px;
+}
+
+.philosophy-article .markdown-body li {
+    margin-bottom: 12px;
+}
+
+.philosophy-article .markdown-body a {
+    color: var(--philosophy-primary);
+    text-decoration: underline;
+    transition: var(--transition-smooth);
+}
+
+.philosophy-article .markdown-body a:hover {
+    color: var(--philosophy-secondary);
+}
+
+.philosophy-article .tags-container {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-medium);
+}
+
+.philosophy-article .tags-container .tag {
+    display: inline-block;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 1.3rem;
+    transition: var(--transition-smooth);
+    border: 1px solid var(--border-subtle);
+}
+
+.philosophy-article .tags-container .tag:hover {
+    background: var(--philosophy-primary);
+    color: white;
+    border-color: var(--philosophy-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .philosophy-article {
+        padding: 20px;
+    }
+
+    .philosophy-article h1 {
+        font-size: 2.5rem;
+    }
+
+    .philosophy-article .markdown-body {
+        font-size: 1.6rem;
+        text-align: left;
+    }
+
+    .philosophy-article .markdown-body h2 {
+        font-size: 2rem;
+    }
+
+    .philosophy-article .markdown-body blockquote {
+        font-size: 1.7rem;
+    }
+}

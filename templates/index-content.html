@@ -1,0 +1,116 @@
+<!-- This will be injected into base.html as {{CONTENT}} -->
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <div class="hero-img reveal">
+            {{HERO_IMAGE}}
+        </div>
+        <div class="hero-text reveal">
+            {{HERO_CONTENT}}
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section about" id="about">
+    <div class="container">
+        <h2 class="h2 section-title">About Me</h2>
+        <div class="row about-content reveal">
+            {{ABOUT_CONTENT}}
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="section education" id="education">
+    <div class="container">
+        <h2 class="h2 section-title">Education</h2>
+        <div style="margin-top: 30px;">
+            {{EDUCATION_LIST}}
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section skills" id="skills">
+    <div class="container">
+        <h2 class="h2 section-title">My Skills</h2>
+        <div class="reveal"
+            style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; justify-content: center;">
+            {{SKILLS_LIST}}
+        </div>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="section technologies" id="technologies">
+    <div class="container">
+        <h2 class="h2 section-title">Technologies Stack</h2>
+        <div class="reveal"
+            style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            {{TECHNOLOGIES_LIST}}
+        </div>
+    </div>
+</section>
+
+<!-- Certificates Section -->
+<section class="section certificates" id="certificates">
+    <div class="container">
+        <h2 class="h2 section-title">Certificates & Licenses</h2>
+        <div class="card-grid" style="margin-top: 30px;">
+            {{CERTIFICATES_LIST}}
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="section portfolio" id="portfolio">
+    <div class="container">
+        <h2 class="h2 section-title">Featured Projects</h2>
+        <div class="card-grid" style="margin-top: 30px;">
+            {{PROJECTS_LIST}}
+        </div>
+    </div>
+</section>
+
+<!-- Blog Preview Section -->
+<section class="section blog" id="blog">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 class="h2 section-title" style="margin-bottom: 0;">Latest Blogs</h2>
+            <a href="blogs/index.html" class="btn-link" style="color: var(--primary); font-size: 1.6rem;">View All →</a>
+        </div>
+        <div class="card-grid">
+            {{LATEST_BLOGS}}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section contact" id="contact">
+    <div class="container">
+        <h2 class="h2 section-title">Get In Touch</h2>
+        <div class="glass-panel reveal"
+            style="max-width: 600px; margin: 30px auto; padding: 40px; border-radius: var(--radius-lg);">
+            <form id="contact-form" style="display: grid; gap: 20px;">
+                <!-- JS handles submission to /api/contact/send -->
+                <div>
+                    <label for="name" style="display: block; margin-bottom: 8px;">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" style="width: 100%; padding: 12px;"
+                        required>
+                </div>
+                <div>
+                    <label for="email" style="display: block; margin-bottom: 8px;">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email"
+                        style="width: 100%; padding: 12px;" required>
+                </div>
+                <div>
+                    <label for="message" style="display: block; margin-bottom: 8px;">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Your Message"
+                        style="width: 100%; padding: 12px;" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>

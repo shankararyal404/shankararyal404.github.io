@@ -1,0 +1,104 @@
+[
+    {
+        "id": "skill-1",
+        "name": "Matlab/Simulink",
+        "category": "Engineering & Simulation",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-2",
+        "name": "Proteus",
+        "category": "Engineering & Simulation",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-3",
+        "name": "Pvsyst",
+        "category": "Engineering & Simulation",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-4",
+        "name": "PLECS",
+        "category": "Engineering & Simulation",
+        "level": "Beginner"
+    },
+    {
+        "id": "skill-5",
+        "name": "ETAP",
+        "category": "Engineering & Simulation",
+        "level": "Beginner"
+    },
+    {
+        "id": "skill-6",
+        "name": "Latex",
+        "category": "Engineering & Simulation",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-7",
+        "name": "Arduino Programming",
+        "category": "Engineering & Simulation",
+        "level": "Advanced"
+    },
+    {
+        "id": "skill-8",
+        "name": "Python",
+        "category": "Programming & Web",
+        "level": "Advanced"
+    },
+    {
+        "id": "skill-9",
+        "name": "C#",
+        "category": "Programming & Web",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-10",
+        "name": "C++",
+        "category": "Programming & Web",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-11",
+        "name": "C",
+        "category": "Programming & Web",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-12",
+        "name": "SQL",
+        "category": "Programming & Web",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-13",
+        "name": "JavaScript",
+        "category": "Programming & Web",
+        "level": "Advanced"
+    },
+    {
+        "id": "skill-14",
+        "name": "HTML",
+        "category": "Programming & Web",
+        "level": "Advanced"
+    },
+    {
+        "id": "skill-15",
+        "name": "CSS",
+        "category": "Programming & Web",
+        "level": "Advanced"
+    },
+    {
+        "id": "skill-16",
+        "name": "React",
+        "category": "Programming & Web",
+        "level": "Intermediate"
+    },
+    {
+        "id": "skill-17",
+        "name": "PHP",
+        "category": "Programming & Web",
+        "level": "Beginner"
+    }
+]
