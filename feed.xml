@@ -8,7 +8,7 @@
     <link>https://www.shankararyal404.com.np</link>
     <description>Electrical Engineer &amp; Full Stack Developer from Nepal. Explore innovative projects and insights on web development, Python programming, and cybersecurity.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jun 2026 16:33:37 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 16:34:21 GMT</lastBuildDate>
     <atom:link href="https://www.shankararyal404.com.np/feed.xml" rel="self" type="application/rss+xml"/>
     <managingEditor>notifications@shankararyal.com.np (Shankar Aryal)</managingEditor>
     <webMaster>notifications@shankararyal.com.np (Shankar Aryal)</webMaster>
@@ -17,6 +17,78 @@
       <title>Shankar Aryal</title>
       <link>https://www.shankararyal404.com.np</link>
     </image>
+    <item>
+      <title><![CDATA[पखेटाको पिंजडा | Pakhetako Pinjada]]></title>
+      <link>https://www.shankararyal404.com.np/blog-post/PakhetakoPinjada.html</link>
+      <guid isPermaLink="true">https://www.shankararyal404.com.np/blog-post/PakhetakoPinjada.html</guid>
+      <description><![CDATA[<div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
+
+<h2 style="margin-bottom:30px;">
+पखेटाको पिंजडा
+</h2>
+
+<div class="poem-body">
+
+<div class="stanza" style="margin-top:22p...]]></description>
+      <content:encoded><![CDATA[<div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
+
+<h2 style="margin-bottom:30px;">
+पखेटाको पिंजडा
+</h2>
+
+<div class="poem-body">
+
+<div class="stanza" style="margin-top:22px;">
+<p style="margin:3px 0;">उषाको किरण, हिमालको काखमा,</p>
+<p style="margin:3px 0;">पशुपति रोए, बागमतीको आँखमा।</p>
+<p style="margin:3px 0;">पुतली मरे, बिहानको चिसोमा,</p>
+<p style="margin:3px 0;">पखेटा सुस्त, रंग हरायो निशानमा।</p>
+</div>
+
+<div class="stanza" style="margin-top:22px;">
+<p style="margin:3px 0;">फूलको बारी, जहाँ पुतली नाचे,</p>
+<p style="margin:3px 0;">अब छाया सुत्छ, खाली सपनाको खाचे।</p>
+<p style="margin:3px 0;">माया तिम्रो चाहन्छु, हृदयको आग्मा,</p>
+<p style="margin:3px 0;">तर अहंले बाँध्छ, मलाई यो रागमा।</p>
+</div>
+
+<div class="stanza" style="margin-top:22px;">
+<p style="margin:3px 0;">न अतीत बाँकी, न वर्तमान यहाँ,</p>
+<p style="margin:3px 0;">भविष्य बन्छ, खरानीको काखमा।</p>
+<p style="margin:3px 0;">पुतलीको पखेटा, चन्द्रमाको छायाँमा,</p>
+<p style="margin:3px 0;">म चिच्याउँछु, तिमीलाई माया गर्छु म।</p>
+</div>
+
+<div class="stanza" style="margin-top:22px;">
+<p style="margin:3px 0;">अन्नपूर्णाको काख, दुखको सल बोकेर,</p>
+<p style="margin:3px 0;">म एक्लै मर्छु, स्वार्थको जाल तोडेर।</p>
+<p style="margin:3px 0;">तिमीलाई चाहन्छु, तर टाढा राख्नुपर्छ,</p>
+<p style="margin:3px 0;">पुतली उड्छ, मनको आकाश छोडेर।
+
+</p>
+</div>
+
+<div class="stanza" style="margin-top:22px;">
+<p style="margin:3px 0;">मेरो किनार, तिम्रो मुहार,</p>
+<p style="margin:3px 0;">समय बग्छ, सपना खाली बल्छ।</p>
+<p style="margin:3px 0;">पुतलीको बिज, चन्द्रमाको उज्यालोमा,</p>
+<p style="margin:3px 0;">माया हराए, म रहें एक्लो कोठरीमा।</p>
+</div>
+
+<div class="author" style="text-align:right; margin-top:30px;">
+- शंकर अर्याल
+</div>
+
+</div>
+]]></content:encoded>
+      <dc:creator>Shankar Aryal</dc:creator>
+      <pubDate>Sun, 14 Jun 2026 00:00:00 GMT</pubDate>
+      <category>Literature</category>
+      <category>Poem</category>
+      <category>Nepali Literature</category>
+      <category>Spirituality</category>
+
+    </item>
     <item>
       <title><![CDATA[अन्धकारको यात्री | Traveler of Darkness]]></title>
       <link>https://www.shankararyal404.com.np/blog-post/blog8.html</link>
@@ -266,7 +338,7 @@ pip install PyQt5
 <h2 id="getting-started">Getting Started</h2>
 <p>Ready to enhance your organization&#39;s data security? Contact our team for implementation support:</p>
 <ul>
-<li><strong>Email</strong>: <a href="mailto:&#115;&#x68;&#x61;&#110;&#107;&#97;&#x72;&#x61;&#x72;&#x79;&#97;&#108;&#x37;&#51;&#55;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#115;&#x68;&#x61;&#110;&#107;&#97;&#x72;&#x61;&#x72;&#x79;&#97;&#108;&#x37;&#51;&#55;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></li>
+<li><strong>Email</strong>: <a href="mailto:&#x73;&#x68;&#x61;&#x6e;&#107;&#97;&#x72;&#97;&#x72;&#x79;&#97;&#108;&#x37;&#x33;&#x37;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x73;&#x68;&#x61;&#x6e;&#107;&#97;&#x72;&#97;&#x72;&#x79;&#97;&#108;&#x37;&#x33;&#x37;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></li>
 <li><strong>GitHub</strong>: <a href="https://github.com/mrshankararyal">@MrShankarAryal</a></li>
 <li><strong>Documentation</strong>: <a href="https://mrshankararyal.github.io">mrshankararyal.github.io</a></li>
 </ul>
