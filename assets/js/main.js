@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderFooter();
   initObserver();
+  initSkillRings();
 });
 
 function initObserver() {
@@ -36,6 +37,38 @@ function initObserver() {
 
   // Observe any static elements loaded by SSG that need animation
   document.querySelectorAll('.reveal:not(.active)').forEach(el => scrollObserver.observe(el));
+}
+
+// Skill Ring Cards — Scroll-triggered SVG ring animation
+function initSkillRings() {
+  const grid = document.querySelector('.skills-ring-grid');
+  if (!grid) return;
+
+  const ringObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      // Fade in all cards with staggered CSS delay
+      grid.querySelectorAll('.skill-ring-card').forEach(card => {
+        card.classList.add('visible');
+      });
+
+      // Animate each SVG ring stroke
+      grid.querySelectorAll('.ring-progress').forEach(circle => {
+        const target = circle.getAttribute('data-target-offset');
+        if (target !== null) {
+          // Small delay to let the card fade-in start first
+          requestAnimationFrame(() => {
+            circle.style.strokeDashoffset = target;
+          });
+        }
+      });
+
+      ringObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+
+  ringObserver.observe(grid);
 }
 
 // Contact Form Handler

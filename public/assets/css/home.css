@@ -27,7 +27,7 @@
 
 .hero-title {
     font-size: clamp(3.5rem, 5vw, 6rem);
-    color: var(--secondary);
+    color: var(--text-secondary);
     margin-bottom: 10px;
     line-height: 1.1;
 }
@@ -430,138 +430,153 @@
     display: inline-block;
 }
 
-/* Skills */
-.skill-category {
-    width: 100%;
-    margin-bottom: 40px;
-}
+/* ═══════════════════════════════════════════════════
+   SKILLS — Premium Circular Ring Cards
+   ═══════════════════════════════════════════════════ */
 
-.skill-list {
+.skills-ring-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 20px;
+    width: 100%;
 }
 
-.skill-item {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    padding: 20px;
-    border-radius: 12px;
-    transition: var(--transition-smooth);
-}
-
-.skill-item:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-.skill-info {
+/* ── Glass Card ── */
+.skill-ring-card {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    padding: 22px 12px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s ease;
+    /* Scroll entrance animation */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-ring-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1) var(--delay, 0s),
+                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) var(--delay, 0s),
+                box-shadow 0.4s ease;
+}
+
+.skill-ring-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px hsla(7, 96%, 61%, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ── SVG Ring Wrapper ── */
+.skill-ring-svg-wrap {
+    position: relative;
+    width: 85px;
+    height: 85px;
     margin-bottom: 12px;
 }
 
-.skill-name {
-    font-size: 1.6rem;
+.skill-ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+/* Background track */
+.ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.06);
+    stroke-width: 7;
+}
+
+/* Animated progress arc */
+.ring-progress {
+    fill: none;
+    stroke: var(--orange-soda);
+    stroke-width: 7;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 0.4s ease;
+}
+
+.skill-ring-card:hover .ring-progress {
+    stroke: hsl(7, 96%, 68%);
+}
+
+/* ── Centered Icon ── */
+.skill-ring-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: var(--orange-soda);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                color 0.4s ease;
+}
+
+.skill-ring-card:hover .skill-ring-icon {
+    transform: scale(1.12);
+    color: hsl(7, 96%, 68%);
+}
+
+/* ── Text Labels ── */
+.skill-ring-name {
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
+    text-align: center;
+    line-height: 1.3;
 }
 
-.skill-level-text {
-    font-size: 1.3rem;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
+.skill-ring-cat {
+    font-size: 1.0rem;
+    color: var(--text-muted, var(--manatee));
+    margin-top: 3px;
+    text-align: center;
 }
 
-.skill-item[data-level="advanced"] .skill-level-text {
-    background: rgba(34, 197, 94, 0.2);
-    color: #22c55e;
-    border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.skill-item[data-level="intermediate"] .skill-level-text {
-    background: rgba(59, 130, 246, 0.2);
-    color: #3b82f6;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.skill-item[data-level="beginner"] .skill-level-text {
-    background: rgba(251, 191, 36, 0.2);
-    color: #fbbf24;
-    border: 1px solid rgba(251, 191, 36, 0.3);
-}
-
-.skill-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.skill-progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary), #3b82f6);
-    border-radius: 10px;
-    transition: width 1s ease-out;
-    position: relative;
-}
-
-.skill-item[data-level="advanced"] .skill-progress {
-    background: linear-gradient(90deg, #22c55e, #10b981);
-}
-
-.skill-item[data-level="intermediate"] .skill-progress {
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
-}
-
-.skill-item[data-level="beginner"] .skill-progress {
-    background: linear-gradient(90deg, #fbbf24, #f59e0b);
-}
-
-.skill-progress::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
+/* ── Responsive ── */
+@media (min-width: 992px) {
+    .skills-ring-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 24px;
     }
 }
 
-@media (min-width: 768px) {
-    .skill-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .skill-name {
-        font-size: 1.4rem;
+@media (max-width: 600px) {
+    .skills-ring-grid {
+        grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+        gap: 12px;
     }
 
-    .skill-level-text {
+    .skill-ring-card {
+        padding: 16px 8px 12px;
+        border-radius: 12px;
+    }
+
+    .skill-ring-svg-wrap {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 8px;
+    }
+
+    .skill-ring-icon {
+        font-size: 1.8rem;
+    }
+
+    .skill-ring-name {
         font-size: 1.1rem;
-        padding: 3px 8px;
     }
 
-    .skill-item {
-        padding: 15px;
+    .skill-ring-cat {
+        font-size: 0.9rem;
     }
 }
 

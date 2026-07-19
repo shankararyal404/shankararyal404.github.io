@@ -868,33 +868,57 @@ const aboutHtml = `
     </div>
 `;
 
-// Skills (Grouped from Flat List)
-const skillCategories = {};
-skills.forEach(skill => {
-    if (!skillCategories[skill.category]) skillCategories[skill.category] = [];
-    skillCategories[skill.category].push(skill);
-});
+// Skills — Premium Circular Ring Cards
+// Explicit percentage map per skill name (user-defined values)
+const skillPercentageMap = {
+    'Python': 95, 'Matlab/Simulink': 90, 'Arduino Programming': 90,
+    'HTML': 90, 'CSS': 85, 'JavaScript': 80, 'React': 75, 'C++': 75,
+    'C#': 70, 'C': 70, 'SQL': 70, 'Proteus': 75, 'Pvsyst': 70,
+    'PLECS': 65, 'ETAP': 60, 'Latex': 70, 'PHP': 55
+};
 
-const skillsHtml = Object.keys(skillCategories).map(cat => `
-    <div class="skill-category">
-        <h3 class="h4" style="margin-bottom: 20px; color: var(--text-muted);">${cat}</h3>
-        <div class="skill-list">
-            ${skillCategories[cat].map(item => {
-    const percentage = item.level === 'Advanced' ? '90%' : item.level === 'Intermediate' ? '70%' : '45%';
+// Map skill name → ion-icon name
+const skillIconMap = {
+    'Python': 'logo-python', 'JavaScript': 'logo-javascript',
+    'HTML': 'logo-html5', 'CSS': 'logo-css3', 'React': 'logo-react',
+    'C++': 'code-slash-outline', 'C#': 'code-slash-outline',
+    'C': 'code-slash-outline', 'SQL': 'server-outline',
+    'PHP': 'logo-php', 'Matlab/Simulink': 'analytics-outline',
+    'Arduino Programming': 'hardware-chip-outline',
+    'Proteus': 'construct-outline', 'Pvsyst': 'sunny-outline',
+    'PLECS': 'pulse-outline', 'ETAP': 'flash-outline',
+    'Latex': 'document-text-outline'
+};
+
+const RING_RADIUS = 54;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS; // ~339.29
+
+const skillsHtml = `
+    <div class="skills-ring-grid">
+        ${skills.map((item, i) => {
+    const pct = skillPercentageMap[item.name] || 60;
+    const offset = RING_CIRCUMFERENCE - (RING_CIRCUMFERENCE * pct / 100);
+    const icon = skillIconMap[item.name] || 'code-slash-outline';
     return `
-                <div class="skill-item" data-level="${item.level.toLowerCase()}">
-                    <div class="skill-info">
-                        <span class="skill-name">${item.name}</span>
-                        <span class="skill-level-text">${item.level}</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: ${percentage};"></div>
-                    </div>
-                </div>`;
+        <div class="skill-ring-card" style="--delay: ${i * 0.08}s">
+            <div class="skill-ring-svg-wrap">
+                <svg class="skill-ring-svg" viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="${RING_RADIUS}" />
+                    <circle class="ring-progress" cx="60" cy="60" r="${RING_RADIUS}"
+                        stroke-dasharray="${RING_CIRCUMFERENCE.toFixed(2)}"
+                        stroke-dashoffset="${RING_CIRCUMFERENCE.toFixed(2)}"
+                        data-target-offset="${offset.toFixed(2)}" />
+                </svg>
+                <div class="skill-ring-icon">
+                    <ion-icon name="${icon}"></ion-icon>
+                </div>
+            </div>
+            <span class="skill-ring-name">${item.name}</span>
+            <span class="skill-ring-cat">${item.category}</span>
+        </div>`;
 }).join('')}
-        </div>
     </div>
-`).join('');
+`;
 
 // Education
 const educationHtml = `
