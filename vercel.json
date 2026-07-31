@@ -1,6 +1,19 @@
 {
     "version": 2,
+    "cleanUrls": true,
     "rewrites": [
+        {
+            "source": "/for-you",
+            "destination": "/for-you/index.html"
+        },
+        {
+            "source": "/for-you/otp",
+            "destination": "/for-you/otp/index.html"
+        },
+        {
+            "source": "/for-you/story",
+            "destination": "/for-you/story/index.html"
+        },
         {
             "source": "/api/for-you-pin",
             "destination": "/api/for-you.js?action=pin"
