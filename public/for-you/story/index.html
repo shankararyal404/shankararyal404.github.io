@@ -608,7 +608,7 @@ Have the happiest birthday, my love.</div>
         // --- INIT PAGES ---
         pages.forEach((page, index) => {
             const div = document.createElement('div');
-            div.className = \`slide \${index === 0 ? 'active' : ''}\`;
+            div.className = `slide ${index === 0 ? 'active' : ''}`;
             div.id = page.id;
             div.innerHTML = page.content;
             container.appendChild(div);
@@ -728,7 +728,7 @@ Have the happiest birthday, my love.</div>
 
         // --- NAVIGATION ---
         function updateNav() {
-            indicator.textContent = \`\${currentSlide + 1} of \${totalSlides}\`;
+            indicator.textContent = `${currentSlide + 1} of ${totalSlides}`;
             
             if (currentSlide === 0) {
                 btnPrev.classList.add('hidden');
