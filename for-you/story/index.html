@@ -445,7 +445,6 @@
             p8: 'teddywithcake.jpg',
             p9: 'teddywithsunflowercute.jpg',
             p10: 'teddybunnycute.jpg',
-            p11: 'vidiodancing.mp4',
         };
 
         const pages = [
@@ -570,17 +569,6 @@
             },
             {
                 id: 'page11',
-                content: `
-                    <h1 style="font-size: 4rem;">🎉 SURPRISE! 🎉</h1>
-                    <h2>I made this just for you...</h2>
-                    <div class="media-container skeleton" data-media="p11" style="border: 4px solid var(--gold); aspect-ratio: auto; max-width: 600px;">
-                        <video class="media-element" controls playsinline style="object-fit: contain;"></video>
-                        <div class="media-error">Could not load video</div>
-                    </div>
-                `
-            },
-            {
-                id: 'page12',
                 content: `
                     <div class="letter-container">
                         <h1 style="text-align: center; color: var(--gold); margin-bottom: 20px;">My Dearest,</h1>
@@ -753,30 +741,10 @@ Have the happiest birthday, my love.</div>
                 btnNext.classList.remove('hidden');
             }
             
-            // Audio logic
-            if (currentSlide >= 10) { // Page 11 and 12
-                if (isPlaying) {
-                    audio.pause();
-                    audioToggle.style.display = 'none';
-                }
-            } else {
-                audioToggle.style.display = 'flex';
-                if (isPlaying && audio.paused && isAudioInit) {
-                    audio.play().catch(e => console.log(e));
-                }
-            }
-            
-            // Autoplay video on page 11
-            if (currentSlide === 10) {
-                const vid = slides[10].querySelector('video');
-                if (vid && vid.readyState >= 2) {
-                    vid.play().catch(e => console.log(e));
-                }
-                document.getElementById('confettiCanvas').style.display = 'block';
-            } else {
-                const vid = slides[10].querySelector('video');
-                if (vid) vid.pause();
-                document.getElementById('confettiCanvas').style.display = 'none';
+            // Audio logic: keep audio toggle visible and playing smoothly
+            audioToggle.style.display = 'flex';
+            if (isPlaying && audio.paused && isAudioInit) {
+                audio.play().catch(e => console.log(e));
             }
             
             preloadSurrounding();

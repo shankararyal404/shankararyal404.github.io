@@ -3,15 +3,15 @@
     "rewrites": [
         {
             "source": "/api/for-you-pin",
-            "destination": "/api/for-you-pin.js"
+            "destination": "/api/for-you.js?action=pin"
         },
         {
             "source": "/api/for-you-otp",
-            "destination": "/api/for-you-otp.js"
+            "destination": "/api/for-you.js?action=otp"
         },
         {
             "source": "/api/for-you-media",
-            "destination": "/api/for-you-media.js"
+            "destination": "/api/for-you.js?action=media"
         },
         {
             "source": "/api/auth/google",
