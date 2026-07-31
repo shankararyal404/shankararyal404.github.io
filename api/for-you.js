@@ -13,9 +13,9 @@ const SECRET_KEY    = process.env.R2_SECRET_ACCESS_KEY;
 const REGION        = 'auto';
 
 const ALLOWED_FILES = new Set([
-  'teddywithsunflower.jpg','teddywithcapandsunflower.jpg','bunnywithsunflower.jpg',
-  'teddysunflower.jpg','teddykissingsunflower.jpg','teddybunny.jpg','sunflowers.jpg',
-  'teddywithcake.jpg','teddywithsunflowercute.jpg','teddybunnycute.jpg',
+  'teddywithsunflower.png','teddywithcapandsunflower.png','bunnywithsunflower.png',
+  'teddysunflower.png','teddykissingsunflower.png','teddybunny.png','sunflower.png',
+  'teddywithcake.png','teddywithsunflowercute.png','teddybunnycute.png',
   'vidiodancing.mp4','love-song.mp3',
   'teddywithsunflower.jpeg','teddywithcapandsunflower.jpeg','bunnywithsunflower.jpeg',
   'teddysunflower.jpeg','teddykissingsunflower.jpeg','teddybunny.jpeg','sunflowers.jpeg',
