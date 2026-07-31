@@ -8,6 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+    if(!sessionStorage.getItem('forYouOTP')){
+        window.location.href='/for-you/';
+    }
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{min-height:100vh;background:#070720;font-family:'Quicksand',sans-serif;overflow:hidden;display:flex;align-items:center;justify-content:center}
@@ -68,9 +73,6 @@ const starsEl=document.getElementById('stars');
 for(let i=0;i<100;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+0.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;`;starsEl.appendChild(s);}
 const floatEls=['💛','✨','💌','💫','⭐'];for(let i=0;i<8;i++){const f=document.createElement('div');f.className='float-el';f.textContent=floatEls[i%floatEls.length];f.style.cssText=`left:${Math.random()*100}%;font-size:${12+Math.random()*14}px;--d:${7+Math.random()*8}s;--delay:${Math.random()*8}s;`;document.body.appendChild(f);}
 
-const otpToken=sessionStorage.getItem('forYouOTP');
-if(!otpToken){window.location.href='/for-you/';}
-
 // Build OTP boxes
 const boxesEl=document.getElementById('otp-boxes');
 const boxes=[];
@@ -114,6 +116,7 @@ async function submitOTP(){
   btn.innerHTML='<span class="spinner"></span> Verifying...';
   btn.disabled=true;
   setErr('');
+  const otpToken=sessionStorage.getItem('forYouOTP');
   try{
     const r=await fetch('/api/for-you-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({otp,otpToken})});
     const d=await r.json();

@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        const token = sessionStorage.getItem('forYouSession');
+        if (!token) {
+            window.location.href = '/for-you/';
+        }
+    </script>
     
     <style>
         :root {
@@ -425,12 +431,6 @@
     </div>
 
     <script>
-        // --- AUTH CHECK ---
-        const token = sessionStorage.getItem('forYouSession');
-        if (!token) {
-            window.location.href = '/for-you/';
-        }
-
         // --- DATA ---
         const MEDIA = {
             audio: 'love-song.mp3',
@@ -619,9 +619,10 @@ Have the happiest birthday, my love.</div>
         // --- MEDIA LOADING ---
         async function fetchMediaUrl(filename) {
             if (mediaCache[filename]) return mediaCache[filename];
+            const token = sessionStorage.getItem('forYouSession');
             try {
-                const response = await fetch(\`/api/for-you-media?file=\${filename}\`, {
-                    headers: { 'Authorization': \`Bearer \${token}\` }
+                const response = await fetch(`/api/for-you-media?file=${filename}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (response.ok) {
                     const data = await response.json();
