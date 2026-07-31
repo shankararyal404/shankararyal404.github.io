@@ -62,7 +62,8 @@ function generatePresignedUrl(key, expiresSecs = 900) {
   const dateStr  = now.toISOString().slice(0,10).replace(/-/g,'');
   const dtStr    = now.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   const host     = ACCOUNT_ID + '.r2.cloudflarestorage.com';
-  const path     = '/' + BUCKET + '/' + encodeURIComponent(key);
+  const encodedKey = key.split('/').map(encodeURIComponent).join('/');
+  const path     = '/' + BUCKET + '/' + encodedKey;
   const credScope= dateStr + '/' + REGION + '/s3/aws4_request';
   const cred     = ACCESS_KEY + '/' + credScope;
 
