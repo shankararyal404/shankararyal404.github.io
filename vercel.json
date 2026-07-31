@@ -2,6 +2,18 @@
     "version": 2,
     "rewrites": [
         {
+            "source": "/api/for-you-pin",
+            "destination": "/api/for-you-pin.js"
+        },
+        {
+            "source": "/api/for-you-otp",
+            "destination": "/api/for-you-otp.js"
+        },
+        {
+            "source": "/api/for-you-media",
+            "destination": "/api/for-you-media.js"
+        },
+        {
             "source": "/api/auth/google",
             "destination": "/api/auth.js?provider=google"
         },
@@ -68,7 +80,7 @@
             "headers": [
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://github.com https://api.twitter.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://vercel.live https://www.google-analytics.com https://api.github.com https://oauth2.googleapis.com https://www.googleapis.com https://github.com https://api.twitter.com https://unpkg.com; frame-src 'self' https://vercel.live https://accounts.google.com https://github.com; object-src 'none'; base-uri 'self'; form-action 'self' https://accounts.google.com https://github.com https://api.twitter.com; frame-ancestors 'none'; upgrade-insecure-requests"
+                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://github.com https://api.twitter.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https://*.r2.cloudflarestorage.com https:; connect-src 'self' https://vercel.live https://www.google-analytics.com https://api.github.com https://oauth2.googleapis.com https://www.googleapis.com https://github.com https://api.twitter.com https://unpkg.com https://*.r2.cloudflarestorage.com; frame-src 'self' https://vercel.live https://accounts.google.com https://github.com; object-src 'none'; base-uri 'self'; form-action 'self' https://accounts.google.com https://github.com https://api.twitter.com; frame-ancestors 'none'; upgrade-insecure-requests"
                 },
                 {
                     "key": "X-Frame-Options",
@@ -107,6 +119,29 @@
                     "key": "Cache-Control",
                     "value": "no-store, no-cache, must-revalidate, proxy-revalidate"
                 }
+            ]
+        },
+        {
+            "source": "/for-you",
+            "headers": [
+                { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" },
+                { "key": "Pragma", "value": "no-cache" }
+            ]
+        },
+        {
+            "source": "/for-you/(.*)",
+            "headers": [
+                { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" },
+                { "key": "Pragma", "value": "no-cache" }
+            ]
+        },
+        {
+            "source": "/api/for-you-(.*)",
+            "headers": [
+                { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+                { "key": "Cache-Control", "value": "no-store, no-cache" }
             ]
         },
         {
