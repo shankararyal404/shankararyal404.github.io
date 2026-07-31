@@ -16,15 +16,15 @@
         },
         {
             "source": "/api/for-you-pin",
-            "destination": "/api/for-you.js?action=pin"
+            "destination": "/api/for-you?action=pin"
         },
         {
             "source": "/api/for-you-otp",
-            "destination": "/api/for-you.js?action=otp"
+            "destination": "/api/for-you?action=otp"
         },
         {
             "source": "/api/for-you-media",
-            "destination": "/api/for-you.js?action=media"
+            "destination": "/api/for-you?action=media"
         },
         {
             "source": "/api/auth/google",
