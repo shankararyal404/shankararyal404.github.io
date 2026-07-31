@@ -165,7 +165,14 @@ export default async function handler(req, res) {
     const { file } = req.query;
     if (!file || !ALLOWED_FILES.has(file)) return res.status(400).json({ error: 'File not found.' });
 
-    const url = generatePresignedUrl(file);
+    let fullKey = file;
+    if (file.endsWith('.mp3') || file.endsWith('.ogg')) {
+      fullKey = 'music/' + file;
+    } else {
+      fullKey = 'Babe/' + file;
+    }
+
+    const url = generatePresignedUrl(fullKey);
     return res.status(200).json({ url });
   }
 
