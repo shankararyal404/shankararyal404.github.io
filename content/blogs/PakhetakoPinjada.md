@@ -153,6 +153,7 @@ intro_en: >-
   continues to explore both the scientific and artistic dimensions of human
   experience.
 cover: /assets/images/blogs/literature/pakhetakopinjada.webp
+image: /assets/images/blogs/literature/pakhetakopinjada.webp
 ---
 <div class="poem" style="text-align:center; max-width:700px; margin:0 auto;">
 
